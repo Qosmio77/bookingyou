@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-HK">
+<html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>服務條款 — BookingYou</title>
+  <title>Terms of Service — BookingYou</title>
   <style>
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 720px; margin: 0 auto; padding: 24px 20px 60px; color: #333; line-height: 1.7; }
     h1 { font-size: 28px; color: #1a1a1a; margin-bottom: 4px; }
@@ -14,49 +14,102 @@
     ul { padding-left: 20px; }
     li { margin-bottom: 4px; }
     a { color: #6C63FF; }
+    .lang-switcher { text-align: right; margin-bottom: 16px; font-size: 13px; }
+    .lang-switcher a { color: #6C63FF; cursor: pointer; text-decoration: none; }
+    .lang-switcher a:hover { text-decoration: underline; }
+    [data-lang] { display: none; }
+    [data-lang].active { display: block; }
   </style>
 </head>
 <body>
-  <h1>服務條款</h1>
-  <p class="updated">最後更新：2026 年 6 月</p>
-  <p class="intro">歡迎使用 BookingYou。使用本應用程式即表示您同意以下服務條款。請仔細閱讀。</p>
+  <div class="lang-switcher">
+    <a onclick="setLang('en')">English</a> · <a onclick="setLang('zh')">繁體中文</a>
+  </div>
 
-  <h2>1. 服務說明</h2>
-  <p>BookingYou 是一個預約管理平台，連接服務提供者（商家）與客戶，讓客戶可以瀏覽商家資料並進行預約。</p>
+  <div data-lang="zh">
+    <h1>服務條款</h1>
+    <p class="updated">最後更新：2026 年 6 月</p>
+    <p class="intro">歡迎使用 BookingYou。使用本應用程式即表示您同意以下服務條款。請仔細閱讀。</p>
+    <h2>1. 服務說明</h2>
+    <p>BookingYou 是一個預約管理平台，連接服務提供者（商家）與客戶，讓客戶可以瀏覽商家資料並進行預約。</p>
+    <h2>2. 用戶責任</h2>
+    <p>作為用戶，您同意：</p>
+    <ul>
+      <li>提供真實準確的個人資料</li>
+      <li>妥善保管您的帳戶登入資料</li>
+      <li>準時赴約，如需取消請提前通知商家</li>
+      <li>不濫用或干擾平台服務</li>
+    </ul>
+    <h2>3. 商家責任</h2>
+    <p>作為商家用戶，您同意：</p>
+    <ul>
+      <li>提供真實的服務資訊、地址及價格</li>
+      <li>按時履行已確認的預約</li>
+      <li>妥善處理取消及退款事宜</li>
+      <li>對客戶保持專業及尊重的態度</li>
+    </ul>
+    <h2>4. 平台責任限制</h2>
+    <p>BookingYou 作為預約平台中介，不對以下情況負責：</p>
+    <ul>
+      <li>商家與客戶之間的糾紛</li>
+      <li>商家提供服務的質素</li>
+      <li>因預約取消或爽約造成的損失</li>
+    </ul>
+    <h2>5. 帳戶終止</h2>
+    <p>如您違反本服務條款，我們保留暫停或終止您帳戶的權利，恕不另行通知。</p>
+    <h2>6. 條款變更</h2>
+    <p>我們保留隨時修改本服務條款的權利。修改後將透過應用程式通知您。繼續使用本服務即表示您接受修改後的條款。</p>
+    <h2>7. 聯絡我們</h2>
+    <p>如對本服務條款有任何疑問，請電郵至：<br><a href="mailto:qosmio77@gmail.com">qosmio77@gmail.com</a></p>
+  </div>
 
-  <h2>2. 用戶責任</h2>
-  <p>作為用戶，您同意：</p>
-  <ul>
-    <li>提供真實準確的個人資料</li>
-    <li>妥善保管您的帳戶登入資料</li>
-    <li>準時赴約，如需取消請提前通知商家</li>
-    <li>不濫用或干擾平台服務</li>
-  </ul>
+  <div data-lang="en">
+    <h1>Terms of Service</h1>
+    <p class="updated">Last updated: June 2026</p>
+    <p class="intro">Welcome to BookingYou. By using this app, you agree to the following Terms of Service. Please read them carefully.</p>
+    <h2>1. About the Service</h2>
+    <p>BookingYou is a booking management platform that connects service providers (businesses) with customers, allowing customers to browse business profiles and make appointments.</p>
+    <h2>2. User Responsibilities</h2>
+    <p>As a user, you agree to:</p>
+    <ul>
+      <li>Provide accurate and truthful personal information</li>
+      <li>Keep your account credentials secure</li>
+      <li>Arrive on time for appointments, and notify the business in advance if you need to cancel</li>
+      <li>Not abuse or interfere with the platform</li>
+    </ul>
+    <h2>3. Business Responsibilities</h2>
+    <p>As a business user, you agree to:</p>
+    <ul>
+      <li>Provide accurate service information, addresses, and pricing</li>
+      <li>Honour confirmed appointments on time</li>
+      <li>Handle cancellations and refunds appropriately</li>
+      <li>Maintain a professional and respectful attitude toward customers</li>
+    </ul>
+    <h2>4. Limitation of Liability</h2>
+    <p>BookingYou acts as an intermediary platform and is not responsible for:</p>
+    <ul>
+      <li>Disputes between businesses and customers</li>
+      <li>The quality of services provided by businesses</li>
+      <li>Losses resulting from cancellations or no-shows</li>
+    </ul>
+    <h2>5. Account Termination</h2>
+    <p>If you violate these Terms of Service, we reserve the right to suspend or terminate your account without prior notice.</p>
+    <h2>6. Changes to Terms</h2>
+    <p>We reserve the right to modify these Terms at any time. You will be notified of changes through the app. Continued use of the service constitutes acceptance of the revised terms.</p>
+    <h2>7. Contact Us</h2>
+    <p>If you have any questions about these Terms of Service, please email us at:<br><a href="mailto:qosmio77@gmail.com">qosmio77@gmail.com</a></p>
+  </div>
 
-  <h2>3. 商家責任</h2>
-  <p>作為商家用戶，您同意：</p>
-  <ul>
-    <li>提供真實的服務資訊、地址及價格</li>
-    <li>按時履行已確認的預約</li>
-    <li>妥善處理取消及退款事宜</li>
-    <li>對客戶保持專業及尊重的態度</li>
-  </ul>
-
-  <h2>4. 平台責任限制</h2>
-  <p>BookingYou 作為預約平台中介，不對以下情況負責：</p>
-  <ul>
-    <li>商家與客戶之間的糾紛</li>
-    <li>商家提供服務的質素</li>
-    <li>因預約取消或爽約造成的損失</li>
-  </ul>
-
-  <h2>5. 帳戶終止</h2>
-  <p>如您違反本服務條款，我們保留暫停或終止您帳戶的權利，恕不另行通知。</p>
-
-  <h2>6. 條款變更</h2>
-  <p>我們保留隨時修改本服務條款的權利。修改後將透過應用程式通知您。繼續使用本服務即表示您接受修改後的條款。</p>
-
-  <h2>7. 聯絡我們</h2>
-  <p>如對本服務條款有任何疑問，請電郵至：<br><a href="mailto:qosmio77@gmail.com">qosmio77@gmail.com</a></p>
+  <script>
+    function setLang(lang) {
+      document.querySelectorAll('[data-lang]').forEach(el => el.classList.remove('active'));
+      document.querySelector('[data-lang="' + lang + '"]').classList.add('active');
+      localStorage.setItem('by_lang', lang);
+    }
+    var saved = localStorage.getItem('by_lang');
+    var browser = navigator.language || navigator.userLanguage || '';
+    var lang = saved || (browser.toLowerCase().startsWith('zh') ? 'zh' : 'en');
+    setLang(lang);
+  </script>
 </body>
 </html>
