@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>BookingYou Admin</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- login view -->
+  <section id="login" class="login hidden">
+    <h1>BookingYou Admin</h1>
+    <input id="email" type="email" placeholder="Email" autocomplete="username">
+    <input id="password" type="password" placeholder="密碼" autocomplete="current-password">
+    <button id="loginBtn">登入</button>
+    <p id="loginErr" class="err"></p>
+  </section>
+
+  <!-- main view -->
+  <section id="main" class="hidden">
+    <header>
+      <span id="title">總覽</span>
+      <button id="logoutBtn" title="登出">⎋</button>
+    </header>
+    <div id="content"></div>
+    <nav>
+      <button data-tab="overview"   class="active">📊<span>總覽</span></button>
+      <button data-tab="businesses">🏪<span>商家</span></button>
+      <button data-tab="bookings">📅<span>預約</span></button>
+      <button data-tab="complaints">🚩<span>投訴</span></button>
+    </nav>
+  </section>
+
+  <div id="toast" class="hidden"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
+</body>
+</html>

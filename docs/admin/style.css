@@ -1,0 +1,66 @@
+* { box-sizing: border-box; margin: 0; }
+:root { --p:#6C63FF; --bg:#F7F7F7; --card:#fff; --txt:#1A1A1A; --mut:#666;
+        --ok:#34C759; --warn:#FF9500; --bad:#FF3B30; --line:#E5E5E5; }
+body { font: 15px/1.5 -apple-system, "PingFang HK", sans-serif; background: var(--bg);
+       color: var(--txt); }
+.hidden { display: none !important; }
+.err { color: var(--bad); min-height: 1.2em; font-size: 13px; }
+
+.login { max-width: 320px; margin: 18vh auto; display: flex; flex-direction: column;
+         gap: 12px; padding: 0 16px; }
+.login h1 { font-size: 22px; color: var(--p); text-align: center; }
+.login input { padding: 12px; border: 1px solid var(--line); border-radius: 10px; font-size: 15px; }
+.login button { padding: 12px; border: 0; border-radius: 10px; background: var(--p);
+                color: #fff; font-size: 15px; font-weight: 600; }
+
+header { position: sticky; top: 0; z-index: 5; display: flex; align-items: center;
+         justify-content: space-between; padding: 12px 16px; background: var(--card);
+         border-bottom: 1px solid var(--line); font-weight: 700; }
+header button { border: 0; background: none; font-size: 17px; color: var(--mut); }
+#content { padding: 12px 12px 76px; max-width: 720px; margin: 0 auto; }
+
+nav { position: fixed; bottom: 0; left: 0; right: 0; display: flex; background: var(--card);
+      border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom); }
+nav button { flex: 1; border: 0; background: none; padding: 8px 0 6px; font-size: 18px;
+             color: var(--mut); display: flex; flex-direction: column; align-items: center; gap: 1px; }
+nav button span { font-size: 11px; }
+nav button.active { color: var(--p); font-weight: 700; }
+
+.cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.card { background: var(--card); border-radius: 12px; padding: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+.card .num { font-size: 24px; font-weight: 800; }
+.card .lbl { font-size: 12px; color: var(--mut); }
+.card.alert .num { color: var(--bad); }
+.section-title { font-size: 13px; font-weight: 700; color: var(--mut); margin: 16px 4px 8px;
+                 text-transform: uppercase; letter-spacing: .4px; }
+.row { background: var(--card); border-radius: 12px; padding: 12px; margin-bottom: 8px;
+       box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+.row h3 { font-size: 15px; }
+.row .meta { font-size: 12px; color: var(--mut); margin-top: 2px; }
+.row .act { margin-top: 8px; display: flex; gap: 8px; }
+.row .act button { padding: 7px 14px; border-radius: 8px; border: 1.5px solid var(--p);
+                   background: none; color: var(--p); font-size: 13px; font-weight: 600; }
+.row .act button.danger { border-color: var(--bad); color: var(--bad); }
+.row.off { opacity: .55; }
+.badge { font-size: 11px; padding: 2px 8px; border-radius: 99px; font-weight: 700; }
+.badge.pending { background: #FFF4E5; color: var(--warn); }
+.badge.confirmed { background: #EEF3FF; color: var(--p); }
+.badge.completed { background: #EAF9EF; color: var(--ok); }
+.badge.cancelled { background: #FDECEC; color: var(--bad); }
+.badge.open { background: #FDECEC; color: var(--bad); }
+.badge.resolved { background: #EAF9EF; color: var(--ok); }
+.filter { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+.filter button { padding: 6px 12px; border-radius: 99px; border: 1px solid var(--line);
+                 background: var(--card); font-size: 13px; }
+.filter button.active { background: var(--p); color: #fff; border-color: var(--p); }
+input.search { width: 100%; padding: 10px 12px; border: 1px solid var(--line);
+               border-radius: 10px; margin-bottom: 10px; font-size: 14px; }
+.block-err { text-align: center; padding: 20px; color: var(--mut); }
+.block-err button { margin-top: 8px; padding: 8px 16px; border-radius: 8px; border: 1px solid var(--p);
+                    color: var(--p); background: none; }
+.spark { width: 100%; height: 48px; margin-top: 6px; }
+#toast { position: fixed; bottom: 84px; left: 50%; transform: translateX(-50%);
+         background: var(--txt); color: #fff; padding: 10px 18px; border-radius: 99px;
+         font-size: 14px; z-index: 9; }
+.stars { color: var(--warn); }
+@media (min-width: 720px) { .cards { grid-template-columns: repeat(4, 1fr); } }
