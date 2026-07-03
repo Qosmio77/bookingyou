@@ -153,4 +153,43 @@ async function renderBookings(c, status = 'all') {
     toast('已取消'); renderBookings(c, status)
   })
 }
-async function renderComplaints(c) { c.innerHTML = '<div class="block-err">TODO Task 7</div>' }
+async function renderComplaints(c) {
+  const [cmp, rev] = await Promise.all([
+    sb.from('complaints')
+      .select('id,complainant_role,reason,description,status,created_at,evidence_urls,business:against_business_id(name)')
+      .order('created_at', { ascending: false }).limit(50),
+    sb.from('reviews')
+      .select('rating,comment,author_name,created_at,business:businesses(name)')
+      .order('created_at', { ascending: false }).limit(30),
+  ])
+  if (cmp.error) throw cmp.error
+  if (rev.error) throw rev.error
+  const open = cmp.data.filter(x => x.status === 'open' || x.status === 'reviewing')
+  const done = cmp.data.filter(x => !open.includes(x))
+  const card = (x) => `
+    <div class="row">
+      <h3>${esc(x.reason)} <span class="badge ${x.status === 'open' ? 'open' : 'resolved'}">${x.status}</span></h3>
+      <div class="meta">${x.complainant_role === 'customer' ? '顧客投訴商家' : '商家投訴顧客'}
+        · ${esc(x.business?.name ?? '')} · ${fmtDT(x.created_at)}</div>
+      <div class="meta">${esc(x.description ?? '')}</div>
+      ${(x.evidence_urls || []).map(u => `<a href="${u}" target="_blank">📎 證據</a>`).join(' ')}
+      ${x.status !== 'resolved'
+        ? `<div class="act"><button data-cmp="${x.id}">標記已處理</button></div>` : ''}
+    </div>`
+  c.innerHTML = `
+    <div class="section-title">投訴(${open.length} 開放)</div>
+    ${open.map(card).join('') || '<div class="block-err">冇開放投訴 🎉</div>'}
+    ${done.length ? `<div class="section-title">已處理</div>` + done.map(card).join('') : ''}
+    <div class="section-title">最新評價</div>
+    ${rev.data.map(r => `
+      <div class="row"><h3><span class="stars">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</span></h3>
+        <div class="meta">${esc(r.author_name ?? '匿名')} → ${esc(r.business?.name ?? '')} · ${fmtDT(r.created_at)}</div>
+        <div class="meta">${esc(r.comment ?? '')}</div></div>`).join('')}`
+  c.querySelectorAll('[data-cmp]').forEach(btn => btn.onclick = async () => {
+    if (!confirm('標記呢單投訴為已處理?')) return
+    const { error: e2 } = await sb.from('complaints')
+      .update({ status: 'resolved' }).eq('id', btn.dataset.cmp)
+    if (e2) return toast('失敗:' + e2.message)
+    toast('已處理'); renderComplaints(c)
+  })
+}
