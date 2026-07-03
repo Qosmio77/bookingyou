@@ -125,5 +125,32 @@ async function renderBusinesses(c) {
   c.querySelector('.search').oninput = (e) => { q = e.target.value; draw() }
   draw()
 }
-async function renderBookings(c)   { c.innerHTML = '<div class="block-err">TODO Task 6</div>' }
+async function renderBookings(c, status = 'all') {
+  let q = sb.from('bookings')
+    .select('id,status,start_time,party_size,created_at,business:businesses(name,currency),service:services(name,price),customer:profiles(full_name)')
+    .order('created_at', { ascending: false }).limit(50)
+  if (status !== 'all') q = q.eq('status', status)
+  const { data, error } = await q
+  if (error) throw error
+  const F = ['all', 'pending', 'confirmed', 'completed', 'cancelled']
+  c.innerHTML = `<div class="filter">${F.map(f =>
+      `<button class="${f === status ? 'active' : ''}" data-f="${f}">${f}</button>`).join('')}</div>
+    <div id="bkList">${data.map(b => `
+      <div class="row">
+        <h3>${esc(b.service?.name ?? '—')} <span class="badge ${b.status}">${b.status}</span></h3>
+        <div class="meta">${esc(b.business?.name ?? '—')} · ${esc(b.customer?.full_name ?? '—')}
+          · ${b.party_size > 1 ? b.party_size + ' 位 · ' : ''}${fmtDT(b.start_time)}
+          · ${b.business?.currency ?? ''} ${b.service?.price ?? ''}</div>
+        ${['pending', 'confirmed'].includes(b.status)
+          ? `<div class="act"><button class="danger" data-bk="${b.id}">取消預約</button></div>` : ''}
+      </div>`).join('') || '<div class="block-err">冇預約</div>'}</div>`
+  c.querySelectorAll('[data-f]').forEach(b => b.onclick = () => renderBookings(c, b.dataset.f))
+  c.querySelectorAll('[data-bk]').forEach(btn => btn.onclick = async () => {
+    if (!confirm('取消呢單預約?')) return
+    const { error: e2 } = await sb.from('bookings')
+      .update({ status: 'cancelled' }).eq('id', btn.dataset.bk)
+    if (e2) return toast('失敗:' + e2.message)
+    toast('已取消'); renderBookings(c, status)
+  })
+}
 async function renderComplaints(c) { c.innerHTML = '<div class="block-err">TODO Task 7</div>' }
