@@ -94,6 +94,36 @@ async function renderOverview(c) {
     <div class="section-title">30 日:用戶 ${data.users.d30} · 預約 ${data.bookings.d30} · GMV ${gmvLine('d30')} · 評價(7日)${data.reviews_d7}</div>
     <div class="row"><a href="${SENTRY_URL}" target="_blank">🔗 開 Sentry 睇 crash</a></div>`
 }
-async function renderBusinesses(c) { c.innerHTML = '<div class="block-err">TODO Task 5</div>' }
+async function renderBusinesses(c) {
+  const { data, error } = await sb.from('businesses')
+    .select('id,name,category,country,is_active,created_at,images')
+    .order('created_at', { ascending: false }).limit(100)
+  if (error) throw error
+  c.innerHTML = `<input class="search" placeholder="搜尋名稱/類別/國家"><div id="bizList"></div>`
+  const list = $('#bizList')
+  let q = ''
+  const draw = () => {
+    const rows = data.filter(b =>
+      (b.name + b.category + b.country).toLowerCase().includes(q.toLowerCase()))
+    list.innerHTML = rows.map(b => `
+      <div class="row ${b.is_active ? '' : 'off'}">
+        <h3>${esc(b.name)}</h3>
+        <div class="meta">${esc(b.category)} · ${esc(b.country)} · 圖${(b.images || []).length} · ${fmtDT(b.created_at)}</div>
+        <div class="act"><button class="${b.is_active ? 'danger' : ''}" data-biz="${b.id}"
+          data-to="${!b.is_active}">${b.is_active ? '停用' : '啟用'}</button></div>
+      </div>`).join('') || '<div class="block-err">冇結果</div>'
+    list.querySelectorAll('[data-biz]').forEach(btn => btn.onclick = async () => {
+      const to = btn.dataset.to === 'true'
+      const biz = data.find(x => x.id === btn.dataset.biz)
+      if (!confirm(`${to ? '啟用' : '停用'}「${biz.name}」?`)) return
+      const { error: e2 } = await sb.from('businesses')
+        .update({ is_active: to }).eq('id', biz.id)
+      if (e2) return toast('失敗:' + e2.message)
+      biz.is_active = to; toast(to ? '已啟用' : '已停用'); draw()
+    })
+  }
+  c.querySelector('.search').oninput = (e) => { q = e.target.value; draw() }
+  draw()
+}
 async function renderBookings(c)   { c.innerHTML = '<div class="block-err">TODO Task 6</div>' }
 async function renderComplaints(c) { c.innerHTML = '<div class="block-err">TODO Task 7</div>' }
