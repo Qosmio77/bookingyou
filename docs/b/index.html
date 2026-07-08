@@ -32,44 +32,69 @@
   }
   .hint { font-size:13px; color:#8a97a8; margin:0; line-height:1.5; }
   .hint a { color:var(--navy); font-weight:600; }
+  .soon { font-size:14px; color:#6b7a90; line-height:1.6; margin:0 0 8px; }
+  .hidden { display:none; }
 </style>
 </head>
 <body>
   <div class="card">
     <div class="logo">BOOKING<span>YOU</span></div>
     <div id="biz" class="biz">正在開啟…</div>
-    <p class="sub">線上預約 · 即時確認</p>
-    <div class="spinner"></div>
-    <a id="openBtn" class="btn" href="#">用 App 開啟 / 下載</a>
-    <p class="hint">未自動開啟?<a id="storeLink" href="#">按此前往 App Store</a></p>
+    <p class="sub" id="sub">線上預約 · 即時確認</p>
+    <div class="spinner" id="spinner"></div>
+    <a id="openBtn" class="btn hidden" href="#">用 App 開啟 / 下載</a>
+    <p class="hint" id="hint"></p>
   </div>
 <script>
 (function () {
   var APPSTORE = 'https://apps.apple.com/app/id6782119326';
+  var PLAYSTORE = 'https://play.google.com/store/apps/details?id=com.bookingyou.app';
+  // Flip to true once the Android app is live on Google Play.
+  var ANDROID_LIVE = false;
   var SUPA = 'https://gzwebxflrltxaglrukde.supabase.co';
   var ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6d2VieGZscmx0eGFnbHJ1a2RlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEyMjA2MDcsImV4cCI6MjA5Njc5NjYwN30.BJoQTqVDw3NAEW_LC0DxhWDgQDHOv-7Str6B6sHDVoU';
 
-  document.getElementById('storeLink').href = APPSTORE;
-
   var id = new URLSearchParams(location.search).get('id');
-  if (!id) { location.replace(APPSTORE); return; }
+  var ua = navigator.userAgent || '';
+  var isIOS = /iPhone|iPad|iPod/i.test(ua);
+  var isAndroid = /Android/i.test(ua);
 
-  var deep = 'bookingapp://business/' + id;
-  document.getElementById('openBtn').href = deep;
+  var biz = document.getElementById('biz');
+  var sub = document.getElementById('sub');
+  var spinner = document.getElementById('spinner');
+  var openBtn = document.getElementById('openBtn');
+  var hint = document.getElementById('hint');
+
+  if (!id) { location.replace(isAndroid && ANDROID_LIVE ? PLAYSTORE : APPSTORE); return; }
 
   // Fetch the business name for a friendlier page (anon read is public; optional).
   fetch(SUPA + '/rest/v1/businesses?id=eq.' + encodeURIComponent(id) + '&select=name', { headers: { apikey: ANON } })
     .then(function (r) { return r.json(); })
-    .then(function (d) { if (d && d[0] && d[0].name) document.getElementById('biz').textContent = d[0].name; })
+    .then(function (d) { if (d && d[0] && d[0].name) biz.textContent = d[0].name; })
     .catch(function () {});
 
-  // If the app opens, the page is backgrounded — cancel the App Store fallback.
+  var deep = 'bookingapp://business/' + id;
+
+  // Android, not yet on Google Play → show a "coming soon" state instead of a dead link.
+  if (isAndroid && !ANDROID_LIVE) {
+    spinner.classList.add('hidden');
+    sub.textContent = '線上預約 · 即時確認';
+    hint.innerHTML = '📱 Android 版即將推出，敬請期待！<br>iPhone 用戶可<a href="' + APPSTORE + '">前往 App Store 下載</a>。';
+    return;
+  }
+
+  var store = isAndroid ? PLAYSTORE : APPSTORE;
+  openBtn.href = deep;
+  openBtn.classList.remove('hidden');
+  hint.innerHTML = '未自動開啟?<a id="storeLink" href="' + store + '">按此前往' + (isAndroid ? ' Google Play' : ' App Store') + '</a>';
+
+  // If the app opens, the page is backgrounded — cancel the store fallback.
   var appOpened = false;
   document.addEventListener('visibilitychange', function () { if (document.hidden) appOpened = true; });
 
-  // Try to open the app, then fall back to the App Store if nothing handled the scheme.
+  // Try to open the app, then fall back to the correct store if nothing handled the scheme.
   setTimeout(function () { window.location = deep; }, 120);
-  setTimeout(function () { if (!appOpened) window.location = APPSTORE; }, 1700);
+  setTimeout(function () { if (!appOpened) window.location = store; }, 1700);
 })();
 </script>
 </body>
