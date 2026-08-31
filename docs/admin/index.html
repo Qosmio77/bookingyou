@@ -5,8 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
 <title>BookingYou Admin</title>
+<!-- 主題要喺畫之前定好。擺落 app.js 就遲咗一步 —— 深色用家會見到一下白光。 -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem('theme')
+    if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t
+  } catch (e) { /* 私隱模式攞唔到 localStorage：跟系統就算，唔好連頁都開唔到 */ }
+})()
+</script>
 <!-- ?v= 係 cache 破除用。改 style.css / app.js 就要 +1 -->
-<link rel="stylesheet" href="style.css?v=2">
+<link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
   <!-- login view -->
@@ -22,7 +31,10 @@
   <section id="main" class="hidden">
     <header>
       <span id="title">總覽</span>
-      <button id="logoutBtn" title="登出">⎋</button>
+      <div class="hdr-act">
+        <button id="themeBtn" title="切換深色／淺色">🌙</button>
+        <button id="logoutBtn" title="登出">⎋</button>
+      </div>
     </header>
     <div id="content"></div>
     <nav>
@@ -35,6 +47,6 @@
 
   <div id="toast" class="hidden"></div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="app.js?v=2"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>

@@ -57,6 +57,30 @@ $('#loginBtn').onclick = async () => {
   if (error) $('#loginErr').textContent = error.message
 }
 $('#logoutBtn').onclick = () => sb.auth.signOut()
+
+// ---------- 主題 ----------
+// 冇揀過就跟系統。撳一次就當佢揀咗，之後系統點變都唔再跟 —— 一個特登撳過嘅選擇
+// 唔應該被系統覆蓋。掣面顯示撳落去會變成點，唔係顯示而家係點。
+function effectiveTheme() {
+  return document.documentElement.dataset.theme
+      || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+}
+function paintThemeBtn() {
+  const dark = effectiveTheme() === 'dark'
+  const b = $('#themeBtn')
+  b.textContent = dark ? '☀️' : '🌙'
+  b.title = dark ? '轉淺色' : '轉深色'
+}
+$('#themeBtn').onclick = () => {
+  const next = effectiveTheme() === 'dark' ? 'light' : 'dark'
+  document.documentElement.dataset.theme = next
+  try { localStorage.setItem('theme', next) } catch { /* 私隱模式：今次有效，下次跟返系統 */ }
+  paintThemeBtn()
+}
+paintThemeBtn()
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+  if (!document.documentElement.dataset.theme) paintThemeBtn()
+})
 document.querySelectorAll('nav button').forEach(b => b.onclick = () => route(b.dataset.tab))
 
 sb.auth.onAuthStateChange((_evt, session) => {
@@ -69,6 +93,21 @@ sb.auth.onAuthStateChange((_evt, session) => {
 // 分開四次攞會攞到四個唔同時刻嘅同一個資料庫。
 let dashDays = 30
 let merchTab = 'bookings'
+let geoTab = 'funnel'
+
+// 兩個字母嘅代碼直接砌到國旗，唔使查表 —— 將來多咗個國家都自動有旗。
+// 中文名要查表，查唔到就照出代碼：出個代碼好過亂改個名。
+const CC_NAME = {
+  HK: '香港', TW: '台灣', CN: '中國', JP: '日本', KR: '韓國', SG: '新加坡',
+  MY: '馬來西亞', TH: '泰國', VN: '越南', PH: '菲律賓', ID: '印尼', IN: '印度',
+  AE: '阿聯酋', AU: '澳洲', NZ: '紐西蘭', US: '美國', CA: '加拿大', BR: '巴西',
+  GB: '英國', FR: '法國', DE: '德國', CH: '瑞士', ZA: '南非',
+}
+const flag = (cc) => /^[A-Za-z]{2}$/.test(cc)
+  ? String.fromCodePoint(...[...cc.toUpperCase()].map(ch => 0x1F1E6 + ch.charCodeAt(0) - 65))
+  : '🏳️'
+const countryLabel = (cc) => !cc ? '⬜ 冇填國家'
+  : `${flag(cc)} ${CC_NAME[cc.toUpperCase()] ?? esc(cc)}`
 
 const nf = (n) => (n === null || n === undefined) ? '—' : Number(n).toLocaleString('en-US')
 const pct = (n) => (n === null || n === undefined) ? '—' : n + '%'
@@ -137,6 +176,18 @@ function funnelHtml(f) {
   }).join('')
 }
 
+/** 分頁掣。所有分頁嘅內容都已經喺 DOM 度，撳掣淨係開關 hidden：
+ *  唔會再打一次 RPC，亦唔會令四段數字變成四個唔同時刻。 */
+function wireTabs(root, attr, keys, setActive) {
+  root.querySelectorAll(`[data-${attr}]`).forEach(b => b.onclick = () => {
+    const k = b.dataset[attr]
+    setActive(k)
+    root.querySelectorAll(`[data-${attr}]`).forEach(x =>
+      x.classList.toggle('active', x.dataset[attr] === k))
+    keys.forEach(kk => root.querySelectorAll(`.${attr}-${kk}`).forEach(e =>
+      e.classList.toggle('hidden', kk !== k)))
+  })
+}
 function tableHtml(cols, rows, empty) {
   if (!rows.length) return `<div class="block-err">${empty}</div>`
   return `<div class="tbl-wrap"><table class="tbl">
@@ -150,7 +201,7 @@ async function renderOverview(c) {
   const { data, error } = await sb.rpc('admin_dashboard_full', { p_days: dashDays })
   if (error) throw error
   if (!data) { c.innerHTML = '<div class="block-err">此帳號無管理權限</div>'; return }
-  const { health: h, merchants: m, funnel: f, anomalies: a } = data
+  const { health: h, merchants: m, funnel: f, anomalies: a, geo: G = [] } = data
   const W = data.window_days
 
   const lastGap = h.last_booking_at
@@ -243,10 +294,26 @@ async function renderOverview(c) {
       </section>
 
       <section class="pane pa-funnel">
-        <div class="pane-hd"><h2>增長漏斗</h2><span class="pane-sub">${worstStep}</span></div>
-        <div class="pane-bd">${funnelHtml(f)}
+        <div class="pane-hd"><h2>增長</h2>
+          <span class="pane-sub gt-funnel${geoTab === 'funnel' ? '' : ' hidden'}">${worstStep}</span>
+          <span class="pane-sub gt-geo${geoTab === 'geo' ? '' : ' hidden'}">${nf(G.length)} 個地區 · 「用戶」＝喺當地約過嘢嘅人數</span>
+          <div class="pane-tabs">
+            <button class="${geoTab === 'funnel' ? 'active' : ''}" data-gt="funnel">漏斗</button>
+            <button class="${geoTab === 'geo' ? 'active' : ''}" data-gt="geo">地區</button>
+          </div></div>
+        <div class="pane-bd gt-funnel${geoTab === 'funnel' ? '' : ' hidden'}">${funnelHtml(f)}
           <div class="funnel-note">最近 ${W} 日新註冊 ${nf(f.recent.signups)} 人，
             其中 ${nf(f.recent.became_merchant)} 開咗舖、${nf(f.recent.got_booking)} 收到過預約</div>
+        </div>
+        <div class="pane-bd p0 gt-geo${geoTab === 'geo' ? '' : ' hidden'}">
+          <div class="pane-note">用戶本身冇國家資料（profiles 得語言，唔係地區）。下面「用戶」係喺當地約過嘢嘅唯一人數 —— 一個人約兩個地方兩邊都計，所以加埋唔等於用戶總數。</div>
+          ${tableHtml([
+            { h: '地區', f: r => countryLabel(r.country) },
+            { h: '用戶', num: 1, f: r => nf(r.customers) },
+            { h: '預約', num: 1, f: r => nf(r.bookings) },
+            { h: '商戶', num: 1, f: r => nf(r.businesses) },
+            { h: '活躍', num: 1, f: r => nf(r.active) },
+          ], G, '未有任何商戶填咗國家')}
         </div>
       </section>
 
@@ -271,11 +338,8 @@ async function renderOverview(c) {
   c.querySelectorAll('[data-d]').forEach(b => b.onclick = () => {
     dashDays = Number(b.dataset.d); route('overview')
   })
-  c.querySelectorAll('[data-mt]').forEach(b => b.onclick = () => {
-    merchTab = b.dataset.mt
-    c.querySelectorAll('[data-mt]').forEach(x => x.classList.toggle('active', x.dataset.mt === merchTab))
-    MERCH.forEach(([k]) => c.querySelector('.mt-' + k).classList.toggle('hidden', k !== merchTab))
-  })
+  wireTabs(c, 'mt', MERCH.map(([k]) => k), (k) => { merchTab = k })
+  wireTabs(c, 'gt', ['funnel', 'geo'], (k) => { geoTab = k })
 }
 
 async function renderBusinesses(c) {

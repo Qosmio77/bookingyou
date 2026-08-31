@@ -1,68 +1,109 @@
 * { box-sizing: border-box; margin: 0; }
-:root { --p:#6C63FF; --bg:#F7F7F7; --card:#fff; --txt:#1A1A1A; --mut:#666;
-        --ok:#34C759; --warn:#FF9500; --bad:#FF3B30; --line:#E5E5E5; }
-body { font: 15px/1.5 -apple-system, "PingFang HK", sans-serif; background: var(--bg);
+/* 深色唔係將淺色反轉。紙係白、螢幕係黑，同一隻紅喺黑底會刺眼過喺白底，
+   所以深色嗰組係另外揀過嘅，唔係算出嚟。
+   預設跟系統；撳咗個掣就記住，之後唔再理系統。 */
+:root {
+  color-scheme: light dark;
+  --p:#6259F2; --p2:#9A94FF; --on-p:#fff;
+  --bg:#F7F7F7; --card:#fff; --txt:#1A1A1A; --mut:#666; --line:#E5E5E5;
+  /* 一隻色做唔到兩份工：填色要搶眼，文字要讀得到。#34C759 喺白底得 2.22:1，
+     #FF9500 得 2.2:1 —— 兩個都遠低過 4.5。所以文字用暗版，填色照舊鮮色。
+     深色模式反過嚟：黑底之下鮮色本身已經夠對比，兩隻可以一樣。 */
+  --ok:#34C759; --warn:#FF9500; --bad:#FF3B30;
+  --ok-txt:#1A7F37; --warn-txt:#A85D00; --bad-txt:#D0271D;
+  --track:#F0F0F5; --other:#C9C7F5;
+  --shadow: 0 1px 3px rgba(0,0,0,.06);
+  --tint-warn:#FFF4E5; --tint-p:#EEF3FF; --tint-ok:#EAF9EF; --tint-bad:#FDECEC;
+}
+:root[data-theme="light"] { color-scheme: light; }
+/* 兩份一樣嘅深色：一份跟系統（除非用家揀咗淺色），一份係用家親自揀深色。
+   CSS 冇得將呢兩個選擇器合埋喺 media query 兩邊，所以照抄 —— 改嗰陣兩邊都要改。 */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --p:#8B84FF; --p2:#B7B2FF; --on-p:#14121F;
+    --bg:#121214; --card:#1C1C20; --txt:#F0F0F3; --mut:#96969E; --line:#2E2E34;
+    --ok:#30D158; --warn:#FF9F0A; --bad:#FF453A;
+    --ok-txt:#30D158; --warn-txt:#FF9F0A; --bad-txt:#FF453A;
+    --track:#2A2A31; --other:#4B4780;
+    --shadow: 0 1px 3px rgba(0,0,0,.5);
+    --tint-warn:#3A2B10; --tint-p:#23253C; --tint-ok:#12301D; --tint-bad:#3B1B18;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --p:#8B84FF; --p2:#B7B2FF; --on-p:#14121F;
+  --bg:#121214; --card:#1C1C20; --txt:#F0F0F3; --mut:#96969E; --line:#2E2E34;
+  --ok:#30D158; --warn:#FF9F0A; --bad:#FF453A;
+  --ok-txt:#30D158; --warn-txt:#FF9F0A; --bad-txt:#FF453A;
+  --track:#2A2A31; --other:#4B4780;
+  --shadow: 0 1px 3px rgba(0,0,0,.5);
+  --tint-warn:#3A2B10; --tint-p:#23253C; --tint-ok:#12301D; --tint-bad:#3B1B18;
+}
+body { font: 17px/1.5 -apple-system, "PingFang HK", sans-serif; background: var(--bg);
        color: var(--txt); }
 .hidden { display: none !important; }
-.err { color: var(--bad); min-height: 1.2em; font-size: 13px; }
+.err { color: var(--bad-txt); min-height: 1.2em; font-size: 15px; }
 
 .login { max-width: 320px; margin: 18vh auto; display: flex; flex-direction: column;
          gap: 12px; padding: 0 16px; }
-.login h1 { font-size: 22px; color: var(--p); text-align: center; }
-.login input { padding: 12px; border: 1px solid var(--line); border-radius: 10px; font-size: 15px; }
+.login h1 { font-size: 25.5px; color: var(--p); text-align: center; }
+.login input { padding: 12px; border: 1px solid var(--line); border-radius: 10px; font-size: 17px;
+               background: var(--card); color: var(--txt); }
 .login button { padding: 12px; border: 0; border-radius: 10px; background: var(--p);
-                color: #fff; font-size: 15px; font-weight: 600; }
+                color: var(--on-p); font-size: 17px; font-weight: 600; }
 
 header { position: sticky; top: 0; z-index: 5; display: flex; align-items: center;
          justify-content: space-between; padding: 12px 16px; background: var(--card);
          border-bottom: 1px solid var(--line); font-weight: 700; }
-header button { border: 0; background: none; font-size: 17px; color: var(--mut); }
+header button { border: 0; background: none; font-size: 19.5px; color: var(--mut); }
+.hdr-act { display: flex; align-items: center; gap: 14px; }
 #content { padding: 12px 12px 76px; max-width: 720px; margin: 0 auto; }
 
 nav { position: fixed; bottom: 0; left: 0; right: 0; display: flex; background: var(--card);
       border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom); }
-nav button { flex: 1; border: 0; background: none; padding: 8px 0 6px; font-size: 18px;
+nav button { flex: 1; border: 0; background: none; padding: 8px 0 6px; font-size: 20.5px;
              color: var(--mut); display: flex; flex-direction: column; align-items: center; gap: 1px; }
-nav button span { font-size: 11px; }
+nav button span { font-size: 12.5px; }
 nav button.active { color: var(--p); font-weight: 700; }
 
 .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.card { background: var(--card); border-radius: 12px; padding: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
-.card .num { font-size: 24px; font-weight: 800; }
-.card .lbl { font-size: 12px; color: var(--mut); }
-.card.alert .num { color: var(--bad); }
-.section-title { font-size: 13px; font-weight: 700; color: var(--mut); margin: 16px 4px 8px;
+.card { background: var(--card); border-radius: 12px; padding: 12px; box-shadow: var(--shadow); }
+.card .num { font-size: 27.5px; font-weight: 800; }
+.card .lbl { font-size: 14px; color: var(--mut); }
+.card.alert .num { color: var(--bad-txt); }
+.section-title { font-size: 15px; font-weight: 700; color: var(--mut); margin: 16px 4px 8px;
                  text-transform: uppercase; letter-spacing: .4px; }
 .row { background: var(--card); border-radius: 12px; padding: 12px; margin-bottom: 8px;
-       box-shadow: 0 1px 3px rgba(0,0,0,.06); }
-.row h3 { font-size: 15px; }
-.row .meta { font-size: 12px; color: var(--mut); margin-top: 2px; }
+       box-shadow: var(--shadow); }
+.row h3 { font-size: 17px; }
+.row .meta { font-size: 14px; color: var(--mut); margin-top: 2px; }
 .row .act { margin-top: 8px; display: flex; gap: 8px; }
 .row .act button { padding: 7px 14px; border-radius: 8px; border: 1.5px solid var(--p);
-                   background: none; color: var(--p); font-size: 13px; font-weight: 600; }
-.row .act button.danger { border-color: var(--bad); color: var(--bad); }
+                   background: none; color: var(--p); font-size: 15px; font-weight: 600; }
+.row .act button.danger { border-color: var(--bad); color: var(--bad-txt); }
 .row.off { opacity: .55; }
-.badge { font-size: 11px; padding: 2px 8px; border-radius: 99px; font-weight: 700; }
-.badge.pending { background: #FFF4E5; color: var(--warn); }
-.badge.confirmed { background: #EEF3FF; color: var(--p); }
-.badge.completed { background: #EAF9EF; color: var(--ok); }
-.badge.cancelled { background: #FDECEC; color: var(--bad); }
-.badge.open { background: #FDECEC; color: var(--bad); }
-.badge.resolved { background: #EAF9EF; color: var(--ok); }
+.badge { font-size: 12.5px; padding: 2px 8px; border-radius: 99px; font-weight: 700; }
+.badge.pending { background: var(--tint-warn); color: var(--warn-txt); }
+.badge.confirmed { background: var(--tint-p); color: var(--p); }
+.badge.completed { background: var(--tint-ok); color: var(--ok-txt); }
+.badge.cancelled { background: var(--tint-bad); color: var(--bad-txt); }
+.badge.open { background: var(--tint-bad); color: var(--bad-txt); }
+.badge.resolved { background: var(--tint-ok); color: var(--ok-txt); }
 .filter { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
 .filter button { padding: 6px 12px; border-radius: 99px; border: 1px solid var(--line);
-                 background: var(--card); font-size: 13px; }
-.filter button.active { background: var(--p); color: #fff; border-color: var(--p); }
+                 background: var(--card); color: var(--txt); font-size: 15px; }
+.filter button.active { background: var(--p); color: var(--on-p); border-color: var(--p); }
 input.search { width: 100%; padding: 10px 12px; border: 1px solid var(--line);
-               border-radius: 10px; margin-bottom: 10px; font-size: 14px; }
+               border-radius: 10px; margin-bottom: 10px; font-size: 16px;
+               background: var(--card); color: var(--txt); }
 .block-err { text-align: center; padding: 20px; color: var(--mut); }
 .block-err button { margin-top: 8px; padding: 8px 16px; border-radius: 8px; border: 1px solid var(--p);
                     color: var(--p); background: none; }
 .spark { width: 100%; height: 48px; margin-top: 6px; }
 #toast { position: fixed; bottom: 84px; left: 50%; transform: translateX(-50%);
-         background: var(--txt); color: #fff; padding: 10px 18px; border-radius: 99px;
-         font-size: 14px; z-index: 9; }
-.stars { color: var(--warn); }
+         background: var(--txt); color: var(--bg); padding: 10px 18px; border-radius: 99px;
+         font-size: 16px; z-index: 9; }
+.stars { color: var(--warn-txt); }
 @media (min-width: 720px) { .cards { grid-template-columns: repeat(4, 1fr); } }
 
 /* ---------- 儀表板 ---------- */
@@ -75,79 +116,79 @@ input.search { width: 100%; padding: 10px 12px; border: 1px solid var(--line);
 
 .dbar { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
 .dbar button { padding: 4px 12px; border-radius: 99px; border: 1px solid var(--line);
-               background: var(--card); font-size: 13px; }
-.dbar button.active { background: var(--p); color: #fff; border-color: var(--p); }
-.dbar .stamp { margin-left: auto; font-size: 11px; color: var(--mut); }
+               background: var(--card); color: var(--txt); font-size: 15px; }
+.dbar button.active { background: var(--p); color: var(--on-p); border-color: var(--p); }
+.dbar .stamp { margin-left: auto; font-size: 12.5px; color: var(--mut); }
 
 .kpis { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
 .kpi { background: var(--card); border-radius: 10px; padding: 8px 10px;
-       box-shadow: 0 1px 3px rgba(0,0,0,.06); min-width: 0; }
-.kpi .num { font-size: 21px; font-weight: 800; line-height: 1.15;
+       box-shadow: var(--shadow); min-width: 0; }
+.kpi .num { font-size: 24px; font-weight: 800; line-height: 1.15;
             white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.kpi .num.sm { font-size: 13px; font-weight: 700; }
-.kpi .num .of { font-size: 14px; font-weight: 600; color: var(--mut); }
-.kpi .lbl { display: flex; align-items: baseline; gap: 5px; font-size: 11px; color: var(--mut); }
+.kpi .num.sm { font-size: 15px; font-weight: 700; }
+.kpi .num .of { font-size: 16px; font-weight: 600; color: var(--mut); }
+.kpi .lbl { display: flex; align-items: baseline; gap: 5px; font-size: 12.5px; color: var(--mut); }
 .kpi .lbl > span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 /* 對照擺喺標籤同一行，唔會多食高度；名太長就切名，唔切個對照。
    ▲▼ 唔淨係靠色分 —— 紅綠一齊用嗰陣，色弱嘅人要有第二個線索。 */
 .dlt { flex: none; font-weight: 700; font-variant-numeric: tabular-nums; }
-.dlt.good { color: var(--ok); }
-.dlt.bad  { color: var(--bad); }
+.dlt.good { color: var(--ok-txt); }
+.dlt.bad  { color: var(--bad-txt); }
 .dlt.flat { color: var(--mut); font-weight: 400; }
-.kpi.alert .num { color: var(--bad); }
+.kpi.alert .num { color: var(--bad-txt); }
 
-.pane { background: var(--card); border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.06);
+.pane { background: var(--card); border-radius: 12px; box-shadow: var(--shadow);
         display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
 .pane-hd { flex: none; display: flex; align-items: center; gap: 8px;
            padding: 8px 12px 7px; border-bottom: 1px solid var(--line); }
-.pane-hd h2 { font-size: 13px; font-weight: 700; }
-.pane-sub { font-size: 11px; color: var(--mut); }
+.pane-hd h2 { font-size: 15px; font-weight: 700; }
+.pane-sub { font-size: 12.5px; color: var(--mut); }
 .pane-tabs { margin-left: auto; display: flex; gap: 4px; }
 .pane-tabs button { border: 1px solid var(--line); background: none; border-radius: 99px;
-                    padding: 3px 9px; font-size: 11px; color: var(--mut); white-space: nowrap; }
-.pane-tabs button.active { background: var(--p); color: #fff; border-color: var(--p); }
+                    padding: 3px 9px; font-size: 12.5px; color: var(--mut); white-space: nowrap; }
+.pane-tabs button.active { background: var(--p); color: var(--on-p); border-color: var(--p); }
 .pane-bd { flex: 1 1 auto; min-height: 0; overflow: auto; padding: 10px 12px; }
-.pane-note { font-size: 11px; color: var(--mut); padding: 8px 12px 0; }
-.pa-merch .pane-bd { padding: 0; }
+.pane-note { font-size: 12.5px; color: var(--mut); padding: 8px 12px 0; }
+.pa-merch .pane-bd, .pane-bd.p0 { padding: 0; }
 
 .chart { width: 100%; height: 150px; display: block; }
 .chart .axis { stroke: var(--line); stroke-width: .6; vector-effect: non-scaling-stroke; }
 .chart rect { vector-effect: non-scaling-stroke; }
 .b-done   { fill: var(--ok); }
 .b-cancel { fill: var(--bad); }
-.b-other  { fill: #C9C7F5; }
-.chart-x { display: flex; justify-content: space-between; font-size: 11px; color: var(--mut);
+.b-other  { fill: var(--other); }
+.chart-x { display: flex; justify-content: space-between; font-size: 12.5px; color: var(--mut);
            margin-top: 4px; flex: none; }
-.legend { display: flex; gap: 12px; align-items: center; font-size: 11px; color: var(--mut);
+.legend { display: flex; gap: 12px; align-items: center; font-size: 12.5px; color: var(--mut);
           margin-top: 6px; flex: none; }
 .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 4px; }
 .legend i.b-done { background: var(--ok); }
 .legend i.b-cancel { background: var(--bad); }
-.legend i.b-other { background: #C9C7F5; }
+.legend i.b-other { background: var(--other); }
 
 .funnel-step { display: flex; align-items: center; gap: 8px; }
-.funnel-name { flex: 0 0 62px; font-size: 12px; color: var(--mut); }
-.funnel-track { flex: 1 1 auto; height: 18px; border-radius: 5px; background: #F0F0F5; overflow: hidden; }
+.funnel-name { flex: 0 0 74px; font-size: 14px; color: var(--mut); }
+.funnel-track { flex: 1 1 auto; height: 20px; border-radius: 5px; background: var(--track); overflow: hidden; }
 .funnel-bar { display: block; height: 100%; border-radius: 5px;
-              background: linear-gradient(90deg, var(--p), #9A94FF); }
-.funnel-val { flex: 0 0 46px; text-align: right; font-size: 14px; font-weight: 700;
+              background: linear-gradient(90deg, var(--p), var(--p2)); }
+.funnel-val { flex: 0 0 56px; text-align: right; font-size: 16px; font-weight: 700;
               font-variant-numeric: tabular-nums; }
-.funnel-drop { font-size: 11px; color: var(--mut); margin: 3px 0 3px 70px; }
-.funnel-note { font-size: 11.5px; color: var(--mut); margin-top: 10px;
+.funnel-drop { font-size: 12.5px; color: var(--mut); margin: 3px 0 3px 82px; }
+.funnel-note { font-size: 13px; color: var(--mut); margin-top: 10px;
                border-top: 1px solid var(--line); padding-top: 8px; }
 
 .anom-row { display: flex; justify-content: space-between; align-items: center;
-            padding: 5px 0; border-bottom: 1px solid var(--line); font-size: 12.5px; gap: 10px; }
+            padding: 5px 0; border-bottom: 1px solid var(--line); font-size: 14.5px; gap: 10px; }
 .anom-row span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .anom-row b { font-variant-numeric: tabular-nums; color: var(--mut); }
-.anom-row.bad b  { color: var(--bad); }
-.anom-row.warn b { color: var(--warn); }
+.anom-row.bad b  { color: var(--bad-txt); }
+.anom-row.warn b { color: var(--warn-txt); }
 
 .tbl-wrap { overflow-x: auto; }
-.tbl { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.tbl { width: 100%; border-collapse: collapse; font-size: 14.5px; }
 .tbl th, .tbl td { padding: 7px 12px; text-align: left; white-space: nowrap; }
 .tbl th { position: sticky; top: 0; z-index: 1; background: var(--card);
-          font-size: 11px; color: var(--mut); text-transform: uppercase;
+          font-size: 12.5px; color: var(--mut); text-transform: uppercase;
           letter-spacing: .3px; border-bottom: 1px solid var(--line); }
 .tbl td { border-bottom: 1px solid var(--line); }
 .tbl tbody tr:last-child td { border-bottom: 0; }
@@ -155,7 +196,7 @@ input.search { width: 100%; padding: 10px 12px; border: 1px solid var(--line);
 
 /* 一版過：只喺夠闊夠高先開。矮窗（<620px 高）夾硬鋪只會逼到每塊都要自己捲，
    反而不如照樣可以拉。 */
-@media (min-width: 900px) and (min-height: 620px) {
+@media (min-width: 900px) and (min-height: 700px) {
   body.dash #main { height: 100dvh; display: flex; flex-direction: column; overflow: hidden; }
   body.dash header { flex: none; }
   body.dash nav { position: static; flex: none; }
@@ -165,7 +206,7 @@ input.search { width: 100%; padding: 10px 12px; border: 1px solid var(--line);
                        padding: 8px 12px; overflow: hidden; }
 
   .dgrid { height: 100%; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-           grid-template-rows: auto auto minmax(0, 1fr) minmax(0, 1.1fr);
+           grid-template-rows: auto auto minmax(0, 1.05fr) minmax(0, 1fr);
            grid-template-areas: "bar bar" "kpi kpi" "chart funnel" "anom merch"; }
   .dbar     { grid-area: bar; }
   .kpis     { grid-area: kpi; grid-template-columns: repeat(8, 1fr); }
@@ -182,19 +223,21 @@ input.search { width: 100%; padding: 10px 12px; border: 1px solid var(--line);
                       column-gap: 20px; align-content: start; }
 }
 
-/* 矮窗（620–780px 高，即係大部分手提電腦開住 dock 同分頁列嗰陣）：
-   逐樣收窄一格。唔收嘅話漏斗同異常各爭幾十 px，就要喺自己個盒度捲。 */
-@media (min-width: 900px) and (min-height: 620px) and (max-height: 780px) {
-  .dgrid { gap: 6px; }
+/* 矮窗（700–850px 高，即係大部分手提電腦開住 dock 同分頁列嗰陣）：
+   逐樣收窄一格 —— 但唔郁字級。字係特登加大嘅，喺呢度縮返就等於冇加。
+   收嘅係留白：內距、間距、漏斗條粗幼。低過 700px 就唔玩一頁過，
+   因為 17px 底字加八格 KPI 加圖加漏斗，700 以下夾硬塞一定要切走嘢。 */
+@media (min-width: 900px) and (min-height: 700px) and (max-height: 850px) {
+  .dgrid { gap: 5px; }
   .kpi { padding: 6px 9px; }
-  .kpi .num { font-size: 18px; }
-  .kpi .num.sm { font-size: 12px; }
-  .pane-hd { padding: 6px 10px 5px; }
-  .pane-bd { padding: 7px 10px; }
-  .anom-row { padding: 3px 0; font-size: 12px; }
+  .kpi .num { font-size: 20.5px; }
+  .kpi .num.sm { font-size: 14px; }
+  .pane-hd { padding: 5px 10px 4px; }
+  .pane-bd { padding: 6px 10px; }
+  .anom-row { padding: 3px 0; font-size: 14px; }
   .funnel-track { height: 14px; }
-  .funnel-drop { margin: 1px 0 1px 70px; font-size: 10.5px; }
-  .funnel-note { margin-top: 6px; padding-top: 5px; font-size: 11px; }
+  .funnel-drop { margin: 0 0 0 82px; font-size: 12px; }
+  .funnel-note { margin-top: 6px; padding-top: 5px; font-size: 12.5px; }
   .tbl th, .tbl td { padding: 5px 10px; }
 }
 
