@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
 <title>BookingYou Admin</title>
-<link rel="stylesheet" href="style.css">
+<!-- ?v= 係 cache 破除用。改 style.css / app.js 就要 +1 -->
+<link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
   <!-- login view -->
@@ -34,6 +35,6 @@
 
   <div id="toast" class="hidden"></div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="app.js"></script>
+  <script src="app.js?v=2"></script>
 </body>
 </html>
