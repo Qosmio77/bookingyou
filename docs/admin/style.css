@@ -66,56 +66,137 @@ input.search { width: 100%; padding: 10px 12px; border: 1px solid var(--line);
 @media (min-width: 720px) { .cards { grid-template-columns: repeat(4, 1fr); } }
 
 /* ---------- 儀表板 ---------- */
-/* 手機一欄，大屏兩欄。個表格自己橫向捲，成版唔會捲 —— 大表格喺窄機必然會迫爆版面。 */
-body.dash #content { max-width: 1180px; }
-.dash-range { align-items: center; }
-.dash-range .stamp { margin-left: auto; font-size: 12px; color: var(--mut); }
-.card .num.sm { font-size: 17px; font-weight: 700; }
-.card .num .of { font-size: 15px; font-weight: 600; color: var(--mut); }
-.card.sub { font-size: 13px; color: var(--mut); margin-bottom: 8px; }
+/* 目標：電腦一版睇晒，唔使上下拉。做法係鎖死 #main 個高度，四塊板各自食剩落嘅空間，
+   任何一塊塞唔落就自己喺盒入面捲 —— 成版永遠唔會捲。
+   手機唔玩呢味：375 闊塞唔落 8 格 KPI ＋ 圖 ＋ 漏斗 ＋ 11 項異常 ＋ 表格，
+   夾硬塞只會細到睇唔到，所以窄機照樣係一條可以拉嘅 flow。 */
 
-.chart-card { margin-top: 10px; }
+.dgrid { display: grid; gap: 8px; }
+
+.dbar { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.dbar button { padding: 4px 12px; border-radius: 99px; border: 1px solid var(--line);
+               background: var(--card); font-size: 13px; }
+.dbar button.active { background: var(--p); color: #fff; border-color: var(--p); }
+.dbar .stamp { margin-left: auto; font-size: 11px; color: var(--mut); }
+
+.kpis { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.kpi { background: var(--card); border-radius: 10px; padding: 8px 10px;
+       box-shadow: 0 1px 3px rgba(0,0,0,.06); min-width: 0; }
+.kpi .num { font-size: 21px; font-weight: 800; line-height: 1.15;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.kpi .num.sm { font-size: 13px; font-weight: 700; }
+.kpi .num .of { font-size: 14px; font-weight: 600; color: var(--mut); }
+.kpi .lbl { display: flex; align-items: baseline; gap: 5px; font-size: 11px; color: var(--mut); }
+.kpi .lbl > span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* 對照擺喺標籤同一行，唔會多食高度；名太長就切名，唔切個對照。
+   ▲▼ 唔淨係靠色分 —— 紅綠一齊用嗰陣，色弱嘅人要有第二個線索。 */
+.dlt { flex: none; font-weight: 700; font-variant-numeric: tabular-nums; }
+.dlt.good { color: var(--ok); }
+.dlt.bad  { color: var(--bad); }
+.dlt.flat { color: var(--mut); font-weight: 400; }
+.kpi.alert .num { color: var(--bad); }
+
+.pane { background: var(--card); border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.06);
+        display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
+.pane-hd { flex: none; display: flex; align-items: center; gap: 8px;
+           padding: 8px 12px 7px; border-bottom: 1px solid var(--line); }
+.pane-hd h2 { font-size: 13px; font-weight: 700; }
+.pane-sub { font-size: 11px; color: var(--mut); }
+.pane-tabs { margin-left: auto; display: flex; gap: 4px; }
+.pane-tabs button { border: 1px solid var(--line); background: none; border-radius: 99px;
+                    padding: 3px 9px; font-size: 11px; color: var(--mut); white-space: nowrap; }
+.pane-tabs button.active { background: var(--p); color: #fff; border-color: var(--p); }
+.pane-bd { flex: 1 1 auto; min-height: 0; overflow: auto; padding: 10px 12px; }
+.pane-note { font-size: 11px; color: var(--mut); padding: 8px 12px 0; }
+.pa-merch .pane-bd { padding: 0; }
+
 .chart { width: 100%; height: 150px; display: block; }
 .chart .axis { stroke: var(--line); stroke-width: .6; vector-effect: non-scaling-stroke; }
 .chart rect { vector-effect: non-scaling-stroke; }
 .b-done   { fill: var(--ok); }
 .b-cancel { fill: var(--bad); }
 .b-other  { fill: #C9C7F5; }
-.chart-x { display: flex; justify-content: space-between; font-size: 11px; color: var(--mut); margin-top: 4px; }
-.legend { display: flex; gap: 12px; align-items: center; font-size: 11px; color: var(--mut); margin-top: 8px; }
+.chart-x { display: flex; justify-content: space-between; font-size: 11px; color: var(--mut);
+           margin-top: 4px; flex: none; }
+.legend { display: flex; gap: 12px; align-items: center; font-size: 11px; color: var(--mut);
+          margin-top: 6px; flex: none; }
 .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 4px; }
 .legend i.b-done { background: var(--ok); }
 .legend i.b-cancel { background: var(--bad); }
 .legend i.b-other { background: #C9C7F5; }
 
-.funnel-step { margin: 2px 0; }
-.funnel-bar { height: 26px; border-radius: 6px; background: linear-gradient(90deg, var(--p), #9A94FF); }
-.funnel-lbl { font-size: 13px; margin-top: 3px; }
-.funnel-lbl b { font-size: 16px; }
-.funnel-drop { font-size: 11px; color: var(--mut); margin: 4px 0 4px 6px; }
-.funnel-note { font-size: 12px; color: var(--mut); margin-top: 12px;
-               border-top: 1px solid var(--line); padding-top: 10px; }
+.funnel-step { display: flex; align-items: center; gap: 8px; }
+.funnel-name { flex: 0 0 62px; font-size: 12px; color: var(--mut); }
+.funnel-track { flex: 1 1 auto; height: 18px; border-radius: 5px; background: #F0F0F5; overflow: hidden; }
+.funnel-bar { display: block; height: 100%; border-radius: 5px;
+              background: linear-gradient(90deg, var(--p), #9A94FF); }
+.funnel-val { flex: 0 0 46px; text-align: right; font-size: 14px; font-weight: 700;
+              font-variant-numeric: tabular-nums; }
+.funnel-drop { font-size: 11px; color: var(--mut); margin: 3px 0 3px 70px; }
+.funnel-note { font-size: 11.5px; color: var(--mut); margin-top: 10px;
+               border-top: 1px solid var(--line); padding-top: 8px; }
 
-.anom { padding: 4px 12px; }
 .anom-row { display: flex; justify-content: space-between; align-items: center;
-            padding: 7px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
-.anom-row:last-child { border-bottom: 0; }
+            padding: 5px 0; border-bottom: 1px solid var(--line); font-size: 12.5px; gap: 10px; }
+.anom-row span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .anom-row b { font-variant-numeric: tabular-nums; color: var(--mut); }
 .anom-row.bad b  { color: var(--bad); }
 .anom-row.warn b { color: var(--warn); }
 
-.tbl-wrap { background: var(--card); border-radius: 12px; overflow-x: auto;
-            box-shadow: 0 1px 3px rgba(0,0,0,.06); }
-.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
-.tbl th, .tbl td { padding: 9px 12px; text-align: left; white-space: nowrap; }
-.tbl th { font-size: 11px; color: var(--mut); text-transform: uppercase;
+.tbl-wrap { overflow-x: auto; }
+.tbl { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.tbl th, .tbl td { padding: 7px 12px; text-align: left; white-space: nowrap; }
+.tbl th { position: sticky; top: 0; z-index: 1; background: var(--card);
+          font-size: 11px; color: var(--mut); text-transform: uppercase;
           letter-spacing: .3px; border-bottom: 1px solid var(--line); }
 .tbl td { border-bottom: 1px solid var(--line); }
 .tbl tbody tr:last-child td { border-bottom: 0; }
 .tbl .num { text-align: right; font-variant-numeric: tabular-nums; }
 
-.dash-2col { display: grid; gap: 0 16px; }
-@media (min-width: 860px) {
-  .dash-2col { grid-template-columns: 1fr 1fr; }
-  .chart { height: 200px; }
+/* 一版過：只喺夠闊夠高先開。矮窗（<620px 高）夾硬鋪只會逼到每塊都要自己捲，
+   反而不如照樣可以拉。 */
+@media (min-width: 900px) and (min-height: 620px) {
+  body.dash #main { height: 100dvh; display: flex; flex-direction: column; overflow: hidden; }
+  body.dash header { flex: none; }
+  body.dash nav { position: static; flex: none; }
+  /* margin:0 —— 基本樣式嗰句 `margin: 0 auto` 喺直向 flex 容器度會抵消 stretch，
+     結果成塊板縮到得內容咁闊再置中。要撐滿就一定要清走 auto。 */
+  body.dash #content { flex: 1 1 auto; min-height: 0; max-width: none; margin: 0;
+                       padding: 8px 12px; overflow: hidden; }
+
+  .dgrid { height: 100%; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+           grid-template-rows: auto auto minmax(0, 1fr) minmax(0, 1.1fr);
+           grid-template-areas: "bar bar" "kpi kpi" "chart funnel" "anom merch"; }
+  .dbar     { grid-area: bar; }
+  .kpis     { grid-area: kpi; grid-template-columns: repeat(8, 1fr); }
+  .pa-chart { grid-area: chart; }
+  .pa-funnel{ grid-area: funnel; }
+  .pa-anom  { grid-area: anom; }
+  .pa-merch { grid-area: merch; }
+
+  .pa-chart .pane-bd { display: flex; flex-direction: column; }
+  .pa-chart .chart { flex: 1 1 auto; height: auto; min-height: 60px; }
+
+  /* 11 項排兩欄，唔使捲 */
+  .pa-anom .pane-bd { display: grid; grid-template-columns: 1fr 1fr;
+                      column-gap: 20px; align-content: start; }
 }
+
+/* 矮窗（620–780px 高，即係大部分手提電腦開住 dock 同分頁列嗰陣）：
+   逐樣收窄一格。唔收嘅話漏斗同異常各爭幾十 px，就要喺自己個盒度捲。 */
+@media (min-width: 900px) and (min-height: 620px) and (max-height: 780px) {
+  .dgrid { gap: 6px; }
+  .kpi { padding: 6px 9px; }
+  .kpi .num { font-size: 18px; }
+  .kpi .num.sm { font-size: 12px; }
+  .pane-hd { padding: 6px 10px 5px; }
+  .pane-bd { padding: 7px 10px; }
+  .anom-row { padding: 3px 0; font-size: 12px; }
+  .funnel-track { height: 14px; }
+  .funnel-drop { margin: 1px 0 1px 70px; font-size: 10.5px; }
+  .funnel-note { margin-top: 6px; padding-top: 5px; font-size: 11px; }
+  .tbl th, .tbl td { padding: 5px 10px; }
+}
+
+/* 好闊嘅屏幕：KPI 唔好扯到成行都係空白 */
+@media (min-width: 1600px) { body.dash #content { padding: 10px 24px; } }
