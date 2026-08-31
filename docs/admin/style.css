@@ -64,3 +64,58 @@ input.search { width: 100%; padding: 10px 12px; border: 1px solid var(--line);
          font-size: 14px; z-index: 9; }
 .stars { color: var(--warn); }
 @media (min-width: 720px) { .cards { grid-template-columns: repeat(4, 1fr); } }
+
+/* ---------- 儀表板 ---------- */
+/* 手機一欄，大屏兩欄。個表格自己橫向捲，成版唔會捲 —— 大表格喺窄機必然會迫爆版面。 */
+body.dash #content { max-width: 1180px; }
+.dash-range { align-items: center; }
+.dash-range .stamp { margin-left: auto; font-size: 12px; color: var(--mut); }
+.card .num.sm { font-size: 17px; font-weight: 700; }
+.card .num .of { font-size: 15px; font-weight: 600; color: var(--mut); }
+.card.sub { font-size: 13px; color: var(--mut); margin-bottom: 8px; }
+
+.chart-card { margin-top: 10px; }
+.chart { width: 100%; height: 150px; display: block; }
+.chart .axis { stroke: var(--line); stroke-width: .6; vector-effect: non-scaling-stroke; }
+.chart rect { vector-effect: non-scaling-stroke; }
+.b-done   { fill: var(--ok); }
+.b-cancel { fill: var(--bad); }
+.b-other  { fill: #C9C7F5; }
+.chart-x { display: flex; justify-content: space-between; font-size: 11px; color: var(--mut); margin-top: 4px; }
+.legend { display: flex; gap: 12px; align-items: center; font-size: 11px; color: var(--mut); margin-top: 8px; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 4px; }
+.legend i.b-done { background: var(--ok); }
+.legend i.b-cancel { background: var(--bad); }
+.legend i.b-other { background: #C9C7F5; }
+
+.funnel-step { margin: 2px 0; }
+.funnel-bar { height: 26px; border-radius: 6px; background: linear-gradient(90deg, var(--p), #9A94FF); }
+.funnel-lbl { font-size: 13px; margin-top: 3px; }
+.funnel-lbl b { font-size: 16px; }
+.funnel-drop { font-size: 11px; color: var(--mut); margin: 4px 0 4px 6px; }
+.funnel-note { font-size: 12px; color: var(--mut); margin-top: 12px;
+               border-top: 1px solid var(--line); padding-top: 10px; }
+
+.anom { padding: 4px 12px; }
+.anom-row { display: flex; justify-content: space-between; align-items: center;
+            padding: 7px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+.anom-row:last-child { border-bottom: 0; }
+.anom-row b { font-variant-numeric: tabular-nums; color: var(--mut); }
+.anom-row.bad b  { color: var(--bad); }
+.anom-row.warn b { color: var(--warn); }
+
+.tbl-wrap { background: var(--card); border-radius: 12px; overflow-x: auto;
+            box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+.tbl th, .tbl td { padding: 9px 12px; text-align: left; white-space: nowrap; }
+.tbl th { font-size: 11px; color: var(--mut); text-transform: uppercase;
+          letter-spacing: .3px; border-bottom: 1px solid var(--line); }
+.tbl td { border-bottom: 1px solid var(--line); }
+.tbl tbody tr:last-child td { border-bottom: 0; }
+.tbl .num { text-align: right; font-variant-numeric: tabular-nums; }
+
+.dash-2col { display: grid; gap: 0 16px; }
+@media (min-width: 860px) {
+  .dash-2col { grid-template-columns: 1fr 1fr; }
+  .chart { height: 200px; }
+}

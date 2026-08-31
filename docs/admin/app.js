@@ -35,6 +35,8 @@ async function route(tab) {
   $('#title').textContent = TABS[tab]
   document.querySelectorAll('nav button').forEach(b =>
     b.classList.toggle('active', b.dataset.tab === tab))
+  // 儀表板要闊過其他分頁，所以個寬度掛喺 body 而唔係逐個容器度改。
+  document.body.classList.toggle('dash', tab === 'overview')
   const c = $('#content'); c.innerHTML = '<div class="block-err">載入中…</div>'
   try {
     if (tab === 'overview')   await renderOverview(c)
@@ -62,38 +64,155 @@ sb.auth.onAuthStateChange((_evt, session) => {
 })
 
 // ---------- tabs (implemented in later tasks) ----------
-async function renderOverview(c) {
-  const { data, error } = await sb.rpc('admin_dashboard_stats')
-  if (error) throw error
-  const gmvLine = (k) => (data.gmv.length
-    ? data.gmv.map(g => `${g.currency} ${Number(g[k]).toLocaleString()}`).join(' + ') : '0')
-  const days = data.series.map(s => s.bookings)
-  const maxB = Math.max(...days, 1)
-  const pts = days.map((v, i) => `${(i / 6) * 100},${46 - (v / maxB) * 40}`).join(' ')
-  const lastGap = data.last_booking_at
-    ? Math.round((Date.now() - new Date(data.last_booking_at)) / 36e5) + ' 小時前' : '從未'
-  c.innerHTML = `
-    <div class="cards">
-      <div class="card"><div class="num">${data.bookings.today}</div><div class="lbl">今日新預約</div></div>
-      <div class="card"><div class="num">${gmvLine('today')}</div><div class="lbl">今日 GMV</div></div>
-      <div class="card"><div class="num">${data.users.today}</div><div class="lbl">今日新用戶</div></div>
-      <div class="card ${data.open_complaints ? 'alert' : ''}">
-        <div class="num">${data.open_complaints}</div><div class="lbl">開放投訴</div></div>
-    </div>
-    <div class="section-title">7 日預約趨勢(${data.bookings.d7} 單 · GMV ${gmvLine('d7')})</div>
-    <div class="card"><svg class="spark" viewBox="0 0 100 48" preserveAspectRatio="none">
-      <polyline points="${pts}" fill="none" stroke="#6C63FF" stroke-width="2"/></svg></div>
-    <div class="section-title">健康</div>
-    <div class="cards">
-      <div class="card ${data.stale_pending ? 'alert' : ''}">
-        <div class="num">${data.stale_pending}</div><div class="lbl">過期未確認 pending</div></div>
-      <div class="card"><div class="num">${data.cancel_rate_7d}%</div><div class="lbl">7 日取消率</div></div>
-      <div class="card"><div class="num">${data.active_businesses}</div><div class="lbl">活躍商家</div></div>
-      <div class="card"><div class="num">${lastGap}</div><div class="lbl">最後預約</div></div>
-    </div>
-    <div class="section-title">30 日:用戶 ${data.users.d30} · 預約 ${data.bookings.d30} · GMV ${gmvLine('d30')} · 評價(7日)${data.reviews_d7}</div>
-    <div class="row"><a href="${SENTRY_URL}" target="_blank">🔗 開 Sentry 睇 crash</a></div>`
+// ---------- 儀表板 ----------
+// 一個 RPC 交齊四段：生意健康度、增長漏斗、商戶成效、營運異常。
+// 分開四次攞會攞到四個唔同時刻嘅同一個資料庫。
+let dashDays = 30
+
+const nf = (n) => (n === null || n === undefined) ? '—' : Number(n).toLocaleString('en-US')
+const pct = (n) => (n === null || n === undefined) ? '—' : n + '%'
+
+function gmvText(gmv) {
+  if (!gmv || !gmv.length) return '0'
+  return gmv.map(g => `${esc(g.currency)} ${nf(g.amount)}`).join(' · ')
 }
+
+/** 每日堆疊柱：完成 / 取消 / 其餘。空白日都畫，唔畫個形就係假嘅。 */
+function dailyChart(series) {
+  if (!series.length) return '<div class="block-err">呢段時間冇預約</div>'
+  const max = Math.max(...series.map(d => d.created), 1)
+  const w = 100 / series.length
+  const bars = series.map((d, i) => {
+    const x = i * w, h = (d.created / max) * 88
+    const done = d.created ? (d.completed / d.created) * h : 0
+    const cx   = d.created ? (d.cancelled / d.created) * h : 0
+    const rest = h - done - cx
+    let y = 92
+    const seg = (hh, cls) => { if (hh <= 0) return ''; y -= hh
+      return `<rect x="${x + w * .15}" y="${y}" width="${w * .7}" height="${hh}" class="${cls}"/>` }
+    return seg(cx, 'b-cancel') + seg(done, 'b-done') + seg(rest, 'b-other')
+  }).join('')
+  const first = series[0].day.slice(5, 10), last = series[series.length - 1].day.slice(5, 10)
+  return `<svg class="chart" viewBox="0 0 100 100" preserveAspectRatio="none">
+      <line x1="0" y1="92" x2="100" y2="92" class="axis"/>${bars}</svg>
+    <div class="chart-x"><span>${first}</span><span>高峰 ${max}</span><span>${last}</span></div>
+    <div class="legend"><i class="b-done"></i>完成 <i class="b-cancel"></i>取消 <i class="b-other"></i>其他</div>`
+}
+
+/** 漏斗：每級闊度按第一級計，跌幅寫喺級與級之間。 */
+function funnelHtml(f) {
+  const steps = [['註冊用戶', f.signups], ['開咗商戶', f.became_merchant],
+                 ['出咗服務', f.published_service], ['收到預約', f.got_booking]]
+  const top = Math.max(steps[0][1], 1)
+  return steps.map(([label, v], i) => {
+    const prev = i ? steps[i - 1][1] : null
+    const drop = prev ? (prev - v) : 0
+    const dropPct = prev && prev > 0 ? Math.round((drop / prev) * 100) : 0
+    return `${i ? `<div class="funnel-drop">↓ 流失 ${nf(drop)}（${dropPct}%）</div>` : ''}
+      <div class="funnel-step">
+        <div class="funnel-bar" style="width:${Math.max((v / top) * 100, 6)}%"></div>
+        <div class="funnel-lbl"><b>${nf(v)}</b> ${esc(label)}</div>
+      </div>`
+  }).join('')
+}
+
+function tableHtml(cols, rows, empty) {
+  if (!rows.length) return `<div class="block-err">${empty}</div>`
+  return `<div class="tbl-wrap"><table class="tbl">
+    <thead><tr>${cols.map(c => `<th${c.num ? ' class="num"' : ''}>${esc(c.h)}</th>`).join('')}</tr></thead>
+    <tbody>${rows.map(r => `<tr>${cols.map(c =>
+      `<td${c.num ? ' class="num"' : ''}>${c.f(r)}</td>`).join('')}</tr>`).join('')}</tbody>
+  </table></div>`
+}
+
+async function renderOverview(c) {
+  const { data, error } = await sb.rpc('admin_dashboard_full', { p_days: dashDays })
+  if (error) throw error
+  if (!data) { c.innerHTML = '<div class="block-err">此帳號無管理權限</div>'; return }
+  const { health: h, merchants: m, funnel: f, anomalies: a } = data
+
+  const lastGap = h.last_booking_at
+    ? Math.round((Date.now() - new Date(h.last_booking_at)) / 36e5) + ' 小時前' : '從未'
+
+  // 應該係零嘅嘢。唔係零就係有人有麻煩而未有人知。
+  const ANOM = [
+    ['開放投訴', a.open_complaints, 'bad'], ['待審上架', a.pending_listing, 'warn'],
+    ['已停權帳戶', a.banned_accounts, 'warn'], ['已下架評價', a.hidden_reviews, 'warn'],
+    ['7 日錯誤', a.client_errors_7d, 'bad'], ['錯誤種類', a.client_error_groups_7d, 'bad'],
+    ['商戶冇填國家', a.businesses_no_country, 'warn'], ['服務冇價錢', a.services_no_price, 'warn'],
+    ['預約商戶錯配', a.booking_biz_mismatch, 'bad'], ['已完成但喺未來', a.completed_in_future, 'bad'],
+    ['停用舖仲有待確認', a.inactive_with_pending, 'bad'],
+  ]
+
+  c.innerHTML = `
+    <div class="filter dash-range">${[7, 30, 90].map(d =>
+      `<button class="${d === dashDays ? 'active' : ''}" data-d="${d}">${d} 日</button>`).join('')}
+      <span class="stamp">更新於 ${fmtDT(data.generated_at)}</span></div>
+
+    <div class="section-title">生意健康度 · 最近 ${data.window_days} 日</div>
+    <div class="cards">
+      <div class="card"><div class="num">${nf(h.created)}</div><div class="lbl">新預約</div></div>
+      <div class="card"><div class="num">${pct(h.completion_rate)}</div><div class="lbl">完成率</div></div>
+      <div class="card ${h.cancel_rate > 30 ? 'alert' : ''}">
+        <div class="num">${pct(h.cancel_rate)}</div><div class="lbl">取消率</div></div>
+      <div class="card ${h.stale_pending ? 'alert' : ''}">
+        <div class="num">${nf(h.stale_pending)}</div><div class="lbl">逾期未確認</div></div>
+    </div>
+    <div class="card chart-card">${dailyChart(h.series)}</div>
+    <div class="cards">
+      <div class="card"><div class="num sm">${gmvText(h.gmv)}</div><div class="lbl">已完成 GMV</div></div>
+      <div class="card"><div class="num">${nf(h.businesses_with_bookings)}<span class="of">/${nf(h.active_businesses)}</span></div>
+        <div class="lbl">有生意 / 活躍商戶</div></div>
+      <div class="card"><div class="num">${h.avg_bookings_per_trading_business ?? '—'}</div>
+        <div class="lbl">每間平均單數</div></div>
+      <div class="card"><div class="num sm">${lastGap}</div><div class="lbl">最後一單</div></div>
+    </div>
+
+    <div class="dash-2col">
+      <div>
+        <div class="section-title">增長漏斗 · 由開站至今</div>
+        <div class="card">${funnelHtml(f)}
+          <div class="funnel-note">最近 ${data.window_days} 日新註冊 ${nf(f.recent.signups)} 人，
+            其中 ${nf(f.recent.became_merchant)} 開咗舖、${nf(f.recent.got_booking)} 收到過預約</div>
+        </div>
+      </div>
+      <div>
+        <div class="section-title">營運異常 · 應該全部係零</div>
+        <div class="card anom">${ANOM.map(([l, v, k]) =>
+          `<div class="anom-row ${v ? k : ''}"><span>${esc(l)}</span><b>${nf(v)}</b></div>`).join('')}</div>
+      </div>
+    </div>
+
+    <div class="section-title">商戶成效 · 最近 ${data.window_days} 日預約最多</div>
+    ${tableHtml([
+      { h: '商戶', f: r => esc(r.name) },
+      { h: '地區', f: r => esc(r.country ?? '—') },
+      { h: '預約', num: 1, f: r => nf(r.bookings) },
+      { h: '完成', num: 1, f: r => nf(r.completed) },
+      { h: 'GMV', num: 1, f: r => `${esc(r.currency ?? '')} ${nf(r.gmv)}` },
+    ], m.top_by_bookings, '呢段時間冇任何商戶收到預約')}
+
+    <div class="section-title">評分最高（至少 3 個評價）</div>
+    ${tableHtml([
+      { h: '商戶', f: r => esc(r.name) },
+      { h: '評分', num: 1, f: r => `★ ${r.rating}` },
+      { h: '評價數', num: 1, f: r => nf(r.reviews) },
+    ], m.top_by_rating, '未有商戶夠 3 個評價')}
+
+    <div class="section-title">上咗架但從來冇人約 · ${nf(m.never_booked)} 間</div>
+    <div class="card sub">新商戶由開舖到收到第一單，中位數 ${m.median_days_to_first_booking ?? '—'} 日</div>
+    ${tableHtml([
+      { h: '商戶', f: r => esc(r.name) },
+      { h: '地區', f: r => esc(r.country ?? '—') },
+      { h: '服務', num: 1, f: r => nf(r.services) },
+      { h: '開舖', f: r => fmtDT(r.created_at) },
+    ], m.never_booked_sample, '冇 🎉')}`
+
+  c.querySelectorAll('[data-d]').forEach(b => b.onclick = () => {
+    dashDays = Number(b.dataset.d); route('overview')
+  })
+}
+
 async function renderBusinesses(c) {
   const { data, error } = await sb.from('businesses')
     .select('id,name,category,country,is_active,created_at,images')
