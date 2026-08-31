@@ -296,7 +296,7 @@ async function renderOverview(c) {
       <section class="pane pa-funnel">
         <div class="pane-hd"><h2>增長</h2>
           <span class="pane-sub gt-funnel${geoTab === 'funnel' ? '' : ' hidden'}">${worstStep}</span>
-          <span class="pane-sub gt-geo${geoTab === 'geo' ? '' : ' hidden'}">${nf(G.length)} 個地區 · 「用戶」＝喺當地約過嘢嘅人數</span>
+          <span class="pane-sub gt-geo${geoTab === 'geo' ? '' : ' hidden'}">${nf(G.length)} 個地區 · 已填所在地嘅用戶 ${nf(G.reduce((n, g) => n + (g.country ? g.residents : 0), 0))}</span>
           <div class="pane-tabs">
             <button class="${geoTab === 'funnel' ? 'active' : ''}" data-gt="funnel">漏斗</button>
             <button class="${geoTab === 'geo' ? 'active' : ''}" data-gt="geo">地區</button>
@@ -306,14 +306,15 @@ async function renderOverview(c) {
             其中 ${nf(f.recent.became_merchant)} 開咗舖、${nf(f.recent.got_booking)} 收到過預約</div>
         </div>
         <div class="pane-bd p0 gt-geo${geoTab === 'geo' ? '' : ' hidden'}">
-          <div class="pane-note">用戶本身冇國家資料（profiles 得語言，唔係地區）。下面「用戶」係喺當地約過嘢嘅唯一人數 —— 一個人約兩個地方兩邊都計，所以加埋唔等於用戶總數。</div>
+          <div class="pane-note">「居民」＝註冊時自己揀嘅所在地區，2026-08-31 之後開嘅戶口先有，之前嗰批係空白。「約過」＝喺當地約過嘢嘅唯一人數 —— 一個人約兩個地方兩邊都計，所以加埋唔等於用戶總數。兩個數答緊唔同問題，冇一個可以代替另一個。</div>
           ${tableHtml([
             { h: '地區', f: r => countryLabel(r.country) },
-            { h: '用戶', num: 1, f: r => nf(r.customers) },
+            { h: '居民', num: 1, f: r => nf(r.residents) },
+            { h: '約過', num: 1, f: r => nf(r.customers) },
             { h: '預約', num: 1, f: r => nf(r.bookings) },
             { h: '商戶', num: 1, f: r => nf(r.businesses) },
             { h: '活躍', num: 1, f: r => nf(r.active) },
-          ], G, '未有任何商戶填咗國家')}
+          ], G, '未有任何地區資料')}
         </div>
       </section>
 
