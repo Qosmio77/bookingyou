@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BookingYou — เคาน์เตอร์รับจองสำหรับร้านเล็ก ๆ</title>
+<meta name="description" content="BookingYou: ลูกค้าจองเอง ร้านจัดการทั้งวัน แอปเดียวสำหรับร้านทำผม ร้านตัดผม ร้านทำเล็บ กายภาพบำบัด และร้านที่รับจองล่วงหน้า">
+<style>
+  :root{
+    --navy:#12294A; --deep:#0B1B31; --teal:#12A594; --bright:#2ED3BA; --pale:#E4F3F0;
+    --ink:#1B2533; --muted:#6B7A90; --line:#DDE3EA; --amber:#E0932A; --white:#fff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{color:var(--ink);background:#F5FAFF;
+       font-family:"PingFang HK","Hiragino Sans",-apple-system,"Helvetica Neue",Arial,sans-serif;line-height:1.75}
+  a{color:inherit}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 28px}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(245,250,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;gap:26px;height:74px}
+  .nav>img{height:46px}
+  .links{margin-left:auto;display:flex;gap:26px;font-size:15px;font-weight:600;color:var(--muted)}
+  .links a:hover{color:var(--teal)}
+  .btn{display:inline-block;border-radius:10px;padding:14px 30px;font-weight:700;font-size:16px;text-decoration:none;transition:transform .15s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-main{background:var(--navy);color:#fff}
+  .btn-ghost{background:#fff;color:var(--navy);border:2px solid var(--navy)}
+
+  /* 段落：直接用簡報嘅漸變底圖 */
+  section{position:relative;padding:104px 0;background-size:cover;background-position:center}
+  .bg-a{background-image:url("/assets/deck-bg-a.jpg")}
+  .bg-b{background-image:url("/assets/deck-bg-b.jpg")}
+  .chip{display:inline-block;background:rgba(11,27,49,.72);color:#fff;font-size:12px;
+        padding:6px 16px;border-radius:8px;letter-spacing:1px}
+  h2{font-size:38px;line-height:1.4;color:var(--navy);font-weight:700;margin-bottom:16px}
+  .lead{font-size:18px;color:var(--ink);max-width:640px}
+  .note{font-size:13px;color:var(--muted);margin-top:26px}
+
+  .row{display:grid;gap:46px;align-items:center}
+  .row2{grid-template-columns:1fr 1fr}
+  .row-text-img{grid-template-columns:1.05fr .95fr}
+
+  .phone{border-radius:26px;overflow:hidden;box-shadow:0 22px 44px rgba(11,27,49,.20);display:inline-block;background:#fff}
+  .phone img{display:block;width:100%}
+
+  .bullets{margin-top:26px}
+  .bullet{display:flex;gap:16px;align-items:flex-start;margin-bottom:22px}
+  .tick{width:44px;height:44px;border-radius:50%;background:var(--pale);display:grid;place-items:center;flex:none}
+  .tick svg{width:20px;height:20px}
+  .bullet b{display:block;font-size:19px;color:var(--navy)}
+  .bullet span{font-size:15px;color:var(--muted)}
+
+  .cards{display:grid;gap:22px;margin-top:34px}
+  .c3{grid-template-columns:repeat(3,1fr)}
+  .c4{grid-template-columns:repeat(4,1fr)}
+  .card{background:#fff;border-radius:16px;padding:30px;box-shadow:0 10px 26px rgba(29,78,137,.07)}
+  .card .dot{width:56px;height:56px;border-radius:50%;background:var(--navy);display:grid;place-items:center;margin-bottom:16px}
+  .card .dot svg{width:24px;height:24px}
+  .card h3{font-size:20px;color:var(--navy);margin-bottom:6px}
+  .card p{font-size:15px;color:var(--ink)}
+  .tile{background:#fff;border-radius:16px;padding:26px}
+  .tile .big{font-size:38px;font-weight:700;color:var(--navy);line-height:1.2}
+  .tile .small{font-size:14px;color:var(--muted);margin-top:6px}
+
+  .inds{display:grid;grid-template-columns:repeat(6,1fr);gap:18px;margin-top:34px;text-align:center}
+  .inds img{width:100%;max-width:120px;border-radius:50%}
+  .inds span{display:block;font-size:14px;color:var(--muted);margin-top:10px}
+
+  .posters{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:34px}
+  .posters img{width:100%;border-radius:14px;box-shadow:0 12px 28px rgba(11,27,49,.16)}
+  .posters .cap{text-align:center;font-size:14px;font-weight:600;color:var(--navy);margin-top:12px}
+
+  .plans{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:34px}
+  .plan{border-radius:18px;padding:36px}
+  .plan-core{background:var(--navy);color:#fff}
+  .plan-pro{background:#fff;border:1px solid var(--line)}
+  .plan h3{font-size:30px;margin-bottom:12px}
+  .plan-core h3{color:#fff}
+  .badge{display:inline-block;border-radius:20px;padding:7px 18px;font-size:13px;font-weight:700;margin-bottom:18px}
+  .plan ul{list-style:none}
+  .plan li{font-size:16px;padding-left:28px;position:relative;margin:12px 0}
+  .plan li::before{content:"✓";position:absolute;left:0;font-weight:700}
+  .plan-core li{color:#E6EDF5}.plan-core li::before{color:var(--bright)}
+  .plan-pro li{color:var(--ink)}.plan-pro li::before{color:var(--teal)}
+
+  .hero{background-image:url("/assets/deck-bg-hero.jpg");color:var(--navy);padding:92px 0 104px}
+  .hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+  .hero .tag{font-size:14px;font-weight:700;color:var(--teal);letter-spacing:1px}
+  .hero h1{font-size:62px;line-height:1.2;margin:14px 0 18px;font-weight:700}
+  .hero p{font-size:21px;color:#2C4A6E;max-width:540px}
+  .hero .cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px}
+  .hero .foot{font-size:14px;color:#4F6784;margin-top:24px}
+  .hero-art{position:relative;text-align:center}
+  .hero-art .phone{width:300px}
+  .hero-art .mascot{position:absolute;left:0;bottom:-10px;width:150px}
+
+  .final{background-image:url("/assets/deck-bg-hero.jpg");text-align:center}
+  .final img.logo{width:132px;margin-bottom:8px}
+  .final h2{font-size:48px}
+  .final p{font-size:18px;color:#2C4A6E;margin-bottom:26px}
+  .final .mail{font-size:19px;font-weight:700;color:var(--teal);margin-top:20px;display:block}
+
+  footer{background:#fff;border-top:1px solid var(--line);padding:34px 0}
+  .foot-row{display:flex;gap:20px;align-items:center;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+  .foot-row img{height:38px}
+  .foot-row .right{margin-left:auto;display:flex;gap:22px}
+
+  @media(max-width:900px){
+    .hero .wrap,.row2,.row-text-img,.plans{grid-template-columns:1fr}
+    .hero h1{font-size:40px}h2{font-size:30px}
+    .c3,.c4{grid-template-columns:1fr}
+    .inds{grid-template-columns:repeat(3,1fr)}
+    .posters{grid-template-columns:1fr}
+    .hero-art .mascot{position:static;display:block;margin:18px auto 0}
+  }
+
+  .langs{display:flex;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--muted);margin-left:20px}
+  .langs a{text-decoration:none;padding:3px 2px;border-bottom:2px solid transparent}
+  .langs a:hover{color:var(--teal)}
+  .langs a.on{color:var(--navy);font-weight:700;border-bottom-color:var(--teal)}
+  @media(max-width:900px){.nav{height:auto;padding:14px 0;flex-wrap:wrap}.links{display:none}.langs{margin-left:0;width:100%;margin-top:6px}}
+</style>
+<link rel="alternate" hreflang="zh-Hant" href="https://bookingyou.app/"><link rel="alternate" hreflang="en" href="https://bookingyou.app/en/"><link rel="alternate" hreflang="zh-Hans" href="https://bookingyou.app/zh-cn/"><link rel="alternate" hreflang="ja" href="https://bookingyou.app/ja/"><link rel="alternate" hreflang="ko" href="https://bookingyou.app/ko/"><link rel="alternate" hreflang="ms" href="https://bookingyou.app/ms/"><link rel="alternate" hreflang="th" href="https://bookingyou.app/th/"><link rel="alternate" hreflang="vi" href="https://bookingyou.app/vi/"><link rel="alternate" hreflang="x-default" href="https://bookingyou.app/"></head>
+<body>
+
+<header><div class="wrap nav">
+  <img src="/assets/logo.png" alt="BookingYou">
+  <div class="links"><a href="#problem">ปัญหา</a><a href="#solution">ทางออก</a><a href="#diff">จุดต่าง</a><a href="#who">เหมาะกับใคร</a><a href="#plans">ราคา</a></div>
+<div class="langs"><a href="/" hreflang="zh-Hant">繁體中文</a><a href="/en/" hreflang="en">English</a><a href="/zh-cn/" hreflang="zh-Hans">简体中文</a><a href="/ja/" hreflang="ja">日本語</a><a href="/ko/" hreflang="ko">한국어</a><a href="/ms/" hreflang="ms">Bahasa Melayu</a><a href="/th/" class="on" hreflang="th">ไทย</a><a href="/vi/" hreflang="vi">Tiếng Việt</a></div></div></header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="tag">ร้านรับจองล่วงหน้า · ความงาม · ตัดผม · ทำเล็บ · กายภาพบำบัด</div>
+      <h1>BookingYou</h1>
+      <p>เคาน์เตอร์รับจองสำหรับร้านเล็ก ๆ ลูกค้าจองเอง ร้านจัดการทั้งวัน</p>
+      <div class="cta">
+        <a class="btn btn-main" href="#download">เริ่มใช้ฟรี</a>
+        <a class="btn btn-ghost" href="#solution">ดูวิธีใช้งาน</a>
+      </div>
+      <div class="foot">ดาวน์โหลดได้แล้วบน App Store และ Google Play</div>
+    </div>
+    <div class="hero-art">
+      <div class="phone"><img src="/assets/deck-phone-slots.png" alt="揀時段預約"></div>
+      <img class="mascot" src="/assets/yu-kun-wave.png" alt="U仔">
+    </div>
+  </div>
+</section>
+
+<section id="problem" class="bg-a">
+  <div class="wrap row row-text-img">
+    <div>
+      <span class="chip">ปัญหา</span>
+      <h2 style="margin-top:14px">ร้านเล็ก ๆ ยังรับจองด้วยมือ</h2>
+      <div class="bullets">
+        <div class="bullet"><div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#12A594" stroke-width="2" stroke-linecap="round"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.3.2 2.5.57 3.6a1 1 0 0 1-.25 1z"/></svg></div>
+          <div><b>โทรศัพท์ดังระหว่างให้บริการ</b><span>เจ้าของร้านคนเดียวต้องหยุดงานตรงหน้ามารับจอง ส่วนคำถามหลังเวลาทำการก็มักตกหล่น</span></div></div>
+        <div class="bullet"><div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#12A594" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M3 7l3-3h5l2 3M7 12h10M7 16h6"/></svg></div>
+          <div><b>การจองกระจัดกระจาย</b><span>โทรศัพท์ แอปแชท ข้อความในโซเชียล และสมุดจด ไม่มีที่ไหนเห็นทั้งวันในหน้าเดียว</span></div></div>
+        <div class="bullet"><div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#12A594" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+          <div><b>ลูกค้าประจำก็ยังต้องผ่านแพลตฟอร์ม</b><span>ลูกค้าที่รู้จักร้านอยู่แล้วกลับต้องจองผ่านคนกลางที่คิดค่าธรรมเนียมต่อครั้ง</span></div></div>
+      </div>
+    </div>
+    <div style="text-align:center">
+      <img src="/assets/deck-problem.jpg" alt="ภาพประกอบ" style="width:82%;max-width:360px;border-radius:18px;box-shadow:0 18px 40px rgba(11,27,49,.18)">
+      <div class="note">ภาพประกอบ</div>
+    </div>
+  </div>
+</section>
+
+<section id="solution">
+  <div class="wrap row row-text-img">
+    <div>
+      <span class="chip">ทางออก</span>
+      <h2 style="margin-top:14px">แอปเดียว ลูกค้าจองเอง ร้านจัดการทั้งวัน</h2>
+      <div class="bullets">
+        <div class="bullet"><div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#12A594" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><div><b>ลูกค้าจองได้ตลอด 24 ชั่วโมง</b><span>ผ่านลิงก์ของร้านหรือการ์ด QR ที่พิมพ์ไว้</span></div></div>
+        <div class="bullet"><div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#12A594" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><div><b>การจองทางโทรศัพท์และหน้าร้าน</b><span>บันทึกในปฏิทินเดียวกับการจองออนไลน์</span></div></div>
+        <div class="bullet"><div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#12A594" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><div><b>เลื่อนนัดได้โดยไม่ต้องยกเลิก</b><span>การแจ้งเตือนอัตโนมัติช่วยลดการไม่มาตามนัด</span></div></div>
+        <div class="bullet"><div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#12A594" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><div><b>วันหยุด ช่วงเวลาที่กันไว้ และจำนวนคนต่อคลาส</b><span>ให้ปฏิทินตรงกับการทำงานจริง</span></div></div>
+      </div>
+    </div>
+    <div style="display:flex;gap:22px;align-items:flex-end;justify-content:center">
+      <div style="text-align:center"><div class="phone" style="width:230px"><img src="/assets/deck-dashboard.png" alt="商戶主頁"></div><div class="note">หน้าหลักของร้าน</div></div>
+      <div style="text-align:center"><div class="phone" style="width:190px"><img src="/assets/deck-qr.png" alt="可印刷的 QR 預約卡"></div><div class="note">การ์ด QR สำหรับพิมพ์</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="diff" class="bg-b">
+  <div class="wrap row row-text-img">
+    <div>
+      <span class="chip">จุดต่าง</span>
+      <h2 style="margin-top:14px">เจ้าของร้านเลือกเองว่าช่วงเวลาไหนยืนยันอัตโนมัติ</h2>
+      <p class="lead">เครื่องมือจองส่วนใหญ่ตั้งกฎได้กฎเดียวทั้งร้าน BookingYou ตั้งแยกตามช่วงเวลาได้ เช่น บ่ายวันธรรมดายืนยันทันที ส่วนคืนวันเสาร์ให้เจ้าของร้านอนุมัติ</p>
+      <div class="card" style="margin-top:28px;display:flex;gap:18px;align-items:flex-start">
+        <div class="dot" style="margin:0;flex:none"><svg viewBox="0 0 24 24" fill="none" stroke="#2ED3BA" stroke-width="2" stroke-linecap="round"><rect x="4.5" y="10" width="15" height="10" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
+        <div><h3>กฎทำงานที่เซิร์ฟเวอร์ ไม่ใช่แค่ในแอป</h3><p>เวลา จำนวนคน วันหยุด และกฎการอนุมัติถูกตรวจในฐานข้อมูล แอปที่ถูกแก้ไขจึงข้ามไปไม่ได้</p></div>
+      </div>
+    </div>
+    <div style="text-align:center">
+      <div class="phone" style="width:250px"><img src="/assets/deck-hours.png" alt="按時段設定是否需要審批"></div>
+      <div class="note">ตั้งค่าการอนุมัติตามช่วงเวลา</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap row row-text-img">
+    <div>
+      <span class="chip">การขยาย</span>
+      <h2 style="margin-top:14px">ออกแบบให้ข้ามพรมแดนตั้งแต่วันแรก</h2>
+      <div class="cards" style="grid-template-columns:1fr 1fr">
+        <div class="tile"><div class="big">8</div><div class="small">ภาษาในแอป</div></div>
+        <div class="tile"><div class="big">2</div><div class="small">สโตร์: iOS และ Android</div></div>
+        <div class="tile"><div class="big">0%</div><div class="small">ค่าคอมมิชชั่น ลูกค้าจ่ายให้ร้านโดยตรง</div></div>
+        <div class="tile"><div class="big" style="font-size:28px">เวลาของร้าน</div><div class="small">ลูกค้าอยู่ที่ไหนก็ตาม การจองยึดตามเขตเวลาของร้าน</div></div>
+      </div>
+    </div>
+    <div style="text-align:center">
+      <div class="phone" style="width:236px"><img src="/assets/deck-language.png" alt="語言設定"></div>
+      <div class="note">การตั้งค่าภาษา</div>
+    </div>
+  </div>
+</section>
+
+<section id="who" class="bg-a">
+  <div class="wrap">
+    <span class="chip">เหมาะกับใคร</span>
+    <h2 style="margin-top:14px">เครื่องมือเดียว ใช้ได้กับร้านที่รับจองทุกแบบ</h2>
+    <div class="inds">
+      <div><img src="/assets/deck-ind-5.png" alt=""><span>ร้านทำผม</span></div>
+      <div><img src="/assets/deck-ind-6.png" alt=""><span>ร้านตัดผม</span></div>
+      <div><img src="/assets/deck-ind-7.png" alt=""><span>ร้านทำเล็บ</span></div>
+      <div><img src="/assets/deck-ind-8.png" alt=""><span>กายภาพบำบัด</span></div>
+      <div><img src="/assets/deck-ind-9.png" alt=""><span>ตัดขนสัตว์</span></div>
+      <div><img src="/assets/deck-ind-10.png" alt=""><span>ติวเตอร์</span></div>
+    </div>
+    <div class="note">ภาพประกอบ</div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="chip">แบรนด์</span>
+    <h2 style="margin-top:14px">สื่อประชาสัมพันธ์ที่ร้านใช้ได้ทันที</h2>
+    <p class="lead">การ์ด QR สำหรับพิมพ์และภาพสำหรับโพสต์โซเชียลมีมาให้พร้อม ไม่ต้องหาคนออกแบบ</p>
+    <div class="posters">
+      <div><img src="/assets/deck-poster-1.jpg" alt=""><div class="cap">ภาพรวมสำหรับร้านและลูกค้า</div></div>
+      <div><img src="/assets/deck-poster-2.jpg" alt=""><div class="cap">จองใน 3 ขั้นตอน</div></div>
+      <div><img src="/assets/deck-poster-3.jpg" alt=""><div class="cap">ลิงก์จองแบบ QR</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-b">
+  <div class="wrap row row2">
+    <div>
+      <span class="chip">มาสคอต</span>
+      <h2 style="margin-top:14px">Yu-kun</h2>
+      <p class="lead">ปฏิทินตั้งโต๊ะที่เดินได้ ที่ญี่ปุ่นเรียก ユーくん ภาษาอังกฤษเรียก Yu-kun ที่ฮ่องกงเรียก U仔 เห็นเขาที่ไหน ที่นั่นจองได้</p>
+    </div>
+    <div style="text-align:center"><img src="/assets/deck-mascot-sheet.jpg" alt="U仔角色設定圖" style="width:100%;max-width:460px;border-radius:16px;box-shadow:0 14px 32px rgba(11,27,49,.14)"></div>
+  </div>
+</section>
+
+<section id="plans">
+  <div class="wrap">
+    <span class="chip">ราคา</span>
+    <h2 style="margin-top:14px">เริ่มใช้ฟรี จ่ายเมื่อร้านเติบโต</h2>
+    <div class="plans">
+      <div class="plan plan-core">
+        <span class="badge" style="background:var(--teal);color:#fff">ฟรีตลอด</span>
+        <h3>พื้นฐาน</h3>
+        <ul><li>หน้าจองและการ์ด QR</li><li>ปฏิทิน จองแทนลูกค้า เลื่อนนัด</li><li>การแจ้งเตือนและกฎการอนุมัติ</li><li>ร้านที่เข้าร่วมช่วงแรกใช้ฟรีตลอด</li></ul>
+      </div>
+      <div class="plan plan-pro">
+        <span class="badge" style="background:var(--pale);color:var(--teal)">อยู่ระหว่างวางแผน</span>
+        <h3>โปร</h3>
+        <ul><li>ฟังก์ชันขั้นสูงสำหรับร้านที่กำลังเติบโต</li><li>ตรวจสอบราคากับร้านค้าก่อนเปิดให้ใช้</li></ul>
+      </div>
+    </div>
+    <div class="note">เราไม่รับชำระเงินแทน ลูกค้าจ่ายให้ร้านโดยตรง จึงไม่มีค่าคอมมิชชั่นและไม่มีเงินผ่านแพลตฟอร์ม</div>
+  </div>
+</section>
+
+<section class="final" id="download">
+  <div class="wrap">
+    <img class="logo" src="/assets/logo.png" alt="BookingYou">
+    <h2>เริ่มรับจองครั้งแรกวันนี้</h2>
+    <p>BookingYou — ค้นหาใน App Store หรือ Google Play</p>
+    <a class="btn btn-main" href="https://apps.apple.com/app/id6782119326">App Store</a>
+    <a class="btn btn-main" href="https://play.google.com/store/apps/details?id=com.bookingyou.app" style="margin-left:10px">Google Play</a>
+    <a class="mail" href="mailto:bookingyouemail@gmail.com">bookingyouemail@gmail.com</a>
+  </div>
+</section>
+
+<footer><div class="wrap foot-row">
+  <img src="/assets/logo.png" alt="BookingYou"><span>© 2026 BookingYou</span>
+  <div class="right"><a href="/privacy/">นโยบายความเป็นส่วนตัว</a><a href="/terms/">ข้อกำหนดการให้บริการ</a><a href="mailto:bookingyouemail@gmail.com">ติดต่อเรา</a></div>
+</div></footer>
+</body></html>
