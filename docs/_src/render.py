@@ -2,16 +2,17 @@ import sys, os, re, html
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from strings import L
 from extra import E
-W = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-T = open(f'{W}/i18n/template.html', encoding='utf-8').read()
-OUT = f'{W}/dist'
+SRC = os.path.dirname(os.path.abspath(__file__))
+W = os.path.dirname(SRC)
+T = open(os.path.join(SRC, 'template.html'), encoding='utf-8').read()
+OUT = W
 PATHS = {'zh-HK':'', 'en':'en/', 'zh-CN':'zh-cn/', 'ja':'ja/', 'ko':'ko/', 'ms':'ms/', 'th':'th/', 'vi':'vi/'}
 CSS = """
-  .langs{display:flex;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--muted);margin-left:20px}
+  .langs{display:flex;flex-wrap:nowrap;gap:14px;font-size:13px;color:var(--muted);margin-left:20px;white-space:nowrap}
   .langs a{text-decoration:none;padding:3px 2px;border-bottom:2px solid transparent}
   .langs a:hover{color:var(--teal)}
   .langs a.on{color:var(--navy);font-weight:700;border-bottom-color:var(--teal)}
-  @media(max-width:900px){.nav{height:auto;padding:14px 0;flex-wrap:wrap}.links{display:none}.langs{margin-left:0;width:100%;margin-top:6px}}
+  @media(max-width:900px){.nav{height:auto;padding:10px 0 7px;flex-wrap:wrap}.nav>img{height:38px}.links{display:none}.langs{margin-left:0;width:100%;margin-top:0;gap:18px;overflow-x:auto;padding:0 0 5px;scrollbar-width:none;-webkit-overflow-scrolling:touch}.langs::-webkit-scrollbar{display:none}}
 """
 def esc(x): return html.escape(str(x), quote=False)
 
@@ -41,7 +42,8 @@ def vals(code):
 def switcher(code):
     out = ['<div class="langs">']
     for c, p in PATHS.items():
-        out.append(f'<a href="/{p}"{" class=\"on\"" if c==code else ""} hreflang="{L[c]["lang"]}">{esc(L[c]["name"])}</a>')
+        active = ' class="on"' if c == code else ''
+        out.append(f'<a href="/{p}"{active} hreflang="{L[c]["lang"]}">{esc(L[c]["name"])}</a>')
     return ''.join(out) + '</div>'
 
 alts = ''.join(f'<link rel="alternate" hreflang="{L[c]["lang"]}" href="https://bookingyou.app/{p}">' for c, p in PATHS.items()) \
