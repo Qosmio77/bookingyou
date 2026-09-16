@@ -4,317 +4,294 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BookingYou — 為獨立小店而設的預約前台</title>
-<meta name="description" content="BookingYou 幫美容院、理髮店、美甲、物理治療等預約制小店，用一部手機收晒所有預約。客人 24 小時自助預約，店主用同一個日曆管理全日。">
+<meta name="description" content="BookingYou：客人自助預約，店主管理全日。美容院、理髮、美甲、物理治療等預約制小店，一個 App 收晒所有預約。">
 <style>
   :root{
-    --navy:#12294A; --ink:#1B2533; --muted:#5F7189; --teal:#12A594; --bright:#2ED3BA;
-    --mint:#DDF6EF; --pink:#FFE3EC; --sky:#E0EDFF; --butter:#FFF2C7; --coral:#FFE6DC;
-    --bg:#F4FAFF; --line:#DCE7F2; --yellow:#F9C83A;
+    --navy:#12294A; --deep:#0B1B31; --teal:#12A594; --bright:#2ED3BA; --pale:#E4F3F0;
+    --ink:#1B2533; --muted:#6B7A90; --line:#DDE3EA; --amber:#E0932A; --white:#fff;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--ink);
-       font-family:"Hiragino Maru Gothic ProN","PingFang HK","Hiragino Sans",system-ui,sans-serif;
-       line-height:1.7;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+  body{color:var(--ink);background:#F5FAFF;
+       font-family:"PingFang HK","Hiragino Sans",-apple-system,"Helvetica Neue",Arial,sans-serif;line-height:1.75}
   a{color:inherit}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 28px}
 
-  /* 頂部 */
-  header{position:sticky;top:0;z-index:50;background:rgba(244,250,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-  .nav{display:flex;align-items:center;gap:28px;height:72px}
-  .nav img{height:46px}
-  .nav .links{margin-left:auto;display:flex;gap:26px;font-size:15px;font-weight:700;color:var(--muted)}
-  .nav .links a:hover{color:var(--teal)}
-  .btn{display:inline-block;border-radius:999px;padding:13px 28px;font-weight:700;font-size:16px;text-decoration:none;transition:transform .15s}
+  header{position:sticky;top:0;z-index:50;background:rgba(245,250,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;gap:26px;height:74px}
+  .nav>img{height:46px}
+  .links{margin-left:auto;display:flex;gap:26px;font-size:15px;font-weight:600;color:var(--muted)}
+  .links a:hover{color:var(--teal)}
+  .btn{display:inline-block;border-radius:10px;padding:14px 30px;font-weight:700;font-size:16px;text-decoration:none;transition:transform .15s}
   .btn:hover{transform:translateY(-2px)}
   .btn-main{background:var(--navy);color:#fff}
   .btn-ghost{background:#fff;color:var(--navy);border:2px solid var(--navy)}
 
-  /* 通用段落 */
-  section{position:relative;padding:100px 0;overflow:hidden}
-  .dots{position:absolute;inset:0;pointer-events:none;z-index:0}
-  .pill{display:inline-block;background:#fff;color:var(--teal);font-weight:700;font-size:15px;
-        padding:9px 24px;border-radius:999px;box-shadow:0 4px 14px rgba(29,78,137,.08)}
-  .label{display:flex;align-items:center;gap:8px}
-  .spark{width:40px;height:40px;flex:none;transform:translateY(-6px)}
-  .spark path{stroke:var(--yellow);stroke-width:3;stroke-linecap:round}
-  h2{font-size:44px;line-height:1.32;color:var(--navy);margin:16px 0 14px;font-weight:700;letter-spacing:1px}
-  h2 em{font-style:normal;color:var(--teal)}
-  .lead{font-size:18px;color:var(--muted);max-width:620px}
-  .blob{position:absolute;border-radius:50%;pointer-events:none;z-index:0}
-  .wrap,.card,.tile{position:relative;z-index:1}
+  /* 段落：直接用簡報嘅漸變底圖 */
+  section{position:relative;padding:104px 0;background-size:cover;background-position:center}
+  .bg-a{background-image:url("assets/deck-bg-a.jpg")}
+  .bg-b{background-image:url("assets/deck-bg-b.jpg")}
+  .chip{display:inline-block;background:rgba(11,27,49,.72);color:#fff;font-size:12px;
+        padding:6px 16px;border-radius:8px;letter-spacing:1px}
+  h2{font-size:38px;line-height:1.4;color:var(--navy);font-weight:700;margin-bottom:16px}
+  .lead{font-size:18px;color:var(--ink);max-width:640px}
+  .note{font-size:13px;color:var(--muted);margin-top:26px}
 
-  /* Hero */
-  .hero{background:linear-gradient(135deg,#1D56C2,#2E9BE6 55%,#5AD8CC);padding:80px 0 0;color:#fff}
-  .hero .wrap{display:flex;align-items:center;gap:40px;flex-wrap:wrap}
-  .hero-text{flex:1 1 440px}
-  .hero .tag{display:inline-block;background:rgba(255,255,255,.9);color:#2459B8;font-weight:700;font-size:15px;padding:8px 22px;border-radius:999px}
-  .hero h1{font-size:60px;line-height:1.25;margin:22px 0 16px;font-weight:700;letter-spacing:1px}
-  .hero p{font-size:20px;color:#EAF6FF;max-width:520px}
-  .hero .cta{display:flex;gap:14px;flex-wrap:wrap;margin:30px 0 18px}
-  .hero .cta .btn-main{background:#fff;color:#12294A}
-  .hero .cta .btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.75)}
-  .slogan{font-size:22px;font-weight:700;font-style:italic;color:#FFF3B0;transform:rotate(-3deg);display:inline-block;margin-bottom:12px}
-  .hero-art{flex:0 0 360px;position:relative;text-align:center;padding-bottom:40px}
-  .phone{width:300px;border-radius:42px;background:#12294A;padding:10px;box-shadow:0 30px 60px rgba(9,30,60,.32);display:inline-block}
-  .phone img{display:block;width:100%;border-radius:30px}
-  .hero .mascot{position:absolute;left:-30px;bottom:20px;width:150px}
-  .waves{display:block;width:100%;margin-top:-6px}
+  .row{display:grid;gap:46px;align-items:center}
+  .row2{grid-template-columns:1fr 1fr}
+  .row-text-img{grid-template-columns:1.05fr .95fr}
 
-  /* 卡片格 */
-  .grid{display:grid;gap:22px;margin-top:38px}
-  .g3{grid-template-columns:repeat(3,1fr)}
-  .g2{grid-template-columns:repeat(2,1fr)}
-  .g4{grid-template-columns:repeat(4,1fr)}
-  .card{background:#fff;border-radius:32px;padding:32px;box-shadow:0 12px 30px rgba(29,78,137,.08)}
-  .card h3{font-size:21px;color:var(--navy);margin-bottom:8px}
-  .card p{font-size:16px;color:var(--muted)}
-  .ico{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;margin-bottom:18px}
-  .ico svg{width:29px;height:29px}
+  .phone{border-radius:26px;overflow:hidden;box-shadow:0 22px 44px rgba(11,27,49,.20);display:inline-block;background:#fff}
+  .phone img{display:block;width:100%}
 
-  /* 三步 */
-  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:40px;text-align:center}
-  .step .num{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;margin:0 auto 14px;
-             font-size:22px;font-weight:700;color:#fff;background:var(--teal)}
-  .step h3{font-size:20px;color:var(--navy)}
-  .step p{font-size:16px;color:var(--muted);margin-top:6px}
+  .bullets{margin-top:26px}
+  .bullet{display:flex;gap:16px;align-items:flex-start;margin-bottom:22px}
+  .tick{width:44px;height:44px;border-radius:50%;background:var(--pale);display:grid;place-items:center;flex:none}
+  .tick svg{width:20px;height:20px}
+  .bullet b{display:block;font-size:19px;color:var(--navy)}
+  .bullet span{font-size:15px;color:var(--muted)}
 
-  /* 對照 */
-  .vs{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:38px}
-  .vs .card{display:flex;gap:16px;align-items:flex-start}
-  .vs .tagline{font-weight:700;color:var(--navy);font-size:20px}
+  .cards{display:grid;gap:22px;margin-top:34px}
+  .c3{grid-template-columns:repeat(3,1fr)}
+  .c4{grid-template-columns:repeat(4,1fr)}
+  .card{background:#fff;border-radius:16px;padding:30px;box-shadow:0 10px 26px rgba(29,78,137,.07)}
+  .card .dot{width:56px;height:56px;border-radius:50%;background:var(--navy);display:grid;place-items:center;margin-bottom:16px}
+  .card .dot svg{width:24px;height:24px}
+  .card h3{font-size:20px;color:var(--navy);margin-bottom:6px}
+  .card p{font-size:15px;color:var(--ink)}
+  .tile{background:#fff;border-radius:16px;padding:26px}
+  .tile .big{font-size:38px;font-weight:700;color:var(--navy);line-height:1.2}
+  .tile .small{font-size:14px;color:var(--muted);margin-top:6px}
 
-  /* 方案 */
-  .plans{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:38px}
-  .plan-free{background:var(--navy);color:#fff}
-  .plan-free h3,.plan-free li{color:#fff}
-  .plan .badge{display:inline-block;border-radius:999px;padding:6px 18px;font-size:14px;font-weight:700;margin-bottom:14px}
-  .plan ul{list-style:none;margin-top:14px}
-  .plan li{font-size:16px;padding-left:28px;position:relative;margin:10px 0;color:var(--ink)}
-  .plan-free h3,.plan-free li,.plan-free p{color:#fff}
-  .plan li::before{content:"✓";position:absolute;left:0;color:var(--teal);font-weight:700}
-  .plan-free li::before{color:var(--bright)}
+  .inds{display:grid;grid-template-columns:repeat(6,1fr);gap:18px;margin-top:34px;text-align:center}
+  .inds img{width:100%;max-width:120px;border-radius:50%}
+  .inds span{display:block;font-size:14px;color:var(--muted);margin-top:10px}
 
-  /* 吉祥物 */
-  .mascot-row{display:flex;align-items:center;gap:34px;flex-wrap:wrap}
-  .mascot-row img{width:132px}
-  .mascot-row>div{flex:1 1 380px}
+  .posters{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:34px}
+  .posters img{width:100%;border-radius:14px;box-shadow:0 12px 28px rgba(11,27,49,.16)}
+  .posters .cap{text-align:center;font-size:14px;font-weight:600;color:var(--navy);margin-top:12px}
 
-  /* 結尾 */
-  .final{background:linear-gradient(135deg,#1D56C2,#2E9BE6 55%,#5AD8CC);color:#fff;text-align:center}
-  .final h2{color:#fff;font-size:46px}
-  .final p{color:#EAF6FF;font-size:19px;margin-bottom:26px}
-  .final .btn-main{background:#fff;color:#12294A}
-  .final .mascot{width:150px;margin-bottom:10px}
+  .plans{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:34px}
+  .plan{border-radius:18px;padding:36px}
+  .plan-core{background:var(--navy);color:#fff}
+  .plan-pro{background:#fff;border:1px solid var(--line)}
+  .plan h3{font-size:30px;margin-bottom:12px}
+  .plan-core h3{color:#fff}
+  .badge{display:inline-block;border-radius:20px;padding:7px 18px;font-size:13px;font-weight:700;margin-bottom:18px}
+  .plan ul{list-style:none}
+  .plan li{font-size:16px;padding-left:28px;position:relative;margin:12px 0}
+  .plan li::before{content:"✓";position:absolute;left:0;font-weight:700}
+  .plan-core li{color:#E6EDF5}.plan-core li::before{color:var(--bright)}
+  .plan-pro li{color:var(--ink)}.plan-pro li::before{color:var(--teal)}
 
-  footer{background:#fff;padding:36px 0;border-top:1px solid var(--line)}
-  .foot{display:flex;align-items:center;gap:18px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
-  .foot img{height:40px}
-  .foot .right{margin-left:auto;display:flex;gap:20px}
+  .hero{background-image:url("assets/deck-bg-hero.jpg");color:var(--navy);padding:92px 0 104px}
+  .hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+  .hero .tag{font-size:14px;font-weight:700;color:var(--teal);letter-spacing:1px}
+  .hero h1{font-size:62px;line-height:1.2;margin:14px 0 18px;font-weight:700}
+  .hero p{font-size:21px;color:#2C4A6E;max-width:540px}
+  .hero .cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px}
+  .hero .foot{font-size:14px;color:#4F6784;margin-top:24px}
+  .hero-art{position:relative;text-align:center}
+  .hero-art .phone{width:300px}
+  .hero-art .mascot{position:absolute;left:0;bottom:-10px;width:150px}
+
+  .final{background-image:url("assets/deck-bg-hero.jpg");text-align:center}
+  .final img.logo{width:132px;margin-bottom:8px}
+  .final h2{font-size:48px}
+  .final p{font-size:18px;color:#2C4A6E;margin-bottom:26px}
+  .final .mail{font-size:19px;font-weight:700;color:var(--teal);margin-top:20px;display:block}
+
+  footer{background:#fff;border-top:1px solid var(--line);padding:34px 0}
+  .foot-row{display:flex;gap:20px;align-items:center;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+  .foot-row img{height:38px}
+  .foot-row .right{margin-left:auto;display:flex;gap:22px}
 
   @media(max-width:900px){
-    .hero h1{font-size:42px}
-    h2{font-size:32px}
-    .g3,.g4,.steps,.vs,.plans{grid-template-columns:1fr}
-    .g2{grid-template-columns:1fr}
-    .hero-art{flex:1 1 auto}
+    .hero .wrap,.row2,.row-text-img,.plans{grid-template-columns:1fr}
+    .hero h1{font-size:40px}h2{font-size:30px}
+    .c3,.c4{grid-template-columns:1fr}
+    .inds{grid-template-columns:repeat(3,1fr)}
+    .posters{grid-template-columns:1fr}
+    .hero-art .mascot{position:static;display:block;margin:18px auto 0}
   }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="wrap nav">
-    <img src="assets/logo.png" alt="BookingYou">
-    <div class="links">
-      <a href="#problem">問題</a><a href="#how">點用</a><a href="#rules">獨特之處</a><a href="#plans">收費</a>
-    </div>
-  </div>
-</header>
+<header><div class="wrap nav">
+  <img src="assets/logo.png" alt="BookingYou">
+  <div class="links"><a href="#problem">問題</a><a href="#solution">方案</a><a href="#diff">差異</a><a href="#who">服務對象</a><a href="#plans">收費</a></div>
+</div></header>
 
 <section class="hero">
   <div class="wrap">
-    <div class="hero-text">
-      <span class="tag">美容院 · 理髮 · 美甲 · 物理治療 · 寵物美容</span>
-      <h1>一個 App，<br>收得晒你間舖嘅預約</h1>
-      <p>客人 24 小時自己預約，電話同上門嘅單記入同一個日曆。店主一眼睇晒成日安排。</p>
-      <div class="slogan">いい予約で、いい毎日を！</div>
+    <div>
+      <div class="tag">預約制小店 · 美容 · 理髮 · 美甲 · 物理治療</div>
+      <h1>BookingYou</h1>
+      <p>為獨立小店而設的預約前台。客人自助預約，店主管理全日。</p>
       <div class="cta">
         <a class="btn btn-main" href="#download">免費開始</a>
-        <a class="btn btn-ghost" href="#how">睇下點運作</a>
+        <a class="btn btn-ghost" href="#solution">睇下點運作</a>
       </div>
+      <div class="foot">已於 App Store 及 Google Play 上架</div>
     </div>
     <div class="hero-art">
-      <div class="phone"><img src="assets/shot-shop-zh.png" alt="BookingYou App 店舖頁"></div>
+      <div class="phone"><img src="assets/deck-phone-slots.png" alt="揀時段預約"></div>
       <img class="mascot" src="assets/yu-kun-wave.png" alt="U仔">
     </div>
   </div>
-  <svg class="waves" viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,60 C240,110 420,10 720,50 C1020,90 1200,20 1440,60 L1440,120 L0,120 Z" fill="#F4FAFF"/>
-  </svg>
 </section>
 
-<section id="problem">
-  <div class="blob" style="width:380px;height:380px;background:var(--pink);opacity:.45;left:-140px;top:40px"></div><div class="blob" style="width:120px;height:120px;background:var(--mint);opacity:.7;left:220px;top:-40px"></div>
-  <div class="blob" style="width:260px;height:260px;background:var(--butter);opacity:.55;right:-90px;top:150px"></div><div class="blob" style="width:150px;height:150px;background:var(--sky);opacity:.65;right:180px;bottom:30px"></div>
-  <div class="wrap">
-    <div class="label"><span class="pill">問題</span><svg class="spark" viewBox="0 0 30 30" fill="none"><path d="M8 17 L2 13 M14 10 L13 3 M19 15 L25 10"/></svg></div>
-    <h2>小店嘅預約，<em>仲係人手處理</em></h2>
-    <p class="lead">做緊嘢停低手聽電話、訊息散落幾個 App、營業時間後嘅查詢容易漏咗。</p>
-    <div class="grid g3">
-      <div class="card">
-        <div class="ico" style="background:var(--pink)"><svg viewBox="0 0 24 24" fill="none" stroke="#E8557A" stroke-width="2" stroke-linecap="round"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.3.2 2.5.57 3.6a1 1 0 0 1-.25 1z"/></svg></div>
-        <h3>做到一半電話響</h3>
-        <p>一人店主要停低手上嘅嘢先接得到，客人等，手上嘅客都等。</p>
+<section id="problem" class="bg-a">
+  <div class="wrap row row-text-img">
+    <div>
+      <span class="chip">問題</span>
+      <h2 style="margin-top:14px">小店至今仍以人手處理預約</h2>
+      <div class="bullets">
+        <div class="bullet"><div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#12A594" stroke-width="2" stroke-linecap="round"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.3.2 2.5.57 3.6a1 1 0 0 1-.25 1z"/></svg></div>
+          <div><b>施術期間電話響起</b><span>一人店主要停手接聽預約，營業時間後的查詢則容易錯過。</span></div></div>
+        <div class="bullet"><div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#12A594" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M3 7l3-3h5l2 3M7 12h10M7 16h6"/></svg></div>
+          <div><b>預約分散各處</b><span>電話、通訊軟件、社交平台私訊加上紙本記錄，無法一眼看清整天安排。</span></div></div>
+        <div class="bullet"><div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#12A594" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+          <div><b>熟客都要經平台</b><span>光顧開的客人再約，一樣要經第三方平台，而平台按單收費。</span></div></div>
       </div>
-      <div class="card">
-        <div class="ico" style="background:var(--sky)"><svg viewBox="0 0 24 24" fill="none" stroke="#3B7BE0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M3 7l3-3h5l2 3"/><path d="M7 12h10M7 16h6"/></svg></div>
-        <h3>預約散晒</h3>
-        <p>電話、通訊軟件、社交平台私訊、再加紙本簿仔，冇一個地方睇得晒成日。</p>
-      </div>
-      <div class="card">
-        <div class="ico" style="background:var(--butter)"><svg viewBox="0 0 24 24" fill="none" stroke="#C98300" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg></div>
-        <h3>收工後嘅查詢</h3>
-        <p>客人夜晚想約，等到第二日先覆，好多時已經約咗第二間。</p>
-      </div>
+    </div>
+    <div style="text-align:center">
+      <img src="assets/deck-problem.jpg" alt="示意圖" style="width:82%;max-width:360px;border-radius:18px;box-shadow:0 18px 40px rgba(11,27,49,.18)">
+      <div class="note">示意圖</div>
     </div>
   </div>
 </section>
 
-<section id="how" style="background:#fff">
-  <div class="blob" style="width:300px;height:300px;background:var(--sky);opacity:.45;right:-120px;top:120px"></div><div class="blob" style="width:160px;height:160px;background:var(--butter);opacity:.5;left:-60px;bottom:80px"></div>
-  <div class="wrap">
-    <div class="label"><span class="pill">點用</span><svg class="spark" viewBox="0 0 30 30" fill="none"><path d="M8 17 L2 13 M14 10 L13 3 M19 15 L25 10"/></svg></div>
-    <h2>客人<em>三步</em>就約到</h2>
-    <p class="lead">唔使打電話，唔使等回覆。</p>
-    <div class="steps">
-      <div class="step"><div class="num">1</div><h3>掃 QR 或撳連結</h3><p>店舖嘅 QR 卡貼喺店內，或者連結放喺社交平台。</p></div>
-      <div class="step"><div class="num">2</div><h3>揀服務同時間</h3><p>價錢、時長、可約時段一目了然。</p></div>
-      <div class="step"><div class="num">3</div><h3>確認，收提醒</h3><p>自動提醒減少甩底，改期唔使取消重約。</p></div>
-    </div>
-    <div class="grid g2" style="margin-top:56px;align-items:center;gap:48px">
-      <div style="text-align:center"><div class="phone" style="width:272px"><img src="assets/shot-slots-zh.png" alt="揀日子同時間"></div></div>
-      <div class="card">
-        <div style="display:flex;gap:18px;align-items:center;margin-bottom:6px">
-          <img src="assets/yu-kun-thumbs-up.png" style="width:82px" alt="">
-          <h3 style="font-size:24px">店主嗰邊</h3>
-        </div>
-        <p style="margin-bottom:14px">網上、電話、上門嘅單全部入同一個日曆，一眼睇晒成日。</p>
-        <ul style="list-style:none">
-          <li style="position:relative;padding-left:26px;margin:9px 0;color:var(--muted)"><span style="position:absolute;left:0;color:var(--teal);font-weight:700">✓</span>休息日、保留時段隨時設</li>
-          <li style="position:relative;padding-left:26px;margin:9px 0;color:var(--muted)"><span style="position:absolute;left:0;color:var(--teal);font-weight:700">✓</span>課堂人數上限，唔會超收</li>
-          <li style="position:relative;padding-left:26px;margin:9px 0;color:var(--muted)"><span style="position:absolute;left:0;color:var(--teal);font-weight:700">✓</span>代客落單，電話單同上門單一樣入得</li>
-          <li style="position:relative;padding-left:26px;margin:9px 0;color:var(--muted)"><span style="position:absolute;left:0;color:var(--teal);font-weight:700">✓</span>改期唔使取消重約</li>
-        </ul>
+<section id="solution">
+  <div class="wrap row row-text-img">
+    <div>
+      <span class="chip">方案</span>
+      <h2 style="margin-top:14px">一個 App：客人自助預約，店主管理全日</h2>
+      <div class="bullets">
+        <div class="bullet"><div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#12A594" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><div><b>客人 24 小時預約</b><span>透過店舖連結或印刷 QR 卡</span></div></div>
+        <div class="bullet"><div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#12A594" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><div><b>電話及上門預約</b><span>與網上預約記入同一個日曆</span></div></div>
+        <div class="bullet"><div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#12A594" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><div><b>改期毋須取消</b><span>自動提醒減少缺席</span></div></div>
+        <div class="bullet"><div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#12A594" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><div><b>休息日、保留時段及課堂人數上限</b><span>令日曆與實際營運一致</span></div></div>
       </div>
     </div>
-    <img src="assets/yu-kun-cheer.png" style="position:absolute;right:40px;top:120px;width:100px;z-index:2" alt="">
-  </div>
-</section>
-
-<section id="rules">
-  <div class="blob" style="width:340px;height:340px;background:var(--mint);opacity:.55;right:-120px;top:20px"></div><div class="blob" style="width:170px;height:170px;background:var(--pink);opacity:.5;left:-60px;bottom:60px"></div><div class="blob" style="width:90px;height:90px;background:var(--butter);opacity:.75;left:300px;top:20px"></div>
-  <div class="wrap">
-    <div class="label"><span class="pill">獨特之處</span><svg class="spark" viewBox="0 0 30 30" fill="none"><path d="M8 17 L2 13 M14 10 L13 3 M19 15 L25 10"/></svg></div>
-    <h2>邊個時段自動確認，<em>你自己話事</em></h2>
-    <p class="lead">多數預約工具淨係可以對成間舖設一個規則。BookingYou 可以逐個時段設。</p>
-    <div class="vs">
-      <div class="card" style="background:var(--mint)">
-        <div class="ico" style="background:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="#12A594" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg></div>
-        <div><div class="tagline">平日下午 → 即時確認</div><p>閒日等客上門嘅時間，交俾系統自動接。</p></div>
-      </div>
-      <div class="card" style="background:var(--butter)">
-        <div class="ico" style="background:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="#C98300" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg></div>
-        <div><div class="tagline">週六晚上 → 你先批</div><p>黃金時段自己揀客、自己安排，唔會被塞爆。</p></div>
-      </div>
-    </div>
-    <img src="assets/yu-kun-wink.png" style="position:absolute;right:26px;bottom:-6px;width:110px;z-index:2" alt="">
-    <div class="card" style="margin-top:22px;display:flex;gap:18px;align-items:center">
-      <div class="ico" style="background:var(--sky);margin:0"><svg viewBox="0 0 24 24" fill="none" stroke="#3B7BE0" stroke-width="2" stroke-linecap="round"><rect x="4.5" y="10" width="15" height="10" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
-      <div><div class="tagline">規則喺伺服器度執行</div><p>時間、人數、休息日、審批規則都喺資料庫檢查，唔係淨係喺 App 入面做做樣。</p></div>
+    <div style="display:flex;gap:22px;align-items:flex-end;justify-content:center">
+      <div style="text-align:center"><div class="phone" style="width:230px"><img src="assets/deck-dashboard.png" alt="商戶主頁"></div><div class="note">商戶主頁</div></div>
+      <div style="text-align:center"><div class="phone" style="width:190px"><img src="assets/deck-qr.png" alt="可印刷的 QR 預約卡"></div><div class="note">可印刷的 QR 預約卡</div></div>
     </div>
   </div>
 </section>
 
-<section style="background:#fff">
-  <div class="wrap">
-    <div class="label"><div class="label"><span class="pill">唔止一個地方用得</span><svg class="spark" viewBox="0 0 30 30" fill="none"><path d="M8 17 L2 13 M14 10 L13 3 M19 15 L25 10"/></svg></div><svg class="spark" viewBox="0 0 30 30" fill="none"><path d="M8 17 L2 13 M14 10 L13 3 M19 15 L25 10"/></svg></div>
-    <h2>由第一日起就<em>跨得到境</em></h2>
-    <div class="grid g4">
-      <div class="card"><div class="ico" style="background:var(--mint)"><svg viewBox="0 0 24 24" fill="none" stroke="#12A594" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18z"/></svg></div><h3>八種介面語言</h3><p>客人同店主各自睇自己嘅語言。</p></div>
-      <div class="card"><div class="ico" style="background:var(--sky)"><svg viewBox="0 0 24 24" fill="none" stroke="#3B7BE0" stroke-width="2" stroke-linecap="round"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18.5h2"/></svg></div><h3>iOS 同 Android</h3><p>兩邊應用商店都下載到。</p></div>
-      <div class="card"><div class="ico" style="background:var(--pink)"><svg viewBox="0 0 24 24" fill="none" stroke="#E8557A" stroke-width="2" stroke-linecap="round"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M6 15h4"/></svg></div><h3>0% 佣金</h3><p>客人直接俾錢店舖，我哋唔經手款項。</p></div>
-      <div class="card"><div class="ico" style="background:var(--butter)"><svg viewBox="0 0 24 24" fill="none" stroke="#C98300" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>跟店舖時區</h3><p>客人喺邊都好，時間一律按店舖所在地計。</p></div>
+<section id="diff" class="bg-b">
+  <div class="wrap row row-text-img">
+    <div>
+      <span class="chip">差異</span>
+      <h2 style="margin-top:14px">店主自行決定哪些時段自動確認</h2>
+      <p class="lead">多數預約工具只能對整間店套用一個設定。BookingYou 按時段設定：平日下午即時確認，週六晚上則由店主審批。</p>
+      <div class="card" style="margin-top:28px;display:flex;gap:18px;align-items:flex-start">
+        <div class="dot" style="margin:0;flex:none"><svg viewBox="0 0 24 24" fill="none" stroke="#2ED3BA" stroke-width="2" stroke-linecap="round"><rect x="4.5" y="10" width="15" height="10" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
+        <div><h3>規則在伺服器執行，不只在 App 內</h3><p>時段、人數、休息日及審批規則均在資料庫檢查，即使改動客戶端亦無法繞過。</p></div>
+      </div>
     </div>
+    <div style="text-align:center">
+      <div class="phone" style="width:250px"><img src="assets/deck-hours.png" alt="按時段設定是否需要審批"></div>
+      <div class="note">按時段設定是否需要審批</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap row row-text-img">
+    <div>
+      <span class="chip">規模</span>
+      <h2 style="margin-top:14px">由第一天起為跨境市場而建</h2>
+      <div class="cards" style="grid-template-columns:1fr 1fr">
+        <div class="tile"><div class="big">8</div><div class="small">種介面語言</div></div>
+        <div class="tile"><div class="big">2</div><div class="small">個應用商店：iOS 及 Android</div></div>
+        <div class="tile"><div class="big">0%</div><div class="small">佣金：客人直接向店舖付款</div></div>
+        <div class="tile"><div class="big" style="font-size:28px">店舖時間</div><div class="small">無論客人身處何地，預約均按店舖時區計算</div></div>
+      </div>
+    </div>
+    <div style="text-align:center">
+      <div class="phone" style="width:236px"><img src="assets/deck-language.png" alt="語言設定"></div>
+      <div class="note">語言設定</div>
+    </div>
+  </div>
+</section>
+
+<section id="who" class="bg-a">
+  <div class="wrap">
+    <span class="chip">服務對象</span>
+    <h2 style="margin-top:14px">同一套工具，適用於各類預約制小店</h2>
+    <div class="inds">
+      <div><img src="assets/deck-ind-5.png" alt=""><span>美容院</span></div>
+      <div><img src="assets/deck-ind-6.png" alt=""><span>理髮店</span></div>
+      <div><img src="assets/deck-ind-7.png" alt=""><span>美甲店</span></div>
+      <div><img src="assets/deck-ind-8.png" alt=""><span>物理治療</span></div>
+      <div><img src="assets/deck-ind-9.png" alt=""><span>寵物美容</span></div>
+      <div><img src="assets/deck-ind-10.png" alt=""><span>私人補習</span></div>
+    </div>
+    <div class="note">示意圖</div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="chip">宣傳</span>
+    <h2 style="margin-top:14px">店舖可直接用的宣傳素材</h2>
+    <p class="lead">加入之後即有可印刷的 QR 卡同社交平台貼文圖，唔使自己搵設計。</p>
+    <div class="posters">
+      <div><img src="assets/deck-poster-1.jpg" alt=""><div class="cap">商戶及客人總覽</div></div>
+      <div><img src="assets/deck-poster-2.jpg" alt=""><div class="cap">三步完成預約</div></div>
+      <div><img src="assets/deck-poster-3.jpg" alt=""><div class="cap">QR 預約連結</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-b">
+  <div class="wrap row row2">
+    <div>
+      <span class="chip">吉祥物</span>
+      <h2 style="margin-top:14px">U仔</h2>
+      <p class="lead">一本會走會跳的座枱日曆。日本叫「ユーくん」，英文 Yu-kun，台灣及內地叫小U。見到佢，就知道呢度約得到。</p>
+    </div>
+    <div style="text-align:center"><img src="assets/deck-mascot-sheet.jpg" alt="U仔角色設定圖" style="width:100%;max-width:460px;border-radius:16px;box-shadow:0 14px 32px rgba(11,27,49,.14)"></div>
   </div>
 </section>
 
 <section id="plans">
-  <div class="blob" style="width:300px;height:300px;background:var(--coral);opacity:.45;left:-100px;bottom:20px"></div><div class="blob" style="width:200px;height:200px;background:var(--sky);opacity:.6;right:-70px;top:60px"></div>
   <div class="wrap">
-    <div class="label"><span class="pill">收費</span><svg class="spark" viewBox="0 0 30 30" fill="none"><path d="M8 17 L2 13 M14 10 L13 3 M19 15 L25 10"/></svg></div>
-    <h2>免費開始，<em>跟住店舖成長</em></h2>
+    <span class="chip">收費模式</span>
+    <h2 style="margin-top:14px">免費起步，隨店舖成長收費</h2>
     <div class="plans">
-      <div class="card plan plan-free">
+      <div class="plan plan-core">
         <span class="badge" style="background:var(--teal);color:#fff">永久免費</span>
-        <h3 style="font-size:26px">基本版</h3>
-        <ul>
-          <li>預約頁同可列印 QR 卡</li>
-          <li>日曆、代客落單、改期</li>
-          <li>自動提醒同審批規則</li>
-          <li>早期加入嘅店舖，永久免費</li>
-        </ul>
+        <h3>基本版</h3>
+        <ul><li>預約頁及 QR 卡</li><li>日曆、代客預約、改期</li><li>提醒及審批規則</li><li>早期加入的店舖永久免費</li></ul>
       </div>
-      <div class="card plan">
-        <img src="assets/yu-kun-thumbs-up.png" style="width:74px;float:right;margin:-8px -6px 0 10px" alt="">
-        <span class="badge" style="background:var(--butter);color:#C98300">規劃中</span>
-        <h3 style="font-size:26px">專業版</h3>
-        <ul>
-          <li>為成長中嘅店舖而設嘅進階功能</li>
-          <li>推出前會同商戶一齊驗證</li>
-        </ul>
-        <p style="margin-top:16px;font-size:15px">未有推出時間表，基本版嘅功能唔會搬去收費版。</p>
+      <div class="plan plan-pro">
+        <span class="badge" style="background:var(--pale);color:var(--teal)">規劃中</span>
+        <h3>專業版</h3>
+        <ul><li>為成長中店舖而設的進階功能</li><li>推出前與商戶驗證定價</li></ul>
       </div>
     </div>
-  </div>
-</section>
-
-<section style="background:#fff">
-  <div class="wrap mascot-row" style="justify-content:center;text-align:center;flex-direction:column;gap:18px">
-    <div style="display:flex;gap:22px;align-items:flex-end">
-      <img src="assets/yu-kun-wave.png" style="width:96px" alt="">
-      <img src="assets/yu-kun-cheer.png" style="width:132px" alt="U仔">
-      <img src="assets/yu-kun-wink.png" style="width:96px" alt="">
-    </div>
-    <div style="max-width:620px">
-      <div class="label"><span class="pill">吉祥物</span><svg class="spark" viewBox="0 0 30 30" fill="none"><path d="M8 17 L2 13 M14 10 L13 3 M19 15 L25 10"/></svg></div>
-      <h2 style="margin-top:14px">我係 <em>U仔</em></h2>
-      <p class="lead" style="margin:0 auto">一本識行識跳嘅座枱日曆。日本叫「ユーくん」，英文 Yu-kun。見到佢，就知道呢度約得到。</p>
-    </div>
+    <div class="note">不經手款項：客人直接向店舖付款，因此不收佣金，亦無資金流經平台。</div>
   </div>
 </section>
 
 <section class="final" id="download">
   <div class="wrap">
-    <img class="mascot" src="assets/yu-kun-wave.png" alt="">
+    <img class="logo" src="assets/logo.png" alt="BookingYou">
     <h2>今日就開始收預約</h2>
-    <p>免費下載，設定完就可以派 QR 卡俾熟客。</p>
+    <p>BookingYou：於 App Store 或 Google Play 搜尋</p>
     <a class="btn btn-main" href="https://apps.apple.com/app/id6782119326">App Store</a>
     <a class="btn btn-main" href="https://play.google.com/store/apps/details?id=com.bookingyou.app" style="margin-left:10px">Google Play</a>
+    <a class="mail" href="mailto:bookingyouemail@gmail.com">bookingyouemail@gmail.com</a>
   </div>
 </section>
 
-<footer>
-  <div class="wrap foot">
-    <img src="assets/logo.png" alt="BookingYou">
-    <span>© 2026 BookingYou</span>
-    <div class="right">
-      <a href="/privacy/">私隱政策</a>
-      <a href="/terms/">服務條款</a>
-      <a href="mailto:bookingyouemail@gmail.com">聯絡我哋</a>
-    </div>
-  </div>
-</footer>
-
-</body>
-</html>
+<footer><div class="wrap foot-row">
+  <img src="assets/logo.png" alt="BookingYou"><span>© 2026 BookingYou</span>
+  <div class="right"><a href="/privacy/">私隱政策</a><a href="/terms/">服務條款</a><a href="mailto:bookingyouemail@gmail.com">聯絡我們</a></div>
+</div></footer>
+</body></html>
