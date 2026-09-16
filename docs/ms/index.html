@@ -115,6 +115,21 @@
     .hero-art .mascot{position:static;display:block;margin:18px auto 0}
   }
 
+  .stepno{width:46px;height:46px;border-radius:50%;background:var(--teal);color:#fff;display:grid;place-items:center;font-size:20px;font-weight:700;margin-bottom:16px}
+  .faq{margin-top:30px;background:#fff;border-radius:16px;box-shadow:0 10px 26px rgba(29,78,137,.07);overflow:hidden}
+  .faq details{border-bottom:1px solid var(--line)}
+  .faq details:last-child{border-bottom:0}
+  .faq summary{cursor:pointer;list-style:none;padding:22px 28px;font-size:18px;font-weight:700;color:var(--navy);position:relative}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";position:absolute;right:28px;color:var(--teal);font-size:24px;line-height:1}
+  .faq details[open] summary::after{content:"\2212"}
+  .faq p{padding:0 28px 24px;font-size:16px;color:var(--ink);max-width:820px}
+  .badges{display:flex;gap:16px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:8px}
+  .badges a{display:inline-block;line-height:0}
+  .badge-apple{height:56px;width:auto;display:block}
+  .badge-google{height:82px;width:auto;display:block;margin:-13px 0}
+  .dlnote{font-size:15px;color:var(--muted);margin-top:22px}
+
   .langs{display:flex;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--muted);margin-left:20px}
   .langs a{text-decoration:none;padding:3px 2px;border-bottom:2px solid transparent}
   .langs a:hover{color:var(--teal)}
@@ -152,7 +167,7 @@
   <div class="wrap row row-text-img">
     <div>
       <span class="chip">Masalah</span>
-      <h2 style="margin-top:14px">Kedai kecil masih uruskan tempahan secara manual</h2>
+      <h2 style="margin-top:14px">Kedai kecil masih uruskan tempahan secara manual</h2><p class="lead">Telefon, mesej dan buku catatan datang serentak. Bagi kedai yang dijalankan seorang atau berdua, tiga perkara di bawah hampir pasti berlaku.</p>
       <div class="bullets">
         <div class="bullet"><div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#12A594" stroke-width="2" stroke-linecap="round"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.3.2 2.5.57 3.6a1 1 0 0 1-.25 1z"/></svg></div>
           <div><b>Telefon berdering semasa rawatan</b><span>Pemilik yang bekerja sendirian terpaksa berhenti untuk menjawab, dan pertanyaan selepas waktu operasi mudah terlepas.</span></div></div>
@@ -173,7 +188,7 @@
   <div class="wrap row row-text-img">
     <div>
       <span class="chip">Penyelesaian</span>
-      <h2 style="margin-top:14px">Satu aplikasi: pelanggan menempah, kedai menguruskan harinya</h2>
+      <h2 style="margin-top:14px">Satu aplikasi: pelanggan menempah, kedai menguruskan harinya</h2><p class="lead">Pelanggan memilih masa sendiri, jadi anda tidak perlu berhenti di tengah kerja untuk menjawab telefon. Tempahan dari semua saluran masuk ke satu kalendar.</p>
       <div class="bullets">
         <div class="bullet"><div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#12A594" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><div><b>Pelanggan menempah 24 jam</b><span>melalui pautan kedai atau kad QR bercetak</span></div></div>
         <div class="bullet"><div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#12A594" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><div><b>Tempahan telefon dan walk-in</b><span>masuk ke kalendar yang sama</span></div></div>
@@ -193,7 +208,7 @@
     <div>
       <span class="chip">Apa yang berbeza</span>
       <h2 style="margin-top:14px">Pemilik tentukan waktu mana yang disahkan automatik</h2>
-      <p class="lead">Kebanyakan alat tempahan hanya membenarkan satu peraturan untuk seluruh kedai. BookingYou menetapkannya mengikut waktu: petang hari biasa disahkan serta-merta, malam Sabtu menunggu kelulusan pemilik.</p>
+      <p class="lead">Kebanyakan alat tempahan hanya membenarkan satu peraturan untuk seluruh kedai. BookingYou menetapkannya mengikut waktu: petang hari biasa disahkan serta-merta, malam Sabtu menunggu kelulusan pemilik.</p><p class="lead" style="margin-top:14px">Contohnya: Selasa jam 3 petang biasanya lapang, jadi sahkan serta-merta. Malam Sabtu waktu paling sibuk, jadi tunggu kelulusan anda. Kedai yang sama, peraturan berbeza ikut waktu.</p>
       <div class="card" style="margin-top:28px;display:flex;gap:18px;align-items:flex-start">
         <div class="dot" style="margin:0;flex:none"><svg viewBox="0 0 24 24" fill="none" stroke="#2ED3BA" stroke-width="2" stroke-linecap="round"><rect x="4.5" y="10" width="15" height="10" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
         <div><h3>Dikuatkuasakan pada pelayan, bukan hanya dalam aplikasi</h3><p>Masa, kapasiti, hari tutup dan peraturan kelulusan disemak dalam pangkalan data, jadi aplikasi yang diubah suai tidak boleh memintasnya.</p></div>
@@ -210,7 +225,7 @@
   <div class="wrap row row-text-img">
     <div>
       <span class="chip">Skala</span>
-      <h2 style="margin-top:14px">Dibina untuk merentas sempadan dari hari pertama</h2>
+      <h2 style="margin-top:14px">Dibina untuk merentas sempadan dari hari pertama</h2><p class="lead" style="margin-bottom:18px">Ia tidak pernah dibina untuk satu pasaran sahaja: bahasa antara muka, zon waktu dan mata wang mengikut lokasi kedai.</p>
       <div class="cards" style="grid-template-columns:1fr 1fr">
         <div class="tile"><div class="big">8</div><div class="small">bahasa antara muka</div></div>
         <div class="tile"><div class="big">2</div><div class="small">gedung aplikasi: iOS dan Android</div></div>
@@ -228,7 +243,7 @@
 <section id="who" class="bg-a">
   <div class="wrap">
     <span class="chip">Untuk siapa</span>
-    <h2 style="margin-top:14px">Satu alat untuk semua kedai berasaskan temu janji</h2>
+    <h2 style="margin-top:14px">Satu alat untuk semua kedai berasaskan temu janji</h2><p class="lead">Jika perniagaan anda ialah "pelanggan menempah masa dan datang", aliran ini sesuai. Berikut kategori yang sudah menggunakannya; kedai dengan corak serupa juga sama.</p>
     <div class="inds">
       <div><img src="/assets/deck-ind-5.png" alt=""><span>Salon rambut</span></div>
       <div><img src="/assets/deck-ind-6.png" alt=""><span>Kedai gunting</span></div>
@@ -285,13 +300,42 @@
   </div>
 </section>
 
+
+<section class="bg-a">
+  <div class="wrap">
+    <span class="chip">Cara bermula</span>
+    <h2 style="margin-top:14px">Tiga langkah ke tempahan pertama anda</h2>
+    <div class="cards c3">
+      <div class="card"><div class="stepno">1</div><h3>Daftar sebagai kedai</h3><p>Buka akaun dengan e-mel, kemudian pilih kategori dan lokasi kedai anda.</p></div>
+      <div class="card"><div class="stepno">2</div><h3>Masukkan perkhidmatan dan waktu operasi</h3><p>Tetapkan tempoh dan harga bagi setiap perkhidmatan, serta waktu operasi mingguan. Hari tutup dan slot simpanan boleh diubah bila-bila masa.</p></div>
+      <div class="card"><div class="stepno">3</div><h3>Beri kad QR atau pautan kepada pelanggan</h3><p>Kad QR untuk dicetak dan pautan tempahan dijana serta-merta — tampal di kedai, letak di media sosial atau cetak pada kad nama.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="chip">Soalan lazim</span>
+    <h2 style="margin-top:14px">Mungkin anda tertanya</h2>
+    <div class="faq">
+      <details><summary>Perlukah pelanggan memasang aplikasi untuk menempah?</summary><p>Ya, buat masa ini. Pautan anda akan membuka App Store atau Google Play jika aplikasi belum dipasang. Tempahan melalui web tanpa pemasangan ialah perkara seterusnya yang kami bina.</p></details>
+      <details><summary>Bolehkah saya memasukkan tempahan bagi pihak pelanggan?</summary><p>Boleh. Tempahan telefon dan walk-in masuk ke kalendar yang sama dan dikira dalam statistik serta rekod pelanggan.</p></details>
+      <details><summary>Bagaimana jika pelanggan mahu tukar masa?</summary><p>Kedua-dua pihak boleh menukar masa tanpa membatalkan, jadi tempahan asal kekal dan angka anda tetap tepat.</p></details>
+      <details><summary>Adakah anda mengambil komisen atau memegang wang saya?</summary><p>Tidak. Pelanggan membayar terus kepada kedai anda. Kami tidak mengendalikan wang, jadi tiada komisen.</p></details>
+      <details><summary>Saya sudah tersenarai di portal tempahan. Boleh guna sekali?</summary><p>Boleh. Portal membawa pelanggan baharu; BookingYou menguruskan semua tempahan termasuk pelanggan tetap. Kedua-duanya boleh digunakan bersama.</p></details>
+    </div>
+  </div>
+</section>
 <section class="final" id="download">
   <div class="wrap">
     <img class="logo" src="/assets/logo.png" alt="BookingYou">
     <h2>Terima tempahan pertama anda hari ini</h2>
     <p>BookingYou — cari di App Store atau Google Play</p>
-    <a class="btn btn-main" href="https://apps.apple.com/app/id6782119326">App Store</a>
-    <a class="btn btn-main" href="https://play.google.com/store/apps/details?id=com.bookingyou.app" style="margin-left:10px">Google Play</a>
+    <div class="badges">
+      <a href="https://apps.apple.com/app/id6782119326"><img src="/assets/badges/apple-ms-my.svg" alt="Download on the App Store" class="badge-apple"></a>
+      <a href="https://play.google.com/store/apps/details?id=com.bookingyou.app"><img src="/assets/badges/google-ms.png" alt="Get it on Google Play" class="badge-google"></a>
+    </div>
+    <p class="dlnote">Muat turun, daftar dengan e-mel anda, dan anda boleh mula menyediakannya.</p>
     <a class="mail" href="mailto:bookingyouemail@gmail.com">bookingyouemail@gmail.com</a>
   </div>
 </section>

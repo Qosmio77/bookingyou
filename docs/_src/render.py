@@ -1,6 +1,7 @@
 import sys, os, re, html
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from strings import L
+from extra import E
 W = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 T = open(f'{W}/i18n/template.html', encoding='utf-8').read()
 OUT = f'{W}/dist'
@@ -29,6 +30,12 @@ def vals(code):
     for i, n in enumerate(d['m_caps']): v[f'm{i}'] = esc(n)
     for i, n in enumerate(d['pl_core_items']): v[f'c{i}'] = esc(n)
     for i, n in enumerate(d['pl_pro_items']): v[f'r{i}'] = esc(n)
+    e = E[code]
+    for k in ['badge_apple','badge_google','p_lead','s_lead','d_extra','b_lead','w_lead',
+              'st_chip','st_h2','faq_chip','faq_h2','dl_note']:
+        v[k] = e[k] if k.startswith('badge_') else esc(e[k])
+    for i, (a, b) in enumerate(e['st_items']): v[f'st{i}a'], v[f'st{i}b'] = esc(a), esc(b)
+    for i, (q, a) in enumerate(e['faq']): v[f'q{i}'], v[f'a{i}'] = esc(q), esc(a)
     return v
 
 def switcher(code):
