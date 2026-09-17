@@ -4,6 +4,7 @@ from strings import L
 from extra import E
 from concepts import THEMES, COMMON_CSS, concept_nav, hub_html
 from industries import COPY as INDUSTRY_COPY, industry_markup
+from pain_solutions import COPY as PAIN_SOLUTION_COPY, pain_solution_markup
 SRC = os.path.dirname(os.path.abspath(__file__))
 W = os.path.dirname(SRC)
 T = open(os.path.join(SRC, 'template.html'), encoding='utf-8').read()
@@ -42,6 +43,10 @@ def vals(code):
     v['industry_stat'] = esc(INDUSTRY_COPY[code]['stat'])
     v['industry_note'] = esc(INDUSTRY_COPY[code]['note'])
     v['industry_grid'] = industry_markup(code)
+    v['ps_chip'] = esc(PAIN_SOLUTION_COPY[code]['chip'])
+    v['ps_h2'] = esc(PAIN_SOLUTION_COPY[code]['title'])
+    v['ps_lead'] = esc(PAIN_SOLUTION_COPY[code]['lead'])
+    v['ps_grid'] = pain_solution_markup(code)
     return v
 
 def switcher(code):

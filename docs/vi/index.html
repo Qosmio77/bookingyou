@@ -58,6 +58,26 @@
   .bullet b{display:block;font-size:19px;color:var(--navy)}
   .bullet span{font-size:15px;color:var(--muted)}
 
+  .ps-section{overflow:hidden}
+  .ps-section::before{content:"";position:absolute;width:390px;height:390px;border-radius:50%;right:-190px;top:80px;background:rgba(85,216,194,.11);filter:blur(2px)}
+  .ps-head{max-width:820px;margin-bottom:42px}
+  .ps-head h2{text-wrap:balance}
+  .ps-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;position:relative;z-index:1}
+  .ps-card{position:relative;padding:24px;border-radius:26px;background:rgba(255,255,255,.90);border:1px solid rgba(18,48,79,.08);box-shadow:0 13px 34px rgba(29,78,137,.07);transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;transform-style:preserve-3d}
+  .ps-card:hover{transform:translateY(-5px);border-color:rgba(19,169,149,.32);box-shadow:0 21px 45px rgba(29,78,137,.11)}
+  .ps-no{position:absolute;right:25px;top:23px;color:rgba(18,48,79,.25);font-size:13px;font-weight:800;letter-spacing:.12em}
+  .ps-block{padding:18px 20px;border-radius:18px}
+  .ps-block>span{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:800;letter-spacing:.10em;text-transform:uppercase;margin-bottom:7px}
+  .ps-block>span::before{content:"";width:7px;height:7px;border-radius:50%}
+  .ps-block h3{font-size:18px;line-height:1.5;color:var(--navy);padding-right:18px;margin-bottom:5px}
+  .ps-block p{font-size:14px;line-height:1.7;color:#506274}
+  .ps-problem{background:linear-gradient(145deg,#fff8f5,#fff3f0);border:1px solid rgba(240,139,126,.16)}
+  .ps-problem>span{color:#b76259}.ps-problem>span::before{background:var(--coral)}
+  .ps-answer{background:linear-gradient(145deg,#effaf6,#edf8f8);border:1px solid rgba(19,169,149,.14)}
+  .ps-answer>span{color:#148c7c}.ps-answer>span::before{background:var(--teal)}
+  .ps-arrow{height:32px;display:grid;place-items:center;position:relative;z-index:2}
+  .ps-arrow span{width:31px;height:31px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:var(--white);font-size:15px;box-shadow:0 7px 17px rgba(18,48,79,.18)}
+
   .cards{display:grid;gap:22px;margin-top:38px}
   .c3{grid-template-columns:repeat(3,1fr)}
   .c4{grid-template-columns:repeat(4,1fr)}
@@ -182,6 +202,7 @@
     .c3,.c4{grid-template-columns:1fr}
     .inds{grid-template-columns:repeat(3,1fr)}
     .industry-head{align-items:flex-start;flex-direction:column}.industry-grid{grid-template-columns:1fr 1fr}
+    .ps-grid{grid-template-columns:1fr}.ps-head{margin-bottom:32px}
     .posters{grid-template-columns:1fr}
   }
   @media(max-width:580px){
@@ -192,6 +213,7 @@
     .global-scene{min-height:390px}.global-globe{width:300px;right:-14%;bottom:8%}.global-building{width:110px;left:3%}.global-language{width:105px;left:24%;top:5%}
     .plans{gap:18px}.plan{padding:28px}.inds{grid-template-columns:repeat(2,1fr)}.foot-row .right{margin-left:0;width:100%}
     .industry-grid{grid-template-columns:1fr}.industry-card summary{min-height:190px;grid-template-columns:1fr auto;padding:18px}.industry-art{height:96px}.industry-art img{height:110px}.industry-list{padding:0 16px 18px}.industry-stat{font-size:12px}
+    .ps-card{padding:17px;border-radius:22px}.ps-block{padding:16px}.ps-block h3{font-size:17px}.ps-section::before{display:none}
   }
 
   .stepno{width:46px;height:46px;border-radius:16px;background:var(--teal);color:var(--white);display:grid;place-items:center;font-size:20px;font-weight:700;margin-bottom:16px;transform:rotate(-3deg)}
@@ -296,6 +318,17 @@
       </div>
       <div class="note" style="text-align:center">Trang quản lý của tiệm · Thẻ đặt lịch QR để in</div>
     </div>
+  </div>
+</section>
+
+<section id="pain-solutions" class="bg-a ps-section">
+  <div class="wrap">
+    <div class="ps-head">
+      <span class="chip">Vận hành hằng ngày</span>
+      <h2 style="margin-top:14px">Mỗi vấn đề đặt lịch đều có cách xử lý rõ ràng</h2>
+      <p class="lead">Bạn không cần thay đổi toàn bộ cách vận hành. BookingYou tiếp nhận những công việc đặt lịch tốn thời gian và dễ xảy ra sai sót nhất.</p>
+    </div>
+    <div class="ps-grid"><article class="ps-card"><div class="ps-no">01</div><div class="ps-block ps-problem"><span>Khó khăn của doanh nghiệp</span><h3>Điện thoại và tin nhắn liên tục làm gián đoạn dịch vụ</h3><p>Dừng lại để trả lời sẽ mất tập trung; không trả lời lại có thể mất khách mới.</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYou giải quyết</span><h3>Để khách tự đặt lịch 24/7</h3><p>Chia sẻ liên kết hoặc mã QR để khách tự chọn dịch vụ, ngày và giờ.</p></div></article><article class="ps-card"><div class="ps-no">02</div><div class="ps-block ps-problem"><span>Khó khăn của doanh nghiệp</span><h3>Lịch hẹn nằm rải rác trên tin nhắn, mạng xã hội, điện thoại và giấy</h3><p>Thông tin phân tán khiến việc bỏ sót hoặc trùng lịch dễ xảy ra.</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYou giải quyết</span><h3>Đưa mọi kênh về một lịch duy nhất</h3><p>Thêm lịch online, qua điện thoại và khách đến trực tiếp vào cùng một nơi.</p></div></article><article class="ps-card"><div class="ps-no">03</div><div class="ps-block ps-problem"><span>Khó khăn của doanh nghiệp</span><h3>Khách hỏi ngoài giờ rồi chọn nơi khác</h3><p>Khách muốn biết giờ trống ngay, thay vì chờ đến sáng hôm sau.</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYou giải quyết</span><h3>Hiển thị giờ trống bất cứ lúc nào</h3><p>Chỉ hiển thị những khung giờ thật sự còn trống để khách đặt ngay.</p></div></article><article class="ps-card"><div class="ps-no">04</div><div class="ps-block ps-problem"><span>Khó khăn của doanh nghiệp</span><h3>Một lần đổi lịch cần quá nhiều tin nhắn</h3><p>Hủy, tạo lại và xác nhận nhiều lần dễ làm mất giờ mới hoặc lịch sử cũ.</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYou giải quyết</span><h3>Đổi giờ mà vẫn giữ nguyên hồ sơ</h3><p>Doanh nghiệp hoặc khách có thể đổi giờ mà không cần tạo lại toàn bộ lịch hẹn.</p></div></article><article class="ps-card"><div class="ps-no">05</div><div class="ps-block ps-problem"><span>Khó khăn của doanh nghiệp</span><h3>Bận rộn khiến bạn quên nhắc lịch</h3><p>Khách vắng mặt vào phút cuối làm lãng phí khung giờ có thể phục vụ người khác.</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYou giải quyết</span><h3>Tự động gửi nhắc lịch</h3><p>Thông báo rõ ngày giờ mà không cần nhắn riêng cho từng khách.</p></div></article><article class="ps-card"><div class="ps-no">06</div><div class="ps-block ps-problem"><span>Khó khăn của doanh nghiệp</span><h3>Khách đặt vào ngày nghỉ hoặc giờ giải lao</h3><p>Giờ mở cửa không có nghĩa mọi phút đều sẵn sàng nhận lịch.</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYou giải quyết</span><h3>Chặn thời gian theo vận hành thực tế</h3><p>Đóng ngày nghỉ, giờ giải lao và thời gian dành riêng; chỉ mở giờ thật sự phục vụ được.</p></div></article><article class="ps-card"><div class="ps-no">07</div><div class="ps-block ps-problem"><span>Khó khăn của doanh nghiệp</span><h3>Giờ cao điểm cần duyệt, giờ vắng muốn xác nhận ngay</h3><p>Một quy tắc xác nhận không phù hợp với nhân sự và khối lượng công việc thay đổi.</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYou giải quyết</span><h3>Chọn cách xác nhận theo từng khung giờ</h3><p>Đặt từng ngày và giờ để xác nhận ngay hoặc chờ doanh nghiệp phê duyệt.</p></div></article><article class="ps-card"><div class="ps-no">08</div><div class="ps-block ps-problem"><span>Khó khăn của doanh nghiệp</span><h3>Lớp nhóm dễ nhận quá số lượng</h3><p>Chỉ có giờ bắt đầu không cho biết chính xác còn bao nhiêu chỗ.</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYou giải quyết</span><h3>Đặt sức chứa cho từng buổi</h3><p>Xác định giới hạn của lớp, sự kiện hoặc dịch vụ và dừng nhận khi đã đầy.</p></div></article><article class="ps-card"><div class="ps-no">09</div><div class="ps-block ps-problem"><span>Khó khăn của doanh nghiệp</span><h3>Khách quen vẫn phát sinh phí nền tảng</h3><p>Khách do bạn tự xây dựng không nên tiếp tục tạo phí hoa hồng mỗi lần quay lại.</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYou giải quyết</span><h3>Sở hữu kênh đặt lịch trực tiếp</h3><p>Khách đặt qua liên kết hoặc QR của bạn và trả trực tiếp. BookingYou không thu hoa hồng.</p></div></article><article class="ps-card"><div class="ps-no">10</div><div class="ps-block ps-problem"><span>Khó khăn của doanh nghiệp</span><h3>Lịch sử khách hàng chỉ nằm trong trí nhớ</h3><p>Dịch vụ cũ, sở thích và lịch sử đặt hẹn dễ bị quên trước lần ghé tiếp theo.</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYou giải quyết</span><h3>Lưu hồ sơ khách hàng và lịch hẹn cùng nhau</h3><p>Xem lại thông tin khi cần để phục vụ khách quay lại nhất quán hơn.</p></div></article></div>
   </div>
 </section>
 
@@ -448,7 +481,7 @@
 
     gsap.set(['.hero .tag','.hero h1','.hero .hero-subtitle','.hero .cta','.hero .foot','.scroll-down'],{opacity:0,y:30});
     gsap.set('.hero-visual',{opacity:0,x:42,scale:.97});
-    gsap.set('.card,.tile,.plan,.posters>div,.industry-card,.faq',{opacity:0,y:55,rotateX:18});
+    gsap.set('.card,.tile,.plan,.posters>div,.industry-card,.ps-card,.faq',{opacity:0,y:55,rotateX:18});
 
     var intro=gsap.timeline({defaults:{ease:'power3.out'}});
     intro.to('.hero .tag',{opacity:1,y:0,duration:.6})
@@ -459,7 +492,7 @@
       .to('.hero-visual',{opacity:1,x:0,scale:1,duration:.9},'-=.65')
       .to('.scroll-down',{opacity:1,y:0,duration:.4},'-=.2');
 
-    ScrollTrigger.batch('.card,.tile,.plan,.posters>div,.industry-card,.faq',{
+    ScrollTrigger.batch('.card,.tile,.plan,.posters>div,.industry-card,.ps-card,.faq',{
       start:'top 80%',
       onEnter:function(batch){gsap.to(batch,{opacity:1,y:0,rotateX:0,duration:.8,stagger:.11,ease:'power2.out'});}
     });

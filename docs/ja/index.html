@@ -58,6 +58,26 @@
   .bullet b{display:block;font-size:19px;color:var(--navy)}
   .bullet span{font-size:15px;color:var(--muted)}
 
+  .ps-section{overflow:hidden}
+  .ps-section::before{content:"";position:absolute;width:390px;height:390px;border-radius:50%;right:-190px;top:80px;background:rgba(85,216,194,.11);filter:blur(2px)}
+  .ps-head{max-width:820px;margin-bottom:42px}
+  .ps-head h2{text-wrap:balance}
+  .ps-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;position:relative;z-index:1}
+  .ps-card{position:relative;padding:24px;border-radius:26px;background:rgba(255,255,255,.90);border:1px solid rgba(18,48,79,.08);box-shadow:0 13px 34px rgba(29,78,137,.07);transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;transform-style:preserve-3d}
+  .ps-card:hover{transform:translateY(-5px);border-color:rgba(19,169,149,.32);box-shadow:0 21px 45px rgba(29,78,137,.11)}
+  .ps-no{position:absolute;right:25px;top:23px;color:rgba(18,48,79,.25);font-size:13px;font-weight:800;letter-spacing:.12em}
+  .ps-block{padding:18px 20px;border-radius:18px}
+  .ps-block>span{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:800;letter-spacing:.10em;text-transform:uppercase;margin-bottom:7px}
+  .ps-block>span::before{content:"";width:7px;height:7px;border-radius:50%}
+  .ps-block h3{font-size:18px;line-height:1.5;color:var(--navy);padding-right:18px;margin-bottom:5px}
+  .ps-block p{font-size:14px;line-height:1.7;color:#506274}
+  .ps-problem{background:linear-gradient(145deg,#fff8f5,#fff3f0);border:1px solid rgba(240,139,126,.16)}
+  .ps-problem>span{color:#b76259}.ps-problem>span::before{background:var(--coral)}
+  .ps-answer{background:linear-gradient(145deg,#effaf6,#edf8f8);border:1px solid rgba(19,169,149,.14)}
+  .ps-answer>span{color:#148c7c}.ps-answer>span::before{background:var(--teal)}
+  .ps-arrow{height:32px;display:grid;place-items:center;position:relative;z-index:2}
+  .ps-arrow span{width:31px;height:31px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:var(--white);font-size:15px;box-shadow:0 7px 17px rgba(18,48,79,.18)}
+
   .cards{display:grid;gap:22px;margin-top:38px}
   .c3{grid-template-columns:repeat(3,1fr)}
   .c4{grid-template-columns:repeat(4,1fr)}
@@ -182,6 +202,7 @@
     .c3,.c4{grid-template-columns:1fr}
     .inds{grid-template-columns:repeat(3,1fr)}
     .industry-head{align-items:flex-start;flex-direction:column}.industry-grid{grid-template-columns:1fr 1fr}
+    .ps-grid{grid-template-columns:1fr}.ps-head{margin-bottom:32px}
     .posters{grid-template-columns:1fr}
   }
   @media(max-width:580px){
@@ -192,6 +213,7 @@
     .global-scene{min-height:390px}.global-globe{width:300px;right:-14%;bottom:8%}.global-building{width:110px;left:3%}.global-language{width:105px;left:24%;top:5%}
     .plans{gap:18px}.plan{padding:28px}.inds{grid-template-columns:repeat(2,1fr)}.foot-row .right{margin-left:0;width:100%}
     .industry-grid{grid-template-columns:1fr}.industry-card summary{min-height:190px;grid-template-columns:1fr auto;padding:18px}.industry-art{height:96px}.industry-art img{height:110px}.industry-list{padding:0 16px 18px}.industry-stat{font-size:12px}
+    .ps-card{padding:17px;border-radius:22px}.ps-block{padding:16px}.ps-block h3{font-size:17px}.ps-section::before{display:none}
   }
 
   .stepno{width:46px;height:46px;border-radius:16px;background:var(--teal);color:var(--white);display:grid;place-items:center;font-size:20px;font-weight:700;margin-bottom:16px;transform:rotate(-3deg)}
@@ -296,6 +318,17 @@
       </div>
       <div class="note" style="text-align:center">店舗ダッシュボード · 印刷用QR予約カード</div>
     </div>
+  </div>
+</section>
+
+<section id="pain-solutions" class="bg-a ps-section">
+  <div class="wrap">
+    <div class="ps-head">
+      <span class="chip">日々の店舗運営</span>
+      <h2 style="margin-top:14px">予約の悩み一つひとつに、明確な解決策を</h2>
+      <p class="lead">今の仕事の進め方を大きく変える必要はありません。時間がかかり、ミスが起きやすい予約業務をBookingYouが引き受けます。</p>
+    </div>
+    <div class="ps-grid"><article class="ps-card"><div class="ps-no">01</div><div class="ps-block ps-problem"><span>店舗の悩み</span><h3>施術中も電話やメッセージが鳴り続ける</h3><p>返信すれば接客が中断し、返信しなければ新規客を逃す不安があります。</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYouの解決方法</span><h3>お客様が24時間いつでも自己予約</h3><p>専用リンクやQRコードから、サービス・日付・時間を選んでもらえます。</p></div></article><article class="ps-card"><div class="ps-no">02</div><div class="ps-block ps-problem"><span>店舗の悩み</span><h3>LINE、SNS、電話、紙に予約が分散</h3><p>情報が散らばるほど、予約漏れやダブルブッキングが起きやすくなります。</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYouの解決方法</span><h3>すべての窓口を一つのカレンダーへ</h3><p>オンライン、電話、来店予約を店舗側でまとめて登録・管理できます。</p></div></article><article class="ps-card"><div class="ps-no">03</div><div class="ps-block ps-problem"><span>店舗の悩み</span><h3>営業時間外の問い合わせを他店に取られる</h3><p>お客様は翌朝の返信ではなく、今すぐ空き状況を知りたいものです。</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYouの解決方法</span><h3>いつでも空き時間を表示</h3><p>実際に予約できる枠だけを表示し、返信を待たずに予約を完了できます。</p></div></article><article class="ps-card"><div class="ps-no">04</div><div class="ps-block ps-problem"><span>店舗の悩み</span><h3>一度の日時変更に何往復も必要</h3><p>キャンセル、再登録、再確認を繰り返すと、新しい時間や履歴を見失いがちです。</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYouの解決方法</span><h3>履歴を残したまま日時変更</h3><p>店舗側でもお客様側でも、予約を作り直さずに時間を変更できます。</p></div></article><article class="ps-card"><div class="ps-no">05</div><div class="ps-block ps-problem"><span>店舗の悩み</span><h3>忙しいとリマインドを送り忘れる</h3><p>直前の無断キャンセルで、ほかのお客様に使えた時間が空いてしまいます。</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYouの解決方法</span><h3>予約リマインドを自動送信</h3><p>一人ずつ連絡しなくても、予約日時をわかりやすくお客様へ届けます。</p></div></article><article class="ps-card"><div class="ps-no">06</div><div class="ps-block ps-problem"><span>店舗の悩み</span><h3>休業日や休憩時間にも予約が入る</h3><p>営業時間内でも、すべての時間に対応できるとは限りません。</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYouの解決方法</span><h3>実際の運営に合わせて時間をブロック</h3><p>休業日、休憩、確保したい時間を閉じ、対応可能な枠だけを公開します。</p></div></article><article class="ps-card"><div class="ps-no">07</div><div class="ps-block ps-problem"><span>店舗の悩み</span><h3>繁忙時は承認制、閑散時は即時確定にしたい</h3><p>一律の確定方法では、日ごとの人員や仕事量に対応できません。</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYouの解決方法</span><h3>時間枠ごとに確定方法を設定</h3><p>日付や時間ごとに、即時確定または店舗承認を選べます。</p></div></article><article class="ps-card"><div class="ps-no">08</div><div class="ps-block ps-problem"><span>店舗の悩み</span><h3>グループレッスンの定員を超えてしまう</h3><p>開始時間だけでは、各クラスの残席数を正確に把握できません。</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYouの解決方法</span><h3>セッションごとに定員を設定</h3><p>クラス、イベント、サービスごとに上限を決め、満席時は受付を停止します。</p></div></article><article class="ps-card"><div class="ps-no">09</div><div class="ps-block ps-problem"><span>店舗の悩み</span><h3>リピーター経由でも手数料がかかり続ける</h3><p>自店で獲得したお客様の再予約に、毎回コストをかけたくありません。</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYouの解決方法</span><h3>自店専用の直接予約窓口を持つ</h3><p>専用リンクやQRから予約し、お客様は店舗へ直接支払い。BookingYouの手数料は0です。</p></div></article><article class="ps-card"><div class="ps-no">10</div><div class="ps-block ps-problem"><span>店舗の悩み</span><h3>顧客情報を記憶だけに頼っている</h3><p>前回のサービスや希望、予約履歴を忘れると、次の接客に影響します。</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYouの解決方法</span><h3>顧客情報と予約履歴を一元管理</h3><p>必要なときに過去の情報を確認し、リピーターへ一貫した対応ができます。</p></div></article></div>
   </div>
 </section>
 
@@ -448,7 +481,7 @@
 
     gsap.set(['.hero .tag','.hero h1','.hero .hero-subtitle','.hero .cta','.hero .foot','.scroll-down'],{opacity:0,y:30});
     gsap.set('.hero-visual',{opacity:0,x:42,scale:.97});
-    gsap.set('.card,.tile,.plan,.posters>div,.industry-card,.faq',{opacity:0,y:55,rotateX:18});
+    gsap.set('.card,.tile,.plan,.posters>div,.industry-card,.ps-card,.faq',{opacity:0,y:55,rotateX:18});
 
     var intro=gsap.timeline({defaults:{ease:'power3.out'}});
     intro.to('.hero .tag',{opacity:1,y:0,duration:.6})
@@ -459,7 +492,7 @@
       .to('.hero-visual',{opacity:1,x:0,scale:1,duration:.9},'-=.65')
       .to('.scroll-down',{opacity:1,y:0,duration:.4},'-=.2');
 
-    ScrollTrigger.batch('.card,.tile,.plan,.posters>div,.industry-card,.faq',{
+    ScrollTrigger.batch('.card,.tile,.plan,.posters>div,.industry-card,.ps-card,.faq',{
       start:'top 80%',
       onEnter:function(batch){gsap.to(batch,{opacity:1,y:0,rotateX:0,duration:.8,stagger:.11,ease:'power2.out'});}
     });
