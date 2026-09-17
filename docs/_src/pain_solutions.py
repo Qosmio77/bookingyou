@@ -1,6 +1,20 @@
 import html
 
 
+IMAGES = [
+    '01-interrupted-service-call.png',
+    '02-scattered-booking-channels.png',
+    '03-after-hours-self-booking.png',
+    '04-easy-reschedule.png',
+    '05-automatic-reminders.png',
+    '06-protected-break-time.png',
+    '07-slot-approval-rules.png',
+    '08-class-capacity.png',
+    '09-direct-booking-payment.png',
+    '10-customer-history.png',
+]
+
+
 COPY = {
     'zh-HK': {
         'chip': '商戶日常',
@@ -164,10 +178,12 @@ PAIRS = {
 def pain_solution_markup(code):
     copy = COPY[code]
     cards = []
-    for index, (pain_title, pain_body, answer_title, answer_body) in enumerate(PAIRS[code], start=1):
+    for index, ((pain_title, pain_body, answer_title, answer_body), image) in enumerate(zip(PAIRS[code], IMAGES), start=1):
         cards.append(
             f'<article class="ps-card">'
             f'<div class="ps-no">{index:02d}</div>'
+            f'<figure class="ps-art" aria-hidden="true"><img loading="lazy" decoding="async" '
+            f'src="assets/pain-solutions/{image}" alt=""></figure>'
             f'<div class="ps-block ps-problem"><span>{html.escape(copy["pain"])}</span>'
             f'<h3>{html.escape(pain_title)}</h3><p>{html.escape(pain_body)}</p></div>'
             f'<div class="ps-arrow" aria-hidden="true"><span>↓</span></div>'
