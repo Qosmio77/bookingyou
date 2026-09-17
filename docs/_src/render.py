@@ -2,6 +2,7 @@ import sys, os, re, html
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from strings import L
 from extra import E
+from concepts import THEMES, COMMON_CSS, concept_nav, hub_html
 SRC = os.path.dirname(os.path.abspath(__file__))
 W = os.path.dirname(SRC)
 T = open(os.path.join(SRC, 'template.html'), encoding='utf-8').read()
@@ -61,3 +62,24 @@ for code, path in PATHS.items():
     open(os.path.join(d, 'index.html'), 'w', encoding='utf-8').write(s)
     leftover = re.findall(r'\{\{\w+\}\}', s)
     print(f'{code:6s} → /{path:8s} {len(s):6d} bytes  未填 token: {len(leftover)}')
+
+# Three visual directions for stakeholder review. These are intentionally
+# isolated from the production homepage and excluded from search indexing.
+v = vals('zh-HK')
+base = re.sub(r'\{\{(\w+)\}\}', lambda m: v[m.group(1)], T)
+base = base.replace('</style>', CSS + '</style>').replace('</head>', '<meta name="robots" content="noindex,nofollow">' + alts + '</head>')
+base = base.replace('</div></header>', switcher('zh-HK') + '</div></header>')
+base = base.replace('src="assets/', 'src="/assets/').replace('href="assets/', 'href="/assets/').replace('url("assets/', 'url("/assets/')
+
+concept_root = os.path.join(OUT, 'concepts')
+os.makedirs(concept_root, exist_ok=True)
+open(os.path.join(concept_root, 'index.html'), 'w', encoding='utf-8').write(hub_html())
+for theme in THEMES:
+    themed = base.replace('</style>', COMMON_CSS + theme['css'] + '</style>')
+    themed = themed.replace('<body>', f'<body class="concept-{theme["slug"]}">')
+    themed = themed.replace('</body>', concept_nav(theme['slug']) + '</body>')
+    themed = themed.replace('<title>', f'<title>方案 {theme["label"]} · {theme["name"]}｜')
+    dest = os.path.join(concept_root, theme['slug'])
+    os.makedirs(dest, exist_ok=True)
+    open(os.path.join(dest, 'index.html'), 'w', encoding='utf-8').write(themed)
+    print(f'方案 {theme["label"]} → /concepts/{theme["slug"]}/  {len(themed):6d} bytes')
