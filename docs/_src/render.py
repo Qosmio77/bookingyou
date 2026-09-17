@@ -3,6 +3,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from strings import L
 from extra import E
 from concepts import THEMES, COMMON_CSS, concept_nav, hub_html
+from industries import COPY as INDUSTRY_COPY, industry_markup
 SRC = os.path.dirname(os.path.abspath(__file__))
 W = os.path.dirname(SRC)
 T = open(os.path.join(SRC, 'template.html'), encoding='utf-8').read()
@@ -38,6 +39,9 @@ def vals(code):
         v[k] = e[k] if k.startswith('badge_') else esc(e[k])
     for i, (a, b) in enumerate(e['st_items']): v[f'st{i}a'], v[f'st{i}b'] = esc(a), esc(b)
     for i, (q, a) in enumerate(e['faq']): v[f'q{i}'], v[f'a{i}'] = esc(q), esc(a)
+    v['industry_stat'] = esc(INDUSTRY_COPY[code]['stat'])
+    v['industry_note'] = esc(INDUSTRY_COPY[code]['note'])
+    v['industry_grid'] = industry_markup(code)
     return v
 
 def switcher(code):

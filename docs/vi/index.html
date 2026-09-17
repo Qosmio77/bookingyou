@@ -77,6 +77,31 @@
   .inds img{width:100%;max-width:106px;border-radius:50%;margin:0 auto}
   .inds span{display:block;font-size:14px;color:var(--muted);margin-top:10px}
 
+  .industry-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:34px}
+  .industry-head .lead{max-width:720px}
+  .industry-head h2{text-wrap:balance}
+  .industry-stat{flex:none;display:inline-flex;align-items:center;gap:9px;border-radius:999px;padding:10px 17px;background:var(--navy);color:var(--white);font-size:13px;font-weight:700;box-shadow:0 10px 25px rgba(18,48,79,.14)}
+  .industry-stat::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--bright)}
+  .industry-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:start}
+  .industry-card{background:rgba(255,255,255,.88);border:1px solid rgba(18,48,79,.08);border-radius:24px;overflow:hidden;box-shadow:0 12px 32px rgba(29,78,137,.06);transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;transform-style:preserve-3d}
+  .industry-card:hover{transform:translateY(-5px);border-color:rgba(19,169,149,.30);box-shadow:0 19px 42px rgba(29,78,137,.10)}
+  .industry-card[open]{border-color:rgba(19,169,149,.38);box-shadow:0 20px 46px rgba(29,78,137,.11)}
+  .industry-card summary{list-style:none;cursor:pointer;min-height:220px;padding:22px 22px 18px;display:grid;grid-template-columns:1fr auto;grid-template-rows:auto 1fr auto;gap:8px 12px;position:relative}
+  .industry-card summary::-webkit-details-marker{display:none}
+  .industry-no{font-size:11px;font-weight:800;color:var(--teal);letter-spacing:.12em;align-self:start}
+  .industry-art{grid-column:1/-1;grid-row:2;display:grid;place-items:center;height:112px;margin:-7px 0 -2px;border-radius:20px;background:linear-gradient(145deg,rgba(232,247,243,.75),rgba(242,248,251,.82));overflow:hidden}
+  .industry-art img{height:126px;width:auto;object-fit:contain;filter:drop-shadow(0 10px 9px rgba(18,48,79,.10));transition:transform .3s ease}
+  .industry-card:hover .industry-art img{transform:scale(1.045) rotate(-1deg)}
+  .industry-title{grid-column:1;grid-row:3;display:flex;flex-direction:column;min-width:0}
+  .industry-title b{font-size:18px;line-height:1.4;color:var(--navy)}
+  .industry-title small{font-size:12px;color:var(--muted);margin-top:3px}
+  .industry-toggle{grid-column:2;grid-row:3;align-self:end;display:inline-flex;align-items:center;gap:6px;color:var(--teal);font-size:11px;font-weight:700;white-space:nowrap}
+  .industry-toggle::after{content:"＋";font-size:16px;line-height:1}
+  .industry-card[open] .industry-toggle::after{content:"−"}
+  .industry-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 20px 22px}
+  .industry-list li{border-radius:10px;padding:8px 10px;background:var(--paper-blue);border:1px solid rgba(18,48,79,.05);font-size:12px;line-height:1.35;color:#405669}
+  .industry-note{margin-top:25px;text-align:center;font-size:14px;color:var(--muted)}
+
   .posters{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:34px}
   .posters img{width:100%;border-radius:20px;box-shadow:0 15px 38px rgba(11,27,49,.12);border:1px solid rgba(18,48,79,.08)}
   .posters .cap{text-align:center;font-size:14px;font-weight:600;color:var(--navy);margin-top:12px}
@@ -156,6 +181,7 @@
     .hero-visual{min-height:540px;max-width:680px;width:100%;margin:0 auto}.hero h1{font-size:58px}h2{font-size:38px}
     .c3,.c4{grid-template-columns:1fr}
     .inds{grid-template-columns:repeat(3,1fr)}
+    .industry-head{align-items:flex-start;flex-direction:column}.industry-grid{grid-template-columns:1fr 1fr}
     .posters{grid-template-columns:1fr}
   }
   @media(max-width:580px){
@@ -165,6 +191,7 @@
     .booking-flow{gap:7px;padding:12px;border-radius:24px}.flow-item{min-height:210px;padding:6px;border-radius:16px}.flow-item img{max-height:180px}.flow-item:not(:last-child)::after{right:-10px;width:20px;height:20px;font-size:18px}
     .global-scene{min-height:390px}.global-globe{width:300px;right:-14%;bottom:8%}.global-building{width:110px;left:3%}.global-language{width:105px;left:24%;top:5%}
     .plans{gap:18px}.plan{padding:28px}.inds{grid-template-columns:repeat(2,1fr)}.foot-row .right{margin-left:0;width:100%}
+    .industry-grid{grid-template-columns:1fr}.industry-card summary{min-height:190px;grid-template-columns:1fr auto;padding:18px}.industry-art{height:96px}.industry-art img{height:110px}.industry-list{padding:0 16px 18px}.industry-stat{font-size:12px}
   }
 
   .stepno{width:46px;height:46px;border-radius:16px;background:var(--teal);color:var(--white);display:grid;place-items:center;font-size:20px;font-weight:700;margin-bottom:16px;transform:rotate(-3deg)}
@@ -315,17 +342,12 @@
 
 <section id="who" class="bg-a">
   <div class="wrap">
-    <span class="chip">Dành cho ai</span>
-    <h2 style="margin-top:14px">Một công cụ cho mọi tiệm nhận đặt hẹn</h2><p class="lead">Nếu công việc của bạn là "khách đặt giờ rồi tới", quy trình này dùng được ngay. Dưới đây là các ngành đang dùng; tiệm có cách vận hành tương tự cũng vậy.</p>
-    <div class="inds">
-      <div><img src="/assets/deck-ind-5.png" alt=""><span>Salon tóc</span></div>
-      <div><img src="/assets/deck-ind-6.png" alt=""><span>Tiệm cắt tóc</span></div>
-      <div><img src="/assets/deck-ind-7.png" alt=""><span>Tiệm nail</span></div>
-      <div><img src="/assets/deck-ind-8.png" alt=""><span>Vật lý trị liệu</span></div>
-      <div><img src="/assets/deck-ind-9.png" alt=""><span>Chăm sóc thú cưng</span></div>
-      <div><img src="/assets/deck-ind-10.png" alt=""><span>Gia sư</span></div>
+    <div class="industry-head">
+      <div><span class="chip">Dành cho ai</span><h2 style="margin-top:14px">Một công cụ cho mọi tiệm nhận đặt hẹn</h2><p class="lead">Nếu công việc của bạn là "khách đặt giờ rồi tới", quy trình này dùng được ngay. Dưới đây là các ngành đang dùng; tiệm có cách vận hành tương tự cũng vậy.</p></div>
+      <div class="industry-stat">12 nhóm · 122 dịch vụ đặt lịch</div>
     </div>
-    <div class="note">Ảnh minh hoạ</div>
+    <div class="industry-grid"><details class="industry-card"><summary><span class="industry-no">01</span><span class="industry-art"><img loading="lazy" src="/assets/industries/beauty.webp" alt="Làm đẹp &amp; chăm sóc cá nhân"></span><span class="industry-title"><b>Làm đẹp &amp; chăm sóc cá nhân</b><small>10 loại dịch vụ</small></span><span class="industry-toggle">Xem tất cả</span></summary><ul class="industry-list"><li>Salon tóc</li><li>Tiệm cắt tóc nam</li><li>Tiệm nail</li><li>Mi &amp; chân mày</li><li>Chăm sóc da mặt</li><li>Trang điểm</li><li>Triệt lông</li><li>Xăm &amp; xỏ khuyên</li><li>Phân tích màu cá nhân</li><li>Tư vấn hình ảnh</li></ul></details><details class="industry-card"><summary><span class="industry-no">02</span><span class="industry-art"><img loading="lazy" src="/assets/industries/health.webp" alt="Sức khỏe, phục hồi &amp; wellness"></span><span class="industry-title"><b>Sức khỏe, phục hồi &amp; wellness</b><small>10 loại dịch vụ</small></span><span class="industry-toggle">Xem tất cả</span></summary><ul class="industry-list"><li>Massage trị liệu</li><li>Vật lý trị liệu</li><li>Trị liệu cột sống &amp; nắn xương</li><li>Y học cổ truyền</li><li>Châm cứu</li><li>Hoạt động trị liệu</li><li>Âm ngữ trị liệu</li><li>Tư vấn dinh dưỡng</li><li>Tư vấn tâm lý</li><li>Chăm sóc sau sinh</li></ul></details><details class="industry-card"><summary><span class="industry-no">03</span><span class="industry-art"><img loading="lazy" src="/assets/industries/fitness.webp" alt="Thể hình &amp; huấn luyện thể thao"></span><span class="industry-title"><b>Thể hình &amp; huấn luyện thể thao</b><small>10 loại dịch vụ</small></span><span class="industry-toggle">Xem tất cả</span></summary><ul class="industry-list"><li>Huấn luyện cá nhân</li><li>Yoga</li><li>Pilates</li><li>Boxing &amp; Muay Thái</li><li>Huấn luyện bơi</li><li>Huấn luyện tennis</li><li>Huấn luyện cầu lông</li><li>Huấn luyện golf</li><li>Lớp khiêu vũ</li><li>Huấn luyện chạy bộ</li></ul></details><details class="industry-card"><summary><span class="industry-no">04</span><span class="industry-art"><img loading="lazy" src="/assets/industries/education.webp" alt="Giáo dục, gia sư &amp; đào tạo"></span><span class="industry-title"><b>Giáo dục, gia sư &amp; đào tạo</b><small>10 loại dịch vụ</small></span><span class="industry-toggle">Xem tất cả</span></summary><ul class="industry-list"><li>Gia sư riêng</li><li>Lớp ngôn ngữ</li><li>Lớp piano</li><li>Lớp guitar</li><li>Luyện thanh</li><li>Mỹ thuật &amp; thư pháp</li><li>Lập trình &amp; STEM</li><li>Nấu ăn &amp; làm bánh</li><li>Dạy lái xe</li><li>Huấn luyện nghề nghiệp</li></ul></details><details class="industry-card"><summary><span class="industry-no">05</span><span class="industry-art"><img loading="lazy" src="/assets/industries/pet.webp" alt="Dịch vụ thú cưng"></span><span class="industry-title"><b>Dịch vụ thú cưng</b><small>10 loại dịch vụ</small></span><span class="industry-toggle">Xem tất cả</span></summary><ul class="industry-list"><li>Cắt tỉa thú cưng</li><li>Tắm thú cưng</li><li>Huấn luyện thú cưng</li><li>Trông thú cưng</li><li>Dắt chó đi dạo</li><li>Chụp ảnh thú cưng</li><li>Phòng khám thú y</li><li>Massage thú cưng</li><li>Dinh dưỡng thú cưng</li><li>Phỏng vấn nhận nuôi</li></ul></details><details class="industry-card"><summary><span class="industry-no">06</span><span class="industry-art"><img loading="lazy" src="/assets/industries/home.webp" alt="Dịch vụ tại nhà &amp; tận nơi"></span><span class="industry-title"><b>Dịch vụ tại nhà &amp; tận nơi</b><small>10 loại dịch vụ</small></span><span class="industry-toggle">Xem tất cả</span></summary><ul class="industry-list"><li>Vệ sinh nhà</li><li>Vệ sinh chuyên sâu</li><li>Vệ sinh máy lạnh</li><li>Vệ sinh thiết bị</li><li>Diệt côn trùng</li><li>Sửa ống nước</li><li>Thợ điện</li><li>Lắp ráp nội thất</li><li>Lắp nhà thông minh</li><li>Báo giá chuyển nhà</li></ul></details><details class="industry-card"><summary><span class="industry-no">07</span><span class="industry-art"><img loading="lazy" src="/assets/industries/repair-auto.webp" alt="Sửa chữa, ô tô &amp; công nghệ"></span><span class="industry-title"><b>Sửa chữa, ô tô &amp; công nghệ</b><small>10 loại dịch vụ</small></span><span class="industry-toggle">Xem tất cả</span></summary><ul class="industry-list"><li>Sửa điện thoại</li><li>Sửa máy tính</li><li>Sửa máy ảnh</li><li>Sửa đồng hồ</li><li>Sửa trang sức</li><li>Sửa giày &amp; túi</li><li>Sửa quần áo</li><li>Sửa nhạc cụ</li><li>Chăm sóc xe</li><li>Bảo dưỡng xe</li></ul></details><details class="industry-card"><summary><span class="industry-no">08</span><span class="industry-art"><img loading="lazy" src="/assets/industries/creative-events.webp" alt="Nhiếp ảnh, sáng tạo &amp; sự kiện"></span><span class="industry-title"><b>Nhiếp ảnh, sáng tạo &amp; sự kiện</b><small>10 loại dịch vụ</small></span><span class="industry-toggle">Xem tất cả</span></summary><ul class="industry-list"><li>Chụp chân dung</li><li>Chụp ảnh cưới</li><li>Chụp sản phẩm</li><li>Sản xuất video</li><li>Phòng thu âm</li><li>Phòng thu podcast</li><li>Thiết kế đồ họa</li><li>Tư vấn hình xăm</li><li>Tổ chức đám cưới</li><li>Địa điểm tiệc</li></ul></details><details class="industry-card"><summary><span class="industry-no">09</span><span class="industry-art"><img loading="lazy" src="/assets/industries/professional.webp" alt="Dịch vụ chuyên môn &amp; doanh nghiệp"></span><span class="industry-title"><b>Dịch vụ chuyên môn &amp; doanh nghiệp</b><small>10 loại dịch vụ</small></span><span class="industry-toggle">Xem tất cả</span></summary><ul class="industry-list"><li>Kế toán</li><li>Tư vấn thuế</li><li>Thư ký công ty</li><li>Tư vấn pháp lý</li><li>Tư vấn bảo hiểm</li><li>Tư vấn thế chấp</li><li>Tư vấn di trú</li><li>Tuyển dụng &amp; nghề nghiệp</li><li>Marketing &amp; SEO</li><li>Tư vấn IT &amp; AI</li></ul></details><details class="industry-card"><summary><span class="industry-no">10</span><span class="industry-art"><img loading="lazy" src="/assets/industries/property-retail.webp" alt="Bất động sản, bán lẻ &amp; trải nghiệm sản phẩm"></span><span class="industry-title"><b>Bất động sản, bán lẻ &amp; trải nghiệm sản phẩm</b><small>10 loại dịch vụ</small></span><span class="industry-toggle">Xem tất cả</span></summary><ul class="industry-list"><li>Xem bất động sản</li><li>Định giá bất động sản</li><li>Kiểm tra nhà</li><li>Thiết kế nội thất</li><li>Báo giá cải tạo</li><li>Thử váy cưới</li><li>Đo may vest</li><li>Thử kính</li><li>Hẹn xem trang sức</li><li>Trình diễn showroom</li></ul></details><details class="industry-card"><summary><span class="industry-no">11</span><span class="industry-art"><img loading="lazy" src="/assets/industries/food-workshops.webp" alt="Ẩm thực, đồ uống &amp; workshop"></span><span class="industry-title"><b>Ẩm thực, đồ uống &amp; workshop</b><small>10 loại dịch vụ</small></span><span class="industry-toggle">Xem tất cả</span></summary><ul class="industry-list"><li>Bữa ăn riêng</li><li>Nếm thử tiệc</li><li>Thử rượu vang &amp; sake</li><li>Thử cà phê</li><li>Trà đạo</li><li>Lớp nấu ăn</li><li>Lớp làm bánh</li><li>Trang trí bánh</li><li>Latte art</li><li>Lớp pha chế</li></ul></details><details class="industry-card"><summary><span class="industry-no">12</span><span class="industry-art"><img loading="lazy" src="/assets/industries/travel-venues.webp" alt="Du lịch, giải trí &amp; địa điểm"></span><span class="industry-title"><b>Du lịch, giải trí &amp; địa điểm</b><small>12 loại dịch vụ</small></span><span class="industry-toggle">Xem tất cả</span></summary><ul class="industry-list"><li>Hướng dẫn viên riêng</li><li>Tour địa phương</li><li>Hướng dẫn đi bộ đường dài</li><li>Trải nghiệm cắm trại</li><li>Lặn &amp; snorkeling</li><li>Lướt sóng &amp; SUP</li><li>Trải nghiệm du thuyền</li><li>Phòng thoát hiểm</li><li>VR &amp; thể thao điện tử</li><li>Sân thể thao</li><li>Studio ảnh &amp; tập luyện</li><li>Phòng họp</li></ul></details></div>
+    <p class="industry-note">Không thấy ngành của bạn? Nếu khách hàng cần đặt thời gian, BookingYou thường vẫn phù hợp.</p>
   </div>
 </section>
 
@@ -426,7 +448,7 @@
 
     gsap.set(['.hero .tag','.hero h1','.hero .hero-subtitle','.hero .cta','.hero .foot','.scroll-down'],{opacity:0,y:30});
     gsap.set('.hero-visual',{opacity:0,x:42,scale:.97});
-    gsap.set('.card,.tile,.plan,.posters>div,.inds>div,.faq',{opacity:0,y:55,rotateX:18});
+    gsap.set('.card,.tile,.plan,.posters>div,.industry-card,.faq',{opacity:0,y:55,rotateX:18});
 
     var intro=gsap.timeline({defaults:{ease:'power3.out'}});
     intro.to('.hero .tag',{opacity:1,y:0,duration:.6})
@@ -437,7 +459,7 @@
       .to('.hero-visual',{opacity:1,x:0,scale:1,duration:.9},'-=.65')
       .to('.scroll-down',{opacity:1,y:0,duration:.4},'-=.2');
 
-    ScrollTrigger.batch('.card,.tile,.plan,.posters>div,.inds>div,.faq',{
+    ScrollTrigger.batch('.card,.tile,.plan,.posters>div,.industry-card,.faq',{
       start:'top 80%',
       onEnter:function(batch){gsap.to(batch,{opacity:1,y:0,rotateX:0,duration:.8,stagger:.11,ease:'power2.out'});}
     });

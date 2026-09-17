@@ -77,6 +77,31 @@
   .inds img{width:100%;max-width:106px;border-radius:50%;margin:0 auto}
   .inds span{display:block;font-size:14px;color:var(--muted);margin-top:10px}
 
+  .industry-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:34px}
+  .industry-head .lead{max-width:720px}
+  .industry-head h2{text-wrap:balance}
+  .industry-stat{flex:none;display:inline-flex;align-items:center;gap:9px;border-radius:999px;padding:10px 17px;background:var(--navy);color:var(--white);font-size:13px;font-weight:700;box-shadow:0 10px 25px rgba(18,48,79,.14)}
+  .industry-stat::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--bright)}
+  .industry-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:start}
+  .industry-card{background:rgba(255,255,255,.88);border:1px solid rgba(18,48,79,.08);border-radius:24px;overflow:hidden;box-shadow:0 12px 32px rgba(29,78,137,.06);transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;transform-style:preserve-3d}
+  .industry-card:hover{transform:translateY(-5px);border-color:rgba(19,169,149,.30);box-shadow:0 19px 42px rgba(29,78,137,.10)}
+  .industry-card[open]{border-color:rgba(19,169,149,.38);box-shadow:0 20px 46px rgba(29,78,137,.11)}
+  .industry-card summary{list-style:none;cursor:pointer;min-height:220px;padding:22px 22px 18px;display:grid;grid-template-columns:1fr auto;grid-template-rows:auto 1fr auto;gap:8px 12px;position:relative}
+  .industry-card summary::-webkit-details-marker{display:none}
+  .industry-no{font-size:11px;font-weight:800;color:var(--teal);letter-spacing:.12em;align-self:start}
+  .industry-art{grid-column:1/-1;grid-row:2;display:grid;place-items:center;height:112px;margin:-7px 0 -2px;border-radius:20px;background:linear-gradient(145deg,rgba(232,247,243,.75),rgba(242,248,251,.82));overflow:hidden}
+  .industry-art img{height:126px;width:auto;object-fit:contain;filter:drop-shadow(0 10px 9px rgba(18,48,79,.10));transition:transform .3s ease}
+  .industry-card:hover .industry-art img{transform:scale(1.045) rotate(-1deg)}
+  .industry-title{grid-column:1;grid-row:3;display:flex;flex-direction:column;min-width:0}
+  .industry-title b{font-size:18px;line-height:1.4;color:var(--navy)}
+  .industry-title small{font-size:12px;color:var(--muted);margin-top:3px}
+  .industry-toggle{grid-column:2;grid-row:3;align-self:end;display:inline-flex;align-items:center;gap:6px;color:var(--teal);font-size:11px;font-weight:700;white-space:nowrap}
+  .industry-toggle::after{content:"＋";font-size:16px;line-height:1}
+  .industry-card[open] .industry-toggle::after{content:"−"}
+  .industry-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 20px 22px}
+  .industry-list li{border-radius:10px;padding:8px 10px;background:var(--paper-blue);border:1px solid rgba(18,48,79,.05);font-size:12px;line-height:1.35;color:#405669}
+  .industry-note{margin-top:25px;text-align:center;font-size:14px;color:var(--muted)}
+
   .posters{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:34px}
   .posters img{width:100%;border-radius:20px;box-shadow:0 15px 38px rgba(11,27,49,.12);border:1px solid rgba(18,48,79,.08)}
   .posters .cap{text-align:center;font-size:14px;font-weight:600;color:var(--navy);margin-top:12px}
@@ -156,6 +181,7 @@
     .hero-visual{min-height:540px;max-width:680px;width:100%;margin:0 auto}.hero h1{font-size:58px}h2{font-size:38px}
     .c3,.c4{grid-template-columns:1fr}
     .inds{grid-template-columns:repeat(3,1fr)}
+    .industry-head{align-items:flex-start;flex-direction:column}.industry-grid{grid-template-columns:1fr 1fr}
     .posters{grid-template-columns:1fr}
   }
   @media(max-width:580px){
@@ -165,6 +191,7 @@
     .booking-flow{gap:7px;padding:12px;border-radius:24px}.flow-item{min-height:210px;padding:6px;border-radius:16px}.flow-item img{max-height:180px}.flow-item:not(:last-child)::after{right:-10px;width:20px;height:20px;font-size:18px}
     .global-scene{min-height:390px}.global-globe{width:300px;right:-14%;bottom:8%}.global-building{width:110px;left:3%}.global-language{width:105px;left:24%;top:5%}
     .plans{gap:18px}.plan{padding:28px}.inds{grid-template-columns:repeat(2,1fr)}.foot-row .right{margin-left:0;width:100%}
+    .industry-grid{grid-template-columns:1fr}.industry-card summary{min-height:190px;grid-template-columns:1fr auto;padding:18px}.industry-art{height:96px}.industry-art img{height:110px}.industry-list{padding:0 16px 18px}.industry-stat{font-size:12px}
   }
 
   .stepno{width:46px;height:46px;border-radius:16px;background:var(--teal);color:var(--white);display:grid;place-items:center;font-size:20px;font-weight:700;margin-bottom:16px;transform:rotate(-3deg)}
@@ -315,17 +342,12 @@
 
 <section id="who" class="bg-a">
   <div class="wrap">
-    <span class="chip">服务对象</span>
-    <h2 style="margin-top:14px">同一套工具，适用于各类预约制小店</h2><p class="lead">只要生意是「客人约时间上门」，这套流程就适用。以下是已经在用的行业，其他类似模式的店同样可以。</p>
-    <div class="inds">
-      <div><img src="/assets/deck-ind-5.png" alt=""><span>美容院</span></div>
-      <div><img src="/assets/deck-ind-6.png" alt=""><span>理发店</span></div>
-      <div><img src="/assets/deck-ind-7.png" alt=""><span>美甲店</span></div>
-      <div><img src="/assets/deck-ind-8.png" alt=""><span>理疗</span></div>
-      <div><img src="/assets/deck-ind-9.png" alt=""><span>宠物美容</span></div>
-      <div><img src="/assets/deck-ind-10.png" alt=""><span>私人辅导</span></div>
+    <div class="industry-head">
+      <div><span class="chip">服务对象</span><h2 style="margin-top:14px">同一套工具，适用于各类预约制小店</h2><p class="lead">只要生意是「客人约时间上门」，这套流程就适用。以下是已经在用的行业，其他类似模式的店同样可以。</p></div>
+      <div class="industry-stat">12 个大类 · 122 种预约服务</div>
     </div>
-    <div class="note">示意图</div>
+    <div class="industry-grid"><details class="industry-card"><summary><span class="industry-no">01</span><span class="industry-art"><img loading="lazy" src="/assets/industries/beauty.webp" alt="美容及个人护理"></span><span class="industry-title"><b>美容及个人护理</b><small>10 个小类</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>美发沙龙</li><li>男士理发</li><li>美甲</li><li>美睫及眉形</li><li>面部及皮肤护理</li><li>化妆服务</li><li>脱毛</li><li>纹身及穿耳</li><li>个人色彩分析</li><li>形象顾问</li></ul></details><details class="industry-card"><summary><span class="industry-no">02</span><span class="industry-art"><img loading="lazy" src="/assets/industries/health.webp" alt="健康、康复及养生"></span><span class="industry-title"><b>健康、康复及养生</b><small>10 个小类</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>按摩理疗</li><li>物理治疗</li><li>整脊及整骨</li><li>中医</li><li>针灸</li><li>职业治疗</li><li>言语治疗</li><li>营养咨询</li><li>心理辅导</li><li>产后护理</li></ul></details><details class="industry-card"><summary><span class="industry-no">03</span><span class="industry-art"><img loading="lazy" src="/assets/industries/fitness.webp" alt="健身及运动教练"></span><span class="industry-title"><b>健身及运动教练</b><small>10 个小类</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>私人健身</li><li>瑜伽</li><li>普拉提</li><li>拳击及泰拳</li><li>游泳教练</li><li>网球教练</li><li>羽毛球教练</li><li>高尔夫教练</li><li>舞蹈老师</li><li>跑步教练</li></ul></details><details class="industry-card"><summary><span class="industry-no">04</span><span class="industry-art"><img loading="lazy" src="/assets/industries/education.webp" alt="教育、辅导及培训"></span><span class="industry-title"><b>教育、辅导及培训</b><small>10 个小类</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>私人辅导</li><li>语言课程</li><li>钢琴课</li><li>吉他课</li><li>声乐课</li><li>绘画及书法</li><li>编程及 STEM</li><li>烹饪及烘焙</li><li>驾驶教练</li><li>职业教练</li></ul></details><details class="industry-card"><summary><span class="industry-no">05</span><span class="industry-art"><img loading="lazy" src="/assets/industries/pet.webp" alt="宠物服务"></span><span class="industry-title"><b>宠物服务</b><small>10 个小类</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>宠物美容</li><li>宠物洗澡</li><li>宠物训练</li><li>宠物寄养</li><li>遛狗服务</li><li>宠物摄影</li><li>宠物诊所</li><li>宠物按摩</li><li>宠物营养</li><li>领养面谈</li></ul></details><details class="industry-card"><summary><span class="industry-no">06</span><span class="industry-art"><img loading="lazy" src="/assets/industries/home.webp" alt="家居及上门服务"></span><span class="industry-title"><b>家居及上门服务</b><small>10 个小类</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>家居清洁</li><li>深层清洁</li><li>空调清洗</li><li>家电清洁</li><li>除虫服务</li><li>水管维修</li><li>电工服务</li><li>家具安装</li><li>智能家居安装</li><li>搬家估价</li></ul></details><details class="industry-card"><summary><span class="industry-no">07</span><span class="industry-art"><img loading="lazy" src="/assets/industries/repair-auto.webp" alt="维修、汽车及技术"></span><span class="industry-title"><b>维修、汽车及技术</b><small>10 个小类</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>手机维修</li><li>电脑维修</li><li>相机维修</li><li>手表维修</li><li>珠宝维修</li><li>鞋履及箱包维修</li><li>改衣服务</li><li>乐器维修</li><li>汽车美容</li><li>汽车保养</li></ul></details><details class="industry-card"><summary><span class="industry-no">08</span><span class="industry-art"><img loading="lazy" src="/assets/industries/creative-events.webp" alt="摄影、创作及活动"></span><span class="industry-title"><b>摄影、创作及活动</b><small>10 个小类</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>人像摄影</li><li>婚礼摄影</li><li>产品摄影</li><li>视频制作</li><li>录音室</li><li>播客录音室</li><li>平面设计</li><li>纹身设计咨询</li><li>婚礼策划</li><li>派对场地</li></ul></details><details class="industry-card"><summary><span class="industry-no">09</span><span class="industry-art"><img loading="lazy" src="/assets/industries/professional.webp" alt="专业及商业服务"></span><span class="industry-title"><b>专业及商业服务</b><small>10 个小类</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>会计服务</li><li>税务顾问</li><li>公司秘书</li><li>法律咨询</li><li>保险顾问</li><li>按揭顾问</li><li>移民顾问</li><li>招聘及职业</li><li>市场营销及 SEO</li><li>IT 及 AI 顾问</li></ul></details><details class="industry-card"><summary><span class="industry-no">10</span><span class="industry-art"><img loading="lazy" src="/assets/industries/property-retail.webp" alt="房产、零售及产品体验"></span><span class="industry-title"><b>房产、零售及产品体验</b><small>10 个小类</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>预约看房</li><li>房产估价</li><li>验房服务</li><li>室内设计</li><li>装修报价</li><li>婚纱试穿</li><li>西装量身</li><li>眼镜试戴</li><li>珠宝预约</li><li>展厅演示</li></ul></details><details class="industry-card"><summary><span class="industry-no">11</span><span class="industry-art"><img loading="lazy" src="/assets/industries/food-workshops.webp" alt="餐饮及工作坊"></span><span class="industry-title"><b>餐饮及工作坊</b><small>10 个小类</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>私房菜</li><li>餐饮试吃</li><li>葡萄酒及清酒品鉴</li><li>咖啡品鉴</li><li>茶道体验</li><li>烹饪课</li><li>烘焙课</li><li>蛋糕装饰</li><li>咖啡拉花</li><li>调酒课</li></ul></details><details class="industry-card"><summary><span class="industry-no">12</span><span class="industry-art"><img loading="lazy" src="/assets/industries/travel-venues.webp" alt="旅游、娱乐及场地"></span><span class="industry-title"><b>旅游、娱乐及场地</b><small>12 个小类</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>私人导游</li><li>本地导览</li><li>徒步领队</li><li>露营体验</li><li>潜水及浮潜</li><li>冲浪及桨板</li><li>游艇活动</li><li>密室逃脱</li><li>VR 及电竞</li><li>运动场地</li><li>摄影及排练室</li><li>会议室</li></ul></details></div>
+    <p class="industry-note">找不到你的行业？只要客人需要预约时间，通常都可以使用 BookingYou。</p>
   </div>
 </section>
 
@@ -426,7 +448,7 @@
 
     gsap.set(['.hero .tag','.hero h1','.hero .hero-subtitle','.hero .cta','.hero .foot','.scroll-down'],{opacity:0,y:30});
     gsap.set('.hero-visual',{opacity:0,x:42,scale:.97});
-    gsap.set('.card,.tile,.plan,.posters>div,.inds>div,.faq',{opacity:0,y:55,rotateX:18});
+    gsap.set('.card,.tile,.plan,.posters>div,.industry-card,.faq',{opacity:0,y:55,rotateX:18});
 
     var intro=gsap.timeline({defaults:{ease:'power3.out'}});
     intro.to('.hero .tag',{opacity:1,y:0,duration:.6})
@@ -437,7 +459,7 @@
       .to('.hero-visual',{opacity:1,x:0,scale:1,duration:.9},'-=.65')
       .to('.scroll-down',{opacity:1,y:0,duration:.4},'-=.2');
 
-    ScrollTrigger.batch('.card,.tile,.plan,.posters>div,.inds>div,.faq',{
+    ScrollTrigger.batch('.card,.tile,.plan,.posters>div,.industry-card,.faq',{
       start:'top 80%',
       onEnter:function(batch){gsap.to(batch,{opacity:1,y:0,rotateX:0,duration:.8,stagger:.11,ease:'power2.out'});}
     });

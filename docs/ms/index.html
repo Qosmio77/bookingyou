@@ -77,6 +77,31 @@
   .inds img{width:100%;max-width:106px;border-radius:50%;margin:0 auto}
   .inds span{display:block;font-size:14px;color:var(--muted);margin-top:10px}
 
+  .industry-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:34px}
+  .industry-head .lead{max-width:720px}
+  .industry-head h2{text-wrap:balance}
+  .industry-stat{flex:none;display:inline-flex;align-items:center;gap:9px;border-radius:999px;padding:10px 17px;background:var(--navy);color:var(--white);font-size:13px;font-weight:700;box-shadow:0 10px 25px rgba(18,48,79,.14)}
+  .industry-stat::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--bright)}
+  .industry-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:start}
+  .industry-card{background:rgba(255,255,255,.88);border:1px solid rgba(18,48,79,.08);border-radius:24px;overflow:hidden;box-shadow:0 12px 32px rgba(29,78,137,.06);transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;transform-style:preserve-3d}
+  .industry-card:hover{transform:translateY(-5px);border-color:rgba(19,169,149,.30);box-shadow:0 19px 42px rgba(29,78,137,.10)}
+  .industry-card[open]{border-color:rgba(19,169,149,.38);box-shadow:0 20px 46px rgba(29,78,137,.11)}
+  .industry-card summary{list-style:none;cursor:pointer;min-height:220px;padding:22px 22px 18px;display:grid;grid-template-columns:1fr auto;grid-template-rows:auto 1fr auto;gap:8px 12px;position:relative}
+  .industry-card summary::-webkit-details-marker{display:none}
+  .industry-no{font-size:11px;font-weight:800;color:var(--teal);letter-spacing:.12em;align-self:start}
+  .industry-art{grid-column:1/-1;grid-row:2;display:grid;place-items:center;height:112px;margin:-7px 0 -2px;border-radius:20px;background:linear-gradient(145deg,rgba(232,247,243,.75),rgba(242,248,251,.82));overflow:hidden}
+  .industry-art img{height:126px;width:auto;object-fit:contain;filter:drop-shadow(0 10px 9px rgba(18,48,79,.10));transition:transform .3s ease}
+  .industry-card:hover .industry-art img{transform:scale(1.045) rotate(-1deg)}
+  .industry-title{grid-column:1;grid-row:3;display:flex;flex-direction:column;min-width:0}
+  .industry-title b{font-size:18px;line-height:1.4;color:var(--navy)}
+  .industry-title small{font-size:12px;color:var(--muted);margin-top:3px}
+  .industry-toggle{grid-column:2;grid-row:3;align-self:end;display:inline-flex;align-items:center;gap:6px;color:var(--teal);font-size:11px;font-weight:700;white-space:nowrap}
+  .industry-toggle::after{content:"＋";font-size:16px;line-height:1}
+  .industry-card[open] .industry-toggle::after{content:"−"}
+  .industry-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 20px 22px}
+  .industry-list li{border-radius:10px;padding:8px 10px;background:var(--paper-blue);border:1px solid rgba(18,48,79,.05);font-size:12px;line-height:1.35;color:#405669}
+  .industry-note{margin-top:25px;text-align:center;font-size:14px;color:var(--muted)}
+
   .posters{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:34px}
   .posters img{width:100%;border-radius:20px;box-shadow:0 15px 38px rgba(11,27,49,.12);border:1px solid rgba(18,48,79,.08)}
   .posters .cap{text-align:center;font-size:14px;font-weight:600;color:var(--navy);margin-top:12px}
@@ -156,6 +181,7 @@
     .hero-visual{min-height:540px;max-width:680px;width:100%;margin:0 auto}.hero h1{font-size:58px}h2{font-size:38px}
     .c3,.c4{grid-template-columns:1fr}
     .inds{grid-template-columns:repeat(3,1fr)}
+    .industry-head{align-items:flex-start;flex-direction:column}.industry-grid{grid-template-columns:1fr 1fr}
     .posters{grid-template-columns:1fr}
   }
   @media(max-width:580px){
@@ -165,6 +191,7 @@
     .booking-flow{gap:7px;padding:12px;border-radius:24px}.flow-item{min-height:210px;padding:6px;border-radius:16px}.flow-item img{max-height:180px}.flow-item:not(:last-child)::after{right:-10px;width:20px;height:20px;font-size:18px}
     .global-scene{min-height:390px}.global-globe{width:300px;right:-14%;bottom:8%}.global-building{width:110px;left:3%}.global-language{width:105px;left:24%;top:5%}
     .plans{gap:18px}.plan{padding:28px}.inds{grid-template-columns:repeat(2,1fr)}.foot-row .right{margin-left:0;width:100%}
+    .industry-grid{grid-template-columns:1fr}.industry-card summary{min-height:190px;grid-template-columns:1fr auto;padding:18px}.industry-art{height:96px}.industry-art img{height:110px}.industry-list{padding:0 16px 18px}.industry-stat{font-size:12px}
   }
 
   .stepno{width:46px;height:46px;border-radius:16px;background:var(--teal);color:var(--white);display:grid;place-items:center;font-size:20px;font-weight:700;margin-bottom:16px;transform:rotate(-3deg)}
@@ -315,17 +342,12 @@
 
 <section id="who" class="bg-a">
   <div class="wrap">
-    <span class="chip">Untuk siapa</span>
-    <h2 style="margin-top:14px">Satu alat untuk semua kedai berasaskan temu janji</h2><p class="lead">Jika perniagaan anda ialah "pelanggan menempah masa dan datang", aliran ini sesuai. Berikut kategori yang sudah menggunakannya; kedai dengan corak serupa juga sama.</p>
-    <div class="inds">
-      <div><img src="/assets/deck-ind-5.png" alt=""><span>Salon rambut</span></div>
-      <div><img src="/assets/deck-ind-6.png" alt=""><span>Kedai gunting</span></div>
-      <div><img src="/assets/deck-ind-7.png" alt=""><span>Studio kuku</span></div>
-      <div><img src="/assets/deck-ind-8.png" alt=""><span>Fisioterapi</span></div>
-      <div><img src="/assets/deck-ind-9.png" alt=""><span>Dandanan haiwan</span></div>
-      <div><img src="/assets/deck-ind-10.png" alt=""><span>Tuisyen</span></div>
+    <div class="industry-head">
+      <div><span class="chip">Untuk siapa</span><h2 style="margin-top:14px">Satu alat untuk semua kedai berasaskan temu janji</h2><p class="lead">Jika perniagaan anda ialah "pelanggan menempah masa dan datang", aliran ini sesuai. Berikut kategori yang sudah menggunakannya; kedai dengan corak serupa juga sama.</p></div>
+      <div class="industry-stat">12 kategori · 122 perkhidmatan janji temu</div>
     </div>
-    <div class="note">Ilustrasi</div>
+    <div class="industry-grid"><details class="industry-card"><summary><span class="industry-no">01</span><span class="industry-art"><img loading="lazy" src="/assets/industries/beauty.webp" alt="Kecantikan &amp; penjagaan diri"></span><span class="industry-title"><b>Kecantikan &amp; penjagaan diri</b><small>10 jenis perkhidmatan</small></span><span class="industry-toggle">Lihat semua</span></summary><ul class="industry-list"><li>Salon rambut</li><li>Kedai gunting</li><li>Studio kuku</li><li>Bulu mata &amp; kening</li><li>Rawatan muka &amp; kulit</li><li>Solekan</li><li>Pembuangan bulu</li><li>Tatu &amp; tindik</li><li>Analisis warna peribadi</li><li>Perunding imej</li></ul></details><details class="industry-card"><summary><span class="industry-no">02</span><span class="industry-art"><img loading="lazy" src="/assets/industries/health.webp" alt="Kesihatan, rehabilitasi &amp; kesejahteraan"></span><span class="industry-title"><b>Kesihatan, rehabilitasi &amp; kesejahteraan</b><small>10 jenis perkhidmatan</small></span><span class="industry-toggle">Lihat semua</span></summary><ul class="industry-list"><li>Terapi urut</li><li>Fisioterapi</li><li>Kiropraktik &amp; osteopati</li><li>Perubatan Cina</li><li>Akupunktur</li><li>Terapi pekerjaan</li><li>Terapi pertuturan</li><li>Nasihat pemakanan</li><li>Kaunseling</li><li>Penjagaan selepas bersalin</li></ul></details><details class="industry-card"><summary><span class="industry-no">03</span><span class="industry-art"><img loading="lazy" src="/assets/industries/fitness.webp" alt="Kecergasan &amp; bimbingan sukan"></span><span class="industry-title"><b>Kecergasan &amp; bimbingan sukan</b><small>10 jenis perkhidmatan</small></span><span class="industry-toggle">Lihat semua</span></summary><ul class="industry-list"><li>Latihan peribadi</li><li>Yoga</li><li>Pilates</li><li>Tinju &amp; Muay Thai</li><li>Jurulatih renang</li><li>Jurulatih tenis</li><li>Jurulatih badminton</li><li>Jurulatih golf</li><li>Kelas tarian</li><li>Jurulatih larian</li></ul></details><details class="industry-card"><summary><span class="industry-no">04</span><span class="industry-art"><img loading="lazy" src="/assets/industries/education.webp" alt="Pendidikan, tuisyen &amp; latihan"></span><span class="industry-title"><b>Pendidikan, tuisyen &amp; latihan</b><small>10 jenis perkhidmatan</small></span><span class="industry-toggle">Lihat semua</span></summary><ul class="industry-list"><li>Tuisyen peribadi</li><li>Kelas bahasa</li><li>Kelas piano</li><li>Kelas gitar</li><li>Latihan vokal</li><li>Seni &amp; kaligrafi</li><li>Pengekodan &amp; STEM</li><li>Memasak &amp; membakar</li><li>Pengajar memandu</li><li>Bimbingan kerjaya</li></ul></details><details class="industry-card"><summary><span class="industry-no">05</span><span class="industry-art"><img loading="lazy" src="/assets/industries/pet.webp" alt="Perkhidmatan haiwan peliharaan"></span><span class="industry-title"><b>Perkhidmatan haiwan peliharaan</b><small>10 jenis perkhidmatan</small></span><span class="industry-toggle">Lihat semua</span></summary><ul class="industry-list"><li>Dandanan haiwan</li><li>Mandian haiwan</li><li>Latihan haiwan</li><li>Penjagaan haiwan</li><li>Khidmat jalan anjing</li><li>Fotografi haiwan</li><li>Klinik veterinar</li><li>Urut haiwan</li><li>Pemakanan haiwan</li><li>Temu duga pengambilan</li></ul></details><details class="industry-card"><summary><span class="industry-no">06</span><span class="industry-art"><img loading="lazy" src="/assets/industries/home.webp" alt="Rumah &amp; perkhidmatan di lokasi"></span><span class="industry-title"><b>Rumah &amp; perkhidmatan di lokasi</b><small>10 jenis perkhidmatan</small></span><span class="industry-toggle">Lihat semua</span></summary><ul class="industry-list"><li>Pembersihan rumah</li><li>Pembersihan mendalam</li><li>Cuci penghawa dingin</li><li>Cuci perkakas</li><li>Kawalan perosak</li><li>Paip</li><li>Juruteknik elektrik</li><li>Pemasangan perabot</li><li>Pemasangan rumah pintar</li><li>Anggaran pindah rumah</li></ul></details><details class="industry-card"><summary><span class="industry-no">07</span><span class="industry-art"><img loading="lazy" src="/assets/industries/repair-auto.webp" alt="Pembaikan, automotif &amp; teknologi"></span><span class="industry-title"><b>Pembaikan, automotif &amp; teknologi</b><small>10 jenis perkhidmatan</small></span><span class="industry-toggle">Lihat semua</span></summary><ul class="industry-list"><li>Baiki telefon</li><li>Baiki komputer</li><li>Baiki kamera</li><li>Baiki jam</li><li>Baiki barang kemas</li><li>Baiki kasut &amp; beg</li><li>Ubah suai pakaian</li><li>Baiki alat muzik</li><li>Perincian kereta</li><li>Servis kereta</li></ul></details><details class="industry-card"><summary><span class="industry-no">08</span><span class="industry-art"><img loading="lazy" src="/assets/industries/creative-events.webp" alt="Fotografi, kreatif &amp; acara"></span><span class="industry-title"><b>Fotografi, kreatif &amp; acara</b><small>10 jenis perkhidmatan</small></span><span class="industry-toggle">Lihat semua</span></summary><ul class="industry-list"><li>Fotografi potret</li><li>Fotografi perkahwinan</li><li>Fotografi produk</li><li>Produksi video</li><li>Studio rakaman</li><li>Studio podcast</li><li>Reka bentuk grafik</li><li>Konsultasi tatu</li><li>Perancang perkahwinan</li><li>Tempat parti</li></ul></details><details class="industry-card"><summary><span class="industry-no">09</span><span class="industry-art"><img loading="lazy" src="/assets/industries/professional.webp" alt="Perkhidmatan profesional &amp; perniagaan"></span><span class="industry-title"><b>Perkhidmatan profesional &amp; perniagaan</b><small>10 jenis perkhidmatan</small></span><span class="industry-toggle">Lihat semua</span></summary><ul class="industry-list"><li>Perakaunan</li><li>Nasihat cukai</li><li>Setiausaha syarikat</li><li>Konsultasi undang-undang</li><li>Nasihat insurans</li><li>Nasihat gadai janji</li><li>Nasihat imigresen</li><li>Pengambilan &amp; kerjaya</li><li>Pemasaran &amp; SEO</li><li>Perundingan IT &amp; AI</li></ul></details><details class="industry-card"><summary><span class="industry-no">10</span><span class="industry-art"><img loading="lazy" src="/assets/industries/property-retail.webp" alt="Hartanah, runcit &amp; pengalaman produk"></span><span class="industry-title"><b>Hartanah, runcit &amp; pengalaman produk</b><small>10 jenis perkhidmatan</small></span><span class="industry-toggle">Lihat semua</span></summary><ul class="industry-list"><li>Lawatan hartanah</li><li>Penilaian hartanah</li><li>Pemeriksaan rumah</li><li>Reka bentuk dalaman</li><li>Sebut harga pengubahsuaian</li><li>Cuba gaun pengantin</li><li>Padanan sut</li><li>Padanan cermin mata</li><li>Janji temu barang kemas</li><li>Demo bilik pameran</li></ul></details><details class="industry-card"><summary><span class="industry-no">11</span><span class="industry-art"><img loading="lazy" src="/assets/industries/food-workshops.webp" alt="Makanan, minuman &amp; bengkel"></span><span class="industry-title"><b>Makanan, minuman &amp; bengkel</b><small>10 jenis perkhidmatan</small></span><span class="industry-toggle">Lihat semua</span></summary><ul class="industry-list"><li>Jamuan peribadi</li><li>Rasa katering</li><li>Rasa wain &amp; sake</li><li>Rasa kopi</li><li>Upacara teh</li><li>Kelas memasak</li><li>Kelas membakar</li><li>Hiasan kek</li><li>Seni latte</li><li>Kelas koktel</li></ul></details><details class="industry-card"><summary><span class="industry-no">12</span><span class="industry-art"><img loading="lazy" src="/assets/industries/travel-venues.webp" alt="Pelancongan, hiburan &amp; tempat"></span><span class="industry-title"><b>Pelancongan, hiburan &amp; tempat</b><small>12 jenis perkhidmatan</small></span><span class="industry-toggle">Lihat semua</span></summary><ul class="industry-list"><li>Pemandu peribadi</li><li>Lawatan tempatan</li><li>Pemandu mendaki</li><li>Pengalaman berkhemah</li><li>Menyelam &amp; snorkel</li><li>Luncur &amp; SUP</li><li>Pengalaman kapal layar</li><li>Bilik melarikan diri</li><li>VR &amp; e-sukan</li><li>Gelanggang sukan</li><li>Studio foto &amp; latihan</li><li>Bilik mesyuarat</li></ul></details></div>
+    <p class="industry-note">Tidak jumpa bidang anda? Jika pelanggan menempah masa dengan anda, BookingYou biasanya sesuai.</p>
   </div>
 </section>
 
@@ -426,7 +448,7 @@
 
     gsap.set(['.hero .tag','.hero h1','.hero .hero-subtitle','.hero .cta','.hero .foot','.scroll-down'],{opacity:0,y:30});
     gsap.set('.hero-visual',{opacity:0,x:42,scale:.97});
-    gsap.set('.card,.tile,.plan,.posters>div,.inds>div,.faq',{opacity:0,y:55,rotateX:18});
+    gsap.set('.card,.tile,.plan,.posters>div,.industry-card,.faq',{opacity:0,y:55,rotateX:18});
 
     var intro=gsap.timeline({defaults:{ease:'power3.out'}});
     intro.to('.hero .tag',{opacity:1,y:0,duration:.6})
@@ -437,7 +459,7 @@
       .to('.hero-visual',{opacity:1,x:0,scale:1,duration:.9},'-=.65')
       .to('.scroll-down',{opacity:1,y:0,duration:.4},'-=.2');
 
-    ScrollTrigger.batch('.card,.tile,.plan,.posters>div,.inds>div,.faq',{
+    ScrollTrigger.batch('.card,.tile,.plan,.posters>div,.industry-card,.faq',{
       start:'top 80%',
       onEnter:function(batch){gsap.to(batch,{opacity:1,y:0,rotateX:0,duration:.8,stagger:.11,ease:'power2.out'});}
     });

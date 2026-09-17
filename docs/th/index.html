@@ -77,6 +77,31 @@
   .inds img{width:100%;max-width:106px;border-radius:50%;margin:0 auto}
   .inds span{display:block;font-size:14px;color:var(--muted);margin-top:10px}
 
+  .industry-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:34px}
+  .industry-head .lead{max-width:720px}
+  .industry-head h2{text-wrap:balance}
+  .industry-stat{flex:none;display:inline-flex;align-items:center;gap:9px;border-radius:999px;padding:10px 17px;background:var(--navy);color:var(--white);font-size:13px;font-weight:700;box-shadow:0 10px 25px rgba(18,48,79,.14)}
+  .industry-stat::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--bright)}
+  .industry-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:start}
+  .industry-card{background:rgba(255,255,255,.88);border:1px solid rgba(18,48,79,.08);border-radius:24px;overflow:hidden;box-shadow:0 12px 32px rgba(29,78,137,.06);transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;transform-style:preserve-3d}
+  .industry-card:hover{transform:translateY(-5px);border-color:rgba(19,169,149,.30);box-shadow:0 19px 42px rgba(29,78,137,.10)}
+  .industry-card[open]{border-color:rgba(19,169,149,.38);box-shadow:0 20px 46px rgba(29,78,137,.11)}
+  .industry-card summary{list-style:none;cursor:pointer;min-height:220px;padding:22px 22px 18px;display:grid;grid-template-columns:1fr auto;grid-template-rows:auto 1fr auto;gap:8px 12px;position:relative}
+  .industry-card summary::-webkit-details-marker{display:none}
+  .industry-no{font-size:11px;font-weight:800;color:var(--teal);letter-spacing:.12em;align-self:start}
+  .industry-art{grid-column:1/-1;grid-row:2;display:grid;place-items:center;height:112px;margin:-7px 0 -2px;border-radius:20px;background:linear-gradient(145deg,rgba(232,247,243,.75),rgba(242,248,251,.82));overflow:hidden}
+  .industry-art img{height:126px;width:auto;object-fit:contain;filter:drop-shadow(0 10px 9px rgba(18,48,79,.10));transition:transform .3s ease}
+  .industry-card:hover .industry-art img{transform:scale(1.045) rotate(-1deg)}
+  .industry-title{grid-column:1;grid-row:3;display:flex;flex-direction:column;min-width:0}
+  .industry-title b{font-size:18px;line-height:1.4;color:var(--navy)}
+  .industry-title small{font-size:12px;color:var(--muted);margin-top:3px}
+  .industry-toggle{grid-column:2;grid-row:3;align-self:end;display:inline-flex;align-items:center;gap:6px;color:var(--teal);font-size:11px;font-weight:700;white-space:nowrap}
+  .industry-toggle::after{content:"＋";font-size:16px;line-height:1}
+  .industry-card[open] .industry-toggle::after{content:"−"}
+  .industry-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 20px 22px}
+  .industry-list li{border-radius:10px;padding:8px 10px;background:var(--paper-blue);border:1px solid rgba(18,48,79,.05);font-size:12px;line-height:1.35;color:#405669}
+  .industry-note{margin-top:25px;text-align:center;font-size:14px;color:var(--muted)}
+
   .posters{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:34px}
   .posters img{width:100%;border-radius:20px;box-shadow:0 15px 38px rgba(11,27,49,.12);border:1px solid rgba(18,48,79,.08)}
   .posters .cap{text-align:center;font-size:14px;font-weight:600;color:var(--navy);margin-top:12px}
@@ -156,6 +181,7 @@
     .hero-visual{min-height:540px;max-width:680px;width:100%;margin:0 auto}.hero h1{font-size:58px}h2{font-size:38px}
     .c3,.c4{grid-template-columns:1fr}
     .inds{grid-template-columns:repeat(3,1fr)}
+    .industry-head{align-items:flex-start;flex-direction:column}.industry-grid{grid-template-columns:1fr 1fr}
     .posters{grid-template-columns:1fr}
   }
   @media(max-width:580px){
@@ -165,6 +191,7 @@
     .booking-flow{gap:7px;padding:12px;border-radius:24px}.flow-item{min-height:210px;padding:6px;border-radius:16px}.flow-item img{max-height:180px}.flow-item:not(:last-child)::after{right:-10px;width:20px;height:20px;font-size:18px}
     .global-scene{min-height:390px}.global-globe{width:300px;right:-14%;bottom:8%}.global-building{width:110px;left:3%}.global-language{width:105px;left:24%;top:5%}
     .plans{gap:18px}.plan{padding:28px}.inds{grid-template-columns:repeat(2,1fr)}.foot-row .right{margin-left:0;width:100%}
+    .industry-grid{grid-template-columns:1fr}.industry-card summary{min-height:190px;grid-template-columns:1fr auto;padding:18px}.industry-art{height:96px}.industry-art img{height:110px}.industry-list{padding:0 16px 18px}.industry-stat{font-size:12px}
   }
 
   .stepno{width:46px;height:46px;border-radius:16px;background:var(--teal);color:var(--white);display:grid;place-items:center;font-size:20px;font-weight:700;margin-bottom:16px;transform:rotate(-3deg)}
@@ -315,17 +342,12 @@
 
 <section id="who" class="bg-a">
   <div class="wrap">
-    <span class="chip">เหมาะกับใคร</span>
-    <h2 style="margin-top:14px">เครื่องมือเดียว ใช้ได้กับร้านที่รับจองทุกแบบ</h2><p class="lead">ถ้าธุรกิจของคุณคือ "ลูกค้าจองเวลาแล้วมาที่ร้าน" ขั้นตอนนี้ใช้ได้เลย ด้านล่างคือประเภทร้านที่ใช้อยู่แล้ว ร้านที่มีรูปแบบคล้ายกันก็ใช้ได้เช่นกัน</p>
-    <div class="inds">
-      <div><img src="/assets/deck-ind-5.png" alt=""><span>ร้านทำผม</span></div>
-      <div><img src="/assets/deck-ind-6.png" alt=""><span>ร้านตัดผม</span></div>
-      <div><img src="/assets/deck-ind-7.png" alt=""><span>ร้านทำเล็บ</span></div>
-      <div><img src="/assets/deck-ind-8.png" alt=""><span>กายภาพบำบัด</span></div>
-      <div><img src="/assets/deck-ind-9.png" alt=""><span>ตัดขนสัตว์</span></div>
-      <div><img src="/assets/deck-ind-10.png" alt=""><span>ติวเตอร์</span></div>
+    <div class="industry-head">
+      <div><span class="chip">เหมาะกับใคร</span><h2 style="margin-top:14px">เครื่องมือเดียว ใช้ได้กับร้านที่รับจองทุกแบบ</h2><p class="lead">ถ้าธุรกิจของคุณคือ "ลูกค้าจองเวลาแล้วมาที่ร้าน" ขั้นตอนนี้ใช้ได้เลย ด้านล่างคือประเภทร้านที่ใช้อยู่แล้ว ร้านที่มีรูปแบบคล้ายกันก็ใช้ได้เช่นกัน</p></div>
+      <div class="industry-stat">12 หมวด · 122 บริการที่รับจอง</div>
     </div>
-    <div class="note">ภาพประกอบ</div>
+    <div class="industry-grid"><details class="industry-card"><summary><span class="industry-no">01</span><span class="industry-art"><img loading="lazy" src="/assets/industries/beauty.webp" alt="ความงามและการดูแลส่วนบุคคล"></span><span class="industry-title"><b>ความงามและการดูแลส่วนบุคคล</b><small>10 ประเภทย่อย</small></span><span class="industry-toggle">ดูทั้งหมด</span></summary><ul class="industry-list"><li>ร้านทำผม</li><li>ร้านตัดผมชาย</li><li>ร้านทำเล็บ</li><li>ขนตาและคิ้ว</li><li>ทรีตเมนต์หน้าและผิว</li><li>บริการแต่งหน้า</li><li>กำจัดขน</li><li>สักและเจาะ</li><li>วิเคราะห์สีส่วนบุคคล</li><li>ที่ปรึกษาภาพลักษณ์</li></ul></details><details class="industry-card"><summary><span class="industry-no">02</span><span class="industry-art"><img loading="lazy" src="/assets/industries/health.webp" alt="สุขภาพ ฟื้นฟู และเวลเนส"></span><span class="industry-title"><b>สุขภาพ ฟื้นฟู และเวลเนส</b><small>10 ประเภทย่อย</small></span><span class="industry-toggle">ดูทั้งหมด</span></summary><ul class="industry-list"><li>นวดบำบัด</li><li>กายภาพบำบัด</li><li>ไคโรแพรคติกและจัดกระดูก</li><li>แพทย์แผนจีน</li><li>ฝังเข็ม</li><li>กิจกรรมบำบัด</li><li>แก้ไขการพูด</li><li>ให้คำปรึกษาโภชนาการ</li><li>ให้คำปรึกษาจิตใจ</li><li>ดูแลหลังคลอด</li></ul></details><details class="industry-card"><summary><span class="industry-no">03</span><span class="industry-art"><img loading="lazy" src="/assets/industries/fitness.webp" alt="ฟิตเนสและโค้ชกีฬา"></span><span class="industry-title"><b>ฟิตเนสและโค้ชกีฬา</b><small>10 ประเภทย่อย</small></span><span class="industry-toggle">ดูทั้งหมด</span></summary><ul class="industry-list"><li>เทรนเนอร์ส่วนตัว</li><li>โยคะ</li><li>พิลาทิส</li><li>มวยและมวยไทย</li><li>โค้ชว่ายน้ำ</li><li>โค้ชเทนนิส</li><li>โค้ชแบดมินตัน</li><li>โค้ชกอล์ฟ</li><li>ครูสอนเต้น</li><li>โค้ชวิ่ง</li></ul></details><details class="industry-card"><summary><span class="industry-no">04</span><span class="industry-art"><img loading="lazy" src="/assets/industries/education.webp" alt="การศึกษา ติว และฝึกอบรม"></span><span class="industry-title"><b>การศึกษา ติว และฝึกอบรม</b><small>10 ประเภทย่อย</small></span><span class="industry-toggle">ดูทั้งหมด</span></summary><ul class="industry-list"><li>ติวส่วนตัว</li><li>เรียนภาษา</li><li>เรียนเปียโน</li><li>เรียนกีตาร์</li><li>ฝึกร้องเพลง</li><li>ศิลปะและพู่กัน</li><li>เขียนโค้ดและ STEM</li><li>ทำอาหารและเบเกอรี่</li><li>ครูสอนขับรถ</li><li>โค้ชอาชีพ</li></ul></details><details class="industry-card"><summary><span class="industry-no">05</span><span class="industry-art"><img loading="lazy" src="/assets/industries/pet.webp" alt="บริการสัตว์เลี้ยง"></span><span class="industry-title"><b>บริการสัตว์เลี้ยง</b><small>10 ประเภทย่อย</small></span><span class="industry-toggle">ดูทั้งหมด</span></summary><ul class="industry-list"><li>ตัดแต่งขนสัตว์</li><li>อาบน้ำสัตว์</li><li>ฝึกสัตว์เลี้ยง</li><li>รับเลี้ยงสัตว์ชั่วคราว</li><li>พาสุนัขเดิน</li><li>ถ่ายภาพสัตว์</li><li>คลินิกสัตวแพทย์</li><li>นวดสัตว์</li><li>โภชนาการสัตว์</li><li>สัมภาษณ์รับเลี้ยง</li></ul></details><details class="industry-card"><summary><span class="industry-no">06</span><span class="industry-art"><img loading="lazy" src="/assets/industries/home.webp" alt="บริการบ้านและนอกสถานที่"></span><span class="industry-title"><b>บริการบ้านและนอกสถานที่</b><small>10 ประเภทย่อย</small></span><span class="industry-toggle">ดูทั้งหมด</span></summary><ul class="industry-list"><li>ทำความสะอาดบ้าน</li><li>ทำความสะอาดใหญ่</li><li>ล้างแอร์</li><li>ทำความสะอาดเครื่องใช้</li><li>กำจัดแมลง</li><li>งานประปา</li><li>งานไฟฟ้า</li><li>ประกอบเฟอร์นิเจอร์</li><li>ติดตั้งสมาร์ตโฮม</li><li>ประเมินค่าย้ายบ้าน</li></ul></details><details class="industry-card"><summary><span class="industry-no">07</span><span class="industry-art"><img loading="lazy" src="/assets/industries/repair-auto.webp" alt="ซ่อม อะไหล่รถ และเทคโนโลยี"></span><span class="industry-title"><b>ซ่อม อะไหล่รถ และเทคโนโลยี</b><small>10 ประเภทย่อย</small></span><span class="industry-toggle">ดูทั้งหมด</span></summary><ul class="industry-list"><li>ซ่อมโทรศัพท์</li><li>ซ่อมคอมพิวเตอร์</li><li>ซ่อมกล้อง</li><li>ซ่อมนาฬิกา</li><li>ซ่อมเครื่องประดับ</li><li>ซ่อมรองเท้าและกระเป๋า</li><li>แก้เสื้อผ้า</li><li>ซ่อมเครื่องดนตรี</li><li>ดูแลรถยนต์</li><li>บำรุงรักษารถยนต์</li></ul></details><details class="industry-card"><summary><span class="industry-no">08</span><span class="industry-art"><img loading="lazy" src="/assets/industries/creative-events.webp" alt="ภาพถ่าย งานสร้างสรรค์ และอีเวนต์"></span><span class="industry-title"><b>ภาพถ่าย งานสร้างสรรค์ และอีเวนต์</b><small>10 ประเภทย่อย</small></span><span class="industry-toggle">ดูทั้งหมด</span></summary><ul class="industry-list"><li>ถ่ายภาพบุคคล</li><li>ถ่ายภาพงานแต่ง</li><li>ถ่ายภาพสินค้า</li><li>ผลิตวิดีโอ</li><li>สตูดิโอบันทึกเสียง</li><li>สตูดิโอพอดแคสต์</li><li>ออกแบบกราฟิก</li><li>ปรึกษาการสัก</li><li>วางแผนงานแต่ง</li><li>สถานที่จัดปาร์ตี้</li></ul></details><details class="industry-card"><summary><span class="industry-no">09</span><span class="industry-art"><img loading="lazy" src="/assets/industries/professional.webp" alt="บริการวิชาชีพและธุรกิจ"></span><span class="industry-title"><b>บริการวิชาชีพและธุรกิจ</b><small>10 ประเภทย่อย</small></span><span class="industry-toggle">ดูทั้งหมด</span></summary><ul class="industry-list"><li>บัญชี</li><li>ที่ปรึกษาภาษี</li><li>เลขานุการบริษัท</li><li>ปรึกษากฎหมาย</li><li>ที่ปรึกษาประกัน</li><li>ที่ปรึกษาสินเชื่อบ้าน</li><li>ที่ปรึกษาตรวจคนเข้าเมือง</li><li>สรรหาและอาชีพ</li><li>การตลาดและ SEO</li><li>ที่ปรึกษา IT และ AI</li></ul></details><details class="industry-card"><summary><span class="industry-no">10</span><span class="industry-art"><img loading="lazy" src="/assets/industries/property-retail.webp" alt="อสังหาริมทรัพย์ ค้าปลีก และทดลองสินค้า"></span><span class="industry-title"><b>อสังหาริมทรัพย์ ค้าปลีก และทดลองสินค้า</b><small>10 ประเภทย่อย</small></span><span class="industry-toggle">ดูทั้งหมด</span></summary><ul class="industry-list"><li>นัดชมอสังหา</li><li>ประเมินราคาอสังหา</li><li>ตรวจบ้าน</li><li>ออกแบบภายใน</li><li>ประเมินค่าปรับปรุง</li><li>ลองชุดแต่งงาน</li><li>วัดตัวสูท</li><li>ลองแว่น</li><li>นัดชมเครื่องประดับ</li><li>สาธิตในโชว์รูม</li></ul></details><details class="industry-card"><summary><span class="industry-no">11</span><span class="industry-art"><img loading="lazy" src="/assets/industries/food-workshops.webp" alt="อาหาร เครื่องดื่ม และเวิร์กช็อป"></span><span class="industry-title"><b>อาหาร เครื่องดื่ม และเวิร์กช็อป</b><small>10 ประเภทย่อย</small></span><span class="industry-toggle">ดูทั้งหมด</span></summary><ul class="industry-list"><li>มื้ออาหารส่วนตัว</li><li>ชิมอาหารจัดเลี้ยง</li><li>ชิมไวน์และสาเก</li><li>ชิมกาแฟ</li><li>พิธีชงชา</li><li>คลาสทำอาหาร</li><li>คลาสเบเกอรี่</li><li>แต่งหน้าเค้ก</li><li>ลาเต้อาร์ต</li><li>คลาสค็อกเทล</li></ul></details><details class="industry-card"><summary><span class="industry-no">12</span><span class="industry-art"><img loading="lazy" src="/assets/industries/travel-venues.webp" alt="ท่องเที่ยว บันเทิง และสถานที่"></span><span class="industry-title"><b>ท่องเที่ยว บันเทิง และสถานที่</b><small>12 ประเภทย่อย</small></span><span class="industry-toggle">ดูทั้งหมด</span></summary><ul class="industry-list"><li>ไกด์ส่วนตัว</li><li>ทัวร์ท้องถิ่น</li><li>ไกด์เดินป่า</li><li>ประสบการณ์แคมป์</li><li>ดำน้ำและสนอร์เกิล</li><li>โต้คลื่นและ SUP</li><li>กิจกรรมเรือยอชต์</li><li>ห้องปริศนา</li><li>VR และอีสปอร์ต</li><li>สนามกีฬา</li><li>สตูดิโอถ่ายภาพและซ้อม</li><li>ห้องประชุม</li></ul></details></div>
+    <p class="industry-note">ไม่พบธุรกิจของคุณใช่ไหม หากลูกค้าต้องจองเวลา โดยทั่วไปก็ใช้ BookingYou ได้</p>
   </div>
 </section>
 
@@ -426,7 +448,7 @@
 
     gsap.set(['.hero .tag','.hero h1','.hero .hero-subtitle','.hero .cta','.hero .foot','.scroll-down'],{opacity:0,y:30});
     gsap.set('.hero-visual',{opacity:0,x:42,scale:.97});
-    gsap.set('.card,.tile,.plan,.posters>div,.inds>div,.faq',{opacity:0,y:55,rotateX:18});
+    gsap.set('.card,.tile,.plan,.posters>div,.industry-card,.faq',{opacity:0,y:55,rotateX:18});
 
     var intro=gsap.timeline({defaults:{ease:'power3.out'}});
     intro.to('.hero .tag',{opacity:1,y:0,duration:.6})
@@ -437,7 +459,7 @@
       .to('.hero-visual',{opacity:1,x:0,scale:1,duration:.9},'-=.65')
       .to('.scroll-down',{opacity:1,y:0,duration:.4},'-=.2');
 
-    ScrollTrigger.batch('.card,.tile,.plan,.posters>div,.inds>div,.faq',{
+    ScrollTrigger.batch('.card,.tile,.plan,.posters>div,.industry-card,.faq',{
       start:'top 80%',
       onEnter:function(batch){gsap.to(batch,{opacity:1,y:0,rotateX:0,duration:.8,stagger:.11,ease:'power2.out'});}
     });
