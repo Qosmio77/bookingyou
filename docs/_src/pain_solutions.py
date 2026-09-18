@@ -3,7 +3,7 @@ import html
 
 IMAGES = [
     '01-interrupted-service-call.png',
-    '02-scattered-booking-channels.png',
+    '02-scattered-booking-channels.png?v=20260919',
     '03-after-hours-self-booking.png',
     '04-easy-reschedule.png',
     '05-automatic-reminders.png',
