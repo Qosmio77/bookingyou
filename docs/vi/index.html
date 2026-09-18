@@ -234,11 +234,19 @@
   .dlnote{font-size:15px;color:var(--muted);margin-top:22px}
   @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero-qr,.hero-mascot,.shape,.scroll-down{animation:none!important}.card,.inds>div,.btn{transition:none!important}}
 
-  .langs{display:flex;flex-wrap:nowrap;gap:14px;font-size:13px;color:var(--muted);margin-left:20px;white-space:nowrap}
-  .langs a{text-decoration:none;padding:3px 2px;border-bottom:2px solid transparent}
-  .langs a:hover{color:var(--teal)}
-  .langs a.on{color:var(--navy);font-weight:700;border-bottom-color:var(--teal)}
-  @media(max-width:900px){.nav{height:auto;padding:10px 0 7px;flex-wrap:wrap}.nav>img{height:38px}.links{display:none}.langs{margin-left:0;width:100%;margin-top:0;gap:18px;overflow-x:auto;padding:0 0 5px;scrollbar-width:none;-webkit-overflow-scrolling:touch}.langs::-webkit-scrollbar{display:none}}
+  .lang-menu{position:relative;flex:none}
+  .lang-menu summary{list-style:none;display:flex;align-items:center;gap:8px;min-width:124px;padding:8px 12px;border:1px solid rgba(18,48,79,.12);border-radius:999px;background:rgba(255,255,255,.78);color:var(--navy);font-size:13px;font-weight:700;line-height:1.4;cursor:pointer;box-shadow:0 7px 20px rgba(18,48,79,.06);transition:border-color .2s ease,background .2s ease,box-shadow .2s ease}
+  .lang-menu summary::-webkit-details-marker{display:none}
+  .lang-menu summary:hover,.lang-menu[open] summary{border-color:rgba(19,169,149,.42);background:var(--white);box-shadow:0 10px 26px rgba(18,48,79,.10)}
+  .lang-mark{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--pale);color:var(--teal);font-size:12px;font-weight:800}
+  .lang-chevron{width:7px;height:7px;margin-left:auto;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .2s ease}
+  .lang-menu[open] .lang-chevron{transform:rotate(225deg) translate(-1px,-1px)}
+  .lang-options{position:absolute;right:0;top:calc(100% + 10px);z-index:80;display:grid;min-width:210px;padding:8px;border:1px solid rgba(18,48,79,.10);border-radius:18px;background:rgba(255,255,255,.97);box-shadow:0 20px 50px rgba(18,48,79,.16);backdrop-filter:blur(18px)}
+  .lang-options a{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:9px 11px;border-radius:11px;color:var(--muted);font-size:13px;text-decoration:none;white-space:nowrap}
+  .lang-options a:hover{color:var(--navy);background:var(--pale)}
+  .lang-options a.on{color:var(--navy);font-weight:700;background:rgba(232,247,243,.72)}
+  .lang-options a.on::after{content:"✓";color:var(--teal);font-weight:800}
+  @media(max-width:900px){.nav{height:auto;min-height:64px;padding:9px 0;flex-wrap:nowrap}.nav>img{height:38px}.links{display:none}.lang-menu{margin-left:auto}.lang-menu summary{min-width:118px}.lang-options{position:fixed;left:18px;right:18px;top:72px;min-width:0;grid-template-columns:repeat(2,minmax(0,1fr));padding:10px}.lang-options a{padding:11px 12px}}
 </style>
 <link rel="alternate" hreflang="zh-Hant" href="https://bookingyou.app/"><link rel="alternate" hreflang="en" href="https://bookingyou.app/en/"><link rel="alternate" hreflang="zh-Hans" href="https://bookingyou.app/zh-cn/"><link rel="alternate" hreflang="ja" href="https://bookingyou.app/ja/"><link rel="alternate" hreflang="ko" href="https://bookingyou.app/ko/"><link rel="alternate" hreflang="ms" href="https://bookingyou.app/ms/"><link rel="alternate" hreflang="th" href="https://bookingyou.app/th/"><link rel="alternate" hreflang="vi" href="https://bookingyou.app/vi/"><link rel="alternate" hreflang="x-default" href="https://bookingyou.app/"></head>
 <body>
@@ -246,7 +254,7 @@
 <header><div class="wrap nav">
   <img src="/assets/logo.png" alt="BookingYou">
   <div class="links"><a href="#problem">Vấn đề</a><a href="#solution">Giải pháp</a><a href="#diff">Điểm khác biệt</a><a href="#who">Dành cho ai</a><a href="#plans">Giá</a></div>
-<div class="langs"><a href="/" hreflang="zh-Hant">繁體中文</a><a href="/en/" hreflang="en">English</a><a href="/zh-cn/" hreflang="zh-Hans">简体中文</a><a href="/ja/" hreflang="ja">日本語</a><a href="/ko/" hreflang="ko">한국어</a><a href="/ms/" hreflang="ms">Bahasa Melayu</a><a href="/th/" hreflang="th">ไทย</a><a href="/vi/" class="on" hreflang="vi">Tiếng Việt</a></div></div></header>
+<details class="lang-menu"><summary aria-label="Language: Tiếng Việt"><span class="lang-mark" aria-hidden="true">文</span><span>Tiếng Việt</span><span class="lang-chevron" aria-hidden="true"></span></summary><div class="lang-options"><a href="/" hreflang="zh-Hant">繁體中文</a><a href="/en/" hreflang="en">English</a><a href="/zh-cn/" hreflang="zh-Hans">简体中文</a><a href="/ja/" hreflang="ja">日本語</a><a href="/ko/" hreflang="ko">한국어</a><a href="/ms/" hreflang="ms">Bahasa Melayu</a><a href="/th/" hreflang="th">ไทย</a><a href="/vi/" class="on" aria-current="page" hreflang="vi">Tiếng Việt</a></div></details></div></header>
 
 <section class="hero">
   <div class="wrap">
