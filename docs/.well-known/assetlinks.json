@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.bookingyou.app",
+      "sha256_cert_fingerprints": [
+        "E8:F2:B3:01:C2:A8:EE:90:81:9E:59:DC:D4:50:39:95:0E:FD:75:5E:E7:37:9C:F7:F2:A4:42:E3:AE:9A:2F:BC"
+      ]
+    }
+  }
+]
