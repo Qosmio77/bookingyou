@@ -1,0 +1,4 @@
+# GitHub Pages runs Jekyll, which skips dot-folders unless told otherwise.
+# .well-known holds the Universal Link file iOS fetches for bookingyou.app/b/.
+include:
+  - .well-known

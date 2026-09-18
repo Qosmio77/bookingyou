@@ -1,0 +1,16 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": ["BH49A35JRY.com.bookingyou.app"],
+        "components": [
+          { "/": "/b", "comment": "shop booking link printed on posters" },
+          { "/": "/b/*" }
+        ],
+        "appID": "BH49A35JRY.com.bookingyou.app",
+        "paths": ["/b", "/b/*"]
+      }
+    ]
+  }
+}
