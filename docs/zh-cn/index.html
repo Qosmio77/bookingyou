@@ -247,6 +247,18 @@
   .lang-options a.on{color:var(--navy);font-weight:700;background:rgba(232,247,243,.72)}
   .lang-options a.on::after{content:"✓";color:var(--teal);font-weight:800}
   @media(max-width:900px){.nav{height:auto;min-height:64px;padding:9px 0;flex-wrap:nowrap}.nav>img{height:38px}.links{display:none}.lang-menu{margin-left:auto}.lang-menu summary{min-width:118px}.lang-options{position:fixed;left:18px;right:18px;top:72px;min-width:0;grid-template-columns:repeat(2,minmax(0,1fr));padding:10px}.lang-options a{padding:11px 12px}}
+
+  .pw-grid{columns:3 240px;column-gap:16px;margin-top:28px;min-height:120px}
+  .pw-grid button{display:block;width:100%;margin:0 0 16px;padding:0;border:0;background:var(--pale);border-radius:16px;overflow:hidden;cursor:zoom-in;break-inside:avoid;box-shadow:0 10px 26px rgba(27,67,89,.10);transition:transform .25s ease,box-shadow .25s ease}
+  .pw-grid button:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(27,67,89,.16)}
+  .pw-grid img{display:block;width:100%;height:auto}
+  .pw-more{margin-top:8px;text-align:center}
+  .pw-box{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;background:rgba(6,16,28,.86);padding:20px}
+  .pw-box.on{display:flex}
+  .pw-box img{max-width:min(92vw,720px);max-height:88vh;border-radius:14px;box-shadow:0 24px 60px rgba(0,0,0,.4)}
+  .pw-box button{position:absolute;top:16px;right:16px;width:44px;height:44px;border-radius:22px;border:0;background:rgba(255,255,255,.16);color:#fff;font-size:26px;line-height:44px;cursor:pointer}
+  @media(max-width:640px){.pw-grid{columns:2 150px;column-gap:10px}.pw-grid button{margin-bottom:10px;border-radius:12px}}
+  @media(prefers-reduced-motion:reduce){.pw-grid button{transition:none}}
 </style>
 <link rel="alternate" hreflang="zh-Hant" href="https://bookingyou.app/"><link rel="alternate" hreflang="en" href="https://bookingyou.app/en/"><link rel="alternate" hreflang="zh-Hans" href="https://bookingyou.app/zh-cn/"><link rel="alternate" hreflang="ja" href="https://bookingyou.app/ja/"><link rel="alternate" hreflang="ko" href="https://bookingyou.app/ko/"><link rel="alternate" hreflang="ms" href="https://bookingyou.app/ms/"><link rel="alternate" hreflang="th" href="https://bookingyou.app/th/"><link rel="alternate" hreflang="vi" href="https://bookingyou.app/vi/"><link rel="alternate" hreflang="x-default" href="https://bookingyou.app/"></head>
 <body>
@@ -403,6 +415,40 @@
     </div>
   </div>
 </section>
+
+<section id="posts">
+  <div class="wrap">
+    <span class="chip">贴文</span>
+    <h2 style="margin-top:14px">我们发过的贴文</h2>
+    <p class="lead">BookingYou 在各地社交平台发过的贴文，每次随机挑几张。</p>
+    <div class="pw-grid" id="pwGrid"></div>
+    <div class="pw-more"><button type="button" class="btn btn-ghost" id="pwMore">换一批</button></div>
+  </div>
+  <div class="pw-box" id="pwBox" role="dialog" aria-modal="true"><img id="pwImg" alt=""><button type="button" id="pwClose" aria-label="关闭">×</button></div>
+</section>
+<script>
+(function(){
+  var grid=document.getElementById('pwGrid'),box=document.getElementById('pwBox'),big=document.getElementById('pwImg'),SHOW=9,all=[],base='/posts/';
+  function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+  function draw(){
+    grid.innerHTML='';
+    shuffle(all.slice()).slice(0,SHOW).forEach(function(p){
+      var b=document.createElement('button');b.type='button';
+      var im=document.createElement('img');im.loading='lazy';im.alt='BookingYou post';im.src=base+'t/'+p.id+'.jpg';
+      im.width=480;im.height=Math.round(480*p.h/p.w);
+      b.appendChild(im);b.onclick=function(){big.src=base+p.id+'.jpg';box.classList.add('on');};
+      grid.appendChild(b);
+    });
+  }
+  function close(){box.classList.remove('on');big.removeAttribute('src');}
+  box.onclick=function(e){if(e.target!==big)close();};
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  document.getElementById('pwMore').onclick=draw;
+  fetch(base+'manifest.json').then(function(r){return r.json();}).then(function(m){all=m.posts||[];if(all.length)draw();else document.getElementById('posts').style.display='none';})
+    .catch(function(){document.getElementById('posts').style.display='none';});
+})();
+</script>
+
 
 <section class="bg-b">
   <div class="wrap row row2">
