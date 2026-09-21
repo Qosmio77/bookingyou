@@ -392,6 +392,8 @@
 
 {{posts_wall}}
 
+{{social}}
+
 <section class="bg-b">
   <div class="wrap row row2">
     <div>
@@ -465,6 +467,7 @@
 
 <footer><div class="wrap foot-row">
   <img src="assets/logo.png" alt="BookingYou"><span>© 2026 BookingYou</span>
+  {{social_footer}}
   <div class="right"><a href="/privacy/">{{foot_privacy}}</a><a href="/terms/">{{foot_terms}}</a><a href="mailto:bookingyouemail@gmail.com">{{foot_contact}}</a></div>
 </div></footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -476,7 +479,7 @@
 
     gsap.set(['.hero .tag','.hero h1','.hero .hero-subtitle','.hero .cta','.hero .foot','.scroll-down'],{opacity:0,y:30});
     gsap.set('.hero-visual',{opacity:0,x:42,scale:.97});
-    gsap.set('.card,.tile,.plan,.posters>div,.industry-card,.ps-card,.faq',{opacity:0,y:55,rotateX:18});
+    gsap.set('.card,.tile,.plan,.posters>div,.industry-card,.ps-card,.soc-card,.faq',{opacity:0,y:55,rotateX:18});
 
     var intro=gsap.timeline({defaults:{ease:'power3.out'}});
     intro.to('.hero .tag',{opacity:1,y:0,duration:.6})
@@ -487,7 +490,7 @@
       .to('.hero-visual',{opacity:1,x:0,scale:1,duration:.9},'-=.65')
       .to('.scroll-down',{opacity:1,y:0,duration:.4},'-=.2');
 
-    ScrollTrigger.batch('.card,.tile,.plan,.posters>div,.industry-card,.ps-card,.faq',{
+    ScrollTrigger.batch('.card,.tile,.plan,.posters>div,.industry-card,.ps-card,.soc-card,.faq',{
       start:'top 80%',
       onEnter:function(batch){gsap.to(batch,{opacity:1,y:0,rotateX:0,duration:.8,stagger:.11,ease:'power2.out'});}
     });
