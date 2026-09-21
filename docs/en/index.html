@@ -287,6 +287,24 @@
   @media(max-width:820px){.soc-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.soc-meta{padding:13px 14px 15px;gap:10px}.soc-logo{width:40px;height:40px;border-radius:12px}.soc-go{display:none}}
   @media(max-width:520px){.soc-grid{grid-template-columns:1fr}.soc-go{display:grid}.foot-soc{width:100%;justify-content:center;order:3}}
   @media(prefers-reduced-motion:reduce){.soc-card,.foot-soc a{transition:none}}
+
+  .wb-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:34px;margin-top:40px;align-items:start}
+  .wb-shot{border-radius:26px;overflow:hidden;border:1px solid rgba(18,48,79,.10);box-shadow:var(--shadow);background:#f2f5fa}
+  .wb-shot img{display:block;width:100%;height:auto}
+  .wb-steps{list-style:none;margin-top:22px;display:grid;gap:18px}
+  .wb-steps li{display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start}
+  .wb-num{width:40px;height:40px;border-radius:14px;background:var(--navy);color:#fff;font-weight:800;font-size:17px;display:grid;place-items:center}
+  .wb-steps b{display:block;font-size:18px;line-height:1.45;color:var(--navy)}
+  .wb-steps div>span{display:block;font-size:15px;line-height:1.75;color:var(--muted);margin-top:3px}
+  .wb-foot{display:grid;grid-template-columns:1.35fr 1fr;gap:24px;margin-top:44px}
+  .wb-box{background:var(--white);border:1px solid rgba(18,48,79,.08);border-radius:22px;padding:26px 28px;box-shadow:0 10px 26px rgba(27,67,89,.06)}
+  .wb-box h3{font-size:17px;color:var(--navy);margin-bottom:12px}
+  .wb-box ul{list-style:none;display:grid;gap:10px}
+  .wb-box li{position:relative;padding-left:20px;font-size:15px;line-height:1.75;color:var(--ink)}
+  .wb-box li::before{content:"";position:absolute;left:2px;top:.72em;width:8px;height:8px;border-radius:50%;background:var(--teal)}
+  .wb-box p{font-size:15px;line-height:1.8;color:var(--ink)}
+  .wb-box.shop{background:var(--pale);border-color:rgba(19,169,149,.28)}
+  @media(max-width:980px){.wb-cols{grid-template-columns:1fr;gap:40px;max-width:460px;margin-left:auto;margin-right:auto}.wb-foot{grid-template-columns:1fr}}
 </style>
 <link rel="alternate" hreflang="zh-Hant" href="https://bookingyou.app/"><link rel="alternate" hreflang="en" href="https://bookingyou.app/en/"><link rel="alternate" hreflang="zh-Hans" href="https://bookingyou.app/zh-cn/"><link rel="alternate" hreflang="ja" href="https://bookingyou.app/ja/"><link rel="alternate" hreflang="ko" href="https://bookingyou.app/ko/"><link rel="alternate" hreflang="ms" href="https://bookingyou.app/ms/"><link rel="alternate" hreflang="th" href="https://bookingyou.app/th/"><link rel="alternate" hreflang="vi" href="https://bookingyou.app/vi/"><link rel="alternate" hreflang="x-default" href="https://bookingyou.app/"></head>
 <body>
@@ -367,6 +385,8 @@
     </div>
   </div>
 </section>
+
+<section id="web-booking" class="bg-b"><div class="wrap"><span class="chip">Web booking · New</span><h2 style="margin-top:14px">Book in your browser — no app needed</h2><p class="lead">Got a shop’s BookingYou link or QR code? Open it in any browser, on your phone or computer, and book right there. No download and no account.</p><div class="wb-cols"><div class="wb-col"><div class="wb-shot"><img src="/assets/webbook/en-1.jpg" alt="Booking page: shop details and service" loading="lazy" decoding="async" width="640"></div><ol class="wb-steps"><li><span class="wb-num">1</span><div><b>Open the shop’s link</b><span>Tap the BookingYou link the shop shares on Instagram, a messaging app or its website, or scan the QR card at the counter. The booking page opens in your browser.</span></div></li><li><span class="wb-num">2</span><div><b>Choose a service</b><span>Each service shows its duration and price. Pick the one you want.</span></div></li></ol></div><div class="wb-col"><div class="wb-shot"><img src="/assets/webbook/en-2.jpg" alt="Booking page: date and time" loading="lazy" decoding="async" width="640"></div><ol class="wb-steps"><li><span class="wb-num">3</span><div><b>Pick a date and time</b><span>Only times that are still free are shown, in the shop’s local time. Closed days are greyed out.</span></div></li></ol></div><div class="wb-col"><div class="wb-shot"><img src="/assets/webbook/en-3.jpg" alt="Booking page: name and phone" loading="lazy" decoding="async" width="640"></div><ol class="wb-steps"><li><span class="wb-num">4</span><div><b>Enter your name and phone</b><span>That’s all the shop needs. A note is optional. No sign-up.</span></div></li><li><span class="wb-num">5</span><div><b>Send it and wait for the shop</b><span>Web bookings are confirmed by the shop. After you submit, you get your own booking link — save it to check the status or cancel later.</span></div></li></ol></div></div><div class="wb-foot"><div class="wb-box"><h3>Good to know</h3><ul><li>There is no account, so your booking link is your key. Save it and don’t share it.</li><li>Once the shop confirms, the status on your booking link changes from “Waiting for the shop” to “Confirmed”.</li><li>Some shops take bookings in the app only. The page says so straight away and gives you a button to open the app.</li><li>Want reminders, chat with the shop and all your bookings in one place? Get the app.</li></ul></div><div class="wb-box shop"><h3>For shops</h3><p>Share your booking link or QR card from the app and customers can book on the web right away. Every web booking waits for your confirmation, and you can choose to take bookings in the app only.</p></div></div><p class="note">Screens show the live web booking page of our demo shop.</p></div></section>
 
 <section id="pain-solutions" class="bg-a ps-section">
   <div class="wrap">
@@ -529,7 +549,7 @@
     <span class="chip">FAQ</span>
     <h2 style="margin-top:14px">You might be wondering</h2>
     <div class="faq">
-      <details><summary>Does the customer need the app to book?</summary><p>Yes, today. Your link opens the App Store or Google Play if the app is missing. Booking from the web without installing is the next thing we are building.</p></details>
+      <details><summary>Does the customer need the app to book?</summary><p>No. Customers tap your link or scan your QR card and book right in the browser — no install and no account. Every web booking waits for your confirmation, and customers who already have the app go straight into it.</p></details>
       <details><summary>Can I enter a booking for a customer myself?</summary><p>Yes. Phone and walk-in bookings go into the same calendar as online ones, and they count in your statistics and customer records.</p></details>
       <details><summary>What if a customer needs a different time?</summary><p>Both sides can reschedule without cancelling, so the original booking stays intact and your numbers stay honest.</p></details>
       <details><summary>Do you take a commission or hold my money?</summary><p>No. Customers pay your shop directly. We never handle the money, so there is no commission.</p></details>

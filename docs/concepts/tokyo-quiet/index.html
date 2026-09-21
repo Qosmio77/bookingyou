@@ -288,6 +288,24 @@
   @media(max-width:520px){.soc-grid{grid-template-columns:1fr}.soc-go{display:grid}.foot-soc{width:100%;justify-content:center;order:3}}
   @media(prefers-reduced-motion:reduce){.soc-card,.foot-soc a{transition:none}}
 
+  .wb-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:34px;margin-top:40px;align-items:start}
+  .wb-shot{border-radius:26px;overflow:hidden;border:1px solid rgba(18,48,79,.10);box-shadow:var(--shadow);background:#f2f5fa}
+  .wb-shot img{display:block;width:100%;height:auto}
+  .wb-steps{list-style:none;margin-top:22px;display:grid;gap:18px}
+  .wb-steps li{display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start}
+  .wb-num{width:40px;height:40px;border-radius:14px;background:var(--navy);color:#fff;font-weight:800;font-size:17px;display:grid;place-items:center}
+  .wb-steps b{display:block;font-size:18px;line-height:1.45;color:var(--navy)}
+  .wb-steps div>span{display:block;font-size:15px;line-height:1.75;color:var(--muted);margin-top:3px}
+  .wb-foot{display:grid;grid-template-columns:1.35fr 1fr;gap:24px;margin-top:44px}
+  .wb-box{background:var(--white);border:1px solid rgba(18,48,79,.08);border-radius:22px;padding:26px 28px;box-shadow:0 10px 26px rgba(27,67,89,.06)}
+  .wb-box h3{font-size:17px;color:var(--navy);margin-bottom:12px}
+  .wb-box ul{list-style:none;display:grid;gap:10px}
+  .wb-box li{position:relative;padding-left:20px;font-size:15px;line-height:1.75;color:var(--ink)}
+  .wb-box li::before{content:"";position:absolute;left:2px;top:.72em;width:8px;height:8px;border-radius:50%;background:var(--teal)}
+  .wb-box p{font-size:15px;line-height:1.8;color:var(--ink)}
+  .wb-box.shop{background:var(--pale);border-color:rgba(19,169,149,.28)}
+  @media(max-width:980px){.wb-cols{grid-template-columns:1fr;gap:40px;max-width:460px;margin-left:auto;margin-right:auto}.wb-foot{grid-template-columns:1fr}}
+
   .concept-label{position:fixed;left:20px;bottom:20px;z-index:90;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.94);border:1px solid rgba(23,57,83,.12);border-radius:999px;padding:8px 14px 8px 9px;box-shadow:0 12px 35px rgba(23,57,83,.15);backdrop-filter:blur(14px);font-size:12px;font-weight:700;color:#173953}
   .concept-label b{display:grid;place-items:center;width:29px;height:29px;border-radius:50%;background:#173953;color:#fff}
   .concept-fab{position:fixed;right:20px;bottom:20px;z-index:90;display:flex;gap:6px;padding:7px;background:rgba(255,255,255,.94);border:1px solid rgba(23,57,83,.12);border-radius:999px;box-shadow:0 12px 35px rgba(23,57,83,.15);backdrop-filter:blur(14px)}
@@ -389,6 +407,8 @@
     </div>
   </div>
 </section>
+
+<section id="web-booking" class="bg-b"><div class="wrap"><span class="chip">網頁預約 · 新</span><h2 style="margin-top:14px">而家唔使裝 App，用瀏覽器就約到</h2><p class="lead">收到店舖嘅 BookingYou 連結或者 QR code？用手機或者電腦嘅瀏覽器開，就可以直接預約。唔使下載，亦唔使開戶口。</p><div class="wb-cols"><div class="wb-col"><div class="wb-shot"><img src="/assets/webbook/zh-HK-1.jpg" alt="預約頁：店舖資料同揀服務" loading="lazy" decoding="async" width="640"></div><ol class="wb-steps"><li><span class="wb-num">1</span><div><b>開店舖條連結</b><span>撳店舖喺 Instagram、通訊 App 或者網站放嘅 BookingYou 連結，或者掃舖面張 QR 卡，瀏覽器就會開到預約頁。</span></div></li><li><span class="wb-num">2</span><div><b>揀服務</b><span>每項服務都寫明時長同價錢，揀你想要嗰項。</span></div></li></ol></div><div class="wb-col"><div class="wb-shot"><img src="/assets/webbook/zh-HK-2.jpg" alt="預約頁：揀日期同時間" loading="lazy" decoding="async" width="640"></div><ol class="wb-steps"><li><span class="wb-num">3</span><div><b>揀日期同時間</b><span>只會顯示仲有位嘅時段，時間係店舖當地時間；休息日會變灰，揀唔到。</span></div></li></ol></div><div class="wb-col"><div class="wb-shot"><img src="/assets/webbook/zh-HK-3.jpg" alt="預約頁：填姓名同電話" loading="lazy" decoding="async" width="640"></div><ol class="wb-steps"><li><span class="wb-num">4</span><div><b>填姓名同電話</b><span>店舖只需要呢兩樣，備註可以選填。唔使註冊。</span></div></li><li><span class="wb-num">5</span><div><b>提交，等店舖確認</b><span>網頁預約要店舖確認先算成立。提交之後會有一條「你嘅預約連結」，儲存低，之後靠佢睇狀態或者取消。</span></div></li></ol></div></div><div class="wb-foot"><div class="wb-box"><h3>留意</h3><ul><li>冇戶口，所以預約連結就係你嘅憑證。請儲存低，唔好分享俾人。</li><li>店舖確認之後，預約連結上面嘅狀態會由「待確認」變成「已確認」。</li><li>個別店舖只接受 App 內預約，預約頁一開就會講明，並俾你一粒掣開 App。</li><li>想收提醒、同店舖傾偈、一次過管理所有預約？裝 App 就得。</li></ul></div><div class="wb-box shop"><h3>商戶</h3><p>喺 App 分享你嘅預約連結或者 QR 卡，客人即刻可以用網頁預約。每張網頁單都要你確認先成立；你亦可以揀只接受 App 內預約。</p></div></div><p class="note">畫面係示範店舖嘅實際網頁預約頁。</p></div></section>
 
 <section id="pain-solutions" class="bg-a ps-section">
   <div class="wrap">
@@ -551,7 +571,7 @@
     <span class="chip">常見問題</span>
     <h2 style="margin-top:14px">你可能想問</h2>
     <div class="faq">
-      <details><summary>客人要唔要裝 App 先約到？</summary><p>要。客人撳你條連結，未裝 App 會轉去 App Store 或 Google Play。毋須安裝嘅網頁預約係我哋下一個要做嘅功能。</p></details>
+      <details><summary>客人要唔要裝 App 先約到？</summary><p>唔使。客人撳你條連結或者掃 QR 卡，用瀏覽器就可以直接預約，毋須安裝，亦毋須開戶口。網頁預約一律要你確認先成立；已經裝咗 App 嘅客人會直接喺 App 開。</p></details>
       <details><summary>我可以自己代客人落單嗎？</summary><p>可以。電話單同上門單都入得，同網上預約一樣入同一個日曆，會計入統計同客戶紀錄。</p></details>
       <details><summary>客人臨時改時間點算？</summary><p>客人同店主都可以改期，唔使取消再重新預約，原本嗰張單保留住，方便你睇返實際情況。</p></details>
       <details><summary>會唔會抽佣或者經手客人嘅錢？</summary><p>唔會。客人係直接俾錢你間店，我哋唔經手任何款項，所以亦冇佣金。</p></details>

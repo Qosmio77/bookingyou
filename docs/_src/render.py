@@ -7,6 +7,7 @@ from industries import COPY as INDUSTRY_COPY, industry_markup
 from pain_solutions import COPY as PAIN_SOLUTION_COPY, pain_solution_markup
 from posts_wall import POSTS_COPY, POSTS_CSS, posts_markup
 from social import SOCIAL_CSS, social_markup, social_footer
+from webbook import WEBBOOK_CSS, webbook_markup
 SRC = os.path.dirname(os.path.abspath(__file__))
 W = os.path.dirname(SRC)
 T = open(os.path.join(SRC, 'template.html'), encoding='utf-8').read()
@@ -58,6 +59,7 @@ def vals(code):
     v['ps_lead'] = esc(PAIN_SOLUTION_COPY[code]['lead'])
     v['ps_grid'] = pain_solution_markup(code)
     v['posts_wall'] = posts_markup(POSTS_COPY[code])
+    v['webbook'] = webbook_markup(code)
     v['social'] = social_markup(code)
     v['social_footer'] = social_footer(code)
     return v
@@ -79,7 +81,7 @@ os.makedirs(OUT, exist_ok=True)
 for code, path in PATHS.items():
     v = vals(code)
     s = re.sub(r'\{\{(\w+)\}\}', lambda m: v[m.group(1)], T)
-    s = s.replace('</style>', CSS + POSTS_CSS + SOCIAL_CSS + '</style>').replace('</head>', alts + '</head>')
+    s = s.replace('</style>', CSS + POSTS_CSS + SOCIAL_CSS + WEBBOOK_CSS + '</style>').replace('</head>', alts + '</head>')
     s = s.replace('</div></header>', switcher(code) + '</div></header>')
     if path:
         s = s.replace('src="assets/', 'src="/assets/').replace('url("assets/', 'url("/assets/')
@@ -92,7 +94,7 @@ for code, path in PATHS.items():
 # isolated from the production homepage and excluded from search indexing.
 v = vals('zh-HK')
 base = re.sub(r'\{\{(\w+)\}\}', lambda m: v[m.group(1)], T)
-base = base.replace('</style>', CSS + POSTS_CSS + SOCIAL_CSS + '</style>').replace('</head>', '<meta name="robots" content="noindex,nofollow">' + alts + '</head>')
+base = base.replace('</style>', CSS + POSTS_CSS + SOCIAL_CSS + WEBBOOK_CSS + '</style>').replace('</head>', '<meta name="robots" content="noindex,nofollow">' + alts + '</head>')
 base = base.replace('</div></header>', switcher('zh-HK') + '</div></header>')
 base = base.replace('src="assets/', 'src="/assets/').replace('href="assets/', 'href="/assets/').replace('url("assets/', 'url("/assets/')
 
