@@ -8,6 +8,7 @@ from pain_solutions import COPY as PAIN_SOLUTION_COPY, pain_solution_markup
 from posts_wall import POSTS_COPY, POSTS_CSS, posts_markup
 from social import SOCIAL_CSS, SOCIAL_COPY, social_markup, social_footer
 from webbook import WEBBOOK_CSS, webbook_markup, WEBBOOK_COPY
+from about import ABOUT, ABOUT_CSS, about_body
 SRC = os.path.dirname(os.path.abspath(__file__))
 W = os.path.dirname(SRC)
 T = open(os.path.join(SRC, 'template.html'), encoding='utf-8').read()
@@ -59,7 +60,9 @@ def vals(code):
     v['ps_grid'] = pain_solution_markup(code)
     v['posts_wall'] = posts_markup(POSTS_COPY[code])
     v['webbook'] = webbook_markup(code)
-    v['nav_links'] = nav_links(code)
+    v['nav_links'] = nav_links(code, '/' + PATHS[code])
+    v['foot_about'] = esc(ABOUT[code]['nav'])
+    v['foot_about_href'] = '/' + PATHS[code] + 'about/'
     v['social'] = social_markup(code)
     v['social_footer'] = social_footer(code)
     return v
@@ -70,18 +73,18 @@ NAV_GROUPS = {  # 三組下拉：產品 / 商戶 / 品牌
     'th': ('ผลิตภัณฑ์', 'สำหรับร้าน', 'แบรนด์'), 'vi': ('Sản phẩm', 'Dành cho tiệm', 'Thương hiệu'),
 }
 
-def nav_links(code):
+def nav_links(code, home=''):
     """頂部三組下拉，每組內跟頁面次序，用區塊自己嘅標籤（「· 新」之類後綴去走）。"""
     d, e = L[code], E[code]
     groups = [
         [('problem', d['p_chip']), ('solution', d['s_chip']), ('web-booking', WEBBOOK_COPY[code]['chip']),
          ('pain-solutions', PAIN_SOLUTION_COPY[code]['chip']), ('diff', d['d_chip'])],
         [('who', d['w_chip']), ('plans', d['pl_chip']), ('start', e['st_chip']), ('faq', e['faq_chip'])],
-        [('brand', d['m_chip']), ('posts', POSTS_COPY[code]['chip']), ('social', SOCIAL_COPY[code]['chip']), ('mascot', d['y_chip'])],
+        [('brand', d['m_chip']), ('posts', POSTS_COPY[code]['chip']), ('social', SOCIAL_COPY[code]['chip']), ('mascot', d['y_chip']), (None, ABOUT[code]['nav'])],
     ]
     out = []
     for label, items in zip(NAV_GROUPS[code], groups):
-        links = ''.join(f'<a href="#{i}">{esc(t.split(" · ")[0])}</a>' for i, t in items)
+        links = ''.join((f'<a href="{home}#{i}">{esc(t.split(" · ")[0])}</a>' if i else f'<a href="{home or "/"}about/">{esc(t)}</a>') for i, t in items)
         out.append(f'<details class="menu"><summary>{esc(label)}<span class="lang-chevron" aria-hidden="true"></span></summary><div class="menu-panel">{links}</div></details>')
     return ''.join(out)
 
@@ -98,11 +101,30 @@ def switcher(code):
 alts = ''.join(f'<link rel="alternate" hreflang="{L[c]["lang"]}" href="https://bookingyou.app/{p}">' for c, p in PATHS.items()) \
      + '<link rel="alternate" hreflang="x-default" href="https://bookingyou.app/">'
 
+def write_about(code, path, page):
+    """關於我們：借用該語言首頁嘅 <head>、header、footer，換走中間內容。"""
+    home = '/' + path
+    head = page[:page.index('<body')]
+    header = page[page.index('<header>'):page.index('</header>') + len('</header>')]
+    footer = page[page.index('<footer>'):]
+    head = re.sub(r'<title>[^<]*</title>', f'<title>{esc(ABOUT[code]["title"])}</title>', head, count=1)
+    head = re.sub(r'<meta name="description" content="[^"]*">', f'<meta name="description" content="{esc(ABOUT[code]["lead"])}">', head, count=1)
+    head = re.sub(r'(<link rel="alternate" hreflang="[^"]*" href="https://bookingyou.app/[^"]*?)">', r'\1about/">', head)
+    header = header.replace('href="#top"', f'href="{home}"')
+    header = re.sub(r'(<a href="/[a-z-]*/?)("[^>]*hreflang)', r'\1about/\2', header)
+    footer = footer[:footer.index('<script')]  # 唔要首頁嘅 GSAP 動畫；下拉選單 script 另外加返
+    menu_js = page[page.index('<script>\n  (function(){\n    var menus'):]
+    menu_js = menu_js[:menu_js.index('</script>') + len('</script>')]
+    out = head + '<body>\n' + header + '\n' + about_body(code, home) + '\n' + footer + menu_js + '\n</body></html>'
+    out = out.replace('src="assets/', 'src="/assets/').replace('url("assets/', 'url("/assets/').replace('href="assets/', 'href="/assets/')
+    ad = os.path.join(OUT, path, 'about'); os.makedirs(ad, exist_ok=True)
+    open(os.path.join(ad, 'index.html'), 'w', encoding='utf-8').write(out)
+
 os.makedirs(OUT, exist_ok=True)
 for code, path in PATHS.items():
     v = vals(code)
     s = re.sub(r'\{\{(\w+)\}\}', lambda m: v[m.group(1)], T)
-    s = s.replace('</style>', CSS + POSTS_CSS + SOCIAL_CSS + WEBBOOK_CSS + '</style>').replace('</head>', alts + '</head>')
+    s = s.replace('</style>', CSS + POSTS_CSS + SOCIAL_CSS + WEBBOOK_CSS + ABOUT_CSS + '</style>').replace('</head>', alts + '</head>')
     s = s.replace('</div></header>', switcher(code) + '</div></header>')
     if path:
         s = s.replace('src="assets/', 'src="/assets/').replace('url("assets/', 'url("/assets/')
@@ -110,12 +132,13 @@ for code, path in PATHS.items():
     open(os.path.join(d, 'index.html'), 'w', encoding='utf-8').write(s)
     leftover = re.findall(r'\{\{\w+\}\}', s)
     print(f'{code:6s} → /{path:8s} {len(s):6d} bytes  未填 token: {len(leftover)}')
+    write_about(code, path, s)
 
 # Three visual directions for stakeholder review. These are intentionally
 # isolated from the production homepage and excluded from search indexing.
 v = vals('zh-HK')
 base = re.sub(r'\{\{(\w+)\}\}', lambda m: v[m.group(1)], T)
-base = base.replace('</style>', CSS + POSTS_CSS + SOCIAL_CSS + WEBBOOK_CSS + '</style>').replace('</head>', '<meta name="robots" content="noindex,nofollow">' + alts + '</head>')
+base = base.replace('</style>', CSS + POSTS_CSS + SOCIAL_CSS + WEBBOOK_CSS + ABOUT_CSS + '</style>').replace('</head>', '<meta name="robots" content="noindex,nofollow">' + alts + '</head>')
 base = base.replace('</div></header>', switcher('zh-HK') + '</div></header>')
 base = base.replace('src="assets/', 'src="/assets/').replace('href="assets/', 'href="/assets/').replace('url("assets/', 'url("/assets/')
 
