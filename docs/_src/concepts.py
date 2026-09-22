@@ -17,7 +17,7 @@ THEMES = [
           .hero h1{letter-spacing:-.055em}.hero .tag{letter-spacing:.16em}.hero-board{border-radius:20px;background:rgba(255,255,255,.72);box-shadow:0 28px 70px rgba(24,51,72,.12)}
           .hero-app{border-radius:22px;transform:translate(-50%,-50%) rotate(-1deg)}.hero-app img{border-radius:15px}
           .btn{border-radius:8px}.chip{border-radius:5px;background:transparent;border:1px solid rgba(24,51,72,.18);padding:6px 12px}
-          .card,.tile,.inds>div,.posters img,.faq,.plan,.phone{border-radius:12px}.scene-card,.booking-flow,.global-scene{border-radius:20px}
+          .card,.tile,.inds>div,.posters img,.faq,.plan,.phone{border-radius:12px}.scene-card,.booking-flow{border-radius:20px}
           .tick,.stepno{border-radius:8px;transform:none}.card .dot{border-radius:12px}
           .bg-a{background:#f1f6f3}.bg-b{background:#eef4f5}.final{background:linear-gradient(120deg,#e7f4ef,#eef5f7)}
           .concept-fab a[data-slug="tokyo-quiet"]{background:#183348;color:#fff}
@@ -46,7 +46,7 @@ THEMES = [
           .chip::before{display:none}.bg-a{background:#f2eadf}.bg-b{background:#ede8df}
           .card,.tile,.plan,.faq{border-radius:6px;background:rgba(255,253,248,.78);box-shadow:8px 10px 0 rgba(86,68,48,.06)}
           .card{border-left:3px solid rgba(199,106,81,.55)}.card .dot,.tick,.stepno{border-radius:4px;transform:none}
-          .scene-card,.booking-flow,.global-scene{border-radius:8px;background:linear-gradient(145deg,#f5e8dc,#eee7d9);box-shadow:14px 18px 0 rgba(68,54,39,.07)}
+          .scene-card,.booking-flow{border-radius:8px;background:linear-gradient(145deg,#f5e8dc,#eee7d9);box-shadow:14px 18px 0 rgba(68,54,39,.07)}
           .flow-item,.inds>div,.posters img,.phone{border-radius:6px}.inds>div{background:rgba(255,253,248,.7)}
           .plan-core{background:#273746}.final{background:linear-gradient(110deg,#eee2d3,#f6ede2)}
           .final::before,.final::after{background:rgba(199,106,81,.13)}
@@ -74,10 +74,9 @@ THEMES = [
           .bg-a{background:linear-gradient(145deg,#effbf7,#f5fbff)}.bg-b{background:linear-gradient(145deg,#eef6ff,#f5f1ff)}
           .card,.tile,.inds>div,.plan,.faq{border-radius:30px}.card:nth-child(3n+2){transform:translateY(14px)}
           .card .dot{background:#14b89f}.tick{background:#fff0ec;transform:rotate(-4deg)}.stepno{border-radius:50%;background:#ff927f}
-          .scene-card,.booking-flow,.global-scene{border-radius:42px}.flow-item{border-radius:28px}.posters img,.phone{border-radius:26px}
+          .scene-card,.booking-flow{border-radius:42px}.flow-item{border-radius:28px}.posters img,.phone{border-radius:26px}
           .scene-card{background:radial-gradient(circle at 85% 18%,rgba(255,146,127,.25),transparent 25%),linear-gradient(145deg,#fff7f2,#e7faf5)}
           .booking-flow{background:linear-gradient(145deg,#e8faf4,#edf4ff)}
-          .global-scene{background:linear-gradient(145deg,#ebf9ff,#e8fbf2)}
           .plan-core{background:linear-gradient(145deg,#173953,#1d5365)}.final{background:linear-gradient(130deg,#ddf8f1,#e7f4ff)}
           .concept-fab a[data-slug="mint-studio"]{background:#14b89f;color:#fff}
         """,

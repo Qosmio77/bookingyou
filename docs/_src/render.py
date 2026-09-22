@@ -33,20 +33,19 @@ def esc(x): return html.escape(str(x), quote=False)
 def vals(code):
     d = L[code]; v = {}
     for k in ['lang','title','desc','hero_tag','hero_sub','cta1','cta2','hero_foot','p_chip','p_h2','illus',
-              's_chip','s_h2','s_cap1','s_cap2','d_chip','d_h2','d_lead','d_boxT','d_boxB','d_cap','b_chip','b_h2','b_cap',
+              's_chip','s_h2','s_cap1','s_cap2','d_chip','d_h2','d_lead','d_boxT','d_boxB','d_cap',
               'w_chip','w_h2','m_chip','m_h2','m_lead','y_chip','y_h2','y_lead','pl_chip','pl_h2','pl_core_badge','pl_core',
               'pl_pro_badge','pl_pro','pl_note','f_h2','f_sub','foot_privacy','foot_terms','foot_contact']:
         v[k] = esc(d[k])
     for i, n in enumerate(d['nav']): v[f'nav{i}'] = esc(n)
     for i, (a, b) in enumerate(d['p_items']): v[f'p{i}a'], v[f'p{i}b'] = esc(a), esc(b)
     for i, (a, b) in enumerate(d['s_items']): v[f's{i}a'], v[f's{i}b'] = esc(a), esc(b)
-    for i, (a, b) in enumerate(d['b_tiles']): v[f'b{i}a'], v[f'b{i}b'] = esc(a), esc(b)
     for i, n in enumerate(d['w_inds']): v[f'w{i}'] = esc(n)
     for i, n in enumerate(d['m_caps']): v[f'm{i}'] = esc(n)
     for i, n in enumerate(d['pl_core_items']): v[f'c{i}'] = esc(n)
     for i, n in enumerate(d['pl_pro_items']): v[f'r{i}'] = esc(n)
     e = E[code]
-    for k in ['badge_apple','badge_google','p_lead','s_lead','d_extra','b_lead','w_lead',
+    for k in ['badge_apple','badge_google','p_lead','s_lead','d_extra','w_lead',
               'st_chip','st_h2','faq_chip','faq_h2','dl_note']:
         v[k] = e[k] if k.startswith('badge_') else esc(e[k])
     for i, (a, b) in enumerate(e['st_items']): v[f'st{i}a'], v[f'st{i}b'] = esc(a), esc(b)
