@@ -26,7 +26,8 @@
 
   header{position:sticky;top:0;z-index:50;background:rgba(251,252,250,.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(18,48,79,.08)}
   .nav{display:flex;align-items:center;gap:24px;min-height:78px}
-  .nav>img{height:48px;width:auto}
+  .nav>.home{display:flex;flex:none}
+  .nav>.home img{height:48px;width:auto}
   .links{margin-left:auto;display:flex;gap:18px;font-size:13px;font-weight:600;color:var(--muted);overflow-x:auto;white-space:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:2px 0;min-width:0}
   .links::-webkit-scrollbar{display:none}
   .links a{flex:none}
@@ -341,11 +342,11 @@
           .concept-fab a[data-slug="washi-editorial"]{background:#c76a51;color:#fff}
         </style>
 <meta name="robots" content="noindex,nofollow"><link rel="alternate" hreflang="zh-Hant" href="https://bookingyou.app/"><link rel="alternate" hreflang="en" href="https://bookingyou.app/en/"><link rel="alternate" hreflang="zh-Hans" href="https://bookingyou.app/zh-cn/"><link rel="alternate" hreflang="ja" href="https://bookingyou.app/ja/"><link rel="alternate" hreflang="ko" href="https://bookingyou.app/ko/"><link rel="alternate" hreflang="ms" href="https://bookingyou.app/ms/"><link rel="alternate" hreflang="th" href="https://bookingyou.app/th/"><link rel="alternate" hreflang="vi" href="https://bookingyou.app/vi/"><link rel="alternate" hreflang="x-default" href="https://bookingyou.app/"></head>
-<body class="concept-washi-editorial">
+<body id="top">
 
 <header><div class="wrap nav">
-  <img src="/assets/logo.png" alt="BookingYou">
-  <nav class="links" aria-label="Sections"><a href="#problem">問題</a><a href="#solution">方案</a><a href="#web-booking">網頁預約</a><a href="#pain-solutions">商戶日常</a><a href="#diff">差異</a><a href="#scale">規模</a><a href="#who">服務對象</a><a href="#brand">宣傳</a><a href="#posts">貼文</a><a href="#social">社交平台</a><a href="#mascot">吉祥物</a><a href="#plans">收費模式</a><a href="#start">點開始</a><a href="#faq">常見問題</a></nav>
+  <a class="home" href="#top" aria-label="BookingYou"><img src="/assets/logo.png" alt="BookingYou"></a>
+  <nav class="links" aria-label="Sections"><a href="#problem">問題</a><a href="#solution">方案</a><a href="#web-booking">網頁預約</a><a href="#pain-solutions">商戶日常</a><a href="#diff">差異</a><a href="#who">服務對象</a><a href="#brand">宣傳</a><a href="#posts">貼文</a><a href="#social">社交平台</a><a href="#mascot">吉祥物</a><a href="#plans">收費模式</a><a href="#start">點開始</a><a href="#faq">常見問題</a></nav>
 <details class="lang-menu"><summary aria-label="Language: 繁體中文"><span class="lang-mark" aria-hidden="true">文</span><span>繁體中文</span><span class="lang-chevron" aria-hidden="true"></span></summary><div class="lang-options"><a href="/" class="on" aria-current="page" hreflang="zh-Hant">繁體中文</a><a href="/en/" hreflang="en">English</a><a href="/zh-cn/" hreflang="zh-Hans">简体中文</a><a href="/ja/" hreflang="ja">日本語</a><a href="/ko/" hreflang="ko">한국어</a><a href="/ms/" hreflang="ms">Bahasa Melayu</a><a href="/th/" hreflang="th">ไทย</a><a href="/vi/" hreflang="vi">Tiếng Việt</a></div></details></div></header>
 
 <section class="hero">
@@ -447,29 +448,6 @@
     <div style="text-align:center">
       <div class="phone" style="width:250px"><img src="/assets/deck-hours.png" alt="按時段設定是否需要審批"></div>
       <div class="note">按時段設定是否需要審批</div>
-    </div>
-  </div>
-</section>
-
-<section id="scale">
-  <div class="wrap row row-text-img">
-    <div>
-      <span class="chip">規模</span>
-      <h2 style="margin-top:14px">由第一天起為跨境市場而建</h2><p class="lead" style="margin-bottom:18px">由第一版開始就冇當「香港 App」嚟做：介面、時區、貨幣都係按店舖所在地行。</p>
-      <div class="cards" style="grid-template-columns:1fr 1fr">
-        <div class="tile"><div class="big">8</div><div class="small">種介面語言</div></div>
-        <div class="tile"><div class="big">2</div><div class="small">個應用商店：iOS 及 Android</div></div>
-        <div class="tile"><div class="big">0%</div><div class="small">佣金：客人直接向店舖付款</div></div>
-        <div class="tile"><div class="big" style="font-size:28px">店舖時間</div><div class="small">無論客人身處何地，預約均按店舖時區計算</div></div>
-      </div>
-    </div>
-    <div>
-      <div class="global-scene" aria-label="語言設定">
-        <img class="global-language phone" src="/assets/deck-language.png" alt="">
-        <img class="global-building" src="/assets/illustrations/38-booking-portal-building.webp" alt="">
-        <img class="global-globe" src="/assets/illustrations/39-cross-border-globe.webp" alt="">
-      </div>
-      <div class="note" style="text-align:center">語言設定</div>
     </div>
   </div>
 </section>

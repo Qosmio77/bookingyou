@@ -69,7 +69,7 @@ def nav_links(code):
     """頂部連結：跟頁面次序，用每個區塊自己嘅標籤（「· 新」之類嘅後綴去走）。"""
     d, e = L[code], E[code]
     items = [('problem', d['p_chip']), ('solution', d['s_chip']), ('web-booking', WEBBOOK_COPY[code]['chip']),
-             ('pain-solutions', PAIN_SOLUTION_COPY[code]['chip']), ('diff', d['d_chip']), ('scale', d['b_chip']),
+             ('pain-solutions', PAIN_SOLUTION_COPY[code]['chip']), ('diff', d['d_chip']),
              ('who', d['w_chip']), ('brand', d['m_chip']), ('posts', POSTS_COPY[code]['chip']), ('social', SOCIAL_COPY[code]['chip']),
              ('mascot', d['y_chip']), ('plans', d['pl_chip']), ('start', e['st_chip']), ('faq', e['faq_chip'])]
     return ''.join(f'<a href="#{i}">{esc(t.split(" · ")[0])}</a>' for i, t in items)
