@@ -26,7 +26,7 @@ CSS = """
   .lang-options a:hover{color:var(--navy);background:var(--pale)}
   .lang-options a.on{color:var(--navy);font-weight:700;background:rgba(232,247,243,.72)}
   .lang-options a.on::after{content:"✓";color:var(--teal);font-weight:800}
-  @media(max-width:900px){.nav{height:auto;min-height:64px;padding:9px 0;flex-wrap:nowrap}.nav>img{height:38px}.links{order:9;width:100%;margin-left:0;gap:16px;padding:6px 0 2px;font-size:13px}.nav{flex-wrap:wrap}.lang-menu{margin-left:auto}.lang-menu summary{min-width:118px}.lang-options{position:fixed;left:18px;right:18px;top:72px;min-width:0;grid-template-columns:repeat(2,minmax(0,1fr));padding:10px}.lang-options a{padding:11px 12px}}
+  @media(max-width:900px){.nav{height:auto;min-height:64px;padding:9px 0;flex-wrap:nowrap}.nav>.home img{height:38px}.links{order:9;width:100%;margin-left:0;gap:16px;padding:6px 0 2px;font-size:13px}.nav{flex-wrap:wrap}.lang-menu{margin-left:auto}.lang-menu summary{min-width:118px}.lang-options{position:fixed;left:18px;right:18px;top:72px;min-width:0;grid-template-columns:repeat(2,minmax(0,1fr));padding:10px}.lang-options a{padding:11px 12px}}
 """
 def esc(x): return html.escape(str(x), quote=False)
 
