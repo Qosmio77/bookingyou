@@ -2,7 +2,7 @@
 #
 # 只寫核實過嘅事實（2026-09-22）：
 #   · 香港團隊設計及開發（Kevin 指示：唔出個人名、寫係團隊）
-#   · iOS 2026-07-05 上架（App Store releaseDate）、Android 2026-08-23（brand.json）、網頁預約 2026-09（/b/ commit）
+#   · 時間線跟 marketing repo `08-pr/company-timeline.md`（每個日期有來源）；改嗰邊要同步改呢度
 #   · 8 種介面語言、31 個服務類別、零佣金零預約費、基本功能免費、款項由顧客同商戶直接處理（brand.json）
 #   · 由日本市場開始（LinkedIn 創辦人稿）
 # 唔寫：個人姓名、用戶數、商戶數、下載量、評分。
@@ -23,11 +23,8 @@ ABOUT = {
               ('基本功能永久免費', '預約頁、營業時間、時段、休息日、客戶紀錄，全部免費。日後如有進階功能，會另外標明。'),
               ('本地優先', '八種介面語言，時區、貨幣、日曆都跟店舖所在地。首爾商戶要嘅係韓文介面，唔係翻譯過嘅介面。'),
               ('按時段設規則', '平日下午即時確認，週六晚要店主審批。同一間店，唔同時段唔同規則。')],
-        tl_h='走到邊',
-        tl=[('2026 年 7 月', 'iOS 版於 App Store 上架，一開始就支援八種語言。'),
-            ('2026 年 8 月', 'Android 版於 Google Play 上架。'),
-            ('2026 年 9 月', '網頁預約推出：客人唔使裝 App，用瀏覽器就約到。'),
-            ('而家', '由日本市場開始，逐個城市招募第一批商戶。')],
+        tl_h='公司時間線',
+        tl=[('2026 年 6 月', '私隱政策同服務條款上線，為上架做準備。'), ('2026 年 7 月 5 日', 'iOS 版於 App Store 上架，一開始就八種介面語言；零佣金、零預約費。'), ('2026 年 7 月', '商戶預約連結上線，商戶開始可以派一條連結俾客人。'), ('2026 年 8 月 4 日', 'iOS v1.1.0，首個功能更新。'), ('2026 年 8 月 16 日', '日本市場社交平台開帳、首批貼文，由日本開始搵第一批商戶。'), ('2026 年 8 月 23 日', 'Android 版於 Google Play 上架，iOS、Android 齊。'), ('2026 年 9 月', '吉祥物ユーくん登場，品牌有咗一張面。'), ('2026 年 9 月 16 日', '官網 bookingyou.app 上線，八種語言。'), ('2026 年 9 月 21 日', '網頁預約推出：客人唔使裝 App，用瀏覽器就約到。iOS v1.2.0 同日發布。'), ('而家', '由日本市場開始，逐個城市招募第一批商戶；同時服務香港小店。')],
         yu_h='ユーくん', yu='BookingYou 嘅吉祥物，一本永遠開朗嘅日曆。佢出現喺 App、貼文同呢個網站，提你：預約可以簡單啲。',
         contact_h='聯絡', contact='合作、傳媒查詢、意見，都歡迎電郵。', mail='contact@bookingyou.app',
         cta='免費開始', back='返回首頁'),
@@ -45,11 +42,8 @@ ABOUT = {
               ('Core features free, always', 'Booking page, opening hours, time slots, closed days and customer records are free. Any future paid features will be clearly marked.'),
               ('Local first', 'Eight interface languages. Time zone, currency and calendar follow the shop’s location. A shop in Seoul wants a Korean interface, not a translated one.'),
               ('Rules per time slot', 'Instant confirmation on weekday afternoons, owner approval on Saturday nights. One shop, different rules for different hours.')],
-        tl_h='Where we are',
-        tl=[('July 2026', 'iOS app released on the App Store, in eight languages from day one.'),
-            ('August 2026', 'Android app released on Google Play.'),
-            ('September 2026', 'Web booking launched: customers book in the browser without installing anything.'),
-            ('Now', 'Starting in Japan, recruiting the first shops one city at a time.')],
+        tl_h='Company timeline',
+        tl=[('June 2026', 'Privacy policy and terms of service published — getting ready to ship.'), ('5 July 2026', 'iOS app released on the App Store, in eight interface languages from day one; no commission, no booking fee.'), ('July 2026', 'Merchant booking link goes live — shops can hand customers a single link.'), ('4 August 2026', 'iOS v1.1.0, the first feature update.'), ('16 August 2026', 'Japan social accounts opened and first posts published — recruiting the first shops in Japan.'), ('23 August 2026', 'Android app released on Google Play — iOS and Android both live.'), ('September 2026', 'Mascot Yu-kun introduced — the brand gets a face.'), ('16 September 2026', 'Official site bookingyou.app launched in eight languages.'), ('21 September 2026', 'Web booking launched: customers book in the browser, no app needed. iOS v1.2.0 released the same day.'), ('Now', 'Starting in Japan, recruiting the first shops one city at a time, while serving Hong Kong’s small businesses.')],
         yu_h='Yu-kun', yu='BookingYou’s mascot — a calendar that is always in a good mood. Yu-kun shows up in the app, in our posts and on this site to remind you that booking can be simple.',
         contact_h='Contact', contact='Partnerships, press enquiries and feedback are all welcome by email.', mail='contact@bookingyou.app',
         cta='Start for free', back='Back to home'),
@@ -67,11 +61,8 @@ ABOUT = {
               ('基本功能永久免费', '预约页、营业时间、时段、休息日、客户记录，全部免费。日后如有进阶功能，会另外标明。'),
               ('本地优先', '八种界面语言，时区、货币、日历都跟随店铺所在地。首尔的商户要的是韩文界面，不是翻译过的界面。'),
               ('按时段设规则', '工作日下午即时确认，周六晚上要店主审批。同一家店，不同时段不同规则。')],
-        tl_h='走到哪里',
-        tl=[('2026 年 7 月', 'iOS 版在 App Store 上架，一开始就支持八种语言。'),
-            ('2026 年 8 月', 'Android 版在 Google Play 上架。'),
-            ('2026 年 9 月', '网页预约推出：客人不用装 App，用浏览器就能预约。'),
-            ('现在', '从日本市场开始，逐个城市招募第一批商户。')],
+        tl_h='公司时间线',
+        tl=[('2026 年 6 月', '隐私政策和服务条款上线，为上架做准备。'), ('2026 年 7 月 5 日', 'iOS 版在 App Store 上架，一开始就八种界面语言；零佣金、零预约费。'), ('2026 年 7 月', '商户预约链接上线，商户可以给客人一条链接。'), ('2026 年 8 月 4 日', 'iOS v1.1.0，首个功能更新。'), ('2026 年 8 月 16 日', '日本市场社交平台开号、首批贴文，从日本开始寻找第一批商户。'), ('2026 年 8 月 23 日', 'Android 版在 Google Play 上架，iOS、Android 齐全。'), ('2026 年 9 月', '吉祥物ユーくん登场，品牌有了一张脸。'), ('2026 年 9 月 16 日', '官网 bookingyou.app 上线，八种语言。'), ('2026 年 9 月 21 日', '网页预约推出：客人不用装 App，用浏览器就能预约。iOS v1.2.0 同日发布。'), ('现在', '从日本市场开始，逐个城市招募第一批商户；同时服务香港小店。')],
         yu_h='ユーくん', yu='BookingYou 的吉祥物，一本永远开朗的日历。它出现在 App、贴文和这个网站，提醒你：预约可以更简单。',
         contact_h='联系', contact='合作、媒体查询、意见反馈，欢迎发邮件。', mail='contact@bookingyou.app',
         cta='免费开始', back='返回首页'),
@@ -90,10 +81,7 @@ ABOUT = {
               ('ローカルを優先', '8 言語の表示に対応。時間帯、通貨、カレンダーはお店の所在地に合わせます。ソウルのお店に必要なのは韓国語の画面であって、翻訳された画面ではありません。'),
               ('時間帯ごとのルール', '平日の午後は即時確定、土曜の夜はオーナーの承認制。同じお店でも、時間帯によってルールを変えられます。')],
         tl_h='これまでの歩み',
-        tl=[('2026年7月', 'iOS 版を App Store で公開。最初から 8 言語に対応。'),
-            ('2026年8月', 'Android 版を Google Play で公開。'),
-            ('2026年9月', 'ウェブ予約を公開。アプリなしで、ブラウザから予約できるように。'),
-            ('現在', '日本市場から、一つの街ずつ最初のお店を募っています。')],
+        tl=[('2026年6月', 'プライバシーポリシーと利用規約を公開。リリースの準備。'), ('2026年7月5日', 'iOS 版を App Store で公開。最初から 8 言語対応、手数料・予約料なし。'), ('2026年7月', 'お店の予約リンクを公開。お客様にリンク一つを渡せるように。'), ('2026年8月4日', 'iOS v1.1.0、最初の機能アップデート。'), ('2026年8月16日', '日本向け SNS アカウントを開設し、最初の投稿。日本で最初のお店を募り始める。'), ('2026年8月23日', 'Android 版を Google Play で公開。iOS・Android がそろう。'), ('2026年9月', 'マスコットのユーくんが登場。ブランドに顔ができる。'), ('2026年9月16日', '公式サイト bookingyou.app を 8 言語で公開。'), ('2026年9月21日', 'ウェブ予約を公開。アプリなしでブラウザから予約できるように。同日に iOS v1.2.0 をリリース。'), ('現在', '日本市場から、一つの街ずつ最初のお店を募集中。香港の小さなお店も引き続きサポート。')],
         yu_h='ユーくん', yu='BookingYou のマスコット。いつも明るいカレンダーです。アプリや投稿、このサイトに登場して、「予約はもっとかんたんでいい」と伝えてくれます。',
         contact_h='お問い合わせ', contact='提携、取材、ご意見はメールでお気軽にどうぞ。', mail='contact@bookingyou.app',
         cta='無料ではじめる', back='ホームへ戻る'),
@@ -111,11 +99,8 @@ ABOUT = {
               ('기본 기능은 영원히 무료', '예약 페이지, 영업시간, 예약 슬롯, 휴무일, 고객 기록은 모두 무료입니다. 앞으로 유료 기능이 생기면 분명히 표시하겠습니다.'),
               ('현지 우선', '8개 인터페이스 언어. 시간대, 통화, 캘린더는 매장 위치를 따릅니다. 서울의 매장에 필요한 건 번역된 화면이 아니라 한국어 화면입니다.'),
               ('시간대별 규칙', '평일 오후는 즉시 확정, 토요일 밤은 사장님 승인. 같은 매장이라도 시간대마다 규칙을 다르게 둘 수 있습니다.')],
-        tl_h='지금까지',
-        tl=[('2026년 7월', 'iOS 앱을 App Store에 출시. 처음부터 8개 언어 지원.'),
-            ('2026년 8월', 'Android 앱을 Google Play에 출시.'),
-            ('2026년 9월', '웹 예약 출시. 앱 설치 없이 브라우저에서 바로 예약.'),
-            ('현재', '일본 시장부터, 한 도시씩 첫 매장들을 모으고 있습니다.')],
+        tl_h='회사 연혁',
+        tl=[('2026년 6월', '개인정보 처리방침과 이용약관 공개. 출시 준비.'), ('2026년 7월 5일', 'iOS 앱을 App Store에 출시. 처음부터 8개 언어, 수수료·예약비 없음.'), ('2026년 7월', '매장 예약 링크 공개. 고객에게 링크 하나만 전달하면 되도록.'), ('2026년 8월 4일', 'iOS v1.1.0, 첫 기능 업데이트.'), ('2026년 8월 16일', '일본 SNS 계정 개설과 첫 게시물. 일본에서 첫 매장 모집 시작.'), ('2026년 8월 23일', 'Android 앱을 Google Play에 출시. iOS·Android 모두 제공.'), ('2026년 9월', '마스코트 유군 등장. 브랜드에 얼굴이 생기다.'), ('2026년 9월 16일', '공식 사이트 bookingyou.app을 8개 언어로 공개.'), ('2026년 9월 21일', '웹 예약 출시. 앱 없이 브라우저에서 예약. 같은 날 iOS v1.2.0 출시.'), ('현재', '일본 시장부터 한 도시씩 첫 매장들을 모집 중. 홍콩의 작은 매장도 계속 지원.')],
         yu_h='유군(ユーくん)', yu='BookingYou의 마스코트, 언제나 밝은 캘린더입니다. 앱과 게시물, 이 사이트에 등장해 예약은 더 간단해질 수 있다고 알려 줍니다.',
         contact_h='문의', contact='제휴, 취재, 의견 모두 이메일로 환영합니다.', mail='contact@bookingyou.app',
         cta='무료로 시작', back='홈으로'),
@@ -133,11 +118,8 @@ ABOUT = {
               ('Ciri asas percuma, selamanya', 'Halaman tempahan, waktu operasi, slot masa, hari tutup dan rekod pelanggan adalah percuma. Ciri berbayar pada masa depan akan ditanda dengan jelas.'),
               ('Tempatan dahulu', 'Lapan bahasa antara muka. Zon waktu, mata wang dan kalendar mengikut lokasi kedai. Kedai di Seoul mahukan antara muka Korea, bukan terjemahan.'),
               ('Peraturan mengikut slot', 'Pengesahan segera pada petang hari bekerja, kelulusan pemilik pada malam Sabtu. Satu kedai, peraturan berbeza untuk waktu berbeza.')],
-        tl_h='Perjalanan setakat ini',
-        tl=[('Julai 2026', 'Aplikasi iOS dikeluarkan di App Store, dalam lapan bahasa dari hari pertama.'),
-            ('Ogos 2026', 'Aplikasi Android dikeluarkan di Google Play.'),
-            ('September 2026', 'Tempahan web dilancarkan: pelanggan menempah di pelayar tanpa memasang apa-apa.'),
-            ('Kini', 'Bermula di Jepun, merekrut kedai pertama satu bandar pada satu masa.')],
+        tl_h='Garis masa syarikat',
+        tl=[('Jun 2026', 'Dasar privasi dan terma perkhidmatan diterbitkan — bersedia untuk dilancarkan.'), ('5 Julai 2026', 'Aplikasi iOS dikeluarkan di App Store, lapan bahasa dari hari pertama; tiada komisen, tiada yuran tempahan.'), ('Julai 2026', 'Pautan tempahan kedai dilancarkan — kedai boleh memberi pelanggan satu pautan.'), ('4 Ogos 2026', 'iOS v1.1.0, kemas kini ciri pertama.'), ('16 Ogos 2026', 'Akaun media sosial Jepun dibuka dan hantaran pertama — merekrut kedai pertama di Jepun.'), ('23 Ogos 2026', 'Aplikasi Android dikeluarkan di Google Play — iOS dan Android kedua-duanya ada.'), ('September 2026', 'Maskot Yu-kun diperkenalkan — jenama mendapat wajah.'), ('16 September 2026', 'Laman rasmi bookingyou.app dilancarkan dalam lapan bahasa.'), ('21 September 2026', 'Tempahan web dilancarkan: pelanggan menempah di pelayar, tanpa aplikasi. iOS v1.2.0 dikeluarkan pada hari yang sama.'), ('Kini', 'Bermula di Jepun, merekrut kedai pertama satu bandar pada satu masa, sambil melayani perniagaan kecil Hong Kong.')],
         yu_h='Yu-kun', yu='Maskot BookingYou — kalendar yang sentiasa ceria. Yu-kun muncul dalam aplikasi, hantaran kami dan laman ini untuk mengingatkan bahawa tempahan boleh jadi mudah.',
         contact_h='Hubungi', contact='Kerjasama, pertanyaan media dan maklum balas dialu-alukan melalui e-mel.', mail='contact@bookingyou.app',
         cta='Mula secara percuma', back='Kembali ke laman utama'),
@@ -155,11 +137,8 @@ ABOUT = {
               ('ฟีเจอร์พื้นฐานฟรีตลอดไป', 'หน้าจอง เวลาทำการ ช่วงเวลา วันหยุด และประวัติลูกค้า ฟรีทั้งหมด หากมีฟีเจอร์เสียเงินในอนาคตจะระบุให้ชัดเจน'),
               ('ท้องถิ่นมาก่อน', 'รองรับ 8 ภาษา เขตเวลา สกุลเงิน และปฏิทินเป็นไปตามที่ตั้งของร้าน ร้านในโซลต้องการหน้าจอภาษาเกาหลี ไม่ใช่หน้าจอที่แปลมา'),
               ('กฎตามช่วงเวลา', 'บ่ายวันธรรมดายืนยันทันที คืนวันเสาร์ให้เจ้าของอนุมัติ ร้านเดียวกัน ต่างเวลา ต่างกฎได้')],
-        tl_h='เส้นทางที่ผ่านมา',
-        tl=[('กรกฎาคม 2026', 'เปิดตัวแอป iOS บน App Store รองรับ 8 ภาษาตั้งแต่วันแรก'),
-            ('สิงหาคม 2026', 'เปิดตัวแอป Android บน Google Play'),
-            ('กันยายน 2026', 'เปิดตัวการจองผ่านเว็บ ลูกค้าจองผ่านเบราว์เซอร์ได้โดยไม่ต้องติดตั้ง'),
-            ('ตอนนี้', 'เริ่มจากตลาดญี่ปุ่น หาร้านกลุ่มแรกทีละเมือง')],
+        tl_h='เส้นทางของบริษัท',
+        tl=[('มิถุนายน 2026', 'เผยแพร่นโยบายความเป็นส่วนตัวและข้อกำหนดการใช้งาน เตรียมเปิดตัว'), ('5 กรกฎาคม 2026', 'เปิดตัวแอป iOS บน App Store รองรับ 8 ภาษาตั้งแต่วันแรก ไม่มีค่าคอมมิชชั่นและค่าธรรมเนียมการจอง'), ('กรกฎาคม 2026', 'เปิดใช้ลิงก์จองของร้าน ร้านส่งลิงก์เดียวให้ลูกค้าได้'), ('4 สิงหาคม 2026', 'iOS v1.1.0 อัปเดตฟีเจอร์ครั้งแรก'), ('16 สิงหาคม 2026', 'เปิดบัญชีโซเชียลสำหรับญี่ปุ่นและโพสต์แรก เริ่มหาร้านกลุ่มแรกในญี่ปุ่น'), ('23 สิงหาคม 2026', 'เปิดตัวแอป Android บน Google Play มีครบทั้ง iOS และ Android'), ('กันยายน 2026', 'มาสคอตยูคุงปรากฏตัว แบรนด์มีหน้าตา'), ('16 กันยายน 2026', 'เปิดเว็บไซต์ทางการ bookingyou.app ใน 8 ภาษา'), ('21 กันยายน 2026', 'เปิดตัวการจองผ่านเว็บ ลูกค้าจองผ่านเบราว์เซอร์ได้โดยไม่ต้องใช้แอป ออก iOS v1.2.0 ในวันเดียวกัน'), ('ตอนนี้', 'เริ่มจากตลาดญี่ปุ่น หาร้านกลุ่มแรกทีละเมือง พร้อมดูแลร้านเล็กในฮ่องกงต่อไป')],
         yu_h='ยูคุง (ユーくん)', yu='มาสคอตของ BookingYou ปฏิทินที่อารมณ์ดีเสมอ ยูคุงปรากฏในแอป โพสต์ และเว็บไซต์นี้ เพื่อบอกว่าการจองง่ายกว่านี้ได้',
         contact_h='ติดต่อ', contact='ความร่วมมือ สื่อมวลชน และความคิดเห็น ยินดีรับทางอีเมล', mail='contact@bookingyou.app',
         cta='เริ่มใช้ฟรี', back='กลับหน้าแรก'),
@@ -177,11 +156,8 @@ ABOUT = {
               ('Tính năng cơ bản miễn phí mãi mãi', 'Trang đặt lịch, giờ mở cửa, khung giờ, ngày nghỉ và hồ sơ khách đều miễn phí. Tính năng trả phí trong tương lai (nếu có) sẽ được ghi rõ.'),
               ('Địa phương trước hết', 'Tám ngôn ngữ giao diện. Múi giờ, tiền tệ và lịch theo nơi đặt tiệm. Tiệm ở Seoul cần giao diện tiếng Hàn, không phải bản dịch.'),
               ('Quy tắc theo khung giờ', 'Chiều ngày thường xác nhận ngay, tối thứ Bảy chủ tiệm duyệt. Cùng một tiệm, mỗi khung giờ một quy tắc.')],
-        tl_h='Chặng đường',
-        tl=[('Tháng 7/2026', 'Ra mắt ứng dụng iOS trên App Store, tám ngôn ngữ ngay từ đầu.'),
-            ('Tháng 8/2026', 'Ra mắt ứng dụng Android trên Google Play.'),
-            ('Tháng 9/2026', 'Ra mắt đặt lịch trên web: khách đặt ngay trên trình duyệt, không cần cài gì.'),
-            ('Hiện tại', 'Bắt đầu từ thị trường Nhật Bản, tuyển những tiệm đầu tiên theo từng thành phố.')],
+        tl_h='Dòng thời gian công ty',
+        tl=[('Tháng 6/2026', 'Công bố chính sách quyền riêng tư và điều khoản dịch vụ — chuẩn bị ra mắt.'), ('5/7/2026', 'Ra mắt ứng dụng iOS trên App Store, tám ngôn ngữ ngay từ đầu; không hoa hồng, không phí đặt lịch.'), ('Tháng 7/2026', 'Liên kết đặt lịch của tiệm đi vào hoạt động — tiệm chỉ cần đưa khách một liên kết.'), ('4/8/2026', 'iOS v1.1.0, bản cập nhật tính năng đầu tiên.'), ('16/8/2026', 'Mở tài khoản mạng xã hội tại Nhật và đăng những bài đầu tiên — bắt đầu tuyển tiệm tại Nhật.'), ('23/8/2026', 'Ra mắt ứng dụng Android trên Google Play — có đủ iOS và Android.'), ('Tháng 9/2026', 'Linh vật Yu-kun ra mắt — thương hiệu có gương mặt.'), ('16/9/2026', 'Ra mắt trang chính thức bookingyou.app với tám ngôn ngữ.'), ('21/9/2026', 'Ra mắt đặt lịch trên web: khách đặt ngay trên trình duyệt, không cần ứng dụng. iOS v1.2.0 phát hành cùng ngày.'), ('Hiện tại', 'Bắt đầu từ thị trường Nhật Bản, tuyển những tiệm đầu tiên theo từng thành phố, đồng thời phục vụ tiệm nhỏ tại Hồng Kông.')],
         yu_h='Yu-kun', yu='Linh vật của BookingYou — một cuốn lịch lúc nào cũng vui. Yu-kun xuất hiện trong ứng dụng, bài đăng và trang này để nhắc rằng đặt lịch có thể đơn giản hơn.',
         contact_h='Liên hệ', contact='Hợp tác, báo chí và góp ý đều được chào đón qua email.', mail='contact@bookingyou.app',
         cta='Bắt đầu miễn phí', back='Về trang chủ'),
@@ -203,7 +179,11 @@ ABOUT_CSS = """
   .about-tl li::before{content:"";position:absolute;left:-33px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px var(--pale)}
   .about-tl b{display:block;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:4px}
   .about-tl span{font-size:16px;line-height:1.75;color:var(--ink)}
-  .about-yu{display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:center;background:linear-gradient(160deg,var(--pale),#f4fbff);border:1px dashed rgba(19,169,149,.45);border-radius:26px;padding:30px 34px;margin-top:40px}
+  .about-tl-wide{display:block;columns:2 380px;column-gap:60px;border-left:0;padding-left:0}
+  .about-tl-wide li{break-inside:avoid;border-left:2px solid rgba(19,169,149,.35);padding-left:26px;padding-bottom:28px}
+  .about-tl-wide li:last-child{padding-bottom:0}
+  .about-tl-wide li::before{left:-7px}
+  .about-yu{display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:center;background:linear-gradient(160deg,var(--pale),#f4fbff);border:1px dashed rgba(19,169,149,.45);border-radius:26px;padding:30px 34px}
   .about-yu img{width:120px;height:auto}
   .about-yu b{display:block;font-size:20px;color:var(--navy);margin-bottom:6px}
   .about-yu p{font-size:15px;line-height:1.8;color:var(--ink)}
@@ -232,8 +212,8 @@ def about_body(code, home):
             f'<section class="bg-b"><div class="wrap"><div class="about-grid">'
             f'<div class="about-why"><h2>{_esc(c["why_h"])}</h2>{why}'
             f'<h2 style="margin-top:44px">{_esc(c["hold_h"])}</h2><div class="about-hold">{hold}</div></div>'
-            f'<div><h2>{_esc(c["tl_h"])}</h2><ol class="about-tl">{tl}</ol>'
-            f'<div class="about-yu"><img src="/assets/yu-kun-wave.png" alt="" loading="lazy"><div><b>{_esc(c["yu_h"])}</b><p>{_esc(c["yu"])}</p></div></div>'
+            f'<div><div class="about-yu"><img src="/assets/yu-kun-wave.png" alt="" loading="lazy"><div><b>{_esc(c["yu_h"])}</b><p>{_esc(c["yu"])}</p></div></div>'
             f'<div class="about-contact"><div><b>{_esc(c["contact_h"])}</b><p>{_esc(c["contact"])}</p></div><a class="mail" href="mailto:{c["mail"]}">{c["mail"]}</a></div>'
             f'<div class="about-actions"><a class="btn btn-main" href="{home}#download">{_esc(c["cta"])}</a><a class="btn btn-ghost" href="{home}">{_esc(c["back"])}</a></div>'
-            f'</div></div></div></section>')
+            f'</div></div></div></section>'
+            f'<section id="timeline"><div class="wrap"><h2>{_esc(c["tl_h"])}</h2><ol class="about-tl about-tl-wide">{tl}</ol></div></section>')
