@@ -26,7 +26,7 @@ CSS = """
   .lang-options a:hover{color:var(--navy);background:var(--pale)}
   .lang-options a.on{color:var(--navy);font-weight:700;background:rgba(232,247,243,.72)}
   .lang-options a.on::after{content:"✓";color:var(--teal);font-weight:800}
-  @media(max-width:900px){.nav{height:auto;min-height:64px;padding:9px 0;flex-wrap:nowrap}.nav>.home img{height:38px}.links{order:9;width:100%;margin-left:0;gap:16px;padding:6px 0 2px;font-size:13px}.nav{flex-wrap:wrap}.lang-menu{margin-left:auto}.lang-menu summary{min-width:118px}.lang-options{position:fixed;left:18px;right:18px;top:72px;min-width:0;grid-template-columns:repeat(2,minmax(0,1fr));padding:10px}.lang-options a{padding:11px 12px}}
+  @media(max-width:900px){.nav{height:auto;min-height:64px;padding:9px 0;flex-wrap:nowrap}.nav>.home img{height:38px}.links{order:9;width:100%;margin-left:0;gap:8px;padding:6px 0 2px}.nav{flex-wrap:wrap}.lang-menu{margin-left:auto}.menu-panel{position:fixed;left:18px;right:18px;top:auto;min-width:0;grid-template-columns:repeat(2,minmax(0,1fr))}.lang-menu summary{min-width:118px}.lang-options{position:fixed;left:18px;right:18px;top:72px;min-width:0;grid-template-columns:repeat(2,minmax(0,1fr));padding:10px}.lang-options a{padding:11px 12px}}
 """
 def esc(x): return html.escape(str(x), quote=False)
 
@@ -64,14 +64,26 @@ def vals(code):
     v['social_footer'] = social_footer(code)
     return v
 
+NAV_GROUPS = {  # 三組下拉：產品 / 商戶 / 品牌
+    'zh-HK': ('產品', '商戶', '品牌'), 'en': ('Product', 'For shops', 'Brand'), 'zh-CN': ('产品', '商户', '品牌'),
+    'ja': ('製品', '店舗の方へ', 'ブランド'), 'ko': ('제품', '매장 안내', '브랜드'), 'ms': ('Produk', 'Untuk kedai', 'Jenama'),
+    'th': ('ผลิตภัณฑ์', 'สำหรับร้าน', 'แบรนด์'), 'vi': ('Sản phẩm', 'Dành cho tiệm', 'Thương hiệu'),
+}
+
 def nav_links(code):
-    """頂部連結：跟頁面次序，用每個區塊自己嘅標籤（「· 新」之類嘅後綴去走）。"""
+    """頂部三組下拉，每組內跟頁面次序，用區塊自己嘅標籤（「· 新」之類後綴去走）。"""
     d, e = L[code], E[code]
-    items = [('problem', d['p_chip']), ('solution', d['s_chip']), ('web-booking', WEBBOOK_COPY[code]['chip']),
-             ('pain-solutions', PAIN_SOLUTION_COPY[code]['chip']), ('diff', d['d_chip']),
-             ('who', d['w_chip']), ('brand', d['m_chip']), ('posts', POSTS_COPY[code]['chip']), ('social', SOCIAL_COPY[code]['chip']),
-             ('mascot', d['y_chip']), ('plans', d['pl_chip']), ('start', e['st_chip']), ('faq', e['faq_chip'])]
-    return ''.join(f'<a href="#{i}">{esc(t.split(" · ")[0])}</a>' for i, t in items)
+    groups = [
+        [('problem', d['p_chip']), ('solution', d['s_chip']), ('web-booking', WEBBOOK_COPY[code]['chip']),
+         ('pain-solutions', PAIN_SOLUTION_COPY[code]['chip']), ('diff', d['d_chip'])],
+        [('who', d['w_chip']), ('plans', d['pl_chip']), ('start', e['st_chip']), ('faq', e['faq_chip'])],
+        [('brand', d['m_chip']), ('posts', POSTS_COPY[code]['chip']), ('social', SOCIAL_COPY[code]['chip']), ('mascot', d['y_chip'])],
+    ]
+    out = []
+    for label, items in zip(NAV_GROUPS[code], groups):
+        links = ''.join(f'<a href="#{i}">{esc(t.split(" · ")[0])}</a>' for i, t in items)
+        out.append(f'<details class="menu"><summary>{esc(label)}<span class="lang-chevron" aria-hidden="true"></span></summary><div class="menu-panel">{links}</div></details>')
+    return ''.join(out)
 
 def switcher(code):
     current = esc(L[code]['name'])
