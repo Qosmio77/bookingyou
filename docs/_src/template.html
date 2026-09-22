@@ -17,6 +17,8 @@
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
+  section[id]{scroll-margin-top:84px}
+  @media(max-width:900px){section[id]{scroll-margin-top:136px}}
   body{color:var(--ink);background:var(--paper);font-family:"Noto Sans JP","PingFang HK","Hiragino Sans",-apple-system,"Helvetica Neue",Arial,sans-serif;line-height:1.8;overflow-x:hidden;-webkit-font-smoothing:antialiased}
   a{color:inherit}
   img{max-width:100%;display:block}
@@ -25,7 +27,11 @@
   header{position:sticky;top:0;z-index:50;background:rgba(251,252,250,.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(18,48,79,.08)}
   .nav{display:flex;align-items:center;gap:24px;min-height:78px}
   .nav>img{height:48px;width:auto}
-  .links{margin-left:auto;display:flex;gap:25px;font-size:14px;font-weight:600;color:var(--muted)}
+  .links{margin-left:auto;display:flex;gap:18px;font-size:13px;font-weight:600;color:var(--muted);overflow-x:auto;white-space:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:2px 0;min-width:0}
+  .links::-webkit-scrollbar{display:none}
+  .links a{flex:none}
+  .links.more{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 36px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 36px),transparent)}
+  .links.more.end{-webkit-mask-image:none;mask-image:none}
   .links a{text-decoration:none;position:relative;padding:8px 0}
   .links a::after{content:"";position:absolute;left:0;right:100%;bottom:2px;height:2px;background:var(--teal);transition:right .25s ease}
   .links a:hover{color:var(--navy)}.links a:hover::after{right:0}
@@ -239,7 +245,7 @@
 
 <header><div class="wrap nav">
   <img src="assets/logo.png" alt="BookingYou">
-  <div class="links"><a href="#problem">{{nav0}}</a><a href="#solution">{{nav1}}</a><a href="#diff">{{nav2}}</a><a href="#who">{{nav3}}</a><a href="#plans">{{nav4}}</a></div>
+  <nav class="links" aria-label="Sections">{{nav_links}}</nav>
 </div></header>
 
 <section class="hero">
@@ -345,7 +351,7 @@
   </div>
 </section>
 
-<section>
+<section id="scale">
   <div class="wrap row row-text-img">
     <div>
       <span class="chip">{{b_chip}}</span>
@@ -379,7 +385,7 @@
   </div>
 </section>
 
-<section>
+<section id="brand">
   <div class="wrap">
     <span class="chip">{{m_chip}}</span>
     <h2 style="margin-top:14px">{{m_h2}}</h2>
@@ -396,7 +402,7 @@
 
 {{social}}
 
-<section class="bg-b">
+<section id="mascot" class="bg-b">
   <div class="wrap row row2">
     <div>
       <span class="chip">{{y_chip}}</span>
@@ -428,7 +434,7 @@
 </section>
 
 
-<section class="bg-a">
+<section id="start" class="bg-a">
   <div class="wrap">
     <span class="chip">{{st_chip}}</span>
     <h2 style="margin-top:14px">{{st_h2}}</h2>
@@ -440,7 +446,7 @@
   </div>
 </section>
 
-<section>
+<section id="faq">
   <div class="wrap">
     <span class="chip">{{faq_chip}}</span>
     <h2 style="margin-top:14px">{{faq_h2}}</h2>
@@ -472,6 +478,14 @@
   {{social_footer}}
   <div class="right"><a href="/privacy/">{{foot_privacy}}</a><a href="/terms/">{{foot_terms}}</a><a href="mailto:contact@bookingyou.app">{{foot_contact}}</a></div>
 </div></footer>
+<script>
+  (function(){
+    var n=document.querySelector('.links');if(!n)return;
+    function upd(){var more=n.scrollWidth>n.clientWidth+2;n.classList.toggle('more',more);n.classList.toggle('end',more&&n.scrollLeft+n.clientWidth>=n.scrollWidth-2);}
+    upd();n.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',upd);
+    var cur=n.querySelector('a[href="#'+location.hash.slice(1)+'"]');if(cur)cur.scrollIntoView({block:'nearest',inline:'center'});
+  })();
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script>

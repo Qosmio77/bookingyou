@@ -6,8 +6,8 @@ from concepts import THEMES, COMMON_CSS, concept_nav, hub_html
 from industries import COPY as INDUSTRY_COPY, industry_markup
 from pain_solutions import COPY as PAIN_SOLUTION_COPY, pain_solution_markup
 from posts_wall import POSTS_COPY, POSTS_CSS, posts_markup
-from social import SOCIAL_CSS, social_markup, social_footer
-from webbook import WEBBOOK_CSS, webbook_markup
+from social import SOCIAL_CSS, SOCIAL_COPY, social_markup, social_footer
+from webbook import WEBBOOK_CSS, webbook_markup, WEBBOOK_COPY
 SRC = os.path.dirname(os.path.abspath(__file__))
 W = os.path.dirname(SRC)
 T = open(os.path.join(SRC, 'template.html'), encoding='utf-8').read()
@@ -26,7 +26,7 @@ CSS = """
   .lang-options a:hover{color:var(--navy);background:var(--pale)}
   .lang-options a.on{color:var(--navy);font-weight:700;background:rgba(232,247,243,.72)}
   .lang-options a.on::after{content:"✓";color:var(--teal);font-weight:800}
-  @media(max-width:900px){.nav{height:auto;min-height:64px;padding:9px 0;flex-wrap:nowrap}.nav>img{height:38px}.links{display:none}.lang-menu{margin-left:auto}.lang-menu summary{min-width:118px}.lang-options{position:fixed;left:18px;right:18px;top:72px;min-width:0;grid-template-columns:repeat(2,minmax(0,1fr));padding:10px}.lang-options a{padding:11px 12px}}
+  @media(max-width:900px){.nav{height:auto;min-height:64px;padding:9px 0;flex-wrap:nowrap}.nav>img{height:38px}.links{order:9;width:100%;margin-left:0;gap:16px;padding:6px 0 2px;font-size:13px}.nav{flex-wrap:wrap}.lang-menu{margin-left:auto}.lang-menu summary{min-width:118px}.lang-options{position:fixed;left:18px;right:18px;top:72px;min-width:0;grid-template-columns:repeat(2,minmax(0,1fr));padding:10px}.lang-options a{padding:11px 12px}}
 """
 def esc(x): return html.escape(str(x), quote=False)
 
@@ -60,9 +60,19 @@ def vals(code):
     v['ps_grid'] = pain_solution_markup(code)
     v['posts_wall'] = posts_markup(POSTS_COPY[code])
     v['webbook'] = webbook_markup(code)
+    v['nav_links'] = nav_links(code)
     v['social'] = social_markup(code)
     v['social_footer'] = social_footer(code)
     return v
+
+def nav_links(code):
+    """頂部連結：跟頁面次序，用每個區塊自己嘅標籤（「· 新」之類嘅後綴去走）。"""
+    d, e = L[code], E[code]
+    items = [('problem', d['p_chip']), ('solution', d['s_chip']), ('web-booking', WEBBOOK_COPY[code]['chip']),
+             ('pain-solutions', PAIN_SOLUTION_COPY[code]['chip']), ('diff', d['d_chip']), ('scale', d['b_chip']),
+             ('who', d['w_chip']), ('brand', d['m_chip']), ('posts', POSTS_COPY[code]['chip']), ('social', SOCIAL_COPY[code]['chip']),
+             ('mascot', d['y_chip']), ('plans', d['pl_chip']), ('start', e['st_chip']), ('faq', e['faq_chip'])]
+    return ''.join(f'<a href="#{i}">{esc(t.split(" · ")[0])}</a>' for i, t in items)
 
 def switcher(code):
     current = esc(L[code]['name'])
