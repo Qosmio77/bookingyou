@@ -1,6 +1,7 @@
 import sys, os, re, html
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from strings import L
+from seo import BASE, canonicalize, write_discovery
 from extra import E
 from concepts import THEMES, COMMON_CSS, concept_nav, hub_html
 from industries import COPY as INDUSTRY_COPY, industry_markup
@@ -117,6 +118,7 @@ def write_about(code, path, page):
     menu_js = menu_js[:menu_js.index('</script>') + len('</script>')]
     out = head + '<body>\n' + header + '\n' + about_body(code, home) + '\n' + footer + menu_js + '\n</body></html>'
     out = out.replace('src="assets/', 'src="/assets/').replace('url("assets/', 'url("/assets/').replace('href="assets/', 'href="/assets/')
+    out = canonicalize(out, BASE + path + 'about/')
     ad = os.path.join(OUT, path, 'about'); os.makedirs(ad, exist_ok=True)
     open(os.path.join(ad, 'index.html'), 'w', encoding='utf-8').write(out)
 
@@ -128,6 +130,7 @@ for code, path in PATHS.items():
     s = s.replace('</div></header>', switcher(code) + '</div></header>')
     if path:
         s = s.replace('src="assets/', 'src="/assets/').replace('url("assets/', 'url("/assets/')
+    s = canonicalize(s, BASE + path)
     d = os.path.join(OUT, path); os.makedirs(d, exist_ok=True)
     open(os.path.join(d, 'index.html'), 'w', encoding='utf-8').write(s)
     leftover = re.findall(r'\{\{\w+\}\}', s)
@@ -154,3 +157,5 @@ for theme in THEMES:
     os.makedirs(dest, exist_ok=True)
     open(os.path.join(dest, 'index.html'), 'w', encoding='utf-8').write(themed)
     print(f'方案 {theme["label"]} → /concepts/{theme["slug"]}/  {len(themed):6d} bytes')
+
+write_discovery(OUT, PATHS, L)

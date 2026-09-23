@@ -8,14 +8,14 @@ IMAGES = [
 ]
 
 COPY = {
-    'zh-HK': dict(stat='12 個大類 · 122 種預約服務', types='個小類', open='查看全部', note='搵唔到你嘅行業？只要客人需要預約時間，通常都可以用 BookingYou。'),
-    'en': dict(stat='12 categories · 122 appointment services', types='service types', open='View all', note='Cannot find your trade? If customers book a time with you, BookingYou will usually fit.'),
-    'zh-CN': dict(stat='12 个大类 · 122 种预约服务', types='个小类', open='查看全部', note='找不到你的行业？只要客人需要预约时间，通常都可以使用 BookingYou。'),
-    'ja': dict(stat='12カテゴリー・122種類の予約サービス', types='業種', open='すべて見る', note='業種が見つからなくても、時間を予約して来店するサービスなら、ほとんどの場合BookingYouを利用できます。'),
-    'ko': dict(stat='12개 분야 · 122가지 예약 서비스', types='개 서비스', open='전체 보기', note='업종이 보이지 않나요? 고객이 시간을 예약하는 서비스라면 대부분 BookingYou를 사용할 수 있습니다.'),
-    'ms': dict(stat='12 kategori · 122 perkhidmatan janji temu', types='jenis perkhidmatan', open='Lihat semua', note='Tidak jumpa bidang anda? Jika pelanggan menempah masa dengan anda, BookingYou biasanya sesuai.'),
-    'th': dict(stat='12 หมวด · 122 บริการที่รับจอง', types='ประเภทย่อย', open='ดูทั้งหมด', note='ไม่พบธุรกิจของคุณใช่ไหม หากลูกค้าต้องจองเวลา โดยทั่วไปก็ใช้ BookingYou ได้'),
-    'vi': dict(stat='12 nhóm · 122 dịch vụ đặt lịch', types='loại dịch vụ', open='Xem tất cả', note='Không thấy ngành của bạn? Nếu khách hàng cần đặt thời gian, BookingYou thường vẫn phù hợp.'),
+    'zh-HK': dict(stat='12 個行業分組 · 122 個服務例子', types='個小類', open='查看全部', note='以下係適用服務例子，唔係 App 內分類選單嘅數目。 搵唔到你嘅行業？只要客人需要預約時間，通常都可以用 BookingYou。'),
+    'en': dict(stat='12 industry groups · 122 service examples', types='service types', open='View all', note='These are examples of suitable services, not a count of categories in the app. Cannot find your trade? If customers book a time with you, BookingYou will usually fit.'),
+    'zh-CN': dict(stat='12 个行业分组 · 122 个服务示例', types='个小类', open='查看全部', note='以下是适用服务示例，并非 App 内分类菜单的数量。 找不到你的行业？只要客人需要预约时间，通常都可以使用 BookingYou。'),
+    'ja': dict(stat='12の業種グループ・122のサービス例', types='業種', open='すべて見る', note='対応するサービスの例であり、アプリ内のカテゴリー数ではありません。 業種が見つからなくても、時間を予約して来店するサービスなら、ほとんどの場合BookingYouを利用できます。'),
+    'ko': dict(stat='12개 업종 그룹 · 122개 서비스 예시', types='개 서비스', open='전체 보기', note='적합한 서비스 예시이며 앱 내 카테고리 수를 뜻하지 않습니다. 업종이 보이지 않나요? 고객이 시간을 예약하는 서비스라면 대부분 BookingYou를 사용할 수 있습니다.'),
+    'ms': dict(stat='12 kumpulan industri · 122 contoh perkhidmatan', types='jenis perkhidmatan', open='Lihat semua', note='Ini contoh perkhidmatan yang sesuai, bukan bilangan kategori dalam aplikasi. Tidak jumpa bidang anda? Jika pelanggan menempah masa dengan anda, BookingYou biasanya sesuai.'),
+    'th': dict(stat='12 กลุ่มธุรกิจ · 122 ตัวอย่างบริการ', types='ประเภทย่อย', open='ดูทั้งหมด', note='เป็นตัวอย่างบริการที่เหมาะสม ไม่ใช่จำนวนหมวดหมู่ในแอป ไม่พบธุรกิจของคุณใช่ไหม หากลูกค้าต้องจองเวลา โดยทั่วไปก็ใช้ BookingYou ได้'),
+    'vi': dict(stat='12 nhóm ngành · 122 ví dụ dịch vụ', types='loại dịch vụ', open='Xem tất cả', note='Đây là các ví dụ dịch vụ phù hợp, không phải số danh mục trong ứng dụng. Không thấy ngành của bạn? Nếu khách hàng cần đặt thời gian, BookingYou thường vẫn phù hợp.'),
 }
 
 DATA = {
