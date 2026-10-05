@@ -88,16 +88,13 @@ def social_markup(code):
             f'<div class="soc-meta"><span class="soc-logo">{_glyph(key)}</span>'
             f'<span class="soc-text"><span class="soc-name">{_esc(name)}</span><span class="soc-handle">{_esc(handle)}</span></span>'
             f'<span class="soc-go" aria-hidden="true">↗</span></div></a>')
-    same = ','.join(f'"{u}"' for _, _, _, u, _ in ACCOUNTS)
-    ld = ('<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"BookingYou",'
-          f'"url":"https://bookingyou.app/","logo":"https://bookingyou.app/assets/logo.png","sameAs":[{same}]}}</script>')
     return (f'<section id="social" class="bg-a"><div class="wrap">'
             f'<span class="chip">{_esc(c["chip"])}</span>'
             f'<h2 style="margin-top:14px">{_esc(c["h2"])}</h2><p class="lead">{_esc(c["lead"])}</p>'
             f'<div class="soc-grid">{"".join(cards)}'
             f'<div class="soc-yu"><img src="assets/yu-kun-wave.png" alt="" loading="lazy" decoding="async"><p>{_esc(c["note"])}</p></div></div>'
             f'<p class="soc-note">{_esc(c["tm"])}</p>'
-            f'</div></section>{ld}')
+            f'</div></section>')
 
 def social_footer(code):
     c = SOCIAL_COPY[code]
