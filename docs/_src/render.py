@@ -1,13 +1,13 @@
 import sys, os, re, html
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from strings import L
-from seo import BASE, canonicalize, write_discovery
+from seo import BASE, page_metadata, write_discovery
 from extra import E
 from concepts import THEMES, COMMON_CSS, concept_nav, hub_html
 from industries import COPY as INDUSTRY_COPY, industry_markup
 from pain_solutions import COPY as PAIN_SOLUTION_COPY, pain_solution_markup
 from posts_wall import POSTS_COPY, POSTS_CSS, posts_markup
-from social import SOCIAL_CSS, SOCIAL_COPY, social_markup, social_footer
+from social import ACCOUNTS, SOCIAL_CSS, SOCIAL_COPY, social_markup, social_footer
 from webbook import WEBBOOK_CSS, webbook_markup, WEBBOOK_COPY
 from about import ABOUT, ABOUT_CSS, about_body
 SRC = os.path.dirname(os.path.abspath(__file__))
@@ -30,7 +30,7 @@ CSS = """
   .lang-options a.on::after{content:"✓";color:var(--teal);font-weight:800}
   @media(max-width:900px){.nav{height:auto;min-height:64px;padding:9px 0;flex-wrap:nowrap}.nav>.home img{height:38px}.links{order:9;width:100%;margin-left:0;gap:8px;padding:6px 0 2px}.nav{flex-wrap:wrap}.lang-menu{margin-left:auto}.menu-panel{position:fixed;left:18px;right:18px;top:auto;min-width:0;grid-template-columns:repeat(2,minmax(0,1fr))}.lang-menu summary{min-width:118px}.lang-options{position:fixed;left:18px;right:18px;top:72px;min-width:0;grid-template-columns:repeat(2,minmax(0,1fr));padding:10px}.lang-options a{padding:11px 12px}}
 """
-def esc(x): return html.escape(str(x), quote=False)
+def esc(x): return html.escape(str(x), quote=True)
 
 def vals(code):
     d = L[code]; v = {}
@@ -108,8 +108,6 @@ def write_about(code, path, page):
     head = page[:page.index('<body')]
     header = page[page.index('<header>'):page.index('</header>') + len('</header>')]
     footer = page[page.index('<footer>'):]
-    head = re.sub(r'<title>[^<]*</title>', f'<title>{esc(ABOUT[code]["title"])}</title>', head, count=1)
-    head = re.sub(r'<meta name="description" content="[^"]*">', f'<meta name="description" content="{esc(ABOUT[code]["lead"])}">', head, count=1)
     head = re.sub(r'(<link rel="alternate" hreflang="[^"]*" href="https://bookingyou.app/[^"]*?)">', r'\1about/">', head)
     header = header.replace('href="#top"', f'href="{home}"')
     header = re.sub(r'(<a href="/[a-z-]*/?)("[^>]*hreflang)', r'\1about/\2', header)
@@ -118,7 +116,9 @@ def write_about(code, path, page):
     menu_js = menu_js[:menu_js.index('</script>') + len('</script>')]
     out = head + '<body>\n' + header + '\n' + about_body(code, home) + '\n' + footer + menu_js + '\n</body></html>'
     out = out.replace('src="assets/', 'src="/assets/').replace('url("assets/', 'url("/assets/').replace('href="assets/', 'href="/assets/')
-    out = canonicalize(out, BASE + path + 'about/')
+    out = page_metadata(out, url=BASE + path + 'about/', title=ABOUT[code]['title'],
+                        description=ABOUT[code]['desc'], language=L[code]['lang'],
+                        same_as=[account[3] for account in ACCOUNTS], about=True)
     ad = os.path.join(OUT, path, 'about'); os.makedirs(ad, exist_ok=True)
     open(os.path.join(ad, 'index.html'), 'w', encoding='utf-8').write(out)
 
@@ -130,7 +130,8 @@ for code, path in PATHS.items():
     s = s.replace('</div></header>', switcher(code) + '</div></header>')
     if path:
         s = s.replace('src="assets/', 'src="/assets/').replace('url("assets/', 'url("/assets/')
-    s = canonicalize(s, BASE + path)
+    s = page_metadata(s, url=BASE + path, title=L[code]['title'], description=L[code]['desc'],
+                      language=L[code]['lang'], same_as=[account[3] for account in ACCOUNTS])
     d = os.path.join(OUT, path); os.makedirs(d, exist_ok=True)
     open(os.path.join(d, 'index.html'), 'w', encoding='utf-8').write(s)
     leftover = re.findall(r'\{\{\w+\}\}', s)

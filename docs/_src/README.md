@@ -6,8 +6,13 @@
 - `shoot_webbook.py` — 重影「網頁預約」區塊嘅截圖（示範店嘅真實 `/b/` 頁面，唔會提交預約）
 - `about.py` — 「關於我們」頁（/about/、/ja/about/ …，8 語）：團隊口吻、公司理念、堅持、時間線。只寫核實過嘅事實，唔出個人名
 - `social.py` — 首頁「社交平台」區塊＋footer 社交圖示：帳號清單、8 語文案、品牌 glyph（Simple Icons，CC0，黑色單色）。加減帳號改 `ACCOUNTS`
-- `render.py` — 生成器：`python3 render.py` 會出 8 個 index.html
+- `seo.py` — 公開頁面 canonical、Open Graph／Twitter 分享標記、JSON-LD、sitemap 及 robots；品牌資料沿用 `social.py` 嘅帳號清單
+- `render.py` — 生成器：`PYTHONDONTWRITEBYTECODE=1 python3 docs/_src/render.py`（repo 根目錄執行）會輸出 8 語首頁、8 語關於頁及 noindex 設計方案
 
 改文案改 `strings.py`，改版面改 `template.html`，之後重新生成再 commit。
+「關於我們」嘅搜尋摘要獨立放喺 `about.py` 嘅 `desc`；唔好直接用整段 `lead`。
+首頁及關於頁嘅搜尋摘要、分享標題同 JSON-LD 都由同一份文案生成。
+私隱政策及條款保留獨立 HTML；修改時保留預設可見嘅英文內容，避免 JavaScript 未載入時頁面空白。
+`docs/google2e26d24906c57931.html` 係 Google Search Console 擁有權驗證檔；驗證成功後亦要保留，唔加入 sitemap。
 內容跟 `BOOKINGYOU-TEMP/投資者簡報-INVESTOR-DECK/2026-09-14/BookingYou-投資者簡介-繁中.pptx`，
 但唔公開市場數字、經營數字，亦冇簡報第 11–14 頁（進度、定位、團隊、融資需求）。

@@ -3,8 +3,8 @@ L = {}
 
 L['zh-HK'] = dict(
   lang='zh-Hant', name='繁體中文',
-  title='BookingYou — 為獨立小店而設的預約前台',
-  desc='BookingYou：客人自助預約，店主管理全日。美容院、理髮、美甲、物理治療等預約制小店，一個 App 收晒所有預約。',
+  title='BookingYou｜小店預約管理系統・基本功能免費',
+  desc='BookingYou 為美容院、髮型屋、美甲店及獨立小店提供預約管理。分享連結或 QR Code，客人免下載 App 即可提交預約；店主集中管理日曆、改期及提醒。基本功能免費，零佣金。',
   nav=['問題','方案','差異','服務對象','收費'],
   hero_tag='預約制小店 · 美容 · 理髮 · 美甲 · 物理治療',
   hero_sub='為獨立小店而設的預約前台。客人自助預約，店主管理全日。',
@@ -42,8 +42,8 @@ L['zh-HK'] = dict(
 
 L['en'] = dict(
   lang='en', name='English',
-  title='BookingYou — The booking desk for independent service shops',
-  desc='BookingYou: customers book themselves, the shop runs its day. One app for salons, barbers, nail studios, physio and other appointment-based shops.',
+  title='BookingYou | Appointment Booking for Small Shops',
+  desc='Manage appointments for salons, barbers and small shops. Customers book through your link or QR code, with no app needed. Free core features, no commission.',
   nav=['Problem','Solution','What’s different','Who we serve','Pricing'],
   hero_tag='Appointment-based shops · Beauty · Barber · Nails · Physio',
   hero_sub='The booking desk for independent service shops. Customers book, the shop runs its day.',
@@ -81,8 +81,8 @@ L['en'] = dict(
 
 L['ja'] = dict(
   lang='ja', name='日本語',
-  title='BookingYou — 個人経営のサービス店のための予約受付',
-  desc='BookingYou：お客様は自分で予約、お店は1日を管理。美容室・理容室・ネイル・整体など、予約制の小さなお店のための予約アプリ。',
+  title='BookingYou｜小さなお店の予約管理アプリ・基本機能無料',
+  desc='美容室・ネイルサロン・整体など、ひとりで営むお店の予約管理に。予約リンクやQRコードを共有すれば、お客様はアプリ不要で予約を申し込めます。カレンダー・日程変更・リマインダーを一元管理。基本機能無料、予約手数料なし。',
   nav=['課題','解決策','独自性','対象業種','料金'],
   hero_tag='予約制のお店 · 美容 · 理容 · ネイル · 整体',
   hero_sub='個人経営のサービス店のための予約受付。お客様は自分で予約、お店は1日を管理。',
@@ -120,8 +120,8 @@ L['ja'] = dict(
 
 L['zh-CN'] = dict(
   lang='zh-Hans', name='简体中文',
-  title='BookingYou — 为独立小店打造的预约前台',
-  desc='BookingYou：客人自助预约，店主管理全天。美容院、理发、美甲、理疗等预约制小店，一个 App 收齐所有预约。',
+  title='BookingYou｜小店预约管理系统・基本功能免费',
+  desc='BookingYou 为美容院、理发店、美甲店及独立小店提供预约管理。分享链接或二维码，客人无需下载 App 即可提交预约；店主集中管理日历、改期及提醒。基本功能免费，零佣金。',
   nav=['问题','方案','差异','服务对象','收费'],
   hero_tag='预约制小店 · 美容 · 理发 · 美甲 · 理疗',
   hero_sub='为独立小店打造的预约前台。客人自助预约，店主管理全天。',
@@ -159,8 +159,8 @@ L['zh-CN'] = dict(
 
 L['ko'] = dict(
   lang='ko', name='한국어',
-  title='BookingYou — 소규모 개인 매장을 위한 예약 데스크',
-  desc='BookingYou: 고객은 스스로 예약하고, 매장은 하루를 관리합니다. 미용실, 이발소, 네일, 물리치료 등 예약제 매장을 위한 앱.',
+  title='BookingYou | 소규모 매장 예약 관리 앱',
+  desc='미용실, 네일숍, 1인 매장을 위한 예약 관리. 링크나 QR 코드로 고객은 앱 설치 없이 예약을 신청하고, 매장은 일정과 예약 변경, 알림을 한곳에서 관리합니다. 기본 기능 무료, 예약 수수료 없음.',
   nav=['문제','해결책','차별점','대상 업종','요금'],
   hero_tag='예약제 매장 · 미용 · 이발 · 네일 · 물리치료',
   hero_sub='소규모 개인 매장을 위한 예약 데스크. 고객은 스스로 예약하고, 매장은 하루를 관리합니다.',
@@ -198,8 +198,8 @@ L['ko'] = dict(
 
 L['ms'] = dict(
   lang='ms', name='Bahasa Melayu',
-  title='BookingYou — Kaunter tempahan untuk kedai perkhidmatan kecil',
-  desc='BookingYou: pelanggan menempah sendiri, kedai menguruskan hari. Satu aplikasi untuk salon, kedai gunting rambut, nail studio, fisioterapi dan kedai berasaskan temu janji.',
+  title='BookingYou | Pengurusan Tempahan untuk Kedai Kecil',
+  desc='Urus tempahan salon dan kedai kecil. Pelanggan menempah melalui pautan atau kod QR tanpa memasang aplikasi. Ciri asas percuma, tanpa komisen.',
   nav=['Masalah','Penyelesaian','Apa yang berbeza','Untuk siapa','Harga'],
   hero_tag='Kedai temu janji · Kecantikan · Gunting rambut · Kuku · Fisioterapi',
   hero_sub='Kaunter tempahan untuk kedai perkhidmatan kecil. Pelanggan menempah sendiri, kedai menguruskan harinya.',
@@ -237,8 +237,8 @@ L['ms'] = dict(
 
 L['th'] = dict(
   lang='th', name='ไทย',
-  title='BookingYou — เคาน์เตอร์รับจองสำหรับร้านเล็ก ๆ',
-  desc='BookingYou: ลูกค้าจองเอง ร้านจัดการทั้งวัน แอปเดียวสำหรับร้านทำผม ร้านตัดผม ร้านทำเล็บ กายภาพบำบัด และร้านที่รับจองล่วงหน้า',
+  title='BookingYou | แอปจัดการนัดหมายสำหรับร้านเล็ก',
+  desc='จัดการนัดหมายร้านทำผม ร้านทำเล็บ และร้านเล็ก ลูกค้าจองผ่านลิงก์หรือ QR Code โดยไม่ต้องติดตั้งแอป ฟีเจอร์พื้นฐานฟรี ไม่มีค่าคอมมิชชัน',
   nav=['ปัญหา','ทางออก','จุดต่าง','เหมาะกับใคร','ราคา'],
   hero_tag='ร้านรับจองล่วงหน้า · ความงาม · ตัดผม · ทำเล็บ · กายภาพบำบัด',
   hero_sub='เคาน์เตอร์รับจองสำหรับร้านเล็ก ๆ ลูกค้าจองเอง ร้านจัดการทั้งวัน',
@@ -276,8 +276,8 @@ L['th'] = dict(
 
 L['vi'] = dict(
   lang='vi', name='Tiếng Việt',
-  title='BookingYou — Quầy nhận đặt lịch cho tiệm nhỏ',
-  desc='BookingYou: khách tự đặt lịch, chủ tiệm quản lý cả ngày. Một ứng dụng cho salon, tiệm cắt tóc, tiệm nail, vật lý trị liệu và các tiệm nhận đặt hẹn.',
+  title='BookingYou | Quản lý đặt lịch cho tiệm nhỏ',
+  desc='Quản lý lịch hẹn cho salon, tiệm nail và tiệm nhỏ. Khách đặt qua liên kết hoặc mã QR, không cần cài ứng dụng. Tính năng cơ bản miễn phí, không hoa hồng.',
   nav=['Vấn đề','Giải pháp','Điểm khác biệt','Dành cho ai','Giá'],
   hero_tag='Tiệm nhận đặt hẹn · Làm đẹp · Cắt tóc · Nail · Vật lý trị liệu',
   hero_sub='Quầy nhận đặt lịch cho tiệm nhỏ. Khách tự đặt lịch, chủ tiệm quản lý cả ngày.',

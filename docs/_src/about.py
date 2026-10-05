@@ -10,7 +10,8 @@
 
 ABOUT = {
     'zh-HK': dict(
-        title='關於我們 · BookingYou', nav='關於我們', chip='關於我們',
+        title='關於 BookingYou｜香港團隊打造的小店預約工具', nav='關於我們', chip='關於我們',
+        desc='認識 BookingYou 背後的香港團隊、產品理念及發展歷程。我哋為獨立小店提供預約管理工具，基本功能免費、零佣金，讓店主直接連繫客人。',
         h1='為一人小店而設嘅預約前台',
         lead='BookingYou 由一支香港團隊設計及開發。我哋相信：小店接預約，唔應該比打電話更麻煩；而一個好用嘅工具，唔應該要商戶先計數、先簽約。',
         mis_h='公司理念', mis_lead='我哋做嘅唔係「平台」，係一張放喺櫃枱嘅預約卡。客人由店舖自己嘅連結入嚟，關係一直屬於店舖，唔屬於我哋。', mis=[('工具，唔係中間人','我哋唔企喺商戶同客人中間抽一筆。BookingYou 只係令預約更順，錢同關係都留喺店舖。'),('細店先','功能由一人店舖嘅實際流程出發：做緊客冇手接電話、收工先睇到查詢、週六想自己揀客。大公司要嘅嘢，唔係我哋嘅優先次序。'),('本地就係本地','語言、時區、貨幣、假期都跟店舖所在地。一個城市一個城市咁做，唔係一個介面翻譯八次。'),('誠實','唔講「全港最強」，唔寫冇來源嘅數字。做到先講，未做到就話未做到。')],
@@ -29,7 +30,8 @@ ABOUT = {
         contact_h='聯絡', contact='合作、傳媒查詢、意見，都歡迎電郵。', mail='contact@bookingyou.app',
         cta='免費開始', back='返回首頁'),
     'en': dict(
-        title='About · BookingYou', nav='About us', chip='About us',
+        title='About BookingYou | Booking Tools Built for Small Shops', nav='About us', chip='About us',
+        desc='Meet BookingYou, built by a Hong Kong team for independent shops. Learn about our story, free core booking features and commission-free approach.',
         h1='A booking front desk for one-person shops',
         lead='BookingYou is designed and built by a team in Hong Kong. We believe taking bookings should not be harder than answering the phone — and a good tool should not make a shop do the maths or sign a contract first.',
         mis_h='What we believe', mis_lead='We are not building a “platform”. We are building the booking card that sits on the counter. Customers arrive through the shop’s own link, and the relationship stays with the shop, not with us.', mis=[('A tool, not a middleman','We don’t stand between the shop and its customers taking a cut. BookingYou just makes booking smoother; the money and the relationship stay with the shop.'),('Small shops first','Every feature starts from how a one-person shop actually works: no free hand for the phone mid-service, enquiries seen after closing, wanting to choose customers on Saturday night. What big chains need is not our priority.'),('Local means local','Language, time zone, currency and holidays follow the shop’s location. We go one city at a time, rather than translating one interface eight times.'),('Honest','No “best in town”, no numbers without a source. We say it when it’s done, and say so when it isn’t.')],
@@ -48,7 +50,8 @@ ABOUT = {
         contact_h='Contact', contact='Partnerships, press enquiries and feedback are all welcome by email.', mail='contact@bookingyou.app',
         cta='Start for free', back='Back to home'),
     'zh-CN': dict(
-        title='关于我们 · BookingYou', nav='关于我们', chip='关于我们',
+        title='关于 BookingYou｜香港团队打造的小店预约工具', nav='关于我们', chip='关于我们',
+        desc='了解 BookingYou 背后的香港团队、产品理念及发展历程。我们为独立小店提供预约管理工具，基本功能免费、零佣金，让店主直接联系客人。',
         h1='为一人小店而设的预约前台',
         lead='BookingYou 由一支香港团队设计与开发。我们相信：小店接预约，不应该比接电话更麻烦；一个好用的工具，也不应该让商户先算账、先签约。',
         mis_h='公司理念', mis_lead='我们做的不是“平台”，而是一张放在柜台上的预约卡。客人从店铺自己的链接进来，关系始终属于店铺，不属于我们。', mis=[('工具，不是中间人','我们不站在商户和客人之间抽成。BookingYou 只是让预约更顺畅，钱和关系都留在店铺。'),('小店优先','功能从一人店铺的实际流程出发：服务中腾不出手接电话、打烊后才看到咨询、周六想自己挑客。大公司需要的，不是我们的优先级。'),('本地就是本地','语言、时区、货币、假期都跟随店铺所在地。一个城市一个城市地做，而不是把一个界面翻译八次。'),('诚实','不说“全城最强”，不写没有来源的数字。做到了才说，没做到就说没做到。')],
@@ -67,7 +70,8 @@ ABOUT = {
         contact_h='联系', contact='合作、媒体查询、意见反馈，欢迎发邮件。', mail='contact@bookingyou.app',
         cta='免费开始', back='返回首页'),
     'ja': dict(
-        title='BookingYou について', nav='BookingYou について', chip='私たちについて',
+        title='BookingYouについて｜小さなお店のための予約管理', nav='BookingYou について', chip='私たちについて',
+        desc='BookingYouは香港のチームが開発する、小さなお店のための予約管理アプリです。基本機能無料・予約手数料なし。私たちの考え、開発の背景、これまでの歩みをご紹介します。',
         h1='ひとりで営むお店のための予約受付',
         lead='BookingYou は香港のチームが設計・開発しています。私たちはこう考えます。予約の受付は電話に出るより面倒であってはいけない。そして良いツールは、お店に計算や契約を先に求めるべきではない。',
         mis_h='私たちの考え', mis_lead='私たちが作っているのは「プラットフォーム」ではなく、カウンターに置く一枚の予約カードです。お客様はお店自身のリンクから来て、その関係はお店のもの。私たちのものではありません。', mis=[('仲介ではなく、道具','お店とお客様の間に立って手数料を取ることはしません。BookingYou は予約をなめらかにするだけ。お金も関係もお店に残ります。'),('小さなお店を最初に','機能はひとりで営むお店の実際の流れから考えます。施術中は電話に出られない、問い合わせは閉店後に見る、土曜の夜はお客様を自分で選びたい。大きなチェーンに必要なものは、私たちの優先事項ではありません。'),('ローカルはローカルに','言語、時間帯、通貨、祝日はお店の所在地に合わせます。一つの画面を八回翻訳するのではなく、一つの街ずつ取り組みます。'),('正直に','「街いちばん」とは言わず、根拠のない数字は書きません。できたら伝える、できていなければそう伝える。')],
@@ -86,7 +90,8 @@ ABOUT = {
         contact_h='お問い合わせ', contact='提携、取材、ご意見はメールでお気軽にどうぞ。', mail='contact@bookingyou.app',
         cta='無料ではじめる', back='ホームへ戻る'),
     'ko': dict(
-        title='BookingYou 소개', nav='회사 소개', chip='회사 소개',
+        title='BookingYou 소개 | 소규모 매장을 위한 예약 관리', nav='회사 소개', chip='회사 소개',
+        desc='홍콩 팀이 만든 소규모 매장 예약 관리 앱 BookingYou를 소개합니다. 개발 배경과 철학, 기본 기능 무료와 예약 수수료 없는 운영 원칙을 알아보세요.',
         h1='1인 매장을 위한 예약 데스크',
         lead='BookingYou는 홍콩의 팀이 설계하고 개발합니다. 우리는 예약을 받는 일이 전화를 받는 일보다 번거로워서는 안 되며, 좋은 도구라면 매장에게 계산이나 계약을 먼저 요구해서는 안 된다고 믿습니다.',
         mis_h='우리의 생각', mis_lead='우리가 만드는 건 “플랫폼”이 아니라 카운터에 놓는 예약 카드 한 장입니다. 고객은 매장의 링크로 들어오고, 그 관계는 우리가 아닌 매장의 것입니다.', mis=[('중개인이 아닌 도구','매장과 고객 사이에 서서 수수료를 떼지 않습니다. BookingYou는 예약을 매끄럽게 할 뿐, 돈과 관계는 매장에 남습니다.'),('작은 매장 먼저','모든 기능은 1인 매장의 실제 흐름에서 출발합니다. 시술 중엔 전화를 못 받고, 문의는 마감 후에 보고, 토요일 밤엔 손님을 직접 고르고 싶은 것. 큰 체인에 필요한 건 우리의 우선순위가 아닙니다.'),('현지는 현지답게','언어, 시간대, 통화, 휴일은 매장 위치를 따릅니다. 화면 하나를 여덟 번 번역하는 대신 한 도시씩 갑니다.'),('정직하게','“동네 최고”라 말하지 않고, 출처 없는 숫자는 쓰지 않습니다. 된 것은 됐다고, 안 된 것은 안 됐다고 말합니다.')],
@@ -105,7 +110,8 @@ ABOUT = {
         contact_h='문의', contact='제휴, 취재, 의견 모두 이메일로 환영합니다.', mail='contact@bookingyou.app',
         cta='무료로 시작', back='홈으로'),
     'ms': dict(
-        title='Tentang · BookingYou', nav='Tentang kami', chip='Tentang kami',
+        title='Tentang BookingYou | Tempahan untuk Kedai Kecil', nav='Tentang kami', chip='Tentang kami',
+        desc='Kenali BookingYou, dibina oleh pasukan Hong Kong untuk kedai kecil. Ketahui kisah kami, ciri tempahan asas percuma dan pendekatan tanpa komisen.',
         h1='Kaunter tempahan untuk kedai seorang',
         lead='BookingYou direka dan dibina oleh sebuah pasukan di Hong Kong. Kami percaya menerima tempahan tidak sepatutnya lebih sukar daripada menjawab telefon — dan alat yang baik tidak sepatutnya memaksa kedai mengira atau menandatangani kontrak dahulu.',
         mis_h='Pegangan kami', mis_lead='Kami bukan membina “platform”. Kami membina kad tempahan yang diletakkan di kaunter. Pelanggan datang melalui pautan kedai sendiri, dan hubungan itu kekal milik kedai, bukan kami.', mis=[('Alat, bukan orang tengah','Kami tidak berdiri di antara kedai dan pelanggannya untuk mengambil bahagian. BookingYou hanya melancarkan tempahan; wang dan hubungan kekal dengan kedai.'),('Kedai kecil dahulu','Setiap ciri bermula daripada cara kedai seorang benar-benar beroperasi: tiada tangan lapang untuk telefon ketika melayan pelanggan, pertanyaan dilihat selepas tutup, mahu memilih pelanggan pada malam Sabtu. Keperluan rangkaian besar bukan keutamaan kami.'),('Tempatan bermaksud tempatan','Bahasa, zon waktu, mata wang dan cuti mengikut lokasi kedai. Kami maju satu bandar pada satu masa, bukan menterjemah satu antara muka lapan kali.'),('Jujur','Tiada “terbaik di bandar”, tiada angka tanpa sumber. Kami beritahu bila sudah siap, dan beritahu bila belum.')],
@@ -124,7 +130,8 @@ ABOUT = {
         contact_h='Hubungi', contact='Kerjasama, pertanyaan media dan maklum balas dialu-alukan melalui e-mel.', mail='contact@bookingyou.app',
         cta='Mula secara percuma', back='Kembali ke laman utama'),
     'th': dict(
-        title='เกี่ยวกับเรา · BookingYou', nav='เกี่ยวกับเรา', chip='เกี่ยวกับเรา',
+        title='เกี่ยวกับ BookingYou | ระบบจองสำหรับร้านเล็ก', nav='เกี่ยวกับเรา', chip='เกี่ยวกับเรา',
+        desc='รู้จัก BookingYou แอปจัดการนัดหมายสำหรับร้านเล็ก พัฒนาโดยทีมในฮ่องกง เรียนรู้แนวคิดและเรื่องราวของเรา พร้อมฟีเจอร์พื้นฐานฟรีและไม่มีค่าคอมมิชชัน',
         h1='ระบบรับจองสำหรับร้านคนเดียว',
         lead='BookingYou ออกแบบและพัฒนาโดยทีมงานในฮ่องกง เราเชื่อว่าการรับจองไม่ควรยุ่งยากกว่าการรับโทรศัพท์ และเครื่องมือที่ดีไม่ควรบังคับให้ร้านต้องคำนวณหรือเซ็นสัญญาก่อน',
         mis_h='แนวคิดของเรา', mis_lead='เราไม่ได้สร้าง “แพลตฟอร์ม” เราสร้างการ์ดจองที่วางอยู่บนเคาน์เตอร์ ลูกค้าเข้ามาผ่านลิงก์ของร้านเอง และความสัมพันธ์นั้นเป็นของร้าน ไม่ใช่ของเรา', mis=[('เครื่องมือ ไม่ใช่คนกลาง','เราไม่ยืนอยู่ระหว่างร้านกับลูกค้าเพื่อหักส่วนแบ่ง BookingYou แค่ทำให้การจองราบรื่น เงินและความสัมพันธ์ยังอยู่กับร้าน'),('ร้านเล็กมาก่อน','ทุกฟีเจอร์เริ่มจากวิธีทำงานจริงของร้านคนเดียว: ไม่มีมือว่างรับโทรศัพท์ระหว่างให้บริการ เห็นข้อความหลังปิดร้าน อยากเลือกลูกค้าเองในคืนวันเสาร์ สิ่งที่เชนใหญ่ต้องการไม่ใช่ลำดับความสำคัญของเรา'),('ท้องถิ่นก็คือท้องถิ่น','ภาษา เขตเวลา สกุลเงิน และวันหยุดเป็นไปตามที่ตั้งของร้าน เราทำทีละเมือง ไม่ใช่แปลหน้าจอเดียวแปดครั้ง'),('ซื่อสัตย์','ไม่พูดว่า “ดีที่สุดในเมือง” ไม่เขียนตัวเลขที่ไม่มีที่มา ทำเสร็จแล้วค่อยบอก ยังไม่เสร็จก็บอกตามนั้น')],
@@ -143,7 +150,8 @@ ABOUT = {
         contact_h='ติดต่อ', contact='ความร่วมมือ สื่อมวลชน และความคิดเห็น ยินดีรับทางอีเมล', mail='contact@bookingyou.app',
         cta='เริ่มใช้ฟรี', back='กลับหน้าแรก'),
     'vi': dict(
-        title='Về chúng tôi · BookingYou', nav='Về chúng tôi', chip='Về chúng tôi',
+        title='Về BookingYou | Công cụ đặt lịch cho tiệm nhỏ', nav='Về chúng tôi', chip='Về chúng tôi',
+        desc='Tìm hiểu BookingYou, do đội ngũ Hồng Kông xây dựng cho các tiệm nhỏ: câu chuyện phát triển, tính năng đặt lịch cơ bản miễn phí và không thu hoa hồng.',
         h1='Quầy nhận đặt lịch cho tiệm một người',
         lead='BookingYou do một đội ngũ tại Hồng Kông thiết kế và xây dựng. Chúng tôi tin rằng nhận lịch hẹn không nên khó hơn nghe điện thoại — và một công cụ tốt không nên bắt tiệm phải tính toán hay ký hợp đồng trước.',
         mis_h='Điều chúng tôi tin', mis_lead='Chúng tôi không xây một “nền tảng”. Chúng tôi làm tấm thẻ đặt lịch đặt trên quầy. Khách đến qua liên kết của chính tiệm, và mối quan hệ đó thuộc về tiệm, không thuộc về chúng tôi.', mis=[('Công cụ, không phải trung gian','Chúng tôi không đứng giữa tiệm và khách để lấy phần. BookingYou chỉ làm việc đặt lịch trôi chảy hơn; tiền và mối quan hệ ở lại với tiệm.'),('Tiệm nhỏ trước','Mọi tính năng xuất phát từ cách một tiệm một người thực sự vận hành: không rảnh tay nghe điện thoại giữa lúc làm, đọc tin nhắn sau giờ đóng cửa, muốn tự chọn khách tối thứ Bảy. Nhu cầu của chuỗi lớn không phải ưu tiên của chúng tôi.'),('Địa phương là địa phương','Ngôn ngữ, múi giờ, tiền tệ và ngày lễ theo nơi đặt tiệm. Chúng tôi đi từng thành phố, thay vì dịch một giao diện tám lần.'),('Thành thật','Không “tốt nhất thành phố”, không số liệu vô căn cứ. Làm xong mới nói, chưa xong thì nói chưa xong.')],
