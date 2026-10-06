@@ -1,0 +1,18 @@
+{
+  "logo": "logo.png",
+  "photo": "salon-booking-interruption.jpg",
+  "mascot": "yu-kun-wave.png",
+  "slots": "deck-phone-slots.png",
+  "dashboard": "deck-dashboard.png",
+  "hours": "deck-hours.png",
+  "customer": "illustrations/33-customer-using-phone.webp",
+  "owner": "illustrations/34-salon-owner-welcoming.webp",
+  "web1zh": "webbook/zh-HK-1.jpg",
+  "web2zh": "webbook/zh-HK-2.jpg",
+  "web1ja": "webbook/ja-1.jpg",
+  "web2ja": "webbook/ja-2.jpg",
+  "applezh": "badges/apple-zh-hk.svg",
+  "googlezh": "badges/google-zh-tw.png",
+  "appleja": "badges/apple-ja-jp.svg",
+  "googleja": "badges/google-ja.png"
+}

@@ -1,0 +1,25 @@
+# BookingYou
+
+> BookingYou is a booking management app for appointment-based small shops and independent service providers. This file summarizes information also available on the official website.
+
+## Product facts
+
+- Core booking-management features are free; BookingYou charges no booking commission. The Pro plan is planned, not currently available, and its pricing has not been announced.
+- Merchants manage calendars, manually entered bookings, rescheduling, reminders, opening hours and confirmation rules.
+- Customers can submit a booking through a merchant link or QR code in a browser without installing the app. Availability depends on the merchant enabling web booking.
+- Web booking submissions always require merchant confirmation. App bookings follow each time slot's instant-confirmation or approval setting.
+- Merchants can use the iOS/iPadOS or Android app. Website screenshots are not evidence of a desktop merchant-management app.
+- Contact: contact@bookingyou.app
+
+## Official pages
+
+- [Traditional Chinese](https://bookingyou.app/): Product, features and FAQs.
+- [Japanese](https://bookingyou.app/ja/): Small-shop booking management in Japanese.
+- [English](https://bookingyou.app/en/): Product information in English.
+- [Web booking guide](https://bookingyou.app/#web-booking): How customers submit bookings.
+- [Plans](https://bookingyou.app/#plans): Free core features and planned Pro status.
+- [About BookingYou](https://bookingyou.app/about/): Brand information.
+- [Privacy](https://bookingyou.app/privacy/): Privacy policy.
+- [Terms](https://bookingyou.app/terms/): Terms of service.
+- [App Store](https://apps.apple.com/app/id6782119326): Official Apple listing.
+- [Google Play](https://play.google.com/store/apps/details?id=com.bookingyou.app): Official Android listing.

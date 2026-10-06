@@ -1,585 +1,163 @@
 <!doctype html>
-<html lang="zh-Hant">
+<html lang="zh-Hant" data-seo-mode="release">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BookingYou｜小店預約管理系統・基本功能免費</title>
-<meta name="description" content="BookingYou 為美容院、髮型屋、美甲店及獨立小店提供預約管理。分享連結或 QR Code，客人免下載 App 即可提交預約；店主集中管理日曆、改期及提醒。基本功能免費，零佣金。">
-<link rel="icon" type="image/png" href="/assets/logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --navy:#12304f;--deep:#0b2138;--teal:#13a995;--bright:#55d8c2;--pale:#e8f7f3;
-    --ink:#243242;--muted:#667789;--line:#dce7e5;--amber:#dc9661;--coral:#f08b7e;
-    --paper:#fbfcfa;--paper-blue:#f2f8fb;--white:#fff;--shadow:0 22px 55px rgba(27,67,89,.10);
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  section[id]{scroll-margin-top:84px}
-  @media(max-width:900px){section[id]{scroll-margin-top:136px}}
-  body{color:var(--ink);background:var(--paper);font-family:"Noto Sans JP","PingFang HK","Hiragino Sans",-apple-system,"Helvetica Neue",Arial,sans-serif;line-height:1.8;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-  a{color:inherit}
-  img{max-width:100%;display:block}
-  .wrap{max-width:1200px;margin:0 auto;padding:0 30px}
-
-  header{position:sticky;top:0;z-index:50;background:rgba(251,252,250,.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(18,48,79,.08)}
-  .nav{display:flex;align-items:center;gap:24px;min-height:78px}
-  .nav>.home{display:flex;flex:none}
-  .nav>.home img{height:48px;width:auto}
-  .links{margin-left:auto;display:flex;gap:10px;min-width:0}
-  .menu{position:relative;flex:none}
-  .menu summary{list-style:none;display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid transparent;border-radius:999px;color:var(--navy);font-size:13px;font-weight:700;line-height:1.4;cursor:pointer;transition:border-color .2s ease,background .2s ease}
-  .menu summary::-webkit-details-marker{display:none}
-  .menu summary:hover,.menu[open] summary{border-color:rgba(18,48,79,.12);background:rgba(255,255,255,.85)}
-  .menu[open] .lang-chevron{transform:rotate(225deg) translate(-1px,-1px)}
-  .menu-panel{position:absolute;left:0;top:calc(100% + 10px);z-index:80;display:grid;min-width:190px;padding:8px;border:1px solid rgba(18,48,79,.10);border-radius:18px;background:rgba(255,255,255,.97);box-shadow:0 20px 50px rgba(18,48,79,.16);backdrop-filter:blur(18px)}
-  .menu-panel a{display:block;padding:9px 12px;border-radius:11px;color:var(--muted);font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap}
-  .menu-panel a:hover{color:var(--navy);background:var(--pale)}
-  .links a{text-decoration:none;position:relative;padding:8px 0}
-  .links a::after{content:"";position:absolute;left:0;right:100%;bottom:2px;height:2px;background:var(--teal);transition:right .25s ease}
-  .links a:hover{color:var(--navy)}.links a:hover::after{right:0}
-  .btn{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:14px 28px;font-weight:700;font-size:16px;text-decoration:none;transition:transform .25s ease,box-shadow .25s ease,background .25s ease}
-  .btn:hover{transform:translateY(-3px)}
-  .btn-main{background:var(--navy);color:var(--white);box-shadow:0 12px 28px rgba(18,48,79,.18)}
-  .btn-main:hover{box-shadow:0 17px 34px rgba(18,48,79,.24)}
-  .btn-ghost{background:rgba(255,255,255,.72);color:var(--navy);border:1px solid rgba(18,48,79,.25)}
-
-  section{position:relative;padding:120px 0;background:var(--paper);background-size:cover;background-position:center}
-  .bg-a{background:linear-gradient(145deg,#f4faf8 0%,#edf7f7 52%,#f7fbff 100%)}
-  .bg-b{background:linear-gradient(145deg,#f0f7fa 0%,#eef5fb 55%,#f8faf9 100%)}
-  .chip{display:inline-flex;align-items:center;gap:9px;background:rgba(18,48,79,.08);color:var(--navy);font-size:12px;font-weight:700;padding:7px 14px;border-radius:999px;letter-spacing:.14em;text-transform:uppercase}
-  .chip::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--teal)}
-  h2{font-size:clamp(32px,4vw,48px);line-height:1.35;color:var(--navy);font-weight:700;letter-spacing:-.025em;margin-bottom:18px}
-  .lead{font-size:18px;color:var(--ink);max-width:640px}
-  .note{font-size:13px;color:var(--muted);margin-top:18px}
-
-  .row{display:grid;gap:68px;align-items:center}
-  .row2{grid-template-columns:1fr 1fr}
-  .row-text-img{grid-template-columns:1.05fr .95fr}
-
-  .phone{border-radius:28px;overflow:hidden;box-shadow:var(--shadow);display:inline-block;background:var(--white);border:1px solid rgba(18,48,79,.08)}
-  .phone img{display:block;width:100%}
-
-  .bullets{margin-top:30px}
-  .bullet{display:flex;gap:17px;align-items:flex-start;margin-bottom:23px}
-  .tick{width:44px;height:44px;border-radius:15px;background:var(--pale);display:grid;place-items:center;flex:none;transform:rotate(-2deg)}
-  .tick svg{width:20px;height:20px}
-  .bullet b{display:block;font-size:19px;color:var(--navy)}
-  .bullet span{font-size:15px;color:var(--muted)}
-
-  .ps-section{overflow:hidden}
-  .ps-section::before{content:"";position:absolute;width:390px;height:390px;border-radius:50%;right:-190px;top:80px;background:rgba(85,216,194,.11);filter:blur(2px)}
-  .ps-head{max-width:820px;margin-bottom:42px}
-  .ps-head h2{text-wrap:balance}
-  .ps-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;position:relative;z-index:1}
-  .ps-card{position:relative;padding:24px;border-radius:26px;background:rgba(255,255,255,.90);border:1px solid rgba(18,48,79,.08);box-shadow:0 13px 34px rgba(29,78,137,.07);transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;transform-style:preserve-3d}
-  .ps-card:hover{transform:translateY(-5px);border-color:rgba(19,169,149,.32);box-shadow:0 21px 45px rgba(29,78,137,.11)}
-  .ps-no{position:absolute;right:34px;top:34px;z-index:3;color:var(--navy);background:rgba(255,255,255,.84);border:1px solid rgba(18,48,79,.08);border-radius:999px;padding:4px 10px;font-size:11px;font-weight:800;letter-spacing:.12em;box-shadow:0 5px 14px rgba(18,48,79,.08)}
-  .ps-art{height:210px;margin:0 0 14px;border-radius:20px;display:grid;place-items:center;overflow:hidden;background:linear-gradient(145deg,rgba(240,250,247,.96),rgba(240,247,251,.98));border:1px solid rgba(18,48,79,.06)}
-  .ps-art img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 9px 12px rgba(18,48,79,.08));transition:transform .35s ease}
-  .ps-card:hover .ps-art img{transform:scale(1.035)}
-  .ps-block{padding:18px 20px;border-radius:18px}
-  .ps-block>span{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:800;letter-spacing:.10em;text-transform:uppercase;margin-bottom:7px}
-  .ps-block>span::before{content:"";width:7px;height:7px;border-radius:50%}
-  .ps-block h3{font-size:18px;line-height:1.5;color:var(--navy);padding-right:18px;margin-bottom:5px}
-  .ps-block p{font-size:14px;line-height:1.7;color:#506274}
-  .ps-problem{background:linear-gradient(145deg,#fff8f5,#fff3f0);border:1px solid rgba(240,139,126,.16)}
-  .ps-problem>span{color:#b76259}.ps-problem>span::before{background:var(--coral)}
-  .ps-answer{background:linear-gradient(145deg,#effaf6,#edf8f8);border:1px solid rgba(19,169,149,.14)}
-  .ps-answer>span{color:#148c7c}.ps-answer>span::before{background:var(--teal)}
-  .ps-arrow{height:32px;display:grid;place-items:center;position:relative;z-index:2}
-  .ps-arrow span{width:31px;height:31px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:var(--white);font-size:15px;box-shadow:0 7px 17px rgba(18,48,79,.18)}
-
-  .cards{display:grid;gap:22px;margin-top:38px}
-  .c3{grid-template-columns:repeat(3,1fr)}
-  .c4{grid-template-columns:repeat(4,1fr)}
-  .card{background:rgba(255,255,255,.88);border:1px solid rgba(18,48,79,.07);border-radius:24px;padding:30px;box-shadow:0 12px 32px rgba(29,78,137,.06);transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;transform-style:preserve-3d}
-  .card:hover{transform:translateY(-6px);border-color:rgba(19,169,149,.35);box-shadow:0 20px 45px rgba(29,78,137,.10)}
-  .card .dot{width:56px;height:56px;border-radius:50%;background:var(--navy);display:grid;place-items:center;margin-bottom:16px}
-  .card .dot svg{width:24px;height:24px}
-  .card h3{font-size:20px;color:var(--navy);margin-bottom:6px}
-  .card p{font-size:15px;color:var(--ink)}
-  .tile{background:rgba(255,255,255,.90);border:1px solid rgba(18,48,79,.07);border-radius:20px;padding:27px;box-shadow:0 9px 25px rgba(29,78,137,.05)}
-  .tile .big{font-size:38px;font-weight:700;color:var(--navy);line-height:1.2}
-  .tile .small{font-size:14px;color:var(--muted);margin-top:6px}
-
-  .inds{display:grid;grid-template-columns:repeat(6,1fr);gap:18px;margin-top:34px;text-align:center}
-  .inds>div{background:rgba(255,255,255,.7);border:1px solid rgba(18,48,79,.06);border-radius:24px;padding:18px 10px;transition:transform .25s ease}
-  .inds>div:hover{transform:translateY(-5px)}
-  .inds img{width:100%;max-width:106px;border-radius:50%;margin:0 auto}
-  .inds span{display:block;font-size:14px;color:var(--muted);margin-top:10px}
-
-  .industry-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:34px}
-  .industry-head .lead{max-width:720px}
-  .industry-head h2{text-wrap:balance}
-  .industry-stat{flex:none;display:inline-flex;align-items:center;gap:9px;border-radius:999px;padding:10px 17px;background:var(--navy);color:var(--white);font-size:13px;font-weight:700;box-shadow:0 10px 25px rgba(18,48,79,.14)}
-  .industry-stat::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--bright)}
-  .industry-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:start}
-  .industry-card{background:rgba(255,255,255,.88);border:1px solid rgba(18,48,79,.08);border-radius:24px;overflow:hidden;box-shadow:0 12px 32px rgba(29,78,137,.06);transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;transform-style:preserve-3d}
-  .industry-card:hover{transform:translateY(-5px);border-color:rgba(19,169,149,.30);box-shadow:0 19px 42px rgba(29,78,137,.10)}
-  .industry-card[open]{border-color:rgba(19,169,149,.38);box-shadow:0 20px 46px rgba(29,78,137,.11)}
-  .industry-card summary{list-style:none;cursor:pointer;min-height:220px;padding:22px 22px 18px;display:grid;grid-template-columns:1fr auto;grid-template-rows:auto 1fr auto;gap:8px 12px;position:relative}
-  .industry-card summary::-webkit-details-marker{display:none}
-  .industry-no{font-size:11px;font-weight:800;color:var(--teal);letter-spacing:.12em;align-self:start}
-  .industry-art{grid-column:1/-1;grid-row:2;display:grid;place-items:center;height:112px;margin:-7px 0 -2px;border-radius:20px;background:linear-gradient(145deg,rgba(232,247,243,.75),rgba(242,248,251,.82));overflow:hidden}
-  .industry-art img{height:126px;width:auto;object-fit:contain;filter:drop-shadow(0 10px 9px rgba(18,48,79,.10));transition:transform .3s ease}
-  .industry-card:hover .industry-art img{transform:scale(1.045) rotate(-1deg)}
-  .industry-title{grid-column:1;grid-row:3;display:flex;flex-direction:column;min-width:0}
-  .industry-title b{font-size:18px;line-height:1.4;color:var(--navy)}
-  .industry-title small{font-size:12px;color:var(--muted);margin-top:3px}
-  .industry-toggle{grid-column:2;grid-row:3;align-self:end;display:inline-flex;align-items:center;gap:6px;color:var(--teal);font-size:11px;font-weight:700;white-space:nowrap}
-  .industry-toggle::after{content:"＋";font-size:16px;line-height:1}
-  .industry-card[open] .industry-toggle::after{content:"−"}
-  .industry-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 20px 22px}
-  .industry-list li{border-radius:10px;padding:8px 10px;background:var(--paper-blue);border:1px solid rgba(18,48,79,.05);font-size:12px;line-height:1.35;color:#405669}
-  .industry-note{margin-top:25px;text-align:center;font-size:14px;color:var(--muted)}
-
-  .posters{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:34px}
-  .posters img{width:100%;border-radius:20px;box-shadow:0 15px 38px rgba(11,27,49,.12);border:1px solid rgba(18,48,79,.08)}
-  .posters .cap{text-align:center;font-size:14px;font-weight:600;color:var(--navy);margin-top:12px}
-
-  .plans{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:34px}
-  .plan{border-radius:28px;padding:38px;border:1px solid rgba(18,48,79,.08);box-shadow:0 16px 38px rgba(29,78,137,.07)}
-  .plan-core{background:var(--navy);color:#fff}
-  .plan-pro{background:var(--white)}
-  .plan h3{font-size:30px;margin-bottom:12px}
-  .plan-core h3{color:#fff}
-  .badge{display:inline-block;border-radius:20px;padding:7px 18px;font-size:13px;font-weight:700;margin-bottom:18px}
-  .plan ul{list-style:none}
-  .plan li{font-size:16px;padding-left:28px;position:relative;margin:12px 0}
-  .plan li::before{content:"✓";position:absolute;left:0;font-weight:700}
-  .plan-core li{color:#E6EDF5}.plan-core li::before{color:var(--bright)}
-  .plan-pro li{color:var(--ink)}.plan-pro li::before{color:var(--teal)}
-
-  .hero{min-height:calc(100vh - 78px);display:flex;align-items:center;overflow:hidden;background:linear-gradient(135deg,#fbfcfa 0%,#edf9f6 48%,#eaf4fb 100%);color:var(--navy);padding:76px 0 86px}
-  .hero::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(18,48,79,.08) 1px,transparent 1px);background-size:28px 28px;mask-image:linear-gradient(to right,black,transparent 44%);opacity:.45}
-  .hero .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;align-items:center;position:relative;z-index:2;width:100%}
-  .hero-copy{position:relative;z-index:4}
-  .hero .tag{font-size:13px;font-weight:700;color:var(--teal);letter-spacing:.08em}
-  .hero h1{font-size:clamp(54px,7vw,82px);line-height:1.08;margin:16px 0 22px;font-weight:800;letter-spacing:-.045em}
-  .hero p{font-size:20px;color:#365470;max-width:560px;line-height:1.75}
-  .hero .cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px}
-  .hero .foot{font-size:14px;color:#557088;margin-top:25px;display:flex;align-items:center;gap:9px}
-  .hero .foot::before{content:"✓";display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--pale);color:var(--teal);font-weight:800}
-  .hero-visual{position:relative;min-height:590px;isolation:isolate}
-  .hero-board{position:absolute;inset:4% 0 0;border-radius:42px;background:rgba(255,255,255,.54);border:1px solid rgba(255,255,255,.95);box-shadow:0 32px 80px rgba(39,83,105,.13);backdrop-filter:blur(5px);overflow:hidden}
-  .hero-board::after{content:"";position:absolute;left:9%;right:9%;bottom:5%;height:90px;border-radius:50%;background:rgba(18,48,79,.12);filter:blur(32px)}
-  .hero-app{position:absolute;z-index:3;width:250px;left:50%;top:46%;transform:translate(-50%,-50%) rotate(-2deg);padding:11px;border-radius:31px;background:var(--white);box-shadow:0 26px 60px rgba(18,48,79,.22),0 0 0 7px rgba(255,255,255,.38)}
-  .hero-app img{border-radius:22px}
-  .hero-person{position:absolute;z-index:4;bottom:-3px;object-fit:contain;filter:drop-shadow(0 18px 16px rgba(18,48,79,.16))}
-  .hero-customer{left:-3%;width:220px}.hero-owner{right:-2%;width:205px}
-  .hero-qr{position:absolute;z-index:5;right:5%;top:6%;width:95px;filter:drop-shadow(0 13px 14px rgba(18,48,79,.15));animation:floatA 8s ease-in-out infinite}
-  .hero-mascot{position:absolute;z-index:6;left:6%;top:7%;width:84px;padding:9px;border-radius:25px;background:rgba(255,255,255,.82);box-shadow:0 12px 30px rgba(18,48,79,.10);animation:floatB 10s ease-in-out infinite}
-  .hero-shapes-back,.hero-shapes-mid{position:absolute;inset:0;pointer-events:none}
-  .shape{position:absolute;border-radius:50%}.shape-a{width:180px;height:180px;right:-40px;top:0;background:rgba(85,216,194,.24);filter:blur(4px);animation:floatA 12s ease-in-out infinite}.shape-b{width:120px;height:120px;left:3%;bottom:3%;background:rgba(240,139,126,.16);animation:floatB 16s ease-in-out infinite}.shape-c{width:55px;height:55px;right:12%;bottom:16%;border:10px solid rgba(18,48,79,.08);animation:floatC 10s ease-in-out infinite}
-  .scroll-down{position:absolute;left:50%;bottom:22px;z-index:8;text-decoration:none;color:var(--navy);font-size:20px;animation:bounce 2s ease-in-out infinite}
-  @keyframes floatA{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(14px,-22px) rotate(5deg)}}
-  @keyframes floatB{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(-12px,18px) rotate(-5deg)}}
-  @keyframes floatC{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(8px,-12px) rotate(4deg)}}
-  @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
-
-  .scene-card{position:relative;min-height:485px;border-radius:34px;overflow:hidden;background:#edf5f2;border:1px solid rgba(18,48,79,.07);box-shadow:var(--shadow)}
-  .scene-card::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(18,48,79,0) 60%,rgba(18,48,79,.10));box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
-  .scene-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:56% center;transform:scale(1.002)}
-
-  .booking-flow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:24px;border-radius:32px;background:linear-gradient(145deg,#f1f8f7,#edf4fa);border:1px solid rgba(18,48,79,.07);box-shadow:var(--shadow)}
-  .flow-item{position:relative;display:flex;align-items:center;justify-content:center;min-height:300px;padding:12px;border-radius:22px;background:rgba(255,255,255,.80);border:1px solid rgba(18,48,79,.06)}
-  .flow-item img{max-height:250px;width:auto;filter:drop-shadow(0 13px 13px rgba(18,48,79,.12))}
-  .flow-item:not(:last-child)::after{content:"›";position:absolute;right:-15px;z-index:5;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--teal);color:var(--white);font-size:23px;line-height:1}
-
-
-  .final{background:linear-gradient(145deg,#eaf8f4,#eaf3fa);text-align:center;overflow:hidden}
-  .final::before,.final::after{content:"";position:absolute;border-radius:50%;background:rgba(85,216,194,.20)}
-  .final::before{width:320px;height:320px;left:-130px;top:-170px}.final::after{width:260px;height:260px;right:-100px;bottom:-140px}
-  .final img.logo{width:132px;margin-bottom:8px}
-  .final h2{font-size:clamp(36px,5vw,56px)}
-  .final p{font-size:18px;color:#2C4A6E;margin-bottom:26px}
-  .final .mail{font-size:19px;font-weight:700;color:var(--teal);margin-top:20px;display:block}
-
-  footer{background:var(--white);border-top:1px solid var(--line);padding:34px 0}
-  .foot-row{display:flex;gap:20px;align-items:center;flex-wrap:wrap;font-size:14px;color:var(--muted)}
-  .foot-row img{height:38px}
-  .foot-row .right{margin-left:auto;display:flex;gap:22px}
-
-  @media(max-width:900px){
-    section{padding:92px 0}.hero{min-height:auto;padding:64px 0 82px}.hero .wrap,.row2,.row-text-img,.plans{grid-template-columns:1fr}
-    .hero-copy{text-align:center}.hero p{margin-left:auto;margin-right:auto}.hero .cta,.hero .foot{justify-content:center}
-    .hero-visual{min-height:540px;max-width:680px;width:100%;margin:0 auto}.hero h1{font-size:58px}h2{font-size:38px}
-    .c3,.c4{grid-template-columns:1fr}
-    .inds{grid-template-columns:repeat(3,1fr)}
-    .industry-head{align-items:flex-start;flex-direction:column}.industry-grid{grid-template-columns:1fr 1fr}
-    .ps-grid{grid-template-columns:1fr}.ps-head{margin-bottom:32px}
-    .posters{grid-template-columns:1fr}
-  }
-  @media(max-width:580px){
-    .wrap{padding:0 20px}section{padding:76px 0}.hero{padding-top:50px}.hero h1{font-size:48px}.hero p{font-size:17px}h2{font-size:31px}.lead{font-size:16px}
-    .btn{width:100%}.hero-visual{min-height:420px}.hero-board{border-radius:28px}.hero-app{width:175px}.hero-customer{width:148px;left:-8%}.hero-owner{width:142px;right:-8%}.hero-qr{width:66px;right:2%}.hero-mascot{width:66px;left:3%}
-    .scene-card{min-height:0;aspect-ratio:4/3}.scene-photo{object-position:center center}
-    .booking-flow{gap:7px;padding:12px;border-radius:24px}.flow-item{min-height:210px;padding:6px;border-radius:16px}.flow-item img{max-height:180px}.flow-item:not(:last-child)::after{right:-10px;width:20px;height:20px;font-size:18px}
-    .plans{gap:18px}.plan{padding:28px}.inds{grid-template-columns:repeat(2,1fr)}.foot-row .right{margin-left:0;width:100%}
-    .industry-grid{grid-template-columns:1fr}.industry-card summary{min-height:190px;grid-template-columns:1fr auto;padding:18px}.industry-art{height:96px}.industry-art img{height:110px}.industry-list{padding:0 16px 18px}.industry-stat{font-size:12px}
-    .ps-card{padding:17px;border-radius:22px}.ps-no{right:26px;top:26px}.ps-art{height:190px;border-radius:17px}.ps-block{padding:16px}.ps-block h3{font-size:17px}.ps-section::before{display:none}
-  }
-
-  .stepno{width:46px;height:46px;border-radius:16px;background:var(--teal);color:var(--white);display:grid;place-items:center;font-size:20px;font-weight:700;margin-bottom:16px;transform:rotate(-3deg)}
-  .faq{margin-top:30px;background:var(--white);border:1px solid rgba(18,48,79,.07);border-radius:24px;box-shadow:0 10px 30px rgba(29,78,137,.06);overflow:hidden}
-  .faq details{border-bottom:1px solid var(--line)}
-  .faq details:last-child{border-bottom:0}
-  .faq summary{cursor:pointer;list-style:none;padding:22px 28px;font-size:18px;font-weight:700;color:var(--navy);position:relative}
-  .faq summary::-webkit-details-marker{display:none}
-  .faq summary::after{content:"+";position:absolute;right:28px;color:var(--teal);font-size:24px;line-height:1}
-  .faq details[open] summary::after{content:"\2212"}
-  .faq p{padding:0 28px 24px;font-size:16px;color:var(--ink);max-width:820px}
-  .badges{display:flex;gap:16px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:8px}
-  .badges a{display:inline-block;line-height:0}
-  .badge-apple{height:56px;width:auto;display:block}
-  .badge-google{height:82px;width:auto;display:block;margin:-13px 0}
-  .dlnote{font-size:15px;color:var(--muted);margin-top:22px}
-  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero-qr,.hero-mascot,.shape,.scroll-down{animation:none!important}.card,.inds>div,.btn{transition:none!important}}
-
-  .lang-menu{position:relative;flex:none}
-  .lang-menu summary{list-style:none;display:flex;align-items:center;gap:8px;min-width:124px;padding:8px 12px;border:1px solid rgba(18,48,79,.12);border-radius:999px;background:rgba(255,255,255,.78);color:var(--navy);font-size:13px;font-weight:700;line-height:1.4;cursor:pointer;box-shadow:0 7px 20px rgba(18,48,79,.06);transition:border-color .2s ease,background .2s ease,box-shadow .2s ease}
-  .lang-menu summary::-webkit-details-marker{display:none}
-  .lang-menu summary:hover,.lang-menu[open] summary{border-color:rgba(19,169,149,.42);background:var(--white);box-shadow:0 10px 26px rgba(18,48,79,.10)}
-  .lang-mark{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--pale);color:var(--teal);font-size:12px;font-weight:800}
-  .lang-chevron{width:7px;height:7px;margin-left:auto;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .2s ease}
-  .lang-menu[open] .lang-chevron{transform:rotate(225deg) translate(-1px,-1px)}
-  .lang-options{position:absolute;right:0;top:calc(100% + 10px);z-index:80;display:grid;min-width:210px;padding:8px;border:1px solid rgba(18,48,79,.10);border-radius:18px;background:rgba(255,255,255,.97);box-shadow:0 20px 50px rgba(18,48,79,.16);backdrop-filter:blur(18px)}
-  .lang-options a{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:9px 11px;border-radius:11px;color:var(--muted);font-size:13px;text-decoration:none;white-space:nowrap}
-  .lang-options a:hover{color:var(--navy);background:var(--pale)}
-  .lang-options a.on{color:var(--navy);font-weight:700;background:rgba(232,247,243,.72)}
-  .lang-options a.on::after{content:"✓";color:var(--teal);font-weight:800}
-  @media(max-width:900px){.nav{height:auto;min-height:64px;padding:9px 0;flex-wrap:nowrap}.nav>.home img{height:38px}.links{order:9;width:100%;margin-left:0;gap:8px;padding:6px 0 2px}.nav{flex-wrap:wrap}.lang-menu{margin-left:auto}.menu-panel{position:fixed;left:18px;right:18px;top:auto;min-width:0;grid-template-columns:repeat(2,minmax(0,1fr))}.lang-menu summary{min-width:118px}.lang-options{position:fixed;left:18px;right:18px;top:72px;min-width:0;grid-template-columns:repeat(2,minmax(0,1fr));padding:10px}.lang-options a{padding:11px 12px}}
-
-  .pw-grid{columns:3 240px;column-gap:16px;margin-top:28px;min-height:120px}
-  .pw-grid button{display:block;width:100%;margin:0 0 16px;padding:0;border:0;background:var(--pale);border-radius:16px;overflow:hidden;cursor:zoom-in;break-inside:avoid;box-shadow:0 10px 26px rgba(27,67,89,.10);transition:transform .25s ease,box-shadow .25s ease}
-  .pw-grid button:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(27,67,89,.16)}
-  .pw-grid img{display:block;width:100%;height:auto}
-  .pw-more{margin-top:8px;text-align:center}
-  .pw-box{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;background:rgba(6,16,28,.86);padding:20px}
-  .pw-box.on{display:flex}
-  .pw-box img{max-width:min(92vw,720px);max-height:88vh;border-radius:14px;box-shadow:0 24px 60px rgba(0,0,0,.4)}
-  .pw-box button{position:absolute;top:16px;right:16px;width:44px;height:44px;border-radius:22px;border:0;background:rgba(255,255,255,.16);color:#fff;font-size:26px;line-height:44px;cursor:pointer}
-  @media(max-width:640px){.pw-grid{columns:2 150px;column-gap:10px}.pw-grid button{margin-bottom:10px;border-radius:12px}}
-  @media(prefers-reduced-motion:reduce){.pw-grid button{transition:none}}
-
-  .soc-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;margin-top:34px}
-  .soc-card{display:flex;flex-direction:column;background:var(--white);border:1px solid rgba(18,48,79,.08);border-radius:22px;overflow:hidden;text-decoration:none;box-shadow:0 10px 26px rgba(27,67,89,.08);transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
-  .soc-card:hover,.soc-card:focus-visible{transform:translateY(-4px);box-shadow:0 18px 40px rgba(27,67,89,.15);border-color:rgba(19,169,149,.45)}
-  .soc-card:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
-  .soc-shots{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;gap:3px;aspect-ratio:3/2;background:var(--pale)}
-  .soc-shots img{width:100%;height:100%;object-fit:cover;object-position:top center}
-  .soc-shots img:first-child{grid-row:1 / span 2}
-  .soc-meta{display:flex;align-items:center;gap:13px;padding:16px 18px 18px}
-  .soc-logo{flex:none;width:46px;height:46px;border-radius:14px;background:#fff;border:1px solid rgba(18,48,79,.12);display:grid;place-items:center}
-  .soc-logo svg{width:24px;height:24px;fill:#000}
-  .soc-name{display:block;font-size:17px;font-weight:700;color:var(--navy);line-height:1.3}
-  .soc-text{min-width:0;flex:1}
-  .soc-handle{display:block;font-size:13px;color:var(--muted);line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .soc-go{margin-left:auto;flex:none;width:34px;height:34px;border-radius:50%;background:var(--pale);color:var(--teal);display:grid;place-items:center;font-size:16px;font-weight:700;transition:background .25s ease,color .25s ease}
-  .soc-card:hover .soc-go,.soc-card:focus-visible .soc-go{background:var(--teal);color:#fff}
-  .soc-yu{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:26px 22px;border-radius:22px;background:linear-gradient(160deg,var(--pale),#f4fbff);border:1px dashed rgba(19,169,149,.45)}
-  .soc-yu img{width:min(150px,55%);height:auto}
-  .soc-yu p{font-size:14px;line-height:1.7;color:var(--navy);font-weight:600}
-  .soc-note{margin-top:22px;font-size:11px;color:var(--muted)}
-  .foot-soc{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-  .foot-soc a{width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid rgba(18,48,79,.14);display:grid;place-items:center;transition:transform .2s ease,border-color .2s ease}
-  .foot-soc a:hover,.foot-soc a:focus-visible{transform:translateY(-2px);border-color:var(--teal)}
-  .foot-soc svg{width:17px;height:17px;fill:#000}
-  @media(max-width:1100px){.soc-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-  @media(max-width:820px){.soc-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.soc-meta{padding:13px 14px 15px;gap:10px}.soc-logo{width:40px;height:40px;border-radius:12px}.soc-go{display:none}}
-  @media(max-width:520px){.soc-grid{grid-template-columns:1fr}.soc-go{display:grid}.foot-soc{width:100%;justify-content:center;order:3}}
-  @media(prefers-reduced-motion:reduce){.soc-card,.foot-soc a{transition:none}}
-
-  .wb-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:34px;margin-top:40px;align-items:start}
-  .wb-shot{border-radius:26px;overflow:hidden;border:1px solid rgba(18,48,79,.10);box-shadow:var(--shadow);background:#f2f5fa}
-  .wb-shot img{display:block;width:100%;height:auto}
-  .wb-steps{list-style:none;margin-top:22px;display:grid;gap:18px}
-  .wb-steps li{display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start}
-  .wb-num{width:40px;height:40px;border-radius:14px;background:var(--navy);color:#fff;font-weight:800;font-size:17px;display:grid;place-items:center}
-  .wb-steps b{display:block;font-size:18px;line-height:1.45;color:var(--navy)}
-  .wb-steps div>span{display:block;font-size:15px;line-height:1.75;color:var(--muted);margin-top:3px}
-  .wb-foot{display:grid;grid-template-columns:1.35fr 1fr;gap:24px;margin-top:44px}
-  .wb-box{background:var(--white);border:1px solid rgba(18,48,79,.08);border-radius:22px;padding:26px 28px;box-shadow:0 10px 26px rgba(27,67,89,.06)}
-  .wb-box h3{font-size:17px;color:var(--navy);margin-bottom:12px}
-  .wb-box ul{list-style:none;display:grid;gap:10px}
-  .wb-box li{position:relative;padding-left:20px;font-size:15px;line-height:1.75;color:var(--ink)}
-  .wb-box li::before{content:"";position:absolute;left:2px;top:.72em;width:8px;height:8px;border-radius:50%;background:var(--teal)}
-  .wb-box p{font-size:15px;line-height:1.8;color:var(--ink)}
-  .wb-box.shop{background:var(--pale);border-color:rgba(19,169,149,.28)}
-  @media(max-width:980px){.wb-cols{grid-template-columns:1fr;gap:40px;max-width:460px;margin-left:auto;margin-right:auto}.wb-foot{grid-template-columns:1fr}}
-
-  .about-hero{padding:110px 0 70px}
-  .about-hero h1{font-size:clamp(34px,4.6vw,56px);line-height:1.25;color:var(--navy);letter-spacing:-.025em;margin-top:16px;max-width:820px}
-  .about-hero .lead{max-width:720px;margin-top:20px}
-  .about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:start}
-  .about-why p{font-size:17px;line-height:1.9;color:var(--ink);margin-bottom:16px}
-  .about-hold{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:34px}
-  .about-mis{grid-template-columns:repeat(4,minmax(0,1fr))}
-  .about-hold div{background:var(--white);border:1px solid rgba(18,48,79,.08);border-radius:22px;padding:24px 26px;box-shadow:0 10px 26px rgba(27,67,89,.06)}
-  .about-hold b{display:block;font-size:18px;color:var(--navy);margin-bottom:8px}
-  .about-hold span{font-size:15px;line-height:1.75;color:var(--muted)}
-  .about-tl{list-style:none;margin-top:34px;display:grid;gap:0;border-left:2px solid rgba(19,169,149,.35);padding-left:26px}
-  .about-tl li{position:relative;padding-bottom:26px}
-  .about-tl li::before{content:"";position:absolute;left:-33px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px var(--pale)}
-  .about-tl b{display:block;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:4px}
-  .about-tl span{font-size:16px;line-height:1.75;color:var(--ink)}
-  .about-tl-wide{display:block;columns:2 380px;column-gap:60px;border-left:0;padding-left:0}
-  .about-tl-wide li{break-inside:avoid;border-left:2px solid rgba(19,169,149,.35);padding-left:26px;padding-bottom:28px}
-  .about-tl-wide li:last-child{padding-bottom:0}
-  .about-tl-wide li::before{left:-7px}
-  .about-yu{display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:center;background:linear-gradient(160deg,var(--pale),#f4fbff);border:1px dashed rgba(19,169,149,.45);border-radius:26px;padding:30px 34px}
-  .about-yu img{width:120px;height:auto}
-  .about-yu b{display:block;font-size:20px;color:var(--navy);margin-bottom:6px}
-  .about-yu p{font-size:15px;line-height:1.8;color:var(--ink)}
-  .about-contact{margin-top:40px;background:var(--white);border:1px solid rgba(18,48,79,.08);border-radius:22px;padding:28px 32px;display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between}
-  .about-contact b{display:block;font-size:18px;color:var(--navy);margin-bottom:4px}
-  .about-contact p{font-size:15px;color:var(--muted)}
-  .about-contact a.mail{font-weight:700;color:var(--teal);text-decoration:none;font-size:17px}
-  .about-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:44px}
-  @media(max-width:1100px){.about-mis{grid-template-columns:repeat(2,minmax(0,1fr))}}
-  @media(max-width:900px){.about-hero{padding:70px 0 46px}.about-grid{grid-template-columns:1fr;gap:40px}.about-hold,.about-mis{grid-template-columns:1fr}.about-yu{grid-template-columns:1fr;text-align:center;justify-items:center}}
-</style>
-<link rel="alternate" hreflang="zh-Hant" href="https://bookingyou.app/"><link rel="alternate" hreflang="en" href="https://bookingyou.app/en/"><link rel="alternate" hreflang="zh-Hans" href="https://bookingyou.app/zh-cn/"><link rel="alternate" hreflang="ja" href="https://bookingyou.app/ja/"><link rel="alternate" hreflang="ko" href="https://bookingyou.app/ko/"><link rel="alternate" hreflang="ms" href="https://bookingyou.app/ms/"><link rel="alternate" hreflang="th" href="https://bookingyou.app/th/"><link rel="alternate" hreflang="vi" href="https://bookingyou.app/vi/"><link rel="alternate" hreflang="x-default" href="https://bookingyou.app/"><link rel="canonical" href="https://bookingyou.app/">
-<!-- page metadata -->
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="BookingYou">
-<meta property="og:url" content="https://bookingyou.app/">
-<meta property="og:title" content="BookingYou｜小店預約管理系統・基本功能免費">
-<meta property="og:description" content="BookingYou 為美容院、髮型屋、美甲店及獨立小店提供預約管理。分享連結或 QR Code，客人免下載 App 即可提交預約；店主集中管理日曆、改期及提醒。基本功能免費，零佣金。">
-<meta property="og:image" content="https://bookingyou.app/assets/logo.png">
-<meta property="og:image:type" content="image/png">
-<meta property="og:image:width" content="600">
-<meta property="og:image:height" content="576">
-<meta property="og:image:alt" content="BookingYou">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="BookingYou｜小店預約管理系統・基本功能免費">
-<meta name="twitter:description" content="BookingYou 為美容院、髮型屋、美甲店及獨立小店提供預約管理。分享連結或 QR Code，客人免下載 App 即可提交預約；店主集中管理日曆、改期及提醒。基本功能免費，零佣金。">
-<meta name="twitter:image" content="https://bookingyou.app/assets/logo.png">
-<meta name="twitter:image:alt" content="BookingYou">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://bookingyou.app/#organization", "name": "BookingYou", "url": "https://bookingyou.app/", "logo": "https://bookingyou.app/assets/logo.png", "email": "contact@bookingyou.app", "sameAs": ["https://www.instagram.com/bookingyou_jp/", "https://www.threads.com/@bookingyou_jp", "https://x.com/bookingyou_jp", "https://www.tiktok.com/@bookingyou_jp", "https://www.youtube.com/@BookingYouApp", "https://www.facebook.com/bookingyoujp", "https://line.me/R/ti/p/%40504pmlcw"]}, {"@type": "WebSite", "@id": "https://bookingyou.app/#website", "name": "BookingYou", "url": "https://bookingyou.app/", "publisher": {"@id": "https://bookingyou.app/#organization"}}, {"@type": "WebPage", "@id": "https://bookingyou.app/#webpage", "url": "https://bookingyou.app/", "name": "BookingYou｜小店預約管理系統・基本功能免費", "description": "BookingYou 為美容院、髮型屋、美甲店及獨立小店提供預約管理。分享連結或 QR Code，客人免下載 App 即可提交預約；店主集中管理日曆、改期及提醒。基本功能免費，零佣金。", "inLanguage": "zh-Hant", "isPartOf": {"@id": "https://bookingyou.app/#website"}, "about": {"@id": "https://bookingyou.app/#organization"}}]}</script>
-<!-- /page metadata -->
-</head>
-<body id="top">
-
-<header><div class="wrap nav">
-  <a class="home" href="#top" aria-label="BookingYou"><img src="assets/logo.png" alt="BookingYou"></a>
-  <nav class="links" aria-label="Sections"><details class="menu"><summary>產品<span class="lang-chevron" aria-hidden="true"></span></summary><div class="menu-panel"><a href="/#problem">問題</a><a href="/#solution">方案</a><a href="/#web-booking">網頁預約</a><a href="/#pain-solutions">商戶日常</a><a href="/#diff">差異</a></div></details><details class="menu"><summary>商戶<span class="lang-chevron" aria-hidden="true"></span></summary><div class="menu-panel"><a href="/#who">服務對象</a><a href="/#plans">收費模式</a><a href="/#start">點開始</a><a href="/#faq">常見問題</a></div></details><details class="menu"><summary>品牌<span class="lang-chevron" aria-hidden="true"></span></summary><div class="menu-panel"><a href="/#brand">宣傳</a><a href="/#posts">貼文</a><a href="/#social">社交平台</a><a href="/#mascot">吉祥物</a><a href="/about/">關於我們</a></div></details></nav>
-<details class="lang-menu"><summary aria-label="Language: 繁體中文"><span class="lang-mark" aria-hidden="true">文</span><span>繁體中文</span><span class="lang-chevron" aria-hidden="true"></span></summary><div class="lang-options"><a href="/" class="on" aria-current="page" hreflang="zh-Hant">繁體中文</a><a href="/en/" hreflang="en">English</a><a href="/zh-cn/" hreflang="zh-Hans">简体中文</a><a href="/ja/" hreflang="ja">日本語</a><a href="/ko/" hreflang="ko">한국어</a><a href="/ms/" hreflang="ms">Bahasa Melayu</a><a href="/th/" hreflang="th">ไทย</a><a href="/vi/" hreflang="vi">Tiếng Việt</a></div></details></div></header>
-
-<section class="hero">
-  <div class="wrap">
-    <div class="hero-copy">
-      <div class="tag">預約制小店 · 美容 · 理髮 · 美甲 · 物理治療</div>
-      <h1>BookingYou</h1>
-      <p class="hero-subtitle">為獨立小店而設的預約前台。客人自助預約，店主管理全日。</p>
-      <div class="cta">
-        <a class="btn btn-main" href="#download">免費開始</a>
-        <a class="btn btn-ghost" href="#solution">睇下點運作</a>
-      </div>
-      <div class="foot">已於 App Store 及 Google Play 上架</div>
-    </div>
-    <div class="hero-visual" aria-label="BookingYou booking experience">
-      <div class="hero-shapes-back" aria-hidden="true"><span class="shape shape-a"></span><span class="shape shape-b"></span></div>
-      <div class="hero-shapes-mid" aria-hidden="true"><span class="shape shape-c"></span></div>
-      <div class="hero-board">
-        <div class="hero-app"><img src="assets/deck-phone-slots.png" alt="BookingYou"></div>
-        <img class="hero-person hero-customer" src="assets/illustrations/33-customer-using-phone.webp" alt="" aria-hidden="true">
-        <img class="hero-person hero-owner" src="assets/illustrations/34-salon-owner-welcoming.webp" alt="" aria-hidden="true">
-        <img class="hero-qr" src="assets/illustrations/30-qr-booking-phone.webp" alt="" aria-hidden="true">
-        <img class="hero-mascot" src="assets/yu-kun-wave.png" alt="" aria-hidden="true">
-      </div>
-    </div>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="/"><title>BookingYou｜小店預約管理系統・基本功能免費</title><meta name="description" content="BookingYou 為美容、美髮、美甲、私人教練、教學及寵物美容小店提供預約管理。分享連結或 QR Code，客人免下載 App 即可提交網頁預約，商戶確認後成立。基本功能免費，零預約佣金。"><meta name="robots" content="index,follow,max-image-preview:large"><link rel="canonical" href="https://bookingyou.app/"><link rel="icon" type="image/png" href="/assets/logo.png"><link rel="alternate" hreflang="zh-Hant" href="https://bookingyou.app/"><link rel="alternate" hreflang="en" href="https://bookingyou.app/en/"><link rel="alternate" hreflang="zh-Hans" href="https://bookingyou.app/zh-cn/"><link rel="alternate" hreflang="ja" href="https://bookingyou.app/ja/"><link rel="alternate" hreflang="ko" href="https://bookingyou.app/ko/"><link rel="alternate" hreflang="ms" href="https://bookingyou.app/ms/"><link rel="alternate" hreflang="th" href="https://bookingyou.app/th/"><link rel="alternate" hreflang="vi" href="https://bookingyou.app/vi/"><link rel="alternate" hreflang="x-default" href="https://bookingyou.app/"><meta property="og:type" content="website"><meta property="og:site_name" content="BookingYou"><meta property="og:url" content="https://bookingyou.app/"><meta property="og:title" content="BookingYou｜小店預約管理系統・基本功能免費"><meta property="og:description" content="BookingYou 為美容、美髮、美甲、私人教練、教學及寵物美容小店提供預約管理。分享連結或 QR Code，客人免下載 App 即可提交網頁預約，商戶確認後成立。基本功能免費，零預約佣金。"><meta property="og:image" content="https://bookingyou.app/assets/logo.png"><meta property="og:image:alt" content="BookingYou"><meta property="og:locale" content="zh_HK"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="BookingYou｜小店預約管理系統・基本功能免費"><meta name="twitter:description" content="BookingYou 為美容、美髮、美甲、私人教練、教學及寵物美容小店提供預約管理。分享連結或 QR Code，客人免下載 App 即可提交網頁預約，商戶確認後成立。基本功能免費，零預約佣金。"><meta name="twitter:image" content="https://bookingyou.app/assets/logo.png"><meta name="twitter:image:alt" content="BookingYou"><script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://bookingyou.app/#organization", "name": "BookingYou", "url": "https://bookingyou.app/", "logo": "https://bookingyou.app/assets/logo.png", "email": "contact@bookingyou.app", "sameAs": ["https://www.instagram.com/bookingyou_jp/", "https://www.threads.com/@bookingyou_jp", "https://x.com/bookingyou_jp", "https://www.tiktok.com/@bookingyou_jp", "https://www.youtube.com/@BookingYouApp", "https://www.facebook.com/bookingyoujp", "https://line.me/R/ti/p/%40504pmlcw"]}, {"@type": "WebSite", "@id": "https://bookingyou.app/#website", "name": "BookingYou", "url": "https://bookingyou.app/", "publisher": {"@id": "https://bookingyou.app/#organization"}}, {"@type": "WebPage", "@id": "https://bookingyou.app/#webpage", "url": "https://bookingyou.app/", "name": "BookingYou｜小店預約管理系統・基本功能免費", "description": "BookingYou 為美容、美髮、美甲、私人教練、教學及寵物美容小店提供預約管理。分享連結或 QR Code，客人免下載 App 即可提交網頁預約，商戶確認後成立。基本功能免費，零預約佣金。", "inLanguage": "zh-Hant", "isPartOf": {"@id": "https://bookingyou.app/#website"}, "about": {"@id": "https://bookingyou.app/#organization"}}, {"@type": "SoftwareApplication", "@id": "https://bookingyou.app/#app", "name": "BookingYou", "url": "https://bookingyou.app/", "applicationCategory": "BusinessApplication", "operatingSystem": "iOS, iPadOS, Android", "description": "BookingYou 係為預約制小店而設嘅預約管理 App，適合美容、美髮、美甲、私人教練、教學及寵物美容。商戶可以管理日曆、代理預約、改期同提醒；客人透過連結或 QR Code 提交網頁預約，經商戶確認後成立。基本功能免費，零預約佣金。", "publisher": {"@id": "https://bookingyou.app/#organization"}, "downloadUrl": ["https://apps.apple.com/app/id6782119326", "https://play.google.com/store/apps/details?id=com.bookingyou.app"], "isAccessibleForFree": true}, {"@type": "FAQPage", "@id": "https://bookingyou.app/#faq", "mainEntity": [{"@type": "Question", "name": "基本功能係咪真係免費？", "acceptedAnswer": {"@type": "Answer", "text": "預約頁、日曆、代客預約、改期、提醒及審批規則等基本功能免費。專業版仍在規劃中，尚未推出，定價未定。"}}, {"@type": "Question", "name": "客人一定要下載 App 嗎？", "acceptedAnswer": {"@type": "Answer", "text": "唔使。客人可以用你分享嘅連結或 QR Code，直接喺瀏覽器提交預約；個別店舖可設定只接受 App 內預約。"}}, {"@type": "Question", "name": "網頁預約會自動確認嗎？", "acceptedAnswer": {"@type": "Answer", "text": "網頁預約一律需要店舖確認先成立。App 內預約就可以按時段選擇即時確認或商戶審批。"}}], "inLanguage": "zh-Hant"}]}</script><link rel="stylesheet" href="assets/landing-6a08f7091627.css"></head>
+<body>
+<header class="header"><div class="header-inner"><a class="wordmark" href="/#top" aria-label="BookingYou"><img data-asset="logo" alt="" src="assets/logo.png" decoding="async" width="600" height="576"><span>Booking<em>You</em></span></a><nav class="nav" id="navigation" aria-label="主選單"><a href="/#about" data-i18n="nav1">關於 BookingYou</a><a href="/#features" data-i18n="nav2">功能介紹</a><a href="/#app-screens" data-i18n="guideScreens">App 畫面</a><a href="/#posts" data-i18n="guidePosts">FB／IG 帖文</a><a href="/#plans" data-i18n="nav3">收費</a><a href="/#faq" data-i18n="nav4">常見問題</a></nav><select class="language" id="language" aria-label="Language"><option value="zh" selected>繁體中文</option><option value="ja">日本語</option></select><a class="top-cta" href="/#download" data-i18n="start">免費開始使用</a><button class="menu-toggle" aria-label="開啟選單" aria-controls="navigation" aria-expanded="false">☰</button></div></header>
+<main id="top">
+<section class="hero"><div class="wrap hero-inner"><div class="hero-copy"><p class="eyebrow" data-i18n="eyebrow">為獨立小店而設的預約管理</p><h1>Booking<span>You</span><span class="hero-h1-descriptor" data-i18n="seoKeyword">小店預約管理系統</span></h1><p class="hero-message"><span data-i18n="hero1">預約，簡單一點。</span><br><span data-i18n="hero2">時間，留俾客人。</span></p><p class="hero-description" data-i18n="heroDesc">客人自己揀時間，店主輕鬆管理全日。將電話、訊息同上門預約，放返同一個日曆。</p><div class="hero-promises"><span data-i18n="promise1">基本功能免費</span><span data-i18n="promise2">零佣金</span><span data-i18n="promise3">iOS・Android</span></div><div class="actions"><a class="button button-primary" href="/#download"><span data-i18n="start">免費開始使用</span><span class="arrow" aria-hidden="true">›</span></a><a class="button button-coral" href="/#features"><span data-i18n="seeHow">睇下點運作</span><span class="arrow" aria-hidden="true">↓</span></a></div><p class="micro" data-i18n="heroNote">客人免下載 App，都可以提交網頁預約。</p></div><div class="hero-visual"><div class="photo-orbit"><img data-asset="photo" alt="明亮髮廊中的服務情境（AI 生成圖片）" width="1254" height="1254" fetchpriority="high" src="preview-assets/hero-salon-v6.webp" decoding="async"></div><div class="mascot"><img data-asset="mascot" alt="BookingYou 吉祥物" src="assets/yu-kun-wave.png" decoding="async" width="360" height="360"></div><span class="star-dot" aria-hidden="true"></span><div class="hero-phone-pair">
+  <div class="phone-pair-stage">
+    <img class="phone-pair-shell" src="preview-assets/dual-phone-shell-v7.webp" width="1254" height="1254" alt="" aria-hidden="true" fetchpriority="high" decoding="async">
+    <button class="mockup-screen mockup-screen-back" data-hero-screen="slots" aria-label="放大預約時段畫面"><img data-asset="slots" alt="BookingYou 預約時段畫面" width="760" height="1443" src="assets/deck-phone-slots.png" decoding="async"></button>
+    <img class="phone-pair-shell phone-pair-front-shell" src="preview-assets/dual-phone-shell-v7.webp" width="1254" height="1254" alt="" aria-hidden="true" decoding="async">
+    <button class="mockup-screen mockup-screen-front" data-hero-screen="dashboard" aria-label="放大商戶管理首頁"><img data-asset="dashboard" alt="BookingYou 商戶管理首頁" width="760" height="1500" src="assets/deck-dashboard.png" decoding="async"></button>
   </div>
-  <a class="scroll-down" href="#problem" aria-label="Scroll to next section">⌄</a>
-</section>
-
-<section id="problem" class="bg-a">
-  <div class="wrap row row-text-img">
-    <div>
-      <span class="chip">問題</span>
-      <h2 style="margin-top:14px">小店至今仍以人手處理預約</h2><p class="lead">電話、訊息、紙本，三頭六臂都應付唔到。以下三件事，幾乎每間一人或兩人經營嘅店都遇過。</p>
-      <div class="bullets">
-        <div class="bullet"><div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#12A594" stroke-width="2" stroke-linecap="round"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.3.2 2.5.57 3.6a1 1 0 0 1-.25 1z"/></svg></div>
-          <div><b>服務期間電話響起</b><span>一人店主要停手接聽預約，營業時間後的查詢則容易錯過。</span></div></div>
-        <div class="bullet"><div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#12A594" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M3 7l3-3h5l2 3M7 12h10M7 16h6"/></svg></div>
-          <div><b>預約分散各處</b><span>電話、通訊軟件、社交平台私訊加上紙本記錄，無法一眼看清整天安排。</span></div></div>
-        <div class="bullet"><div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#12A594" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
-          <div><b>熟客都要經平台</b><span>光顧開的客人再約，一樣要經第三方平台，而平台按單收費。</span></div></div>
-      </div>
-    </div>
-    <div>
-      <div class="scene-card">
-        <img class="scene-photo" loading="lazy" decoding="async" src="assets/salon-booking-interruption.jpg" alt="小店至今仍以人手處理預約">
-      </div>
-    </div>
+</div>
+<div class="hero-float"><span class="check-round" aria-hidden="true">✓</span><span data-i18n="float">客人自己約，你專心做好服務。</span></div></div></div></section>
+<section class="trust trust-industries" id="industries-overview" aria-labelledby="industries-overview-title"><div class="wrap">
+  <p class="trust-title" id="industries-overview-title" data-i18n="trust">為每一間用心經營嘅預約制小店而設</p>
+  <div class="industry-row">
+    <figure class="industry-tile"><div class="industry-artwork"><img src="preview-assets/industry-beauty-v8.webp" width="600" height="600" alt="" loading="lazy" decoding="async"></div><figcaption data-i18n="ind1">美容・美髮</figcaption></figure>
+    <figure class="industry-tile"><div class="industry-artwork"><img src="preview-assets/industry-nails-v8.webp" width="600" height="600" alt="" loading="lazy" decoding="async"></div><figcaption data-i18n="ind2">美甲工作室</figcaption></figure>
+    <figure class="industry-tile"><div class="industry-artwork"><img src="preview-assets/industry-fitness-v8.webp" width="600" height="600" alt="" loading="lazy" decoding="async"></div><figcaption data-i18n="ind3">私人教練</figcaption></figure>
+    <figure class="industry-tile"><div class="industry-artwork"><img src="preview-assets/industry-teaching-v8.webp" width="600" height="600" alt="" loading="lazy" decoding="async"></div><figcaption data-i18n="ind4">補習・教學</figcaption></figure>
+    <figure class="industry-tile"><div class="industry-artwork"><img src="preview-assets/industry-pet-v8.webp" width="600" height="600" alt="" loading="lazy" decoding="async"></div><figcaption data-i18n="ind5">寵物美容</figcaption></figure>
   </div>
-</section>
+<p class="industry-scope-note" data-i18n="industryScope">以上為常見的預約服務行業。BookingYou 同樣適用於各類需要預約安排的業務，讓不同規模的小店及專業服務都能靈活管理預約。</p>
+</div></section>
 
-<section id="solution" class="features">
-  <div class="wrap row row-text-img">
-    <div>
-      <span class="chip">方案</span>
-      <h2 style="margin-top:14px">一個 App：客人自助預約，店主管理全日</h2><p class="lead">客人自己揀時間，店主唔使再喺服務途中停低手。所有渠道嘅預約，最後都落喺同一個日曆度。</p>
-      <div class="bullets">
-        <div class="bullet"><div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#12A594" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><div><b>客人 24 小時預約</b><span>透過店舖連結或印刷 QR 卡</span></div></div>
-        <div class="bullet"><div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#12A594" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><div><b>電話及上門預約</b><span>與網上預約記入同一個日曆</span></div></div>
-        <div class="bullet"><div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#12A594" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><div><b>改期毋須取消</b><span>自動提醒減少缺席</span></div></div>
-        <div class="bullet"><div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#12A594" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><div><b>休息日、保留時段及課堂人數上限</b><span>令日曆與實際營運一致</span></div></div>
-      </div>
-    </div>
-    <div>
-      <div class="booking-flow" aria-label="Booking flow">
-        <div class="flow-item"><img src="assets/illustrations/30-qr-booking-phone.webp" alt=""></div>
-        <div class="flow-item"><img src="assets/illustrations/31-service-selection-phone.webp" alt=""></div>
-        <div class="flow-item"><img src="assets/illustrations/32-confirmation-phone.webp" alt=""></div>
-      </div>
-      <div class="note" style="text-align:center">商戶主頁 · 可印刷的 QR 預約卡</div>
-    </div>
-  </div>
-</section>
-
-<section id="web-booking" class="bg-b"><div class="wrap"><span class="chip">網頁預約 · 新</span><h2 style="margin-top:14px">而家唔使裝 App，用瀏覽器就約到</h2><p class="lead">收到店舖嘅 BookingYou 連結或者 QR code？用手機或者電腦嘅瀏覽器開，就可以直接預約。唔使下載，亦唔使開戶口。</p><div class="wb-cols"><div class="wb-col"><div class="wb-shot"><img src="assets/webbook/zh-HK-1.jpg" alt="預約頁：店舖資料同揀服務" loading="lazy" decoding="async" width="640"></div><ol class="wb-steps"><li><span class="wb-num">1</span><div><b>開店舖條連結</b><span>撳店舖喺 Instagram、通訊 App 或者網站放嘅 BookingYou 連結，或者掃舖面張 QR 卡，瀏覽器就會開到預約頁。</span></div></li><li><span class="wb-num">2</span><div><b>揀服務</b><span>每項服務都寫明時長同價錢，揀你想要嗰項。</span></div></li></ol></div><div class="wb-col"><div class="wb-shot"><img src="assets/webbook/zh-HK-2.jpg" alt="預約頁：揀日期同時間" loading="lazy" decoding="async" width="640"></div><ol class="wb-steps"><li><span class="wb-num">3</span><div><b>揀日期同時間</b><span>只會顯示仲有位嘅時段，時間係店舖當地時間；休息日會變灰，揀唔到。</span></div></li></ol></div><div class="wb-col"><div class="wb-shot"><img src="assets/webbook/zh-HK-3.jpg" alt="預約頁：填姓名同電話" loading="lazy" decoding="async" width="640"></div><ol class="wb-steps"><li><span class="wb-num">4</span><div><b>填姓名同電話</b><span>店舖只需要呢兩樣，備註可以選填。唔使註冊。</span></div></li><li><span class="wb-num">5</span><div><b>提交，等店舖確認</b><span>網頁預約要店舖確認先算成立。提交之後會有一條「你嘅預約連結」，儲存低，之後靠佢睇狀態或者取消。</span></div></li></ol></div></div><div class="wb-foot"><div class="wb-box"><h3>留意</h3><ul><li>冇戶口，所以預約連結就係你嘅憑證。請儲存低，唔好分享俾人。</li><li>店舖確認之後，預約連結上面嘅狀態會由「待確認」變成「已確認」。</li><li>個別店舖只接受 App 內預約，預約頁一開就會講明，並俾你一粒掣開 App。</li><li>想收提醒、同店舖傾偈、一次過管理所有預約？裝 App 就得。</li></ul></div><div class="wb-box shop"><h3>商戶</h3><p>喺 App 分享你嘅預約連結或者 QR 卡，客人即刻可以用網頁預約。每張網頁單都要你確認先成立；你亦可以揀只接受 App 內預約。</p></div></div><p class="note">畫面係示範店舖嘅實際網頁預約頁。</p></div></section>
-
-<section id="pain-solutions" class="bg-a ps-section">
+<div class="news-area wrap"><div class="news"><strong class="news-label">UPDATE</strong><span data-i18n="newsBadge">網頁預約</span><div class="news-copy" data-i18n="news">一條連結，客人用瀏覽器就可以預約。</div><a href="/#webbook" aria-label="了解網頁預約">→</a></div></div>
+<div class="chapter-dock"><div class="chapter-inner wrap"><nav class="page-guide" aria-label="頁面章節"><a href="/#app-screens" data-i18n="guideScreens">App 畫面</a><a href="/#web-booking" data-i18n="guideWeb">預約教學</a><a href="/#pain-solutions" data-i18n="guideFeatures">完整功能</a><a href="/#industry-scenarios" data-i18n="guideWho">適用行業</a><a href="/#posts" data-i18n="guidePosts">FB／IG 帖文</a><a href="/#plans" data-i18n="nav3">收費</a><a href="/#download" data-i18n="chapterDownload">下載 App</a></nav><div class="chapter-reading" aria-hidden="true"><span data-i18n="chapterReading">閱讀進度</span><output id="reading-percent">0%</output></div></div><div class="chapter-progress" role="progressbar" aria-label="閱讀進度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div></div><section class="app-gallery" id="app-screens"><div class="wrap">
+<div class="section-heading"><div><p class="section-label">INSIDE THE APP</p><h2 data-i18n="galleryTitle">由搵店到管理預約，每個畫面都睇清楚。</h2><p class="section-copy" data-i18n="galleryDesc">睇返 BookingYou 嘅 App 展示圖：搵服務、揀時間、分享預約連結。撳任何圖片，可以放大睇細節。</p></div><a href="/#web-booking" class="text-link"><span data-i18n="webGuide">客人免 App 預約教學</span><span>↓</span></a></div>
+<div class="screen-tabs" role="group" aria-label="畫面類別"><button class="active" data-screen-tab="customer" aria-pressed="true" data-i18n="customerTab">客人使用・分享預約</button><button data-screen-tab="merchant" aria-pressed="false" data-i18n="merchantTab">商戶日常管理</button></div>
+<div class="screen-gallery" id="screen-gallery"><article class="screen-item"><a href="app-screens/zh/01.webp" class="screen-open"><span class="screen-frame"><img src="app-screens/zh/01.webp" alt="BookingYou · 搵店及服務" width="1100" height="2390" loading="lazy" decoding="async"></span><span class="screen-caption"><strong>搵店及服務</strong></span></a></article><article class="screen-item"><a href="app-screens/zh/02.webp" class="screen-open"><span class="screen-frame"><img src="app-screens/zh/02.webp" alt="BookingYou · 服務、時長同價錢" width="1100" height="2390" loading="lazy" decoding="async"></span><span class="screen-caption"><strong>服務、時長同價錢</strong></span></a></article><article class="screen-item"><a href="app-screens/zh/03.webp" class="screen-open"><span class="screen-frame"><img src="app-screens/zh/03.webp" alt="BookingYou · 揀日子同時間" width="1100" height="2390" loading="lazy" decoding="async"></span><span class="screen-caption"><strong>揀日子同時間</strong></span></a></article><article class="screen-item"><a href="app-screens/zh/04.webp" class="screen-open"><span class="screen-frame"><img src="app-screens/zh/04.webp" alt="BookingYou · 店舖 QR 卡" width="1100" height="2390" loading="lazy" decoding="async"></span><span class="screen-caption"><strong>店舖 QR 卡</strong></span></a></article><article class="screen-item"><a href="app-screens/zh/05.webp" class="screen-open"><span class="screen-frame"><img src="app-screens/zh/05.webp" alt="BookingYou · 分享預約連結" width="1100" height="2390" loading="lazy" decoding="async"></span><span class="screen-caption"><strong>分享預約連結</strong></span></a></article></div><p class="gallery-note" data-i18n="galleryNote">App 展示素材；店舖、日期及金額為畫面示例。實際版面以使用中的 App 為準。</p>
+<aside class="yu-tip yu-tip-blue" aria-labelledby="yu-tip-blue-title"><img src="assets/yu-kun-wave.png" width="76" height="84" alt="" loading="lazy" decoding="async"><div><p class="yu-tip-label" data-i18n="yuLabel">U 仔提提你</p><h3 id="yu-tip-blue-title" data-i18n="yuScreenTitle">想睇清楚啲？撳一下畫面就得。</h3><p data-i18n="yuScreenBody">App 畫面可以放大，亦可以切換「商戶日常管理」，睇返時段、營業時間同語言設定。</p></div></aside></div></section><section class="about" id="about"><div class="wrap about-grid"><div><p class="section-label">ABOUT BOOKINGYOU</p><h2><span data-i18n="about1">小店嘅每一個預約，</span><br><span data-i18n="about2">都有清楚嘅安排。</span></h2><p class="section-copy" data-i18n="aboutDesc">BookingYou 係為預約制小店而設嘅預約管理 App，適合美容、美髮、美甲、私人教練、教學及寵物美容。商戶可以管理日曆、代理預約、改期同提醒；客人透過連結或 QR Code 提交網頁預約，經商戶確認後成立。基本功能免費，零預約佣金。</p></div><div class="mini-visual" aria-label="BookingYou App 畫面"><div class="phone mini-phone mini-first"><div class="phone-screen"><div class="status-bar"><span>9:41</span><span>▰</span></div><img data-asset="dashboard" alt="商戶預約管理首頁" src="assets/deck-dashboard.png" decoding="async" width="760" height="1500"></div></div><div class="phone mini-phone mini-second"><div class="phone-screen"><div class="status-bar"><span>9:41</span><span>▰</span></div><img data-asset="slots" alt="預約日曆" src="assets/deck-phone-slots.png" decoding="async" width="760" height="1443"></div></div></div></div></section>
+<div class="wrap feature-list" id="features">
+<article class="feature-card" id="webbook"><div class="point-header"><span class="point-number">POINT 01</span><span data-i18n="point1">讓客人隨時提交預約</span></div><div class="feature-body"><div class="feature-copy"><h3><span data-i18n="f1a">一條專屬連結，</span><br><span data-i18n="f1b">就係你嘅網上預約前台。</span></h3><p data-i18n="f1desc">分享店舖連結或 QR Code，客人用瀏覽器揀服務、日期同時間，唔使下載 App。網頁預約由你確認後先成立。</p><a class="text-link" href="/#download"><span data-i18n="f1link">開始建立你嘅預約入口</span><span aria-hidden="true">→</span></a></div><div class="feature-art"><img class="feature-illustration" data-asset="customer" alt="客人透過手機預約" loading="lazy" src="assets/illustrations/33-customer-using-phone.webp" decoding="async" width="600" height="900"><div class="phone feature-phone"><div class="phone-screen"><div class="status-bar"><span>9:41</span><span>▰</span></div><img data-local-asset="web1" alt="店舖及服務選擇畫面" loading="lazy" src="assets/webbook/zh-HK-1.jpg" decoding="async" width="640" height="823"><img data-local-asset="web2" alt="可預約日期及時段" loading="lazy" src="assets/webbook/zh-HK-2.jpg" decoding="async" width="640" height="674"></div></div></div></div></article>
+<article class="feature-card"><div class="point-header"><span class="point-number">POINT 02</span><span data-i18n="point2">所有預約，一眼睇清</span></div><div class="feature-body"><div class="feature-copy"><h3><span data-i18n="f2a">電話、上門、網上，</span><br><span data-i18n="f2b">一個日曆，全部安排好。</span></h3><p data-i18n="f2desc">幫電話同上門客人加入預約，連同網上預約一齊管理。要改時間，直接改期就得，毋須取消再開新單。</p><a class="text-link" href="/#download"><span data-i18n="f2link">將每日預約集中管理</span><span aria-hidden="true">→</span></a></div><div class="feature-art"><img class="feature-illustration" data-asset="owner" alt="店主專心接待客人" loading="lazy" src="assets/illustrations/34-salon-owner-welcoming.webp" decoding="async" width="600" height="900"><div class="phone feature-phone"><div class="phone-screen"><div class="status-bar"><span>9:41</span><span>▰</span></div><img data-asset="dashboard" alt="BookingYou 商戶管理畫面" loading="lazy" src="assets/deck-dashboard.png" decoding="async" width="760" height="1500"></div></div></div></div></article>
+<article class="feature-card"><div class="point-header"><span class="point-number">POINT 03</span><span data-i18n="point3">營業節奏，由你決定</span></div><div class="feature-body"><div class="feature-copy"><h3><span data-i18n="f3a">幾時接客、幾時休息，</span><br><span data-i18n="f3b">跟返你嘅工作節奏。</span></h3><p data-i18n="f3desc">設定營業時間、休息日同保留時段。App 預約可按時段選擇即時確認或商戶審批，配合你每日嘅實際安排。</p><a class="text-link" href="/#faq"><span data-i18n="f3link">了解更多使用方式</span><span aria-hidden="true">→</span></a></div><div class="feature-art"><img class="feature-illustration" data-asset="mascot" alt="BookingYou 吉祥物" loading="lazy" src="assets/yu-kun-wave.png" decoding="async" width="360" height="360"><div class="phone feature-phone"><div class="phone-screen"><div class="status-bar"><span>9:41</span><span>▰</span></div><img data-asset="hours" alt="營業時段及審批設定" loading="lazy" src="assets/deck-hours.png" decoding="async" width="760" height="1500"></div></div></div></div></article>
+</div>
+<section class="restored restored-web-booking" id="web-booking"><div data-lang="zh"><div class="wrap"><span class="chip">網頁預約 · 新</span><h2>而家唔使裝 App，用瀏覽器就約到</h2><p class="lead">收到店舖嘅 BookingYou 連結或者 QR code？用手機或者電腦嘅瀏覽器開，就可以直接預約。唔使下載，亦唔使開戶口。</p><div class="wb-cols"><div class="wb-col"><div class="wb-shot"><img src="assets/webbook/zh-HK-1.jpg" alt="預約頁：店舖資料同揀服務" loading="lazy" decoding="async" width="640" height="823"></div><ol class="wb-steps"><li><span class="wb-num">1</span><div><b>開店舖條連結</b><span>撳店舖喺 Instagram、通訊 App 或者網站放嘅 BookingYou 連結，或者掃舖面張 QR 卡，瀏覽器就會開到預約頁。</span></div></li><li><span class="wb-num">2</span><div><b>揀服務</b><span>每項服務都寫明時長同價錢，揀你想要嗰項。</span></div></li></ol></div><div class="wb-col"><div class="wb-shot"><img src="assets/webbook/zh-HK-2.jpg" alt="預約頁：揀日期同時間" loading="lazy" decoding="async" width="640" height="674"></div><ol class="wb-steps"><li><span class="wb-num">3</span><div><b>揀日期同時間</b><span>只會顯示仲有位嘅時段，時間係店舖當地時間；休息日會變灰，揀唔到。</span></div></li></ol></div><div class="wb-col"><div class="wb-shot"><img src="assets/webbook/zh-HK-3.jpg" alt="預約頁：填姓名同電話" loading="lazy" decoding="async" width="640" height="811"></div><ol class="wb-steps"><li><span class="wb-num">4</span><div><b>填姓名同電話</b><span>店舖只需要呢兩樣，備註可以選填。唔使註冊。</span></div></li><li><span class="wb-num">5</span><div><b>提交，等店舖確認</b><span>網頁預約要店舖確認先算成立。提交之後會有一條「你嘅預約連結」，儲存低，之後靠佢睇狀態或者取消。</span></div></li></ol></div></div><div class="wb-foot"><div class="wb-box"><h3>留意</h3><ul><li>冇戶口，所以預約連結就係你嘅憑證。請儲存低，唔好分享俾人。</li><li>店舖確認之後，預約連結上面嘅狀態會由「待確認」變成「已確認」。</li><li>個別店舖只接受 App 內預約，預約頁一開就會講明，並俾你一粒掣開 App。</li><li>想收提醒、同店舖傾偈、一次過管理所有預約？裝 App 就得。</li></ul></div><div class="wb-box shop"><h3>商戶</h3><p>喺 App 分享你嘅預約連結或者 QR 卡，客人即刻可以用網頁預約。每張網頁單都要你確認先成立；你亦可以揀只接受 App 內預約。</p></div></div><p class="note">畫面係示範店舖嘅實際網頁預約頁。</p></div></div><div class="wrap"><aside class="yu-tip yu-tip-peach" aria-labelledby="yu-tip-peach-title"><img src="assets/yu-kun-wave.png" width="76" height="84" alt="" loading="lazy" decoding="async"><div><p class="yu-tip-label" data-i18n="yuLabel">U 仔提提你</p><h3 id="yu-tip-peach-title" data-i18n="yuBookingTitle">客人提交咗，仲要等你確認。</h3><p data-i18n="yuBookingBody">網頁預約一律喺商戶確認後先成立。App 內預約就可以按時段，設定即時確認或者商戶審批。</p></div></aside></div></section><section class="restored restored-pain-solutions" id="pain-solutions"><div data-lang="zh">
   <div class="wrap">
     <div class="ps-head">
       <span class="chip">商戶日常</span>
-      <h2 style="margin-top:14px">每個預約問題，都有清楚的處理方法</h2>
+      <h2>每個預約問題，都有清楚的處理方法</h2>
       <p class="lead">唔使改變你原本做生意嘅方式。BookingYou 只係將最花時間、最容易出錯嘅預約工作接過來。</p>
     </div>
-    <div class="ps-grid"><article class="ps-card"><div class="ps-no">01</div><figure class="ps-art" aria-hidden="true"><img loading="lazy" decoding="async" src="assets/pain-solutions/01-interrupted-service-call.png" alt=""></figure><div class="ps-block ps-problem"><span>商戶痛點</span><h3>做緊服務，電話同訊息不停響</h3><p>停手回覆會打斷服務；唔覆又怕走失新客。</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYou 對應方法</span><h3>讓客人 24 小時自己預約</h3><p>分享專屬連結或 QR Code，客人自己揀服務、日期同時間。</p></div></article><article class="ps-card"><div class="ps-no">02</div><figure class="ps-art" aria-hidden="true"><img loading="lazy" decoding="async" src="assets/pain-solutions/02-scattered-booking-channels.png?v=20260919b" alt=""></figure><div class="ps-block ps-problem"><span>商戶痛點</span><h3>WhatsApp、IG、電話同紙本各有預約</h3><p>資料散落幾個地方，忙起來最容易漏單或撞期。</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYou 對應方法</span><h3>所有渠道放回同一個日曆</h3><p>網上預約、電話單同上門客都可以由商戶統一加入管理。</p></div></article><article class="ps-card"><div class="ps-no">03</div><figure class="ps-art" aria-hidden="true"><img loading="lazy" decoding="async" src="assets/pain-solutions/03-after-hours-self-booking.png" alt=""></figure><div class="ps-block ps-problem"><span>商戶痛點</span><h3>收舖後未覆，客人已經搵第二間</h3><p>客人想即時知道有冇位，等到第二日先覆往往太遲。</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYou 對應方法</span><h3>任何時間都睇到可預約時段</h3><p>客人可隨時查看時段並提交申請；網頁預約要商戶確認先成立。</p></div></article><article class="ps-card"><div class="ps-no">04</div><figure class="ps-art" aria-hidden="true"><img loading="lazy" decoding="async" src="assets/pain-solutions/04-easy-reschedule.png" alt=""></figure><div class="ps-block ps-problem"><span>商戶痛點</span><h3>改一次期，要來回幾輪訊息</h3><p>取消、重開、再確認，容易記錯新時間或遺失原有紀錄。</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYou 對應方法</span><h3>直接改期並保留預約紀錄</h3><p>商戶或客人都可按需要更改時間，毋須重新建立整張預約。</p></div></article><article class="ps-card"><div class="ps-no">05</div><figure class="ps-art" aria-hidden="true"><img loading="lazy" decoding="async" src="assets/pain-solutions/05-automatic-reminders.png" alt=""></figure><div class="ps-block ps-problem"><span>商戶痛點</span><h3>忙到唔記得提醒，客人又忘記到場</h3><p>臨時缺席令原本可以接客的時段白白留空。</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYou 對應方法</span><h3>自動發送預約提醒</h3><p>預約資料和時間清楚送到客人手上，減少靠人手逐個通知。</p></div></article><article class="ps-card"><div class="ps-no">06</div><figure class="ps-art" aria-hidden="true"><img loading="lazy" decoding="async" src="assets/pain-solutions/06-protected-break-time.png" alt=""></figure><div class="ps-block ps-problem"><span>商戶痛點</span><h3>休息日、食飯時間都被人預約</h3><p>營業時間不等於每一分鐘都可以接客。</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYou 對應方法</span><h3>按實際營運封鎖時間</h3><p>設定休息日、私人時段和保留時段，只開放真正可以接單的時間。</p></div></article><article class="ps-card"><div class="ps-no">07</div><figure class="ps-art" aria-hidden="true"><img loading="lazy" decoding="async" src="assets/pain-solutions/07-slot-approval-rules.png" alt=""></figure><div class="ps-block ps-problem"><span>商戶痛點</span><h3>旺時想先審批，淡時又想即時確認</h3><p>單一確認方式太死板，未能配合每日不同人手和工作量。</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYou 對應方法</span><h3>每個時段獨立設定確認方式</h3><p>App 預約可按時段設定即時確認或商戶審批；網頁預約一律要商戶確認先成立。</p></div></article><article class="ps-card"><div class="ps-no">08</div><figure class="ps-art" aria-hidden="true"><img loading="lazy" decoding="async" src="assets/pain-solutions/08-class-capacity.png" alt=""></figure><div class="ps-block ps-problem"><span>商戶痛點</span><h3>團體班或多人服務容易超額</h3><p>只記低開始時間，未必能準確掌握每節尚餘名額。</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYou 對應方法</span><h3>為每節設定人數上限</h3><p>按課堂、活動或服務設定容量，額滿後不再接受新預約。</p></div></article><article class="ps-card"><div class="ps-no">09</div><figure class="ps-art" aria-hidden="true"><img loading="lazy" decoding="async" src="assets/pain-solutions/09-direct-booking-payment.png" alt=""></figure><div class="ps-block ps-problem"><span>商戶痛點</span><h3>熟客每次都經平台，持續被抽佣</h3><p>明明是自己經營回來的客人，重複預約仍要增加成本。</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYou 對應方法</span><h3>建立自己的直接預約入口</h3><p>客人經你的連結或 QR Code 預約，直接向商戶付款，BookingYou 不抽佣。</p></div></article><article class="ps-card"><div class="ps-no">10</div><figure class="ps-art" aria-hidden="true"><img loading="lazy" decoding="async" src="assets/pain-solutions/10-customer-history.png" alt=""></figure><div class="ps-block ps-problem"><span>商戶痛點</span><h3>客人資料靠記憶，跟進容易斷線</h3><p>忘記上次服務、偏好或預約紀錄，影響下次接待。</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYou 對應方法</span><h3>集中保留顧客和預約紀錄</h3><p>需要時快速查看過往資料，讓回訪客得到更連貫的服務。</p></div></article></div>
+    <div class="ps-grid"><article class="ps-card"><div class="ps-no">01</div><figure class="ps-art" aria-hidden="true"><img loading="lazy" decoding="async" src="assets/pain-solutions/01-interrupted-service-call.png" alt="" width="800" height="533"></figure><div class="ps-block ps-problem"><span>商戶痛點</span><h3>做緊服務，電話同訊息不停響</h3><p>停手回覆會打斷服務；唔覆又怕走失新客。</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYou 對應方法</span><h3>讓客人 24 小時自己預約</h3><p>分享專屬連結或 QR Code，客人自己揀服務、日期同時間。</p></div></article><article class="ps-card"><div class="ps-no">02</div><figure class="ps-art" aria-hidden="true"><img loading="lazy" decoding="async" src="assets/pain-solutions/02-scattered-booking-channels.png?v=20260919b" alt=""></figure><div class="ps-block ps-problem"><span>商戶痛點</span><h3>WhatsApp、IG、電話同紙本各有預約</h3><p>資料散落幾個地方，忙起來最容易漏單或撞期。</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYou 對應方法</span><h3>所有渠道放回同一個日曆</h3><p>網上預約、電話單同上門客都可以由商戶統一加入管理。</p></div></article><article class="ps-card"><div class="ps-no">03</div><figure class="ps-art" aria-hidden="true"><img loading="lazy" decoding="async" src="assets/pain-solutions/03-after-hours-self-booking.png" alt="" width="800" height="533"></figure><div class="ps-block ps-problem"><span>商戶痛點</span><h3>收舖後未覆，客人已經搵第二間</h3><p>客人想即時知道有冇位，等到第二日先覆往往太遲。</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYou 對應方法</span><h3>任何時間都睇到可預約時段</h3><p>客人可隨時查看時段並提交申請；網頁預約要商戶確認先成立。</p></div></article><article class="ps-card"><div class="ps-no">04</div><figure class="ps-art" aria-hidden="true"><img loading="lazy" decoding="async" src="assets/pain-solutions/04-easy-reschedule.png" alt="" width="800" height="533"></figure><div class="ps-block ps-problem"><span>商戶痛點</span><h3>改一次期，要來回幾輪訊息</h3><p>取消、重開、再確認，容易記錯新時間或遺失原有紀錄。</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYou 對應方法</span><h3>直接改期並保留預約紀錄</h3><p>商戶或客人都可按需要更改時間，毋須重新建立整張預約。</p></div></article><article class="ps-card"><div class="ps-no">05</div><figure class="ps-art" aria-hidden="true"><img loading="lazy" decoding="async" src="assets/pain-solutions/05-automatic-reminders.png" alt="" width="800" height="533"></figure><div class="ps-block ps-problem"><span>商戶痛點</span><h3>忙到唔記得提醒，客人又忘記到場</h3><p>臨時缺席令原本可以接客的時段白白留空。</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYou 對應方法</span><h3>自動發送預約提醒</h3><p>預約資料和時間清楚送到客人手上，減少靠人手逐個通知。</p></div></article><article class="ps-card"><div class="ps-no">06</div><figure class="ps-art" aria-hidden="true"><img loading="lazy" decoding="async" src="assets/pain-solutions/06-protected-break-time.png" alt="" width="800" height="533"></figure><div class="ps-block ps-problem"><span>商戶痛點</span><h3>休息日、食飯時間都被人預約</h3><p>營業時間不等於每一分鐘都可以接客。</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYou 對應方法</span><h3>按實際營運封鎖時間</h3><p>設定休息日、私人時段和保留時段，只開放真正可以接單的時間。</p></div></article><article class="ps-card"><div class="ps-no">07</div><figure class="ps-art" aria-hidden="true"><img loading="lazy" decoding="async" src="assets/pain-solutions/07-slot-approval-rules.png" alt="" width="800" height="540"></figure><div class="ps-block ps-problem"><span>商戶痛點</span><h3>旺時想先審批，淡時又想即時確認</h3><p>單一確認方式太死板，未能配合每日不同人手和工作量。</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYou 對應方法</span><h3>每個時段獨立設定確認方式</h3><p>App 預約可按時段設定即時確認或商戶審批；網頁預約一律要商戶確認先成立。</p></div></article><article class="ps-card"><div class="ps-no">08</div><figure class="ps-art" aria-hidden="true"><img loading="lazy" decoding="async" src="assets/pain-solutions/08-class-capacity.png" alt="" width="800" height="533"></figure><div class="ps-block ps-problem"><span>商戶痛點</span><h3>團體班或多人服務容易超額</h3><p>只記低開始時間，未必能準確掌握每節尚餘名額。</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYou 對應方法</span><h3>為每節設定人數上限</h3><p>按課堂、活動或服務設定容量，額滿後不再接受新預約。</p></div></article><article class="ps-card"><div class="ps-no">09</div><figure class="ps-art" aria-hidden="true"><img loading="lazy" decoding="async" src="assets/pain-solutions/09-direct-booking-payment.png" alt="" width="800" height="532"></figure><div class="ps-block ps-problem"><span>商戶痛點</span><h3>熟客每次都經平台，持續被抽佣</h3><p>明明是自己經營回來的客人，重複預約仍要增加成本。</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYou 對應方法</span><h3>建立自己的直接預約入口</h3><p>客人經你的連結或 QR Code 預約，直接向商戶付款，BookingYou 不抽佣。</p></div></article><article class="ps-card"><div class="ps-no">10</div><figure class="ps-art" aria-hidden="true"><img loading="lazy" decoding="async" src="assets/pain-solutions/10-customer-history.png" alt="" width="800" height="533"></figure><div class="ps-block ps-problem"><span>商戶痛點</span><h3>客人資料靠記憶，跟進容易斷線</h3><p>忘記上次服務、偏好或預約紀錄，影響下次接待。</p></div><div class="ps-arrow" aria-hidden="true"><span>↓</span></div><div class="ps-block ps-answer"><span>BookingYou 對應方法</span><h3>集中保留顧客和預約紀錄</h3><p>需要時快速查看過往資料，讓回訪客得到更連貫的服務。</p></div></article></div>
   </div>
-</section>
-
-<section id="diff" class="bg-b">
+</div></section><section class="restored restored-diff" id="diff"><div data-lang="zh">
   <div class="wrap row row-text-img">
     <div>
       <span class="chip">差異</span>
-      <h2 style="margin-top:14px">店主自行決定哪些時段自動確認</h2>
-      <p class="lead">App 預約可按時段設定即時確認或商戶審批；網頁預約一律要商戶確認先成立。</p><p class="lead" style="margin-top:14px">舉個例：星期二下午三點通常都做得切，就設成即時確認；星期六夜晚係黃金時段，想自己揀客就設成要審批。同一間店，唔同時段唔同規則。</p>
-      <div class="card" style="margin-top:28px;display:flex;gap:18px;align-items:flex-start">
-        <div class="dot" style="margin:0;flex:none"><svg viewBox="0 0 24 24" fill="none" stroke="#2ED3BA" stroke-width="2" stroke-linecap="round"><rect x="4.5" y="10" width="15" height="10" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
+      <h2>店主自行決定哪些時段自動確認</h2>
+      <p class="lead">App 預約可按時段設定即時確認或商戶審批；網頁預約一律要商戶確認先成立。</p><p class="lead">舉個例：星期二下午三點通常都做得切，就設成即時確認；星期六夜晚係黃金時段，想自己揀客就設成要審批。同一間店，唔同時段唔同規則。</p>
+      <div class="card">
+        <div class="dot"><svg viewbox="0 0 24 24" fill="none" stroke="#2ED3BA" stroke-width="2" stroke-linecap="round"><rect x="4.5" y="10" width="15" height="10" rx="2.5"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg></div>
         <div><h3>規則在伺服器執行，不只在 App 內</h3><p>時段、人數、休息日及審批規則均在資料庫檢查，即使改動客戶端亦無法繞過。</p></div>
       </div>
     </div>
-    <div style="text-align:center">
-      <div class="phone" style="width:250px"><img src="assets/deck-hours.png" alt="按時段設定是否需要審批" loading="lazy" decoding="async"></div>
+    <div>
+      <div class="phone"><img src="assets/deck-hours.png" alt="按時段設定是否需要審批" loading="lazy" decoding="async" width="760" height="1500"></div>
       <div class="note">按時段設定是否需要審批</div>
     </div>
   </div>
+</div></section><section class="industry-scenarios" id="industry-scenarios" aria-labelledby="scenario-heading">
+  <div class="wrap">
+    <div class="section-heading"><div>
+      <p class="section-label">A DAY AT YOUR SHOP</p>
+      <h2 id="scenario-heading" data-i18n="scenarioHeading">你嘅小店，你嘅預約節奏。</h2>
+      <p class="section-copy" data-i18n="scenarioIntro">揀一個行業，睇下由客人預約到安排每日工作，可以點樣用 BookingYou。</p>
+    </div><a class="text-link" href="/#who"><span data-i18n="allIndustries">查看全部 12 類行業</span><span aria-hidden="true">↓</span></a></div>
+    <div class="scenario-tabs" role="tablist" aria-label="行業情境" hidden>
+      <button id="scenario-tab-beauty" role="tab" aria-selected="true" aria-controls="scenario-panel" tabindex="0" data-scenario="beauty"><span aria-hidden="true">01</span><span data-i18n="scenarioBeauty">美容護理</span></button>
+      <button id="scenario-tab-nails" role="tab" aria-selected="false" aria-controls="scenario-panel" tabindex="-1" data-scenario="nails"><span aria-hidden="true">02</span><span data-i18n="scenarioNails">美甲工作室</span></button>
+      <button id="scenario-tab-fitness" role="tab" aria-selected="false" aria-controls="scenario-panel" tabindex="-1" data-scenario="fitness"><span aria-hidden="true">03</span><span data-i18n="scenarioFitness">私人健身</span></button>
+      <button id="scenario-tab-teaching" role="tab" aria-selected="false" aria-controls="scenario-panel" tabindex="-1" data-scenario="teaching"><span aria-hidden="true">04</span><span data-i18n="scenarioTeaching">教學課堂</span></button>
+    </div>
+    <div class="scenario-panel" id="scenario-panel" role="tabpanel" aria-labelledby="scenario-tab-beauty" tabindex="0" data-theme="beauty">
+      <div class="scenario-visual">
+        <div class="scenario-art"><img id="scenario-image" src="assets/industries/beauty.webp" width="480" height="420" alt="美容護理行業插圖" loading="lazy" decoding="async"></div>
+        <div class="scenario-example"><p class="scenario-example-label" data-i18n="scenarioExample">預約安排例子</p><div class="scenario-example-main"><span class="scenario-time" aria-hidden="true">14:00</span><div><strong id="scenario-service">面部護理</strong><span id="scenario-duration">60 分鐘 · 一對一服務</span></div></div><p class="scenario-status"><span aria-hidden="true"></span><span data-i18n="scenarioPending">網頁提交後，等候商戶確認</span></p></div>
+      </div>
+      <div class="scenario-copy">
+        <p class="scenario-kicker" id="scenario-kicker">BEAUTY &amp; CARE</p>
+        <h3 id="scenario-title">專心做護理，客人自己揀時間。</h3>
+        <p id="scenario-description">將預約連結放喺社交簡介，客人先睇服務同時長，再提交合適時間。你喺接待空檔確認安排。</p>
+        <ul class="scenario-benefits" id="scenario-benefits"><li><strong>先揀服務，再揀時段</strong><span>列明療程、價錢同所需時間，方便客人揀啱服務。</span></li><li><strong>電話預約一齊管理</strong><span>幫電話或上門客人加入預約，集中睇每日安排。</span></li><li><strong>休息時間預先留好</strong><span>設定營業時間同休息日，配合店舖實際接待節奏。</span></li></ul>
+        <a href="/#web-booking" class="scenario-link"><span data-i18n="scenarioGuide">睇客人點樣預約</span><span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+    <p class="gallery-note" data-i18n="scenarioNote">以上係使用情境示例；服務、時間及時長只作說明。實際可預約安排，以各商戶設定為準。</p>
+    <p class="visually-hidden" id="scenario-announcement" role="status" aria-live="polite"></p>
+    <aside class="yu-tip yu-tip-mint" aria-labelledby="yu-tip-work-title"><img src="assets/yu-kun-wave.png" width="76" height="84" alt="" loading="lazy" decoding="async"><div><p class="yu-tip-label" data-i18n="yuLabel">U 仔提提你</p><h3 id="yu-tip-work-title" data-i18n="yuWorkTitle">電話同上門客，都可以一齊記低。</h3><p data-i18n="yuWorkBody">收到電話、私訊或上門預約後，商戶可以自行加入記錄，同網上預約放喺同一個日曆管理。</p></div></aside>
+  </div>
 </section>
-
-<section id="who" class="bg-a">
+<section class="restored restored-who" id="who"><div data-lang="zh">
   <div class="wrap">
     <div class="industry-head">
-      <div><span class="chip">服務對象</span><h2 style="margin-top:14px">同一套工具，適用於各類預約制小店</h2><p class="lead">只要生意係「客人約時間上嚟」，呢套流程就啱用。以下係已經用得上嘅行業，其他類似模式嘅店都一樣得。</p></div>
+      <div><span class="chip">服務對象</span><h2>同一套工具，適用於各類預約制小店</h2><p class="lead">只要生意係「客人約時間上嚟」，呢套流程就啱用。以下係已經用得上嘅行業，其他類似模式嘅店都一樣得。</p></div>
       <div class="industry-stat">12 個行業分組 · 122 個服務例子</div>
     </div>
-    <div class="industry-grid"><details class="industry-card"><summary><span class="industry-no">01</span><span class="industry-art"><img loading="lazy" src="assets/industries/beauty.webp" alt="美容及個人護理"></span><span class="industry-title"><b>美容及個人護理</b><small>10 個小類</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>髮型屋</li><li>男士理髮</li><li>美甲</li><li>美睫及眉形</li><li>面部及皮膚護理</li><li>化妝服務</li><li>脫毛</li><li>紋身及穿耳</li><li>個人色彩分析</li><li>形象顧問</li></ul></details><details class="industry-card"><summary><span class="industry-no">02</span><span class="industry-art"><img loading="lazy" src="assets/industries/health.webp" alt="健康、復康及養生"></span><span class="industry-title"><b>健康、復康及養生</b><small>10 個小類</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>按摩治療</li><li>物理治療</li><li>整脊及整骨</li><li>中醫</li><li>針灸</li><li>職業治療</li><li>言語治療</li><li>營養諮詢</li><li>心理輔導</li><li>產後護理</li></ul></details><details class="industry-card"><summary><span class="industry-no">03</span><span class="industry-art"><img loading="lazy" src="assets/industries/fitness.webp" alt="健身及運動教練"></span><span class="industry-title"><b>健身及運動教練</b><small>10 個小類</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>私人健身</li><li>瑜伽</li><li>普拉提</li><li>拳擊及泰拳</li><li>游泳教練</li><li>網球教練</li><li>羽毛球教練</li><li>高爾夫教練</li><li>舞蹈導師</li><li>跑步教練</li></ul></details><details class="industry-card"><summary><span class="industry-no">04</span><span class="industry-art"><img loading="lazy" src="assets/industries/education.webp" alt="教育、補習及培訓"></span><span class="industry-title"><b>教育、補習及培訓</b><small>10 個小類</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>私人補習</li><li>語言課程</li><li>鋼琴課</li><li>結他課</li><li>聲樂課</li><li>繪畫及書法</li><li>編程及 STEM</li><li>烹飪及烘焙</li><li>駕駛導師</li><li>職涯教練</li></ul></details><details class="industry-card"><summary><span class="industry-no">05</span><span class="industry-art"><img loading="lazy" src="assets/industries/pet.webp" alt="寵物服務"></span><span class="industry-title"><b>寵物服務</b><small>10 個小類</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>寵物美容</li><li>寵物沖涼</li><li>寵物訓練</li><li>寵物保姆</li><li>放狗服務</li><li>寵物攝影</li><li>獸醫診所</li><li>寵物按摩</li><li>寵物營養</li><li>領養面談</li></ul></details><details class="industry-card"><summary><span class="industry-no">06</span><span class="industry-art"><img loading="lazy" src="assets/industries/home.webp" alt="家居及上門服務"></span><span class="industry-title"><b>家居及上門服務</b><small>10 個小類</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>家居清潔</li><li>深層清潔</li><li>冷氣清洗</li><li>家電清潔</li><li>滅蟲服務</li><li>水喉維修</li><li>電工服務</li><li>傢俬安裝</li><li>智能家居安裝</li><li>搬屋估價</li></ul></details><details class="industry-card"><summary><span class="industry-no">07</span><span class="industry-art"><img loading="lazy" src="assets/industries/repair-auto.webp" alt="維修、汽車及技術"></span><span class="industry-title"><b>維修、汽車及技術</b><small>10 個小類</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>手機維修</li><li>電腦維修</li><li>相機維修</li><li>手錶維修</li><li>珠寶維修</li><li>鞋履及手袋維修</li><li>改衣服務</li><li>樂器維修</li><li>汽車美容</li><li>汽車保養</li></ul></details><details class="industry-card"><summary><span class="industry-no">08</span><span class="industry-art"><img loading="lazy" src="assets/industries/creative-events.webp" alt="攝影、創作及活動"></span><span class="industry-title"><b>攝影、創作及活動</b><small>10 個小類</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>人像攝影</li><li>婚禮攝影</li><li>產品攝影</li><li>影片製作</li><li>錄音室</li><li>Podcast 錄音室</li><li>平面設計</li><li>紋身設計諮詢</li><li>婚禮統籌</li><li>派對場地</li></ul></details><details class="industry-card"><summary><span class="industry-no">09</span><span class="industry-art"><img loading="lazy" src="assets/industries/professional.webp" alt="專業及商業服務"></span><span class="industry-title"><b>專業及商業服務</b><small>10 個小類</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>會計服務</li><li>稅務顧問</li><li>公司秘書</li><li>法律諮詢</li><li>保險顧問</li><li>按揭顧問</li><li>移民顧問</li><li>招聘及職涯</li><li>市場推廣及 SEO</li><li>IT 及 AI 顧問</li></ul></details><details class="industry-card"><summary><span class="industry-no">10</span><span class="industry-art"><img loading="lazy" src="assets/industries/property-retail.webp" alt="地產、零售及產品體驗"></span><span class="industry-title"><b>地產、零售及產品體驗</b><small>10 個小類</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>預約睇樓</li><li>物業估價</li><li>驗樓服務</li><li>室內設計</li><li>裝修報價</li><li>婚紗試身</li><li>西裝度身</li><li>眼鏡試戴</li><li>珠寶預約</li><li>陳列室示範</li></ul></details><details class="industry-card"><summary><span class="industry-no">11</span><span class="industry-art"><img loading="lazy" src="assets/industries/food-workshops.webp" alt="餐飲及工作坊"></span><span class="industry-title"><b>餐飲及工作坊</b><small>10 個小類</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>私房菜</li><li>到會試食</li><li>品酒及清酒</li><li>咖啡品鑑</li><li>茶道體驗</li><li>烹飪班</li><li>烘焙班</li><li>蛋糕裝飾</li><li>咖啡拉花</li><li>調酒班</li></ul></details><details class="industry-card"><summary><span class="industry-no">12</span><span class="industry-art"><img loading="lazy" src="assets/industries/travel-venues.webp" alt="旅遊、娛樂及場地"></span><span class="industry-title"><b>旅遊、娛樂及場地</b><small>12 個小類</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>私人導遊</li><li>本地導賞</li><li>行山領隊</li><li>露營體驗</li><li>潛水及浮潛</li><li>滑浪及直立板</li><li>遊艇活動</li><li>密室逃脫</li><li>VR 及電競</li><li>運動場地</li><li>攝影及排練室</li><li>會議室</li></ul></details></div>
+    <div class="industry-grid"><details class="industry-card"><summary><span class="industry-no">01</span><span class="industry-art"><img loading="lazy" src="assets/industries/beauty.webp" alt="美容及個人護理" decoding="async" width="600" height="600"></span><span class="industry-title"><b>美容及個人護理</b><small>10 個小類</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>髮型屋</li><li>男士理髮</li><li>美甲</li><li>美睫及眉形</li><li>面部及皮膚護理</li><li>化妝服務</li><li>脫毛</li><li>紋身及穿耳</li><li>個人色彩分析</li><li>形象顧問</li></ul></details><details class="industry-card"><summary><span class="industry-no">02</span><span class="industry-art"><img loading="lazy" src="assets/industries/health.webp" alt="健康、復康及養生" decoding="async" width="600" height="600"></span><span class="industry-title"><b>健康、復康及養生</b><small>10 個小類</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>按摩治療</li><li>物理治療</li><li>整脊及整骨</li><li>中醫</li><li>針灸</li><li>職業治療</li><li>言語治療</li><li>營養諮詢</li><li>心理輔導</li><li>產後護理</li></ul></details><details class="industry-card"><summary><span class="industry-no">03</span><span class="industry-art"><img loading="lazy" src="assets/industries/fitness.webp" alt="健身及運動教練" decoding="async" width="600" height="600"></span><span class="industry-title"><b>健身及運動教練</b><small>10 個小類</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>私人健身</li><li>瑜伽</li><li>普拉提</li><li>拳擊及泰拳</li><li>游泳教練</li><li>網球教練</li><li>羽毛球教練</li><li>高爾夫教練</li><li>舞蹈導師</li><li>跑步教練</li></ul></details><details class="industry-card"><summary><span class="industry-no">04</span><span class="industry-art"><img loading="lazy" src="assets/industries/education.webp" alt="教育、補習及培訓" decoding="async" width="600" height="600"></span><span class="industry-title"><b>教育、補習及培訓</b><small>10 個小類</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>私人補習</li><li>語言課程</li><li>鋼琴課</li><li>結他課</li><li>聲樂課</li><li>繪畫及書法</li><li>編程及 STEM</li><li>烹飪及烘焙</li><li>駕駛導師</li><li>職涯教練</li></ul></details><details class="industry-card"><summary><span class="industry-no">05</span><span class="industry-art"><img loading="lazy" src="assets/industries/pet.webp" alt="寵物服務" decoding="async" width="600" height="600"></span><span class="industry-title"><b>寵物服務</b><small>10 個小類</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>寵物美容</li><li>寵物沖涼</li><li>寵物訓練</li><li>寵物保姆</li><li>放狗服務</li><li>寵物攝影</li><li>獸醫診所</li><li>寵物按摩</li><li>寵物營養</li><li>領養面談</li></ul></details><details class="industry-card"><summary><span class="industry-no">06</span><span class="industry-art"><img loading="lazy" src="assets/industries/home.webp" alt="家居及上門服務" decoding="async" width="600" height="600"></span><span class="industry-title"><b>家居及上門服務</b><small>10 個小類</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>家居清潔</li><li>深層清潔</li><li>冷氣清洗</li><li>家電清潔</li><li>滅蟲服務</li><li>水喉維修</li><li>電工服務</li><li>傢俬安裝</li><li>智能家居安裝</li><li>搬屋估價</li></ul></details><details class="industry-card"><summary><span class="industry-no">07</span><span class="industry-art"><img loading="lazy" src="assets/industries/repair-auto.webp" alt="維修、汽車及技術" decoding="async" width="600" height="600"></span><span class="industry-title"><b>維修、汽車及技術</b><small>10 個小類</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>手機維修</li><li>電腦維修</li><li>相機維修</li><li>手錶維修</li><li>珠寶維修</li><li>鞋履及手袋維修</li><li>改衣服務</li><li>樂器維修</li><li>汽車美容</li><li>汽車保養</li></ul></details><details class="industry-card"><summary><span class="industry-no">08</span><span class="industry-art"><img loading="lazy" src="assets/industries/creative-events.webp" alt="攝影、創作及活動" decoding="async" width="600" height="600"></span><span class="industry-title"><b>攝影、創作及活動</b><small>10 個小類</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>人像攝影</li><li>婚禮攝影</li><li>產品攝影</li><li>影片製作</li><li>錄音室</li><li>Podcast 錄音室</li><li>平面設計</li><li>紋身設計諮詢</li><li>婚禮統籌</li><li>派對場地</li></ul></details><details class="industry-card"><summary><span class="industry-no">09</span><span class="industry-art"><img loading="lazy" src="assets/industries/professional.webp" alt="專業及商業服務" decoding="async" width="600" height="600"></span><span class="industry-title"><b>專業及商業服務</b><small>10 個小類</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>會計服務</li><li>稅務顧問</li><li>公司秘書</li><li>法律諮詢</li><li>保險顧問</li><li>按揭顧問</li><li>移民顧問</li><li>招聘及職涯</li><li>市場推廣及 SEO</li><li>IT 及 AI 顧問</li></ul></details><details class="industry-card"><summary><span class="industry-no">10</span><span class="industry-art"><img loading="lazy" src="assets/industries/property-retail.webp" alt="地產、零售及產品體驗" decoding="async" width="600" height="600"></span><span class="industry-title"><b>地產、零售及產品體驗</b><small>10 個小類</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>預約睇樓</li><li>物業估價</li><li>驗樓服務</li><li>室內設計</li><li>裝修報價</li><li>婚紗試身</li><li>西裝度身</li><li>眼鏡試戴</li><li>珠寶預約</li><li>陳列室示範</li></ul></details><details class="industry-card"><summary><span class="industry-no">11</span><span class="industry-art"><img loading="lazy" src="assets/industries/food-workshops.webp" alt="餐飲及工作坊" decoding="async" width="600" height="600"></span><span class="industry-title"><b>餐飲及工作坊</b><small>10 個小類</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>私房菜</li><li>到會試食</li><li>品酒及清酒</li><li>咖啡品鑑</li><li>茶道體驗</li><li>烹飪班</li><li>烘焙班</li><li>蛋糕裝飾</li><li>咖啡拉花</li><li>調酒班</li></ul></details><details class="industry-card"><summary><span class="industry-no">12</span><span class="industry-art"><img loading="lazy" src="assets/industries/travel-venues.webp" alt="旅遊、娛樂及場地" decoding="async" width="600" height="600"></span><span class="industry-title"><b>旅遊、娛樂及場地</b><small>12 個小類</small></span><span class="industry-toggle">查看全部</span></summary><ul class="industry-list"><li>私人導遊</li><li>本地導賞</li><li>行山領隊</li><li>露營體驗</li><li>潛水及浮潛</li><li>滑浪及直立板</li><li>遊艇活動</li><li>密室逃脫</li><li>VR 及電競</li><li>運動場地</li><li>攝影及排練室</li><li>會議室</li></ul></details></div>
     <p class="industry-note">以下係適用服務例子，唔係 App 內分類選單嘅數目。 搵唔到你嘅行業？只要客人需要預約時間，通常都可以用 BookingYou。</p>
   </div>
-</section>
-
-<section id="brand">
+</div></section><div class="wrap facts" id="pricing"><div class="fact"><strong>0<small data-i18n="factUnit1">佣金</small></strong><span data-i18n="fact1">客人直接向店舖付款</span></div><div class="fact"><strong data-i18n="free">免費</strong><span data-i18n="fact2">預約管理基本功能</span></div><div class="fact"><strong>8<small data-i18n="factUnit3">種</small></strong><span data-i18n="fact3">介面語言</span></div></div>
+<section class="restored restored-brand" id="brand"><div data-lang="zh">
   <div class="wrap">
     <span class="chip">宣傳</span>
-    <h2 style="margin-top:14px">店舖可直接用的宣傳素材</h2>
+    <h2>店舖可直接用的宣傳素材</h2>
     <p class="lead">加入之後即有可印刷的 QR 卡同社交平台貼文圖，唔使自己搵設計。</p>
     <div class="posters">
-      <div><img src="assets/deck-poster-1.jpg" alt="" loading="lazy" decoding="async"><div class="cap">商戶及客人總覽</div></div>
-      <div><img src="assets/deck-poster-2.jpg" alt="" loading="lazy" decoding="async"><div class="cap">三步完成預約</div></div>
-      <div><img src="assets/deck-poster-3.jpg" alt="" loading="lazy" decoding="async"><div class="cap">QR 預約連結</div></div>
+      <div><img src="assets/deck-poster-1.jpg" alt="" loading="lazy" decoding="async" width="720" height="720"><div class="cap">商戶及客人總覽</div></div>
+      <div><img src="assets/deck-poster-2.jpg" alt="" loading="lazy" decoding="async" width="720" height="720"><div class="cap">三步完成預約</div></div>
+      <div><img src="assets/deck-poster-3.jpg" alt="" loading="lazy" decoding="async" width="720" height="720"><div class="cap">QR 預約連結</div></div>
     </div>
   </div>
-</section>
-
-<section id="posts">
-  <div class="wrap">
-    <span class="chip">貼文</span>
-    <h2 style="margin-top:14px">我哋出過嘅貼文</h2>
-    <p class="lead">BookingYou 喺各地社交平台出過嘅貼文，每次隨機揀幾張。</p>
-    <div class="pw-grid" id="pwGrid"></div>
-    <div class="pw-more"><button type="button" class="btn btn-ghost" id="pwMore">換一批</button></div>
-  </div>
-  <div class="pw-box" id="pwBox" role="dialog" aria-modal="true"><img id="pwImg" alt=""><button type="button" id="pwClose" aria-label="關閉">×</button></div>
-</section>
-<script>
-(function(){
-  var grid=document.getElementById('pwGrid'),box=document.getElementById('pwBox'),big=document.getElementById('pwImg'),SHOW=9,all=[],base='/posts/';
-  function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
-  function draw(){
-    grid.innerHTML='';
-    shuffle(all.slice()).slice(0,SHOW).forEach(function(p){
-      var b=document.createElement('button');b.type='button';
-      var im=document.createElement('img');im.loading='lazy';im.alt='BookingYou post';im.src=base+'t/'+p.id+'.jpg';
-      im.width=480;im.height=Math.round(480*p.h/p.w);
-      b.appendChild(im);b.onclick=function(){big.src=base+p.id+'.jpg';box.classList.add('on');};
-      grid.appendChild(b);
-    });
-  }
-  function close(){box.classList.remove('on');big.removeAttribute('src');}
-  box.onclick=function(e){if(e.target!==big)close();};
-  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
-  document.getElementById('pwMore').onclick=draw;
-  fetch(base+'manifest.json').then(function(r){return r.json();}).then(function(m){all=m.posts||[];if(all.length)draw();else document.getElementById('posts').style.display='none';})
-    .catch(function(){document.getElementById('posts').style.display='none';});
-})();
-</script>
-
-
-<section id="social" class="bg-a"><div class="wrap"><span class="chip">社交平台</span><h2 style="margin-top:14px">喺你常用嘅平台追蹤 BookingYou</h2><p class="lead">新功能、使用貼士同各行各業嘅預約例子，第一時間喺社交平台出。</p><div class="soc-grid"><a class="soc-card" href="https://www.instagram.com/bookingyou_jp/" target="_blank" rel="noopener" aria-label="Instagram @bookingyou_jp"><div class="soc-shots"><img src="/posts/t/137.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"><img src="/posts/t/051.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"><img src="/posts/t/034.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"></div><div class="soc-meta"><span class="soc-logo"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></span><span class="soc-text"><span class="soc-name">Instagram</span><span class="soc-handle">@bookingyou_jp</span></span><span class="soc-go" aria-hidden="true">↗</span></div></a><a class="soc-card" href="https://www.threads.com/@bookingyou_jp" target="_blank" rel="noopener" aria-label="Threads @bookingyou_jp"><div class="soc-shots"><img src="/posts/t/055.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"><img src="/posts/t/138.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"><img src="/posts/t/050.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"></div><div class="soc-meta"><span class="soc-logo"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18.263 11.097c-.03-3.486-1.92-5.586-5.111-5.586-2.13 0-3.922.963-4.863 2.499l2.062 1.438c.535-.843 1.272-1.543 2.628-1.543 1.528 0 2.318.85 2.544 2.431a15 15 0 0 0-2.236-.173c-4.125 0-6.068 1.867-6.068 4.336s1.943 3.99 4.804 3.99c3.139 0 5.013-2.115 5.781-4.735.798.361 1.348 1.204 1.348 2.47 0 3.387-3.907 5.232-7.22 5.232-4.885 0-8.077-3.207-8.077-8.424 0-6.392 4.223-10.487 9.9-10.487 3.808 0 5.69 1.671 6.97 3.914l2.108-1.475C21.44 2.078 18.331 0 13.663 0 6.227 0 1.168 5.277 1.168 12.934c0 7 4.953 11.066 10.856 11.066 4.878 0 9.809-2.846 9.809-7.716 0-2.545-1.46-4.231-3.569-5.187m-6.33 4.855c-1.077 0-2.026-.512-2.026-1.453 0-1.483 1.822-1.934 3.606-1.934.678 0 1.34.045 1.927.173-.422 1.927-1.671 3.215-3.508 3.214Z"/></svg></span><span class="soc-text"><span class="soc-name">Threads</span><span class="soc-handle">@bookingyou_jp</span></span><span class="soc-go" aria-hidden="true">↗</span></div></a><a class="soc-card" href="https://x.com/bookingyou_jp" target="_blank" rel="noopener" aria-label="X @bookingyou_jp"><div class="soc-shots"><img src="/posts/t/044.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"><img src="/posts/t/062.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"><img src="/posts/t/066.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"></div><div class="soc-meta"><span class="soc-logo"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"/></svg></span><span class="soc-text"><span class="soc-name">X</span><span class="soc-handle">@bookingyou_jp</span></span><span class="soc-go" aria-hidden="true">↗</span></div></a><a class="soc-card" href="https://www.tiktok.com/@bookingyou_jp" target="_blank" rel="noopener" aria-label="TikTok @bookingyou_jp"><div class="soc-shots"><img src="/posts/t/069.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"><img src="/posts/t/070.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"><img src="/posts/t/073.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"></div><div class="soc-meta"><span class="soc-logo"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></span><span class="soc-text"><span class="soc-name">TikTok</span><span class="soc-handle">@bookingyou_jp</span></span><span class="soc-go" aria-hidden="true">↗</span></div></a><a class="soc-card" href="https://www.youtube.com/@BookingYouApp" target="_blank" rel="noopener" aria-label="YouTube @BookingYouApp"><div class="soc-shots"><img src="/posts/t/067.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"><img src="/posts/t/071.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"><img src="/posts/t/084.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"></div><div class="soc-meta"><span class="soc-logo"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></span><span class="soc-text"><span class="soc-name">YouTube</span><span class="soc-handle">@BookingYouApp</span></span><span class="soc-go" aria-hidden="true">↗</span></div></a><a class="soc-card" href="https://www.facebook.com/bookingyoujp" target="_blank" rel="noopener" aria-label="Facebook bookingyoujp"><div class="soc-shots"><img src="/posts/t/033.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"><img src="/posts/t/043.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"><img src="/posts/t/059.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"></div><div class="soc-meta"><span class="soc-logo"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg></span><span class="soc-text"><span class="soc-name">Facebook</span><span class="soc-handle">bookingyoujp</span></span><span class="soc-go" aria-hidden="true">↗</span></div></a><a class="soc-card" href="https://line.me/R/ti/p/%40504pmlcw" target="_blank" rel="noopener" aria-label="LINE @504pmlcw"><div class="soc-shots"><img src="/posts/t/048.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"><img src="/posts/t/139.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"><img src="/posts/t/061.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"></div><div class="soc-meta"><span class="soc-logo"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></span><span class="soc-text"><span class="soc-name">LINE</span><span class="soc-handle">@504pmlcw</span></span><span class="soc-go" aria-hidden="true">↗</span></div></a><div class="soc-yu"><img src="assets/yu-kun-wave.png" alt="" loading="lazy" decoding="async"><p>而家以日文帳號為主，其他地區嘅帳號陸續開設。</p></div></div><p class="soc-note">各平台名稱及標誌為其各自擁有者嘅商標。</p></div></section>
-
-<section id="mascot" class="bg-b">
+</div></section><section class="post-section" id="posts"><div class="wrap"><div class="section-heading"><div><p class="section-label">BOOKINGYOU STORIES</p><h2 data-i18n="postsTitle">小店日常、預約教學，一齊分享。</h2><p class="section-copy" data-i18n="postsDesc">預約教學、功能介紹同各地小店日常，集結成 140 張社交宣傳圖。可按語言篩選，撳圖睇完整大圖。</p></div><div class="social-actions"><a href="https://www.instagram.com/bookingyou_jp/" target="_blank" rel="noopener">Instagram ↗</a><a href="https://www.facebook.com/bookingyoujp" target="_blank" rel="noopener">Facebook ↗</a></div></div>
+<div class="post-toolbar"><label><span data-i18n="filterLabel">帖文語言</span><select id="post-filter"><option value="all" data-i18n="allPosts">全部語言</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="th">ไทย</option><option value="vi">Tiếng Việt</option></select></label><p id="post-count" aria-live="polite"></p></div><div class="post-grid" id="post-grid"></div><div class="load-row"><button id="more-posts" class="outline-button" data-i18n="loadMore">顯示更多帖文</button></div><p class="gallery-note" data-i18n="postsNote">呢度展示原有帖文圖片；想睇原帖內容、留言及最新動態，可前往官方社交帳號。</p></div></section><section class="restored restored-social" id="social"><div data-lang="zh"><div class="wrap"><span class="chip">社交平台</span><h2>喺你常用嘅平台追蹤 BookingYou</h2><p class="lead">新功能、使用貼士同各行各業嘅預約例子，第一時間喺社交平台出。</p><div class="soc-grid"><a class="soc-card" href="https://www.instagram.com/bookingyou_jp/" target="_blank" rel="noopener" aria-label="Instagram @bookingyou_jp"><div class="soc-shots"><img src="posts/t/137.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"><img src="posts/t/051.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"><img src="posts/t/034.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"></div><div class="soc-meta"><span class="soc-logo"><svg viewbox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"></path></svg></span><span class="soc-text"><span class="soc-name">Instagram</span><span class="soc-handle">@bookingyou_jp</span></span><span class="soc-go" aria-hidden="true">↗</span></div></a><a class="soc-card" href="https://www.threads.com/@bookingyou_jp" target="_blank" rel="noopener" aria-label="Threads @bookingyou_jp"><div class="soc-shots"><img src="posts/t/055.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"><img src="posts/t/138.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"><img src="posts/t/050.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"></div><div class="soc-meta"><span class="soc-logo"><svg viewbox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18.263 11.097c-.03-3.486-1.92-5.586-5.111-5.586-2.13 0-3.922.963-4.863 2.499l2.062 1.438c.535-.843 1.272-1.543 2.628-1.543 1.528 0 2.318.85 2.544 2.431a15 15 0 0 0-2.236-.173c-4.125 0-6.068 1.867-6.068 4.336s1.943 3.99 4.804 3.99c3.139 0 5.013-2.115 5.781-4.735.798.361 1.348 1.204 1.348 2.47 0 3.387-3.907 5.232-7.22 5.232-4.885 0-8.077-3.207-8.077-8.424 0-6.392 4.223-10.487 9.9-10.487 3.808 0 5.69 1.671 6.97 3.914l2.108-1.475C21.44 2.078 18.331 0 13.663 0 6.227 0 1.168 5.277 1.168 12.934c0 7 4.953 11.066 10.856 11.066 4.878 0 9.809-2.846 9.809-7.716 0-2.545-1.46-4.231-3.569-5.187m-6.33 4.855c-1.077 0-2.026-.512-2.026-1.453 0-1.483 1.822-1.934 3.606-1.934.678 0 1.34.045 1.927.173-.422 1.927-1.671 3.215-3.508 3.214Z"></path></svg></span><span class="soc-text"><span class="soc-name">Threads</span><span class="soc-handle">@bookingyou_jp</span></span><span class="soc-go" aria-hidden="true">↗</span></div></a><a class="soc-card" href="https://x.com/bookingyou_jp" target="_blank" rel="noopener" aria-label="X @bookingyou_jp"><div class="soc-shots"><img src="posts/t/044.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"><img src="posts/t/062.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"><img src="posts/t/066.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"></div><div class="soc-meta"><span class="soc-logo"><svg viewbox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"></path></svg></span><span class="soc-text"><span class="soc-name">X</span><span class="soc-handle">@bookingyou_jp</span></span><span class="soc-go" aria-hidden="true">↗</span></div></a><a class="soc-card" href="https://www.tiktok.com/@bookingyou_jp" target="_blank" rel="noopener" aria-label="TikTok @bookingyou_jp"><div class="soc-shots"><img src="posts/t/069.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"><img src="posts/t/070.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"><img src="posts/t/073.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"></div><div class="soc-meta"><span class="soc-logo"><svg viewbox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"></path></svg></span><span class="soc-text"><span class="soc-name">TikTok</span><span class="soc-handle">@bookingyou_jp</span></span><span class="soc-go" aria-hidden="true">↗</span></div></a><a class="soc-card" href="https://www.youtube.com/@BookingYouApp" target="_blank" rel="noopener" aria-label="YouTube @BookingYouApp"><div class="soc-shots"><img src="posts/t/067.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"><img src="posts/t/071.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"><img src="posts/t/084.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"></div><div class="soc-meta"><span class="soc-logo"><svg viewbox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path></svg></span><span class="soc-text"><span class="soc-name">YouTube</span><span class="soc-handle">@BookingYouApp</span></span><span class="soc-go" aria-hidden="true">↗</span></div></a><a class="soc-card" href="https://www.facebook.com/bookingyoujp" target="_blank" rel="noopener" aria-label="Facebook bookingyoujp"><div class="soc-shots"><img src="posts/t/033.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"><img src="posts/t/043.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"><img src="posts/t/059.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"></div><div class="soc-meta"><span class="soc-logo"><svg viewbox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"></path></svg></span><span class="soc-text"><span class="soc-name">Facebook</span><span class="soc-handle">bookingyoujp</span></span><span class="soc-go" aria-hidden="true">↗</span></div></a><a class="soc-card" href="https://line.me/R/ti/p/%40504pmlcw" target="_blank" rel="noopener" aria-label="LINE @504pmlcw"><div class="soc-shots"><img src="posts/t/048.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"><img src="posts/t/139.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"><img src="posts/t/061.jpg" alt="" loading="lazy" decoding="async" width="480" height="480"></div><div class="soc-meta"><span class="soc-logo"><svg viewbox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"></path></svg></span><span class="soc-text"><span class="soc-name">LINE</span><span class="soc-handle">@504pmlcw</span></span><span class="soc-go" aria-hidden="true">↗</span></div></a><div class="soc-yu"><img src="assets/yu-kun-wave.png" alt="" loading="lazy" decoding="async" width="360" height="360"><p>而家以日文帳號為主，其他地區嘅帳號陸續開設。</p></div></div><p class="soc-note">各平台名稱及標誌為其各自擁有者嘅商標。</p></div></div></section><section class="restored restored-mascot" id="mascot"><div data-lang="zh">
   <div class="wrap row row2">
     <div>
       <span class="chip">吉祥物</span>
-      <h2 style="margin-top:14px">U仔</h2>
+      <h2>U仔</h2>
       <p class="lead">一本會走會跳的座枱日曆。日本叫「ユーくん」，英文 Yu-kun，台灣及內地叫小U。見到佢，就知道呢度約得到。</p>
     </div>
-    <div style="text-align:center"><img src="assets/deck-mascot-sheet.jpg" alt="U仔" loading="lazy" decoding="async" style="width:100%;max-width:460px;border-radius:16px;box-shadow:0 14px 32px rgba(11,27,49,.14)"></div>
+    <div><img src="assets/deck-mascot-sheet.jpg" alt="U仔" loading="lazy" decoding="async" width="1122" height="1402"></div>
   </div>
-</section>
-
-<section id="plans">
+</div></section><section class="restored restored-plans" id="plans"><div data-lang="zh">
   <div class="wrap">
     <span class="chip">收費模式</span>
-    <h2 style="margin-top:14px">基本功能永久免費，專業版規劃中</h2>
+    <h2>基本功能永久免費，專業版規劃中</h2>
     <div class="plans">
       <div class="plan plan-core">
-        <span class="badge" style="background:var(--teal);color:#fff">永久免費</span>
+        <span class="badge">永久免費</span>
         <h3>基本版</h3>
         <ul><li>預約頁及 QR 卡</li><li>日曆、代客預約、改期</li><li>提醒及審批規則</li><li>基本功能免月費</li></ul>
       </div>
       <div class="plan plan-pro">
-        <span class="badge" style="background:var(--pale);color:var(--teal)">規劃中</span>
+        <span class="badge">規劃中</span>
         <h3>專業版</h3>
         <ul><li>為成長中店舖而設的進階功能</li><li>專業版尚未推出，定價未定</li></ul>
       </div>
     </div>
     <div class="note">不經手款項：客人直接向店舖付款，因此不收佣金，亦無資金流經平台。</div>
   </div>
-</section>
-
-
-<section id="start" class="bg-a">
+</div></section><section class="restored restored-start" id="start"><div data-lang="zh">
   <div class="wrap">
     <span class="chip">點開始</span>
-    <h2 style="margin-top:14px">三步就收到第一個預約</h2>
+    <h2>三步就收到第一個預約</h2>
     <div class="cards c3">
       <div class="card"><div class="stepno">1</div><h3>登記做商戶</h3><p>用電郵開個帳戶，揀返你間店嘅行業同所在地。</p></div>
       <div class="card"><div class="stepno">2</div><h3>入服務同營業時間</h3><p>每項服務寫低時長同價錢，再設返每日營業時間；休息日同保留時段都可以隨時改。</p></div>
       <div class="card"><div class="stepno">3</div><h3>派 QR 卡或連結俾客人</h3><p>系統即刻生成可列印嘅 QR 卡同預約連結，貼喺店內、放落社交平台或者印上名片。</p></div>
     </div>
   </div>
-</section>
-
-<section id="faq">
+</div></section><section class="faq" id="faq"><div class="wrap faq-grid"><div><p class="section-label">FAQ</p><h2 data-i18n="faqTitle">你可能想知</h2></div><div><details><summary data-i18n="q1">基本功能係咪真係免費？</summary><p data-i18n="a1">預約頁、日曆、代客預約、改期、提醒及審批規則等基本功能免費。專業版仍在規劃中，尚未推出，定價未定。</p></details><details><summary data-i18n="q2">客人一定要下載 App 嗎？</summary><p data-i18n="a2">唔使。客人可以用你分享嘅連結或 QR Code，直接喺瀏覽器提交預約；個別店舖可設定只接受 App 內預約。</p></details><details><summary data-i18n="q3">網頁預約會自動確認嗎？</summary><p data-i18n="a3">網頁預約一律需要店舖確認先成立。App 內預約就可以按時段選擇即時確認或商戶審批。</p></details></div></div></section>
+<section class="restored restored-faq" id="more-faq"><div data-lang="zh">
   <div class="wrap">
     <span class="chip">常見問題</span>
-    <h2 style="margin-top:14px">你可能想問</h2>
+    <h2>你可能想問</h2>
     <div class="faq">
       <details><summary>客人要唔要裝 App 先約到？</summary><p>唔使。客人撳你條連結或者掃 QR 卡，用瀏覽器就可以直接預約，毋須安裝，亦毋須開戶口。網頁預約一律要你確認先成立；已經裝咗 App 嘅客人會直接喺 App 開。</p></details>
       <details><summary>我可以自己代客人落單嗎？</summary><p>可以。電話單同上門單都入得，同網上預約一樣入同一個日曆，會計入統計同客戶紀錄。</p></details>
@@ -588,73 +166,23 @@
       <details><summary>已經喺其他預約平台上架，仲用得嗎？</summary><p>用得。平台幫你招新客，BookingYou 幫你管理所有預約（包括熟客），兩者可以並行。</p></details>
     </div>
   </div>
-</section>
-<section class="final closing-cta" id="download">
-  <div class="wrap">
-    <img class="logo" src="assets/logo.png" alt="BookingYou">
-    <h2>今日就開始收預約</h2>
-    <p>BookingYou：於 App Store 或 Google Play 搜尋</p>
-    <div class="badges">
-      <a href="https://apps.apple.com/app/id6782119326"><img src="assets/badges/apple-zh-hk.svg" alt="Download on the App Store" class="badge-apple"></a>
-      <a href="https://play.google.com/store/apps/details?id=com.bookingyou.app"><img src="assets/badges/google-zh-tw.png" alt="Get it on Google Play" class="badge-google"></a>
-    </div>
-    <p class="dlnote">下載完，用電郵登記就可以開始設定。</p>
-    <a class="mail" href="mailto:contact@bookingyou.app">contact@bookingyou.app</a>
+</div></section><section class="download-area" id="download"><div class="wrap download"><div><p class="section-label">LET'S GET STARTED</p><h2><span data-i18n="cta1">預約有安排，</span><br><span data-i18n="cta2">做生意更自在。</span></h2><p data-i18n="ctaDesc">由今日開始，為你嘅小店多留一點時間。</p></div><div class="download-side"><div class="store-badges"><a href="https://apps.apple.com/app/id6782119326" target="_blank" rel="noopener"><img data-local-asset="apple" alt="Download on the App Store" src="assets/badges/apple-zh-hk.svg" decoding="async"></a><a href="https://play.google.com/store/apps/details?id=com.bookingyou.app" target="_blank" rel="noopener"><img class="google" data-local-asset="google" alt="Get it on Google Play" src="assets/badges/google-zh-tw.png" decoding="async" width="646" height="250"></a></div><p class="download-note" data-i18n="downloadNote">iOS 及 Android 均已上架 · 基本功能免費</p></div><div class="device-showcase">
+  <div class="device-heading"><p class="section-label">BOOKINGYOU · APP &amp; WEB</p><h3 data-i18n="devicesTitle">電話、iPad 同電腦。</h3><p data-i18n="devicesDesc">電話同 iPad 睇 App，電腦瀏覽網站同預約教學。</p></div>
+  <div class="device-stage" role="group" aria-label="BookingYou App 與網站裝置展示">
+    <img class="device-scene" src="preview-assets/device-scene-v11.webp" width="1536" height="1024" alt="電話、iPad 同手提電腦放在明亮木桌上" loading="lazy" decoding="async">
+    <div class="device-display device-tablet"><img src="preview-assets/device-ipad-v11.webp" alt="BookingYou iPad App：瀏覽店舖及服務" width="2064" height="2752" loading="lazy" decoding="async"></div>
+    <div class="device-display device-mobile"><img src="preview-assets/device-phone-v11.webp" alt="BookingYou 手機 App：服務、時長同價錢" width="1320" height="2868" loading="lazy" decoding="async"></div>
+    <div class="device-display device-computer" id="device-desktop-panel"><img id="device-desktop-image" src="preview-assets/device-desktop-1-v11.webp" alt="BookingYou 網站：網頁預約教學" width="3456" height="2234" loading="lazy" decoding="async"></div>
   </div>
-</section>
-
-<footer><div class="wrap foot-row">
-  <img src="assets/logo.png" alt="BookingYou"><span>© 2026 BookingYou</span>
-  <nav class="foot-soc" aria-label="BookingYou 社交平台"><a href="https://www.instagram.com/bookingyou_jp/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></a><a href="https://www.threads.com/@bookingyou_jp" target="_blank" rel="noopener" aria-label="Threads"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18.263 11.097c-.03-3.486-1.92-5.586-5.111-5.586-2.13 0-3.922.963-4.863 2.499l2.062 1.438c.535-.843 1.272-1.543 2.628-1.543 1.528 0 2.318.85 2.544 2.431a15 15 0 0 0-2.236-.173c-4.125 0-6.068 1.867-6.068 4.336s1.943 3.99 4.804 3.99c3.139 0 5.013-2.115 5.781-4.735.798.361 1.348 1.204 1.348 2.47 0 3.387-3.907 5.232-7.22 5.232-4.885 0-8.077-3.207-8.077-8.424 0-6.392 4.223-10.487 9.9-10.487 3.808 0 5.69 1.671 6.97 3.914l2.108-1.475C21.44 2.078 18.331 0 13.663 0 6.227 0 1.168 5.277 1.168 12.934c0 7 4.953 11.066 10.856 11.066 4.878 0 9.809-2.846 9.809-7.716 0-2.545-1.46-4.231-3.569-5.187m-6.33 4.855c-1.077 0-2.026-.512-2.026-1.453 0-1.483 1.822-1.934 3.606-1.934.678 0 1.34.045 1.927.173-.422 1.927-1.671 3.215-3.508 3.214Z"/></svg></a><a href="https://x.com/bookingyou_jp" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"/></svg></a><a href="https://www.tiktok.com/@bookingyou_jp" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a><a href="https://www.youtube.com/@BookingYouApp" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a><a href="https://www.facebook.com/bookingyoujp" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg></a><a href="https://line.me/R/ti/p/%40504pmlcw" target="_blank" rel="noopener" aria-label="LINE"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a></nav>
-  <div class="right"><a href="/about/">關於我們</a><a href="/privacy/">私隱政策</a><a href="/terms/">服務條款</a><a href="mailto:contact@bookingyou.app">聯絡我們</a></div>
-</div></footer>
-<script>
-  (function(){
-    var menus=Array.prototype.slice.call(document.querySelectorAll('.links .menu, .lang-menu'));
-    function closeAll(except){menus.forEach(function(m){if(m!==except)m.removeAttribute('open');});}
-    menus.forEach(function(m){
-      m.addEventListener('toggle',function(){if(m.open)closeAll(m);});
-      m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){m.removeAttribute('open');});});
-    });
-    document.addEventListener('click',function(e){if(!e.target.closest('.menu, .lang-menu'))closeAll();});
-    document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAll();});
-  })();
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script>
-  (function(){
-    if(!window.gsap || !window.ScrollTrigger || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    gsap.registerPlugin(ScrollTrigger);
-
-    gsap.set(['.hero .tag','.hero h1','.hero .hero-subtitle','.hero .cta','.hero .foot','.scroll-down'],{opacity:0,y:30});
-    gsap.set('.hero-visual',{opacity:0,x:42,scale:.97});
-    gsap.set('.card,.tile,.plan,.posters>div,.industry-card,.ps-card,.soc-card,.faq',{opacity:0,y:55,rotateX:18});
-
-    var intro=gsap.timeline({defaults:{ease:'power3.out'}});
-    intro.to('.hero .tag',{opacity:1,y:0,duration:.6})
-      .to('.hero h1',{opacity:1,y:0,duration:.8},'-=.3')
-      .to('.hero .hero-subtitle',{opacity:1,y:0,duration:.6},'-=.5')
-      .to('.hero .cta',{opacity:1,y:0,duration:.5},'-=.3')
-      .to('.hero .foot',{opacity:1,y:0,duration:.45},'-=.2')
-      .to('.hero-visual',{opacity:1,x:0,scale:1,duration:.9},'-=.65')
-      .to('.scroll-down',{opacity:1,y:0,duration:.4},'-=.2');
-
-    ScrollTrigger.batch('.card,.tile,.plan,.posters>div,.industry-card,.ps-card,.soc-card,.faq',{
-      start:'top 80%',
-      onEnter:function(batch){gsap.to(batch,{opacity:1,y:0,rotateX:0,duration:.8,stagger:.11,ease:'power2.out'});}
-    });
-
-    if(!window.matchMedia('(hover: none)').matches){
-      var hero=document.querySelector('.hero');
-      hero.addEventListener('mousemove',function(e){
-        var x=(e.clientX/window.innerWidth-.5)*2;
-        var y=(e.clientY/window.innerHeight-.5)*2;
-        gsap.to('.hero-shapes-back',{x:x*45,y:y*22,duration:.8,overwrite:'auto'});
-        gsap.to('.hero-shapes-mid',{x:x*22,y:y*11,duration:.8,overwrite:'auto'});
-        gsap.to('.hero-board',{x:x*8,y:y*5,duration:.8,overwrite:'auto'});
-      });
-    }
-  })();
-</script>
-</body></html>
+  <div class="device-controls" role="group" aria-label="切換電腦畫面">
+    <span data-i18n="devicesSwitch">電腦畫面</span>
+    <button type="button" data-device-slide="0" aria-pressed="true" aria-controls="device-desktop-panel"><small>01</small><span data-i18n="devicesBooking">預約教學</span></button>
+    <button type="button" data-device-slide="1" aria-pressed="false" aria-controls="device-desktop-panel"><small>02</small><span data-i18n="devicesPosts">宣傳帖文</span></button>
+    <button type="button" data-device-slide="2" aria-pressed="false" aria-controls="device-desktop-panel"><small>03</small><span data-i18n="devicesSocial">社交平台</span></button>
+    <button type="button" data-device-slide="3" aria-pressed="false" aria-controls="device-desktop-panel"><small>04</small><span data-i18n="devicesShops">小店介紹</span></button>
+  </div>
+</div>
+</div></section>
+</main><dialog id="image-viewer" aria-label="圖片詳情"><div class="viewer-bar"><p id="viewer-caption"></p><button id="close-viewer" aria-label="關閉圖片">×</button></div><div class="viewer-image"><img id="viewer-img" alt=""></div><div class="viewer-footer"><button id="previous-image" aria-label="上一張">←</button><span id="viewer-position" aria-live="polite"></span><button id="next-image" aria-label="下一張">→</button></div></dialog>
+<footer class="footer"><div class="wrap"><div class="footer-inner"><a class="wordmark" href="/#top"><img data-asset="logo" alt="" src="assets/logo.png" decoding="async" width="600" height="576"><span>Booking<em>You</em></span></a><div class="footer-links"><a data-page="about/" href="https://bookingyou.app/about/" target="_blank" rel="noopener" data-i18n="nav1">關於 BookingYou</a><a href="https://bookingyou.app/privacy/" target="_blank" rel="noopener" data-i18n="privacy">私隱政策</a><a href="https://bookingyou.app/terms/" target="_blank" rel="noopener" data-i18n="terms">服務條款</a></div></div><p><a class="contact-link" href="mailto:contact@bookingyou.app">contact@bookingyou.app</a></p><p class="copyright">© 2026 BookingYou. All rights reserved.</p></div><nav aria-label="語言 / Languages" class="seo-language-links wrap"><a href="/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a><a href="/en/" hreflang="en" lang="en">English</a><a href="/zh-cn/" hreflang="zh-Hans" lang="zh-Hans">简体中文</a><a href="/ja/" hreflang="ja" lang="ja">日本語</a><a href="/ko/" hreflang="ko" lang="ko">한국어</a><a href="/ms/" hreflang="ms" lang="ms">Bahasa Melayu</a><a href="/th/" hreflang="th" lang="th">ไทย</a><a href="/vi/" hreflang="vi" lang="vi">Tiếng Việt</a></nav></footer>
+<script src="assets/landing-f57649cae0aa.js" defer></script></body></html>

@@ -16,3 +16,11 @@
 `docs/google2e26d24906c57931.html` 係 Google Search Console 擁有權驗證檔；驗證成功後亦要保留，唔加入 sitemap。
 內容跟 `BOOKINGYOU-TEMP/投資者簡報-INVESTOR-DECK/2026-09-14/BookingYou-投資者簡介-繁中.pptx`，
 但唔公開市場數字、經營數字，亦冇簡報第 11–14 頁（進度、定位、團隊、融資需求）。
+
+## 新版中文及日文首頁
+
+`landing/template.html` 是完整共用版面及互動程式的來源；中文預設文字在模板，翻譯及覆寫在 `landing/seo-copy.json`。搜尋摘要及產品定義在 `landing/build.py` 的 CONFIG。`landing/seo-v11.css` 補充響應式樣式，`landing/seo-runtime.js` 處理語言路由。
+
+完整生成前需要安裝 `python3 -m pip install -r docs/_src/landing/requirements.txt`。執行原有 `python3 docs/_src/render.py` 會先更新八語共用頁面，再生成新版中文及日文首頁。只修改新版時亦可執行 `python3 docs/_src/landing/build.py`。兩個入口均可重複執行。輸出 CSS/JS 使用內容雜湊檔名；正式首頁不含預覽標籤或 noindex。
+
+相片和裝置素材在 `docs/preview-assets/`（沿用預覽階段檔名），App 截圖在 `docs/app-screens/`。`landing/assets.json` 管理品牌、商店徽章等資源路徑。修改互動程式後請執行 `node --check`，並驗證手機版、語言切換、圖片放大及裝置畫面切換。
