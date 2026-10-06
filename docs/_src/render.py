@@ -160,3 +160,7 @@ for theme in THEMES:
     print(f'方案 {theme["label"]} → /concepts/{theme["slug"]}/  {len(themed):6d} bytes')
 
 write_discovery(OUT, PATHS, L)
+
+# Apply the approved redesigned homepages after shared locale metadata is generated.
+from landing.build import build as build_landing
+build_landing()
