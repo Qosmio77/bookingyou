@@ -1,0 +1,940 @@
+{
+  "map": {
+    "10 個小類": "10 service types",
+    "12 個小類": "12 service types",
+    "12 個行業分組 · 122 個服務例子": "12 industry groups · 122 service examples",
+    "App 預約可按時段設定即時確認或商戶審批；網頁預約一律要商戶確認先成立。": "In-app bookings follow the time slot’s instant-confirmation or merchant-approval setting. Web bookings always require merchant confirmation.",
+    "BookingYou 對應方法": "How BookingYou helps",
+    "IT 及 AI 顧問": "IT & AI consulting",
+    "Podcast 錄音室": "Podcast studio",
+    "QR 預約連結": "QR booking link",
+    "U仔": "U",
+    "VR 及電競": "VR & esports",
+    "WhatsApp、IG、電話同紙本各有預約": "Bookings are split across WhatsApp, Instagram, calls and paper",
+    "三步完成預約": "Three-step booking",
+    "三步就收到第一個預約": "Three steps to your first booking",
+    "不經手款項：客人直接向店舖付款，因此不收佣金，亦無資金流經平台。": "No payment handling: customers pay the shop directly, so there is no commission and no money in transit.",
+    "中醫": "Chinese medicine",
+    "人像攝影": "Portrait photography",
+    "以下係適用服務例子，唔係 App 內分類選單嘅數目。 搵唔到你嘅行業？只要客人需要預約時間，通常都可以用 BookingYou。": "These are examples of suitable services, not a count of categories in the app. Cannot find your trade? If customers book a time with you, BookingYou will usually fit.",
+    "任何時間都睇到可預約時段": "Show available times at any hour",
+    "休息日、食飯時間都被人預約": "Customers book over breaks or closed days",
+    "你可能想問": "You might be wondering",
+    "保險顧問": "Insurance advice",
+    "個人色彩分析": "Personal colour analysis",
+    "個別店舖只接受 App 內預約，預約頁一開就會講明，並俾你一粒掣開 App。": "Some shops take bookings in the app only. The page says so straight away and gives you a button to open the app.",
+    "做緊服務，電話同訊息不停響": "Calls and messages interrupt every service",
+    "停手回覆會打斷服務；唔覆又怕走失新客。": "Stopping to reply breaks your focus; staying silent risks losing a new customer.",
+    "健康、復康及養生": "Health, rehab & wellness",
+    "健身及運動教練": "Fitness & sports coaching",
+    "傢俬安裝": "Furniture assembly",
+    "入服務同營業時間": "Add services and opening hours",
+    "公司秘書": "Company secretary",
+    "冇戶口，所以預約連結就係你嘅憑證。請儲存低，唔好分享俾人。": "There is no account, so your booking link is your key. Save it and don’t share it.",
+    "冷氣清洗": "Air-con cleaning",
+    "分享專屬連結或 QR Code，客人自己揀服務、日期同時間。": "Share your own link or QR code so customers can choose the service, date and time.",
+    "到會試食": "Catering tasting",
+    "加入之後即有可印刷的 QR 卡同社交平台貼文圖，唔使自己搵設計。": "Printable QR cards and social posts come with the app — no designer needed.",
+    "化妝服務": "Makeup artist",
+    "取消、重開、再確認，容易記錯新時間或遺失原有紀錄。": "Cancelling, re-creating and confirming a booking makes the new time easy to lose.",
+    "只會顯示仲有位嘅時段，時間係店舖當地時間；休息日會變灰，揀唔到。": "Only times that are still free are shown, in the shop’s local time. Closed days are greyed out.",
+    "只要生意係「客人約時間上嚟」，呢套流程就啱用。以下係已經用得上嘅行業，其他類似模式嘅店都一樣得。": "If customers book a time to visit your business, this workflow fits. These are suitable industries; shops with a similar way of working can use it too.",
+    "只記低開始時間，未必能準確掌握每節尚餘名額。": "A start time alone does not show how many places remain in a class or activity.",
+    "可以。電話單同上門單都入得，同網上預約一樣入同一個日曆，會計入統計同客戶紀錄。": "Yes. Phone and walk-in bookings go into the same calendar as online ones, and they count in your statistics and customer records.",
+    "各平台名稱及標誌為其各自擁有者嘅商標。": "Platform names and logos are trademarks of their respective owners.",
+    "吉祥物": "Mascot",
+    "同一套工具，適用於各類預約制小店": "One tool for every appointment-based shop",
+    "咖啡品鑑": "Coffee tasting",
+    "咖啡拉花": "Latte art",
+    "品酒及清酒": "Wine & sake tasting",
+    "唔使。客人撳你條連結或者掃 QR 卡，用瀏覽器就可以直接預約，毋須安裝，亦毋須開戶口。網頁預約一律要你確認先成立；已經裝咗 App 嘅客人會直接喺 App 開。": "No. Customers tap your link or scan your QR card and book right in the browser — no install and no account. Every web booking waits for your confirmation, and customers who already have the app go straight into it.",
+    "唔使改變你原本做生意嘅方式。BookingYou 只係將最花時間、最容易出錯嘅預約工作接過來。": "You do not need to rebuild the way you run your business. BookingYou takes over the booking tasks most likely to waste time or go wrong.",
+    "唔會。客人係直接俾錢你間店，我哋唔經手任何款項，所以亦冇佣金。": "No. Customers pay your shop directly. We never handle the money, so there is no commission.",
+    "商戶": "For shops",
+    "商戶及客人總覽": "Merchant and customer overview",
+    "商戶或客人都可按需要更改時間，毋須重新建立整張預約。": "The business or customer can change the time without rebuilding the entire booking.",
+    "商戶日常": "Everyday operations",
+    "商戶痛點": "Merchant pain point",
+    "單一確認方式太死板，未能配合每日不同人手和工作量。": "One confirmation rule cannot match changing staffing and workload.",
+    "喺 App 分享你嘅預約連結或者 QR 卡，客人即刻可以用網頁預約。每張網頁單都要你確認先成立；你亦可以揀只接受 App 內預約。": "Share your booking link or QR card from the app and customers can book on the web right away. Every web booking waits for your confirmation, and you can choose to take bookings in the app only.",
+    "喺你常用嘅平台追蹤 BookingYou": "Follow BookingYou where you already are",
+    "團體班或多人服務容易超額": "Group sessions are easily overbooked",
+    "地產、零售及產品體驗": "Property, retail & product experiences",
+    "基本功能免月費": "No monthly fee for core features",
+    "基本功能永久免費，專業版規劃中": "Core features free forever; Pro is planned",
+    "基本版": "Core",
+    "填姓名同電話": "Enter your name and phone",
+    "婚禮攝影": "Wedding photography",
+    "婚禮統籌": "Wedding planning",
+    "婚紗試身": "Wedding-dress fitting",
+    "客人可隨時查看時段並提交申請；網頁預約要商戶確認先成立。": "Customers can view slots and submit a request at any time. Web bookings require merchant confirmation.",
+    "客人同店主都可以改期，唔使取消再重新預約，原本嗰張單保留住，方便你睇返實際情況。": "Both sides can reschedule without cancelling, so the original booking stays intact and your numbers stay honest.",
+    "客人想即時知道有冇位，等到第二日先覆往往太遲。": "Customers want to know what is available now, not wait until the next morning.",
+    "客人經你的連結或 QR Code 預約，直接向商戶付款，BookingYou 不抽佣。": "Customers book through your link or QR code and pay the business directly. BookingYou takes no commission.",
+    "客人臨時改時間點算？": "What if a customer needs a different time?",
+    "客人要唔要裝 App 先約到？": "Does the customer need the app to book?",
+    "客人資料靠記憶，跟進容易斷線": "Customer history lives in someone’s memory",
+    "宣傳": "Brand",
+    "室內設計": "Interior design",
+    "家居及上門服務": "Home & on-site services",
+    "家居清潔": "Home cleaning",
+    "家電清潔": "Appliance cleaning",
+    "密室逃脫": "Escape room",
+    "寵物保姆": "Pet sitting",
+    "寵物按摩": "Pet massage",
+    "寵物攝影": "Pet photography",
+    "寵物服務": "Pet services",
+    "寵物沖涼": "Pet bathing",
+    "寵物營養": "Pet nutrition",
+    "寵物美容": "Pet grooming",
+    "寵物訓練": "Pet training",
+    "專業及商業服務": "Professional & business services",
+    "專業版": "Pro",
+    "專業版尚未推出，定價未定": "Pro is not available yet; pricing is undecided",
+    "差異": "What’s different",
+    "已經喺其他預約平台上架，仲用得嗎？": "I already list on a booking portal. Can I still use this?",
+    "市場推廣及 SEO": "Marketing & SEO",
+    "常見問題": "FAQ",
+    "平面設計": "Graphic design",
+    "店主自行決定哪些時段自動確認": "The owner decides which hours book themselves",
+    "店舖只需要呢兩樣，備註可以選填。唔使註冊。": "That’s all the shop needs. A note is optional. No sign-up.",
+    "店舖可直接用的宣傳素材": "Ready-made materials for your shop",
+    "店舖確認之後，預約連結上面嘅狀態會由「待確認」變成「已確認」。": "Once the shop confirms, the status on your booking link changes from “Waiting for the shop” to “Confirmed”.",
+    "建立自己的直接預約入口": "Own a direct booking channel",
+    "形象顧問": "Image consultant",
+    "影片製作": "Video production",
+    "心理輔導": "Counselling",
+    "忘記上次服務、偏好或預約紀錄，影響下次接待。": "Past services, preferences and booking details are easy to forget before the next visit.",
+    "忙到唔記得提醒，客人又忘記到場": "Manual reminders are easy to forget",
+    "想收提醒、同店舖傾偈、一次過管理所有預約？裝 App 就得。": "Want reminders, chat with the shop and all your bookings in one place? Get the app.",
+    "我可以自己代客人落單嗎？": "Can I enter a booking for a customer myself?",
+    "所有渠道放回同一個日曆": "Bring every channel into one calendar",
+    "手機維修": "Phone repair",
+    "手錶維修": "Watch repair",
+    "招聘及職涯": "Recruitment & career",
+    "拳擊及泰拳": "Boxing & Muay Thai",
+    "按實際營運封鎖時間": "Block time around real operations",
+    "按揭顧問": "Mortgage advice",
+    "按摩治療": "Massage therapy",
+    "按時段設定是否需要審批": "Per-window approval setting",
+    "按課堂、活動或服務設定容量，額滿後不再接受新預約。": "Define the limit for each class, event or service and stop bookings when it is full.",
+    "揀日期同時間": "Pick a date and time",
+    "揀服務": "Choose a service",
+    "提交，等店舖確認": "Send it and wait for the shop",
+    "提醒及審批規則": "Reminders and approval rules",
+    "搬屋估價": "Moving estimate",
+    "撳店舖喺 Instagram、通訊 App 或者網站放嘅 BookingYou 連結，或者掃舖面張 QR 卡，瀏覽器就會開到預約頁。": "Tap the BookingYou link the shop shares on Instagram, a messaging app or its website, or scan the QR card at the counter. The booking page opens in your browser.",
+    "攝影、創作及活動": "Photography, creative & events",
+    "攝影及排練室": "Photo & rehearsal studio",
+    "收到店舖嘅 BookingYou 連結或者 QR code？用手機或者電腦嘅瀏覽器開，就可以直接預約。唔使下載，亦唔使開戶口。": "Got a shop’s BookingYou link or QR code? Open it in any browser, on your phone or computer, and book right there. No download and no account.",
+    "收舖後未覆，客人已經搵第二間": "After-hours enquiries go to another business",
+    "收費模式": "Pricing",
+    "改一次期，要來回幾輪訊息": "One reschedule takes several messages",
+    "改衣服務": "Clothing alterations",
+    "放狗服務": "Dog walking",
+    "教育、補習及培訓": "Education, tutoring & training",
+    "整脊及整骨": "Chiropractic & osteopathy",
+    "新功能、使用貼士同各行各業嘅預約例子，第一時間喺社交平台出。": "New features, how-to tips and booking ideas for every kind of business — shared on social first.",
+    "旅遊、娛樂及場地": "Travel, entertainment & venues",
+    "日曆、代客預約、改期": "Calendar, walk-in bookings, rescheduling",
+    "旺時想先審批，淡時又想即時確認": "Busy slots need approval; quiet slots do not",
+    "明明是自己經營回來的客人，重複預約仍要增加成本。": "Customers you earned yourself should not keep adding a commission cost when they return.",
+    "時段、人數、休息日及審批規則均在資料庫檢查，即使改動客戶端亦無法繞過。": "Timing, capacity, closed days and approval rules are checked in the database, so a modified client cannot book around them.",
+    "普拉提": "Pilates",
+    "智能家居安裝": "Smart-home setup",
+    "會唔會抽佣或者經手客人嘅錢？": "Do you take a commission or hold my money?",
+    "會計服務": "Accounting",
+    "會議室": "Meeting room",
+    "服務對象": "Who we serve",
+    "服務條款": "Terms of Service",
+    "本地導賞": "Local tour",
+    "查看全部": "View all",
+    "樂器維修": "Instrument repair",
+    "每個時段獨立設定確認方式": "Choose confirmation rules by time slot",
+    "每個預約問題，都有清楚的處理方法": "A clear answer to every booking problem",
+    "每項服務寫低時長同價錢，再設返每日營業時間；休息日同保留時段都可以隨時改。": "Give each service a duration and price, set your weekly hours, and adjust closed days or reserved slots any time.",
+    "每項服務都寫明時長同價錢，揀你想要嗰項。": "Each service shows its duration and price. Pick the one you want.",
+    "水喉維修": "Plumbing",
+    "永久免費": "Free, permanently",
+    "汽車保養": "Car maintenance",
+    "汽車美容": "Car detailing",
+    "法律諮詢": "Legal consultation",
+    "派 QR 卡或連結俾客人": "Share your QR card or link",
+    "派對場地": "Party venue",
+    "深層清潔": "Deep cleaning",
+    "游泳教練": "Swimming coach",
+    "滅蟲服務": "Pest control",
+    "滑浪及直立板": "Surfing & SUP",
+    "潛水及浮潛": "Diving & snorkelling",
+    "為成長中店舖而設的進階功能": "Advanced tools for growing shops",
+    "為每節設定人數上限": "Set a capacity for every session",
+    "烘焙班": "Baking class",
+    "烹飪及烘焙": "Cooking & baking",
+    "烹飪班": "Cooking class",
+    "熟客每次都經平台，持續被抽佣": "Repeat customers still create platform fees",
+    "營業時間不等於每一分鐘都可以接客。": "Published opening hours do not mean every minute is available for appointments.",
+    "營養諮詢": "Nutrition advice",
+    "物業估價": "Property valuation",
+    "物理治療": "Physiotherapy",
+    "獸醫診所": "Veterinary clinic",
+    "珠寶維修": "Jewellery repair",
+    "珠寶預約": "Jewellery appointment",
+    "瑜伽": "Yoga",
+    "產品攝影": "Product photography",
+    "產後護理": "Postnatal care",
+    "用得。平台幫你招新客，BookingYou 幫你管理所有預約（包括熟客），兩者可以並行。": "Yes. Portals bring new customers; BookingYou runs every booking including your regulars. They work side by side.",
+    "用電郵開個帳戶，揀返你間店嘅行業同所在地。": "Create an account with your email, then pick your category and location.",
+    "男士理髮": "Barber",
+    "留意": "Good to know",
+    "畫面係示範店舖嘅實際網頁預約頁。": "Screens show the live web booking page of our demo shop.",
+    "登記做商戶": "Register as a merchant",
+    "直接改期並保留預約紀錄": "Reschedule without losing the booking record",
+    "相機維修": "Camera repair",
+    "眼鏡試戴": "Eyewear fitting",
+    "睇下點運作": "See how it works",
+    "社交平台": "Social",
+    "私人健身": "Personal training",
+    "私人導遊": "Private guide",
+    "私人補習": "Private tutoring",
+    "私房菜": "Private dining",
+    "私隱政策": "Privacy Policy",
+    "移民顧問": "Immigration advice",
+    "稅務顧問": "Tax advisory",
+    "系統即刻生成可列印嘅 QR 卡同預約連結，貼喺店內、放落社交平台或者印上名片。": "A printable QR card and booking link are generated right away — put them on the counter, in your social profile or on a business card.",
+    "紋身及穿耳": "Tattoo & piercing",
+    "紋身設計諮詢": "Tattoo consultation",
+    "結他課": "Guitar lessons",
+    "維修、汽車及技術": "Repair, automotive & tech",
+    "網上預約、電話單同上門客都可以由商戶統一加入管理。": "Add online, phone and walk-in bookings to one place managed by the business.",
+    "網球教練": "Tennis coach",
+    "網頁預約": "Web booking",
+    "網頁預約 · 新": "Web booking · New",
+    "網頁預約要店舖確認先算成立。提交之後會有一條「你嘅預約連結」，儲存低，之後靠佢睇狀態或者取消。": "Web bookings are confirmed by the shop. After you submit, you get your own booking link — save it to check the status or cancel later.",
+    "編程及 STEM": "Coding & STEM",
+    "繪畫及書法": "Art & calligraphy",
+    "美容及個人護理": "Beauty & personal care",
+    "美甲": "Nail studio",
+    "美睫及眉形": "Lash & brow",
+    "羽毛球教練": "Badminton coach",
+    "而家以日文帳號為主，其他地區嘅帳號陸續開設。": "Our accounts are currently in Japanese. More regions are on the way.",
+    "而家唔使裝 App，用瀏覽器就約到": "Book in your browser — no app needed",
+    "聲樂課": "Vocal coaching",
+    "職業治療": "Occupational therapy",
+    "職涯教練": "Career coaching",
+    "脫毛": "Hair removal",
+    "臨時缺席令原本可以接客的時段白白留空。": "A last-minute no-show leaves time that could have gone to another customer.",
+    "自動發送預約提醒": "Send booking reminders automatically",
+    "舉個例：星期二下午三點通常都做得切，就設成即時確認；星期六夜晚係黃金時段，想自己揀客就設成要審批。同一間店，唔同時段唔同規則。": "For example: Tuesday at 3pm is usually easy to fit in, so it confirms instantly. Saturday evening is your busiest slot, so it waits for your approval. Same shop, different rules by hour.",
+    "舞蹈導師": "Dance lessons",
+    "茶道體驗": "Tea ceremony",
+    "蛋糕裝飾": "Cake decorating",
+    "行山領隊": "Hiking guide",
+    "裝修報價": "Renovation quotation",
+    "西裝度身": "Suit fitting",
+    "規則在伺服器執行，不只在 App 內": "Enforced on the server, not only in the app",
+    "規劃中": "Planned",
+    "言語治療": "Speech therapy",
+    "設定休息日、私人時段和保留時段，只開放真正可以接單的時間。": "Close holidays, breaks and reserved periods, then offer only times you can actually serve.",
+    "語言課程": "Language lessons",
+    "調酒班": "Bartending class",
+    "讓客人 24 小時自己預約": "Let customers book themselves, 24/7",
+    "資料散落幾個地方，忙起來最容易漏單或撞期。": "Scattered information makes missed bookings and double bookings much more likely.",
+    "跑步教練": "Running coach",
+    "遊艇活動": "Yacht experience",
+    "運動場地": "Sports court",
+    "針灸": "Acupuncture",
+    "鋼琴課": "Piano lessons",
+    "錄音室": "Recording studio",
+    "開店舖條連結": "Open the shop’s link",
+    "陳列室示範": "Showroom demo",
+    "集中保留顧客和預約紀錄": "Keep customer and booking records together",
+    "電工服務": "Electrician",
+    "電腦維修": "Computer repair",
+    "需要時快速查看過往資料，讓回訪客得到更連貫的服務。": "Review previous information when needed and give returning customers a more consistent experience.",
+    "露營體驗": "Camping experience",
+    "面部及皮膚護理": "Facial & skincare",
+    "鞋履及手袋維修": "Shoe & bag repair",
+    "預約睇樓": "Property viewing",
+    "預約資料和時間清楚送到客人手上，減少靠人手逐個通知。": "Keep the date and time clear for customers without messaging every person by hand.",
+    "預約頁及 QR 卡": "Booking page and QR card",
+    "預約頁：填姓名同電話": "Booking page: name and phone",
+    "預約頁：店舖資料同揀服務": "Booking page: shop details and service",
+    "預約頁：揀日期同時間": "Booking page: date and time",
+    "領養面談": "Adoption interview",
+    "餐飲及工作坊": "Food, drink & workshops",
+    "駕駛導師": "Driving instructor",
+    "驗樓服務": "Home inspection",
+    "高爾夫教練": "Golf coach",
+    "髮型屋": "Hair salon",
+    "點開始": "Getting started",
+    "45 分鐘 · 個別指導": "45 minutes · Individual coaching",
+    "45分 · 個別指導": "45 min · Individual coaching",
+    "60 分鐘 · 一對一服務": "60 minutes · One-to-one service",
+    "60 分鐘 · 一對一課堂": "60 minutes · One-to-one lesson",
+    "8 種介面語言": "8 interface languages",
+    "90 分鐘 · 美甲服務": "90 minutes · Nail service",
+    "App 內預約可按時段選即時確認或審批；網頁預約仍需商戶確認。": "In-app bookings can use instant confirmation or approval by time slot; web bookings still require merchant confirmation.",
+    "App 展示素材；店舖、日期及金額為畫面示例。實際版面以使用中的 App 為準。": "App promotional screens; shops, dates and amounts are examples. Refer to the app you are using for the current interface.",
+    "App 畫面": "App screens",
+    "App 畫面可以放大，亦可以切換「商戶日常管理」，睇返時段、營業時間同語言設定。": "Enlarge the app screens, or switch to “Daily shop management” to see time slots, opening hours and language settings.",
+    "BookingYou App 畫面": "BookingYou app screens",
+    "BookingYou App 與網站裝置展示": "BookingYou app and website across devices",
+    "BookingYou iPad App：瀏覽店舖及服務": "BookingYou iPad app: browse shops and services",
+    "BookingYou · 分享預約連結": "BookingYou · Share a booking link",
+    "BookingYou · 店舖 QR 卡": "BookingYou · Shop QR card",
+    "BookingYou · 揀日子同時間": "BookingYou · Choose a date and time",
+    "BookingYou · 搵店及服務": "BookingYou · Find shops and services",
+    "BookingYou · 服務、時長同價錢": "BookingYou · Services, duration and prices",
+    "BookingYou · 首頁設計預覽": "BookingYou · Homepage design preview",
+    "BookingYou 係為預約制小店而設嘅預約管理 App，適合美容、美髮、美甲、私人教練、教學及寵物美容。商戶可以管理日曆、代理預約、改期同提醒；客人透過連結或 QR Code 提交網頁預約，經商戶確認後成立。基本功能免費，零預約佣金。": "BookingYou is a booking management app for independent appointment-based businesses, including beauty, hair, nails, personal training, teaching and pet grooming. Manage calendars, bookings on behalf of customers, rescheduling and reminders. Customers submit web requests through a link or QR code, with bookings confirmed by the merchant. Core features are free, with no booking commission.",
+    "BookingYou 吉祥物": "BookingYou mascot",
+    "BookingYou 商戶端展示畫面。實際版面以使用中 App 為準。": "BookingYou merchant app demonstration. Refer to the app you are using for the current interface.",
+    "BookingYou 商戶管理畫面": "BookingYou merchant management screens",
+    "BookingYou 商戶管理首頁": "BookingYou merchant dashboard",
+    "BookingYou 手機 App：服務、時長同價錢": "BookingYou mobile app: services, duration and prices",
+    "BookingYou 為美容、美髮、美甲、私人教練、教學及寵物美容小店提供預約管理。分享連結或 QR Code，客人免下載 App 即可提交網頁預約，商戶確認後成立。基本功能免費，零預約佣金。": "BookingYou helps beauty, hair, nail, personal training, teaching and pet grooming businesses manage bookings. Share a link or QR code so customers can submit web requests without downloading the app, then confirm them yourself. Core features are free, with no booking commission.",
+    "BookingYou 網站：網頁預約教學": "BookingYou website: web booking guide",
+    "BookingYou 網頁預約實際示範畫面；店舖、服務及日期只作展示。": "A real BookingYou web booking demonstration; shop, service and date details are for illustration only.",
+    "BookingYou 預約時段畫面": "BookingYou booking time slots",
+    "FB／IG 帖文": "FB / IG posts",
+    "SNS投稿": "Social posts",
+    "U 仔提提你": "A tip from U",
+    "iOS 及 Android 均已上架 · 基本功能免費": "Available on iOS and Android · Free core features",
+    "一個日曆，全部安排好。": "One calendar. Everything in order.",
+    "一掃就打開預約頁": "Scan to open the booking page",
+    "一撳分享預約連結": "Share your booking link with a tap",
+    "一條專屬連結，": "Your own link,",
+    "一條連結，客人用瀏覽器就可以預約。": "One link lets customers book in their browser.",
+    "一節訓練，一個清楚嘅安排。": "Every training session, clearly planned.",
+    "上一張": "Previous image",
+    "下一張": "Next image",
+    "下載 App": "Download the app",
+    "下載 BookingYou，登記商戶、建立服務，再設定營業時間及分享預約連結。基本功能免費，零預約佣金。": "Download BookingYou, register your business, add services, set opening hours and share your booking link. Free core features, with no booking commission.",
+    "主選單": "Main menu",
+    "了解更多使用方式": "Explore more ways to use BookingYou",
+    "了解網頁預約": "Explore web booking",
+    "今日有幾多堂，一眼睇到": "See today’s lessons at a glance",
+    "介面語言": "Interface language",
+    "以上係使用情境示例；服務、時間及時長只作說明。實際可預約安排，以各商戶設定為準。": "These are example scenarios. Services, times and durations are illustrative. Actual booking availability depends on each merchant’s settings.",
+    "以上服務名稱及時長只作設定例子，唔係行業標準或實際店舖資料。請按服務內容、準備及清潔需要調整。": "Service names and durations above are setup examples, not industry standards or real shop details. Adjust them to allow for the service, preparation and cleaning.",
+    "以上為常見的預約服務行業。BookingYou 同樣適用於各類需要預約安排的業務，讓不同規模的小店及專業服務都能靈活管理預約。": "These are some common appointment-based industries. BookingYou also supports a wide range of businesses that need scheduled appointments, helping independent shops and professional services of different sizes manage bookings flexibly.",
+    "件": "items",
+    "休息時間預先留好": "Set aside breaks in advance",
+    "你可能想知": "Questions you may have",
+    "你嘅小店，你嘅預約節奏。": "Your shop. Your booking rhythm.",
+    "你熟悉嘅日常難題，逐個安排好。": "Bring order to the everyday challenges you know.",
+    "佣金": "Commission",
+    "個別體驗課": "Individual trial lesson",
+    "做生意更自在。": "Run your business with more ease.",
+    "先將服務同所需時間寫清楚。": "Start with clear services and durations.",
+    "先揀服務，再揀時段": "Choose a service, then a time",
+    "免費": "Free",
+    "免費開始使用": "Get started for free",
+    "全部語言": "All languages",
+    "公式SNS": "Official social accounts",
+    "分享一條店舖連結": "Share one shop link",
+    "分享店舖連結或 QR Code，客人用瀏覽器揀服務、日期同時間，唔使下載 App。網頁預約由你確認後先成立。": "Share your shop link or QR code. Customers choose a service, date and time in their browser without downloading the app. Web bookings only become confirmed after your approval.",
+    "分享預約連結": "Share a booking link",
+    "切換電腦畫面": "Switch desktop screen",
+    "列出課堂名稱、價錢同所需時間，方便學生預約前了解。": "List each lesson’s name, price and duration so students know what to expect before booking.",
+    "列明療程、價錢同所需時間，方便客人揀啱服務。": "List treatment details, prices and durations so customers can choose the right service.",
+    "利用規約": "Terms of Service",
+    "功能介紹": "Features",
+    "可預約日期及時段": "Available dates and time slots",
+    "各行各業，預約都有自己嘅節奏。": "Every industry has its own booking rhythm.",
+    "呢個行業，仲有咩要留意？": "What else should this industry consider?",
+    "呢度展示原有帖文圖片；想睇原帖內容、留言及最新動態，可前往官方社交帳號。": "Original post images are shown here. Visit our official social accounts for the original posts, comments and latest updates.",
+    "唔使。客人可以用你分享嘅連結或 QR Code，直接喺瀏覽器提交預約；個別店舖可設定只接受 App 內預約。": "No. Customers can use your shared link or QR code to submit a booking in their browser. Individual shops may choose to accept in-app bookings only.",
+    "商戶日常管理": "Daily shop management",
+    "商戶管理": "Merchant management",
+    "商戶管理首頁": "Merchant dashboard",
+    "商戶預約管理首頁": "Merchant booking dashboard",
+    "商戶點樣睇到同處理預約？": "How do merchants view and handle bookings?",
+    "單色、造型款式同卸甲服務分開列明，客人預約前了解所需時間，方便你安排每一節接待。": "List plain colours, nail designs and removal as separate services. Customers can see the time needed before booking, helping you plan each appointment.",
+    "單色凝膠美甲": "Single-colour gel manicure",
+    "喺原有預約改時間，毋須取消後重新開一張預約。": "Change the time on the existing booking without cancelling and creating a new one.",
+    "喺原有預約調整日期同時間，整理每堂最新安排。": "Update the date and time on the original booking to keep each lesson’s latest arrangement clear.",
+    "圖片詳情": "Image details",
+    "基本功能係咪真係免費？": "Are the core features really free?",
+    "基本功能免費": "Free core features",
+    "基本功能免費 · 零佣金 · iOS / Android": "Free core features · No commission · iOS / Android",
+    "完整功能": "All features",
+    "客人一定要下載 App 嗎？": "Do customers have to download the app?",
+    "客人免 App 預約教學": "Booking without the app: a customer guide",
+    "客人免下載 App，都可以提交網頁預約。": "Customers can submit web bookings without downloading the app.",
+    "客人掃 QR Code 就可以打開預約頁，適合放喺店內同名片。": "Customers scan the QR code to open your booking page. Place it in your shop or on business cards.",
+    "客人提交咗，仲要等你確認。": "Submitted by the customer. Confirmed by you.",
+    "客人查看日期同可預約時間；商戶按實際營運管理可用時段。": "Customers browse available dates and times; merchants manage availability around their actual operations.",
+    "客人直接向店舖付款": "Customers pay the shop directly",
+    "客人自己揀時間，店主輕鬆管理全日。將電話、訊息同上門預約，放返同一個日曆。": "Customers choose their time; you manage your day. Bring phone, message and walk-in bookings into one calendar.",
+    "客人自己約，你專心做好服務。": "Customers book. You focus on great service.",
+    "客人透過手機預約": "A customer booking on a phone",
+    "客人選擇日期及預約時間": "A customer choosing a date and time",
+    "客人預約": "Customer bookings",
+    "客人點樣預約？": "How do customers book?",
+    "宣傳帖文": "Promotional posts",
+    "対応業種": "Industries",
+    "將可接堂時間整理好，學員按空檔提交一對一訓練預約。電話約好嘅堂亦可以由你加入。": "Organise your available training hours so clients can request one-to-one sessions. You can also add sessions agreed by phone.",
+    "將店舖 QR Code 放喺介紹卡或門口，方便學生同家長進入。": "Put your shop QR code on an information card or at the entrance so students and parents can open the booking page.",
+    "將每日預約集中管理": "Manage your daily bookings in one place",
+    "將連結放喺 Instagram 或訊息，客人直接打開預約頁。": "Put your link on Instagram or in a message so customers can open your booking page directly.",
+    "將連結放喺 WhatsApp、Instagram、Facebook 或網站，方便客人返嚟約。": "Share your link on WhatsApp, Instagram, Facebook or your website so customers can easily book again.",
+    "將預約連結放喺社交簡介，客人先睇服務同時長，再提交合適時間。你喺接待空檔確認安排。": "Add your booking link to your social profile. Customers read the services and durations, then request a suitable time. You confirm the details between appointments.",
+    "將體驗課同個別指導分開列出，學生或家長睇清楚內容再選時間。你集中整理授課日程。": "List trial lessons and individual tuition separately so students or parents can understand the content before choosing a time. Keep your teaching schedule in one place.",
+    "專心做護理，客人自己揀時間。": "Focus on the treatment. Let customers choose their time.",
+    "小店介紹": "Shop introduction",
+    "小店嘅每一個預約，": "Every booking at your shop,",
+    "小店日常、預約教學，一齊分享。": "Sharing shop life and booking tips.",
+    "小店日常、預約教學，一齊喺社交平台分享。": "Sharing shop life and booking tips on social media.",
+    "小店預約管理系統": "Booking management for independent businesses",
+    "就係你嘅網上預約前台。": "becomes your online booking desk.",
+    "已切換至：": "Switched to:",
+    "已閱讀": "Read",
+    "已顯示": "Showing",
+    "帖文語言": "Post language",
+    "幫電話同上門客人加入預約，連同網上預約一齊管理。要改時間，直接改期就得，毋須取消再開新單。": "Add phone and walk-in bookings alongside online requests. If the time changes, reschedule directly without cancelling and creating another booking.",
+    "幫電話或上門客人加入預約，集中睇每日安排。": "Add phone and walk-in bookings to see your daily schedule in one place.",
+    "幾時接客、幾時休息，": "When to welcome customers, when to take a break —",
+    "店主專心接待客人": "An owner focused on serving a customer",
+    "店舖 QR 卡": "Shop QR card",
+    "店舖及服務選擇畫面": "Shop and service selection screens",
+    "店舖專屬 QR 卡": "Your shop’s QR card",
+    "張": "images",
+    "忙緊服務，唔使再分心覆訊息。BookingYou 幫你集中管理預約、改期同提醒，讓你騰出時間，好好照顧眼前每一位客人。": "Stay focused during services instead of replying to every message. BookingYou brings bookings, rescheduling and reminders together, leaving more time for the customer in front of you.",
+    "想睇清楚啲？撳一下畫面就得。": "Want a closer look? Tap any screen.",
+    "所有預約，一眼睇清": "All your bookings at a glance",
+    "手数料": "Commission",
+    "按地區同服務類型搵店，先睇相片同服務資料，再選擇預約。": "Find shops by area and service type. Browse photos and service details before booking.",
+    "按實際教學時間同休息日，管理可供預約嘅空檔。": "Manage available slots around your teaching hours and days off.",
+    "按時段設定確認方式": "Set confirmation rules by time slot",
+    "揀一個行業，睇下由客人預約到安排每日工作，可以點樣用 BookingYou。": "Choose an industry to see how BookingYou can help, from customer bookings to your daily schedule.",
+    "揀日子同時間": "Choose a date and time",
+    "揀日子，再揀時間": "Pick a date, then a time",
+    "提交申請 → 商戶確認 → 預約成立": "Submit a request → Merchant confirms → Booking confirmed",
+    "搵到啱你嘅店": "Find the right shop for you",
+    "搵店及服務": "Find shops and services",
+    "支援繁中、英文、簡中、日文、韓文、馬來文、泰文及越南文，按需要切換。": "Switch between Traditional Chinese, English, Simplified Chinese, Japanese, Korean, Malay, Thai and Vietnamese.",
+    "收到電話、私訊或上門預約後，商戶可以自行加入記錄，同網上預約放喺同一個日曆管理。": "After receiving a phone, direct-message or walk-in booking, merchants can add it to the same calendar as online bookings.",
+    "收費": "Pricing",
+    "放大商戶管理首頁": "Enlarge the merchant dashboard",
+    "放大查看": "Enlarge image",
+    "放大預約時段畫面": "Enlarge the booking time slots",
+    "教學課堂": "Lessons and classes",
+    "料金": "Pricing",
+    "明亮髮廊中的服務情境（AI 生成圖片）": "A service at a bright hair salon (AI-generated image)",
+    "時間，留俾客人。": "More time for your customers.",
+    "有變動就直接改期": "Reschedule when plans change",
+    "服務、時長同價錢": "Services, duration and prices",
+    "查看全部 12 類行業": "View all 12 industry groups",
+    "查看全部行業預約指南 →": "View all industry booking guides →",
+    "查看可預約日期同空檔，按時段規則即時確認或等店主審批。": "See available dates and times. In-app bookings are confirmed instantly or sent for approval according to the slot’s rules.",
+    "查看完整商戶畫面": "View the full merchant screen",
+    "查看完整流程 →": "See the full process →",
+    "查看完整預約畫面": "View the full booking screen",
+    "查看行業流程 →": "See the industry workflow →",
+    "機能紹介": "Features",
+    "清楚列出服務內容": "Describe your services clearly",
+    "為唔同美甲服務填寫價錢同時長，減少反覆問資料。": "Add prices and durations for each nail service to reduce repeated questions.",
+    "為每一間用心經營嘅預約制小店而設": "For every independent business that puts care into each appointment",
+    "為獨立小店而設的預約管理": "Booking management for independent shops",
+    "無料": "Free",
+    "營業及審批設定": "Opening hours and approval settings",
+    "營業時段及審批設定": "Opening hours and approval settings",
+    "營業節奏，由你決定": "Your hours, your way",
+    "由一條預約連結開始。": "Start with one booking link.",
+    "由今日開始，為你嘅小店多留一點時間。": "Give your shop a little more time, starting today.",
+    "由搵店到管理預約，每個畫面都睇清楚。": "Explore every screen, from finding a shop to managing bookings.",
+    "由第一堂體驗，到每一次上堂。": "From the first trial to every lesson after.",
+    "由美容服務到教學課節，揀返你嘅行業，睇客人點提交預約、商戶點確認，以及每日最容易遇到嘅安排問題。": "From beauty treatments to lessons, choose your industry to see how customers request bookings, how merchants confirm them, and how to handle everyday scheduling challenges.",
+    "畫面類別": "Screen category",
+    "睇其他行業點安排預約": "Explore booking workflows in other industries",
+    "睇客人點樣預約": "See how customers book",
+    "睇客人點預約": "See how customers book",
+    "睇返 BookingYou 嘅 App 展示圖：搵服務、揀時間、分享預約連結。撳任何圖片，可以放大睇細節。": "Explore BookingYou app visuals: find services, choose a time and share a booking link. Tap an image to see the details.",
+    "社交帖文": "Social posts",
+    "私人健身訓練": "Personal fitness training",
+    "私人教練": "Personal trainers",
+    "種": "languages",
+    "網上預約同手動加入嘅記錄，喺同一個日曆查看。": "See online bookings and manually added records in the same calendar.",
+    "網頁提交後，等候商戶確認": "Submit online, then wait for merchant confirmation",
+    "網頁預約一律喺商戶確認後先成立。App 內預約就可以按時段，設定即時確認或者商戶審批。": "Web bookings always require merchant confirmation. In-app bookings can use instant confirmation or merchant approval, depending on the time slot.",
+    "網頁預約一律需要店舖確認先成立。App 內預約就可以按時段選擇即時確認或商戶審批。": "Web bookings always require the shop’s confirmation. In-app bookings can use instant confirmation or merchant approval, depending on the time slot.",
+    "網頁預約會自動確認嗎？": "Are web bookings confirmed automatically?",
+    "網頁預約需要商戶確認。想喺 App 管理預約、聊天及接收提醒，客人可以另行下載 App；網頁訪客請保留預約連結。": "Web bookings require merchant confirmation. Customers can download the app to manage bookings, chat and receive reminders. Web guests should keep their booking link.",
+    "美容護理": "Beauty treatments",
+    "美容護理行業插圖": "Beauty treatment industry illustration",
+    "美甲工作室": "Nail studios",
+    "美甲款式各有時長，預約先安排好。": "Different nail designs need different time. Plan ahead.",
+    "行業情境": "Industry scenarios",
+    "行業情境示意圖（AI 生成）": "Industry scenario illustration (AI-generated)",
+    "行業指南": "Industry guides",
+    "行業預約指南": "Industry booking guides",
+    "表示中": "Showing",
+    "言語": "Language",
+    "設定營業時間、休息日同保留時段。App 預約可按時段選擇即時確認或商戶審批，配合你每日嘅實際安排。": "Set opening hours, closed days and reserved time. For in-app bookings, choose instant confirmation or merchant approval by time slot to fit your daily operations.",
+    "設定營業時間同休息日，配合店舖實際接待節奏。": "Set opening hours and closed days around the way your shop operates.",
+    "設定開放時間、休息日同確認規則，App 預約按時段執行。": "Set available hours, closed days and confirmation rules. In-app bookings follow each time slot’s settings.",
+    "設計預覽 V10 · 未發佈": "Design preview V10 · Not published",
+    "語言 / Languages": "Language / Languages",
+    "読了": "Read",
+    "課堂內容先講清楚": "Explain lesson content first",
+    "讓客人隨時提交預約": "Let customers request bookings anytime",
+    "跟返你嘅工作節奏。": "on your own schedule.",
+    "跳到主要內容": "Skip to main content",
+    "進入店舖頁面，了解提供嘅服務、每項時長同價錢。": "Open the shop page to see its services, durations and prices.",
+    "適用行業": "Industries",
+    "選擇行業情境": "Choose an industry scenario",
+    "都有清楚嘅安排。": "clearly organised.",
+    "開啟選單": "Open menu",
+    "開始建立你嘅預約入口": "Create your booking entry point",
+    "開放合適嘅授課時段": "Open suitable teaching hours",
+    "閱讀進度": "Reading progress",
+    "關於 BookingYou": "About BookingYou",
+    "關閉圖片": "Close image",
+    "集中查看店舖狀態同管理入口，將電話、上門同網上預約記錄喺同一處。": "See shop status and management tools in one place, with phone, walk-in and online booking records together.",
+    "零佣金": "No commission",
+    "電腦畫面": "Desktop screen",
+    "電話、iPad 同手提電腦放在明亮木桌上": "A phone, iPad and laptop on a bright wooden desk",
+    "電話、iPad 同電腦。": "Phone, iPad and computer.",
+    "電話、上門、網上，": "Phone, walk-in and online bookings —",
+    "電話同 iPad 睇 App，電腦瀏覽網站同預約教學。": "Use the app on your phone or iPad, and browse the website and booking guides on a computer.",
+    "電話同上門客，都可以一齊記低。": "Phone and walk-in bookings belong here too.",
+    "電話預約一齊管理": "Manage phone bookings too",
+    "需要改期，直接調整": "Need a new time? Reschedule directly",
+    "面部護理": "Facial treatment",
+    "頁面章節": "Page sections",
+    "預約安排例子": "Booking setup examples",
+    "預約教學": "Booking guide",
+    "預約教學、功能介紹同各地小店日常，集結成 140 張社交宣傳圖。可按語言篩選，撳圖睇完整大圖。": "Explore 140 social images featuring booking guides, features and shop life from different regions. Filter by language and tap any image to see it in full.",
+    "預約日曆": "Booking calendar",
+    "預約時段": "Booking time slots",
+    "預約有安排，": "Bookings in order,",
+    "預約管理基本功能": "Core booking management features",
+    "預約頁、日曆、代客預約、改期、提醒及審批規則等基本功能免費。專業版仍在規劃中，尚未推出，定價未定。": "Core features such as booking pages, calendars, bookings on behalf of customers, rescheduling, reminders and approval rules are free. Pro is still planned, not yet available, and its pricing has not been set.",
+    "預約，簡單一點。": "Booking, made simpler.",
+    "顯示更多帖文": "Show more posts",
+    "首頁": "Home"
+  },
+  "guides": {
+    "beauty-hair": {
+      "name": "Beauty & hair salons",
+      "title": "Booking system for beauty and hair salons",
+      "headline": "Treatments and haircuts in progress.\nBookings kept in order.",
+      "intro": "One customer needs two hours for colour; another only wants a haircut. Beauty treatments have different preparation needs too. BookingYou brings services, durations and bookings together. Customers request a suitable time, and you confirm it around the day’s schedule.",
+      "description": "How can beauty and hair salons manage bookings with BookingYou? Explore service durations, web bookings without the app, and how merchants review pending requests, notes and rescheduling.",
+      "pains": [
+        [
+          "No free hand to answer messages during a service",
+          "Put your booking link in your Instagram bio, messages or an in-store QR card. Customers can choose a service and time without waiting for you to list every opening."
+        ],
+        [
+          "Cuts, colour and treatments take different lengths of time",
+          "Create separate services with their own durations and prices. This helps prevent a vague request for “hair” from taking an unsuitable time slot."
+        ],
+        [
+          "Separate phone and online records are easy to lose track of",
+          "After agreeing a phone or walk-in appointment, add it on the customer’s behalf and check the day’s bookings in the same calendar."
+        ],
+        [
+          "A new customer’s needs are unclear, so you hesitate to accept",
+          "Web requests start as pending. Read the notes before confirming and contact the customer if needed to clarify the service and check that the time is suitable."
+        ]
+      ],
+      "services": [
+        [
+          "Haircut",
+          "45 minutes",
+          "State whether washing and styling are included to avoid surprises on arrival."
+        ],
+        [
+          "Hair colour consultation",
+          "30 minutes",
+          "Offer a consultation first when hair condition or a quote needs to be assessed."
+        ],
+        [
+          "Facial treatment",
+          "90 minutes",
+          "Allow for welcoming the customer, preparation and cleaning when setting the time you can offer."
+        ]
+      ],
+      "customer": [
+        [
+          "Read the service details first",
+          "Customers open your link, review haircut, colour consultation or treatment durations and prices, then choose the service they need."
+        ],
+        [
+          "Choose a date and enter booking details",
+          "Choose an available slot and enter a name, phone number and optional note. For example, mention a colour consultation so you can understand the request before confirming."
+        ],
+        [
+          "Submit and wait for your confirmation",
+          "A web request is not confirmed immediately. Customers keep their personal booking link to check its status or cancel using the options on that page."
+        ]
+      ],
+      "merchant": [
+        [
+          "Open “Bookings” in the merchant app",
+          "Review new requests in the pending list, checking the service, date, time, customer details and notes without matching everything back to private messages."
+        ],
+        [
+          "Confirm against your actual capacity",
+          "Check the day’s confirmed appointments, then assess staff, seats and treatment preparation. Contact the customer first if anything is unclear."
+        ],
+        [
+          "Keep the day’s schedule up to date",
+          "View confirmed appointments in the booking list or calendar. Reschedule when a customer needs a different time and mark the booking completed after the service."
+        ]
+      ],
+      "faqs": [
+        [
+          "Can it automatically assign a specific stylist or treatment room?",
+          "This workflow centres on services, time slots and merchant confirmation. The shop must confirm staff, seats and rooms; an available slot does not mean these resources have been assigned automatically."
+        ],
+        [
+          "How can customers book when colour duration and price are not yet known?",
+          "Create a consultation service first, or explain pricing conditions in the service description. Check the customer’s needs before confirming the full service instead of using one duration for every colour appointment."
+        ],
+        [
+          "Do customers have to download the app?",
+          "When the merchant enables web booking, customers can submit a request in a browser without downloading the app or registering. Merchants review and confirm bookings in the BookingYou app."
+        ]
+      ]
+    },
+    "nail-studios": {
+      "name": "Nail studios",
+      "title": "Booking system for nail studios",
+      "headline": "Removal, plain colour or nail art.\nAllow the right time for every style.",
+      "intro": "A customer books plain colour, then arrives needing removal and an intricate design. It is a familiar challenge for nail studios. Make the scope clear when customers choose a service, and review notes before confirming so the schedule reflects the work involved.",
+      "description": "A booking guide for nail studios: set up removal, plain colour and design services, let customers choose a time through your link, and review notes and durations before confirming in one place.",
+      "pains": [
+        [
+          "You do not know whether removal is needed",
+          "Offer “plain colour” and “removal + plain colour” separately. Ask customers to describe their current nails in the notes and check the details before confirming."
+        ],
+        [
+          "Intricate designs delay the next customer",
+          "Set durations to match each service’s complexity. Discuss designs you cannot yet time with the customer before confirming, rather than using the shortest slot."
+        ],
+        [
+          "Replying to Instagram while painting nails breaks your focus",
+          "Put your booking link in your Instagram bio so customers can see services and availability themselves. Review requests between appointments."
+        ],
+        [
+          "Last-minute changes leave records out of sync",
+          "Reschedule the same booking so the calendar shows the latest plan. Add phone bookings too, reducing the need for separate records."
+        ]
+      ],
+      "services": [
+        [
+          "Single-colour gel manicure",
+          "60 minutes",
+          "State whether shaping and basic care are included."
+        ],
+        [
+          "Removal + single-colour gel manicure",
+          "90 minutes",
+          "Include removal time in the service so customers can choose more accurately."
+        ],
+        [
+          "Nail design consultation",
+          "30 minutes",
+          "For intricate art or extensions, understand the request before arranging the full service."
+        ]
+      ],
+      "customer": [
+        [
+          "Choose a service with or without removal",
+          "Open the studio’s link, read the descriptions and durations, then choose plain colour, a service including removal, or a design consultation."
+        ],
+        [
+          "Add your preferences and contact details",
+          "Choose an available date and time, enter a name and phone number, and note whether there is existing gel and what kind of design is wanted."
+        ],
+        [
+          "Keep your booking link",
+          "Wait for the studio to confirm after submitting. If a design photo is needed, send it separately using the studio’s contact method, then check the booking status."
+        ]
+      ],
+      "merchant": [
+        [
+          "Review pending requests together",
+          "In the merchant booking list, review the selected service, time and notes to identify removal or design requirements first."
+        ],
+        [
+          "Check the time needed before accepting",
+          "Contact the customer when more detail is needed, then check the service and availability before confirming. Set aside time for cleaning tools and breaks too."
+        ],
+        [
+          "Use the calendar for appointments and changes",
+          "Check the appointments before and after each booking in the calendar. Reschedule if needed and mark the service completed afterwards."
+        ]
+      ],
+      "faqs": [
+        [
+          "Can customers choose several add-ons at once?",
+          "This workflow shows a customer choosing one service. Create common combinations such as “removal + plain colour” as separate services; do not assume add-on durations are added automatically."
+        ],
+        [
+          "Can customers upload design photos in the web booking form?",
+          "This web workflow currently uses a name, phone number and text notes. Send design photos separately through the studio’s chosen contact method and agree the design before arranging the time."
+        ],
+        [
+          "Does BookingYou collect deposits?",
+          "The booking workflow described here does not include collecting payments. The studio and customer arrange payments or deposits separately and should make the terms clear in the service description."
+        ]
+      ]
+    },
+    "personal-training": {
+      "name": "Personal trainers",
+      "title": "Booking system for personal trainers and fitness studios",
+      "headline": "Keep sessions clearly scheduled.\nFocus on coaching each one well.",
+      "intro": "Trials, regular training and small-group sessions need different capacities and arrangements. Working across locations also takes travel time. BookingYou lets clients submit their own requests, then you check the day’s timetable and confirm, leaving more room to discuss their training.",
+      "description": "How can personal trainers manage trials and training bookings? Learn how clients choose slots, how coaches review pending and confirmed sessions, and how to set capacity and allow travel time.",
+      "pains": [
+        [
+          "Every client asks whether tonight is available",
+          "Share your booking link so clients can view the hours you have opened before submitting a request, reducing repeated lists of available times."
+        ],
+        [
+          "One-to-one and group sessions have different capacities",
+          "Create separate services for session types and set capacity to match what you can deliver. Check venue and class arrangements before accepting group requests too."
+        ],
+        [
+          "One session ends and you must rush to the next venue",
+          "Block travel, preparation and rest time. Only offer hours you can realistically reach and teach."
+        ],
+        [
+          "Clients remember the old time after rescheduling",
+          "Reschedule within the same booking and check the latest session in the calendar. Web customers can revisit their personal link to check the status."
+        ]
+      ],
+      "services": [
+        [
+          "First trial session",
+          "45 minutes",
+          "State the location, who it is suitable for and what to bring."
+        ],
+        [
+          "One-to-one training",
+          "60 minutes",
+          "Open bookings around the coach’s actual teaching availability."
+        ],
+        [
+          "Small-group training",
+          "60 minutes",
+          "Set capacity to match what you can deliver. A slot’s capacity does not automatically assign a venue."
+        ]
+      ],
+      "customer": [
+        [
+          "Choose a trial or training session",
+          "Clients open the link, check service and location details, duration and price, then choose the session they need."
+        ],
+        [
+          "Request a time you can attend",
+          "Choose a date and available slot, then enter a name and phone number. Notes can mention a first visit or general training goals to help the coach prepare."
+        ],
+        [
+          "Wait for confirmation before finalising plans",
+          "Web bookings require the coach’s confirmation. Keep the booking link to check its status. Contact the coach first if the time needs to change."
+        ]
+      ],
+      "merchant": [
+        [
+          "View new sessions in the merchant app",
+          "Open the pending tab in the booking list and check the client, session type, time and notes."
+        ],
+        [
+          "Check venue and timing before confirming",
+          "Compare the request with confirmed sessions in the calendar and allow for travel and rest. Check numbers and the actual venue for group sessions too."
+        ],
+        [
+          "Update status before and after training",
+          "Use the confirmed list to welcome clients. Reschedule by changing the booking time, then mark the session completed so you can refer to it later."
+        ]
+      ],
+      "faqs": [
+        [
+          "Can it automatically schedule weekly sessions in one go?",
+          "This page describes choosing a time for each booking, not automatically creating a recurring timetable. Coaches can arrange regular clients one session at a time on agreed dates and check each booking."
+        ],
+        [
+          "Will it automatically deduct sessions from a package?",
+          "A completed booking status only means the session is finished. This page does not promise package deductions or membership billing. Handle course and payment records through your existing process."
+        ],
+        [
+          "Can clients book a group session directly?",
+          "Set capacity and available slots for the service; the exact workflow depends on the merchant’s settings. The coach still needs to confirm the venue, equipment and teaching arrangements."
+        ]
+      ]
+    },
+    "tutoring-classes": {
+      "name": "Tutoring & teaching",
+      "title": "Booking system for tutors and teaching studios",
+      "headline": "Trials, regular lessons and make-ups.\nEvery lesson clearly arranged.",
+      "intro": "Parents book trials for their children, students change make-up lesson times, and teachers need room to prepare. BookingYou brings each lesson request and its status together, so you can check the subject, level and time before confirming.",
+      "description": "A booking guide for tutors and teaching studios: how parents or students choose trials, submit details and wait for confirmation, and how teachers review notes, manage make-up lessons and set class capacity.",
+      "pains": [
+        [
+          "Parents ask about subjects, then exchange more messages about times",
+          "Create services by subject or course type with clear levels and durations, so parents choose the right lesson before selecting a time."
+        ],
+        [
+          "Too little trial information makes preparation difficult",
+          "Ask parents to note the student’s year level or what they want to explore. Review this before confirming and contact them if more detail is needed."
+        ],
+        [
+          "Make-up lesson messages are scattered across conversations",
+          "Reschedule within the same booking and add make-up sessions agreed by phone, keeping students and dates easy to check together."
+        ],
+        [
+          "Class places and preparation time get used up together",
+          "Set each session’s capacity to reflect the number you can teach, and reserve preparation, breaks and classroom reset time."
+        ]
+      ],
+      "services": [
+        [
+          "Level consultation / trial lesson",
+          "30 minutes",
+          "State the suitable year level, subject and trial format."
+        ],
+        [
+          "One-to-one tutoring",
+          "60 minutes",
+          "Distinguish subjects or courses so parents choose the right service."
+        ],
+        [
+          "Small-group class",
+          "90 minutes",
+          "State the level and capacity, and confirm the actual classroom and teaching arrangements."
+        ]
+      ],
+      "customer": [
+        [
+          "Parents or students choose a lesson",
+          "Open the teacher’s or studio’s link, choose a service by subject, level or trial type, then view available dates."
+        ],
+        [
+          "Enter the contact person’s details",
+          "Enter a name and contact number. Parents booking for a child can add the student’s name, year level and general learning needs in the notes, without unrelated personal information."
+        ],
+        [
+          "Keep the link to check confirmation",
+          "Wait for the teacher to confirm after submitting. Keep the booking link and coordinate with the teacher first if a make-up lesson or time change is needed."
+        ]
+      ],
+      "merchant": [
+        [
+          "Review pending lessons and notes",
+          "The merchant booking list shows the service, time, contact person and notes. First distinguish trials, regular lessons and other session types."
+        ],
+        [
+          "Check level and teaching arrangements",
+          "Check the subject, student’s level, class capacity and classroom availability. Contact the parent for any missing details before confirming the request."
+        ],
+        [
+          "Follow lessons and make-ups in the calendar",
+          "Review confirmed lessons each day. Check the new date after rescheduling, then mark taught lessons completed for later reference."
+        ]
+      ],
+      "faqs": [
+        [
+          "Can parents book for their children?",
+          "A parent can submit a web request as the contact person and add the student’s name or year level in the notes. The teacher checks the actual lesson arrangements when confirming."
+        ],
+        [
+          "Can this replace a full student management system?",
+          "This page covers lesson bookings and scheduling, not grades, homework, attendance reporting or tuition fee management. Handle those records separately through your teaching process."
+        ],
+        [
+          "Will a full term’s timetable be generated automatically?",
+          "This workflow is based on individual bookings. Create and confirm regular lessons on agreed dates one at a time; one request does not automatically schedule the entire term."
+        ]
+      ]
+    },
+    "pet-grooming": {
+      "name": "Pet grooming",
+      "title": "Booking system for pet grooming salons",
+      "headline": "Every pet has different needs.\nCheck the details before booking grooming.",
+      "intro": "Bathing and trimming time depends on size, coat and the pet’s condition. Let owners select a service and leave basic notes, then have the groomer check the time and reception arrangements instead of fitting every pet into the same slot.",
+      "description": "A pet grooming booking guide: how owners choose bathing or trimming and add notes, and how merchants review requests, check size and coat, arrange drop-off and collection, and confirm services.",
+      "pains": [
+        [
+          "“Bath” tells you nothing about size or coat until arrival",
+          "State who each service is suitable for. Ask owners to note the pet’s type, size and requested service, then check the details before confirming."
+        ],
+        [
+          "Every pet needs a different amount of time",
+          "Set different durations for different service scopes. Contact the owner first when assessment is needed rather than estimating from the shortest slot."
+        ],
+        [
+          "The dryer drowns out calls, but you do not want to miss bookings",
+          "Offer a link and QR code so owners can submit a request themselves. Groomers can review pending requests together during a suitable break."
+        ],
+        [
+          "Grooming time gets confused with collection time",
+          "Agree drop-off and collection details when confirming. Allow cleaning, preparation and handover time rather than treating a booking’s start time as a collection promise."
+        ]
+      ],
+      "services": [
+        [
+          "Small-dog bath and care",
+          "60 minutes",
+          "State the size range and included services. The shop confirms the final arrangements."
+        ],
+        [
+          "Bath and trim",
+          "120 minutes",
+          "Confirm the time needed based on coat, style and actual requirements."
+        ],
+        [
+          "First-visit consultation",
+          "30 minutes",
+          "When duration cannot be estimated ahead of time, discuss the needs before arranging the full service."
+        ]
+      ],
+      "customer": [
+        [
+          "The owner chooses a suitable service",
+          "Open the shop’s link and check suitability, details, duration and price before choosing bathing, trimming or a consultation."
+        ],
+        [
+          "Enter the owner’s contact details and pet notes",
+          "Choose a slot and enter a name and phone number. Notes can include the pet’s name, type, size and service needs to help the shop follow up."
+        ],
+        [
+          "Wait for the shop to confirm the arrangements",
+          "Keep the personal booking link to check its status. Follow the shop’s confirmed instructions for drop-off, collection and anything to prepare."
+        ]
+      ],
+      "merchant": [
+        [
+          "Open the booking list to review new requests",
+          "In the pending tab, check the owner’s contact details, service, time and notes to understand the preparation needed."
+        ],
+        [
+          "Check the pet’s needs and the day’s capacity",
+          "Contact the owner if anything is unclear. Confirm service time, capacity and handover arrangements before approving the booking."
+        ],
+        [
+          "Work from the day’s confirmed records",
+          "Check today’s appointments in the calendar or confirmed list. Reschedule changes and mark the booking completed after the service."
+        ]
+      ],
+      "faqs": [
+        [
+          "Does the system estimate grooming time by breed automatically?",
+          "In this workflow, merchants set service durations. Time is not estimated automatically from breed, coat or matting. Speak with the owner before confirming whenever you need more detail."
+        ],
+        [
+          "How many pets can be included in one booking?",
+          "Do not treat a general party-size field as a pet count. For several pets, contact the shop first so the merchant can confirm services, time slots and whether separate bookings are needed."
+        ],
+        [
+          "Is this a veterinary appointment system?",
+          "This page describes pet bathing and grooming schedules. It does not provide diagnosis, medical records or medical triage. Contact a qualified veterinarian directly about pet health concerns."
+        ]
+      ]
+    }
+  }
+}

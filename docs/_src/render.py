@@ -164,3 +164,9 @@ write_discovery(OUT, PATHS, L)
 # Apply the approved redesigned homepages after shared locale metadata is generated.
 from landing.build import build as build_landing
 build_landing()
+
+from landing.localization import build_remaining
+build_remaining()
+
+from industry_guides.build import build as build_industry_guides
+build_industry_guides()

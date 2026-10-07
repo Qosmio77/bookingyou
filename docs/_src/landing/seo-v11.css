@@ -9,3 +9,30 @@
  .header .menu-toggle{display:block}
  .header .language{margin-left:auto}
 }
+
+.industry-guide-link{display:block;min-width:0}.industry-guide-link:focus-visible{border-radius:16px}.industry-guide-cta{display:block;color:#075acb;font-size:12px;font-weight:650;margin-top:7px}.industry-hub-link{display:inline-block;color:#075acb;border-bottom:1px solid;margin-top:15px;padding:7px 0}.industry-guide-link:hover .industry-guide-cta{text-decoration:underline}
+
+/* A full-width pastel banner becomes more compact while reading. */
+.header{
+ height:var(--header-height,84px);
+ background:linear-gradient(105deg,#e8f2ff 0%,#f3f9fb 46%,#e2f6ed 100%);
+ border-bottom-color:#cce3e8;
+ transition:height .22s ease,box-shadow .22s ease;
+}
+.header .wordmark{transition:font-size .22s ease}
+.header .wordmark img{transition:width .22s ease,height .22s ease}
+html.has-compact-header{--header-height:64px}
+.has-compact-header .header{box-shadow:0 3px 16px #193c4d18}
+.has-compact-header .header .wordmark{font-size:21px}
+.has-compact-header .header .wordmark img{width:32px;height:32px}
+@media(max-width:1100px){
+ html.has-compact-header{--header-height:60px}
+ .header .nav{top:100%;background:linear-gradient(105deg,#edf5ff,#eefaf5)}
+}
+@media(max-width:620px){
+ .has-compact-header .header .wordmark{font-size:19px}
+ .has-compact-header .header .wordmark img{width:28px;height:28px}
+}
+@media(prefers-reduced-motion:reduce){
+ .header,.header .wordmark,.header .wordmark img{transition:none}
+}
