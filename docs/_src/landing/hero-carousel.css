@@ -1,0 +1,14 @@
+/* Clip decorative shapes without creating an internally scrollable hero. */
+.hero{overflow:clip}
+.photo-orbit .hero-industry-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .85s ease;pointer-events:none}
+.photo-orbit .hero-industry-photo.is-active{opacity:1}
+.hero-carousel-controls{display:flex;align-items:center;gap:2px;width:fit-content;max-width:100%;margin-top:18px;padding:3px 5px 3px 15px;border:1px solid #ffffffc7;border-radius:28px;background:#ffffffb8;box-shadow:0 4px 16px #1644650d;color:var(--navy)}
+.hero-carousel-controls[hidden]{display:none}
+/* Keep the photo uninterrupted; keyboard users can still reach pause controls. */
+.hero-carousel-controls:not(:focus-within){position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0;box-shadow:none}
+.hero-industry-label{font-size:12px;font-weight:650;min-width:112px;max-width:190px;padding-right:8px;line-height:1.4}
+.hero-carousel-controls button{display:grid;place-items:center;width:44px;height:44px;flex:none;border:0;border-radius:50%;background:transparent;color:var(--navy);font-size:22px}
+.hero-carousel-controls button:hover{background:#dcefee}
+.hero-carousel-controls button[data-carousel="toggle"]{font-size:12px}
+@media(max-width:620px){.hero-carousel-controls{margin-top:12px}.hero-industry-label{min-width:100px;max-width:170px}}
+@media(prefers-reduced-motion:reduce){.photo-orbit .hero-industry-photo{transition:none}}

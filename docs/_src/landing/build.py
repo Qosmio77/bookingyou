@@ -3,6 +3,14 @@ from pathlib import Path
 from lxml import html, etree
 from PIL import Image
 import json, hashlib
+try:
+ from landing.localization import language_options
+ from landing.hero_carousel import configure as configure_hero
+ from landing.compact_home import compact
+except ModuleNotFoundError:
+ from localization import language_options
+ from hero_carousel import configure as configure_hero
+ from compact_home import compact
 
 ROOT = Path(__file__).resolve().parent
 SITE = ROOT.parents[1]
@@ -20,6 +28,26 @@ def tag(parent, tag_name, text=None, **attrs):
 def text_replace(element, value):
  for child in list(element):element.remove(child)
  element.text=value
+
+def arrange_content(doc, lang, path):
+ """Keep the reading journey and primary navigation in the same order."""
+ main=doc.get_element_by_id('top')
+ hero=main.xpath('./section[@class="hero"]')[0]
+ news=main.xpath('./div[contains(@class,"news-area")]')[0]
+ order=['about','industries-overview','industry-scenarios','who',
+        'pain-solutions','features','diff','app-screens','web-booking',
+        'brand','posts','social','mascot','pricing','plans','faq','more-faq',
+        'start','download']
+ sections=[hero,news]+[doc.get_element_by_id(key) for key in order]
+ if set(sections)!=set(main):
+  raise ValueError('Homepage sections changed; update the reading order explicitly')
+ for section in sections:main.append(section)
+ nav=doc.get_element_by_id('navigation')
+ # About remains in the opening content and footer; expose the new guide hub.
+ first=nav[0]
+ first.attrib.pop('data-i18n',None)
+ first.set('href','/'+path+'industries/')
+ text_replace(first,'行業指南' if lang=='zh' else '業種別ガイド')
 
 def build():
  release=True
@@ -42,6 +70,7 @@ def build():
  for lang,cfg in CONFIG.items():
   doc=html.document_fromstring(source);head=doc.find('head');body=doc.find('body')
   doc.set('lang',cfg['language']);doc.set('data-seo-mode','release' if release else 'preview')
+  doc.set('data-locale',lang)
   # Each URL delivers its complete language without relying on JS execution.
   for e in doc.xpath('//*[@data-lang]'):
    if e.get('data-lang')!=lang:e.getparent().remove(e)
@@ -51,6 +80,19 @@ def build():
   for e in doc.xpath('//*[@data-asset]'):e.set('src',assets[e.get('data-asset')])
   local={'web1':'web1'+lang,'web2':'web2'+lang,'apple':'apple'+lang,'google':'google'+lang}
   for e in doc.xpath('//*[@data-local-asset]'):e.set('src',assets[local[e.get('data-local-asset')]])
+  # Five focus industries lead to useful, localized guides.
+  guide_slugs=['beauty-hair','nail-studios','personal-training','tutoring-classes','pet-grooming']
+  for figure,slug in zip(doc.xpath('//*[@id="industries-overview"]//figure'),guide_slugs):
+   parent=figure.getparent();position=parent.index(figure)
+   link=etree.Element('a',href='/'+cfg['path']+'industries/'+slug+'/',attrib={'class':'industry-guide-link'})
+   parent.remove(figure);link.append(figure);parent.insert(position,link)
+   tag(figure,'span','查看行業流程 →' if lang=='zh' else '予約の流れを見る →',**{'class':'industry-guide-cta'})
+  section=doc.get_element_by_id('industries-overview').find('div')
+  tag(section,'a','查看全部行業預約指南 →' if lang=='zh' else '業種別予約ガイドをすべて見る →',href='/'+cfg['path']+'industries/',**{'class':'industry-hub-link'})
+  arrange_content(doc,lang,cfg['path'])
+  configure_hero(doc,lang)
+  for heading in doc.xpath('//main//h2 | //*[@id="industries-overview"]//*[@class="trust-title"]'):
+   heading.set('class',(heading.get('class','')+' section-title-emphasis').strip())
   # These screenshots already exist; render a useful gallery before JavaScript.
   gallery=doc.get_element_by_id('screen-gallery')
   labels=['搵店及服務','服務、時長同價錢','揀日子同時間','店舖 QR 卡','分享預約連結'] if lang=='zh' else ['お店とサービスを探す','サービス・時間・料金','日付と時間を選ぶ','お店のQRカード','予約リンクを共有']
@@ -60,13 +102,14 @@ def build():
    frame=tag(a,'span',**{'class':'screen-frame'})
    tag(frame,'img',src=f'app-screens/{lang}/{i:02d}.webp',alt='BookingYou · '+label,width='1100',height='2390',loading='lazy')
    caption=tag(a,'span',**{'class':'screen-caption'});tag(caption,'strong',label)
+  compact(doc,lang,assets)
+  for heading in doc.xpath('//main//h2'):
+   heading.set('class',(heading.get('class','')+' section-title-emphasis').strip())
   # Keep downloads and useful sections accessible even if JS is disabled.
   for e in doc.xpath('//a[starts-with(@href,"#")]'):
    e.set('href','/'+cfg['path']+e.get('href'))
   for e in doc.xpath('//*[@data-page]'):e.set('href',BASE+cfg['path']+'about/')
-  for e in doc.xpath('//select[@id="language"]/option'):
-   e.attrib.pop('selected',None)
-   if e.get('value')==lang:e.set('selected','selected')
+  language_options(doc.get_element_by_id('language'),lang)
   tag(doc.xpath('//h1')[0],'span',cfg['keyword'],**{'class':'hero-h1-descriptor','data-i18n':'seoKeyword'})
   language_links=tag(doc.xpath('//footer')[0],'nav',aria_label='語言 / Languages',**{'class':'seo-language-links wrap'})
   for code,path,label in [('zh-Hant','','繁體中文'),('en','en/','English'),('zh-Hans','zh-cn/','简体中文'),('ja','ja/','日本語'),('ko','ko/','한국어'),('ms','ms/','Bahasa Melayu'),('th','th/','ไทย'),('vi','vi/','Tiếng Việt')]:
@@ -104,14 +147,20 @@ def build():
     if not img.get('width') or not img.get('height'):img.set('width',str(w));img.set('height',str(h))
   styles='\n'.join(e.text or '' for e in head.findall('style'))
   styles+='\n'+(ROOT/'seo-v11.css').read_text()
+  styles+='\n'+(ROOT/'section-titles.css').read_text()
+  styles+='\n'+(ROOT/'hero-carousel.css').read_text()
+  styles+='\n'+(ROOT/'compact-home.css').read_text()
   for e in head.findall('style'):head.remove(e)
   styles+='\n.hero-h1-descriptor{display:block;font-size:clamp(15px,1.6vw,22px);letter-spacing:.04em;line-height:1.6;margin-top:14px;color:var(--navy)}.seo-language-links{display:flex;flex-wrap:wrap;gap:12px 20px;margin-top:22px;font-size:12px;color:var(--muted)}'
   css_name='landing-'+hashlib.sha256(styles.encode()).hexdigest()[:12]+'.css'
   (target/'assets'/css_name).write_text(styles);tag(head,'link',rel='stylesheet',href='assets/'+css_name)
   scripts=doc.xpath('//body/script[not(@type)]')
   js='\n;\n'.join(e.text or '' for e in scripts)
+  js=js.replace("postLimit=12","postLimit=6").replace("postLimit+=12","postLimit+=6")
   for e in scripts:e.getparent().remove(e)
   js+='\n'+(ROOT/'seo-runtime.js').read_text().replace('__SEO_CONFIG__',json.dumps(CONFIG,ensure_ascii=False)).replace('__SEO_TRANSLATIONS__',json.dumps(translations,ensure_ascii=False))
+  js+='\n'+(ROOT/'hero-carousel.js').read_text()
+  js+='\n'+(ROOT/'compact-home.js').read_text()
   js_name='landing-'+hashlib.sha256(js.encode()).hexdigest()[:12]+'.js'
   (target/'assets'/js_name).write_text(js);tag(body,'script',src='assets/'+js_name,defer='defer')
   if release:

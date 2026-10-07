@@ -1,0 +1,52 @@
+/* Shared section headings: keep the title, frame and spacing together. */
+main .section-title-emphasis {
+ width:fit-content;
+ max-width:100%;
+ padding:20px 28px;
+ margin:0 0 28px;
+ border:0;
+ border-radius:8px 22px 22px 8px;
+ background:linear-gradient(115deg,#e4f0ff 0%,#e8f8f4 72%,#fff6e7 100%);
+ box-shadow:0 10px 26px -18px #123b5860;
+ color:#122f50;
+ text-shadow:0 .5px 0 #ffffffa6,0 1.5px 3px #123b581a;
+ font-size:clamp(16.8px,1.584vw,21.12px);
+ font-weight:800;
+ line-height:1.5;
+ letter-spacing:.015em;
+ text-wrap:balance;
+ overflow-wrap:anywhere;
+}
+/* Include the legacy containers so their smaller labels cannot override this scale. */
+main .section-label,main .chip,
+main .restored .chip,
+main .download .device-heading .section-label,
+main .industry-catalogue .chip {
+ font-size:18px;
+ font-weight:750;
+ line-height:1.6;
+ letter-spacing:.06em;
+ text-shadow:0 .5px 0 #ffffff99,0 1px 2px #123b5814;
+}
+main .section-label {margin-bottom:16px}
+main .trust-industries .section-title-emphasis {margin:0 auto 32px;font-size:clamp(24.96px,2.496vw,33.6px);padding:24px 36px}
+main .download .section-title-emphasis {
+ color:#fff;
+ text-shadow:0 1px 0 #12345366,0 2px 4px #061c3b33;
+ background:linear-gradient(115deg,#244f75,#20646d);
+ box-shadow:0 12px 24px -18px #071d38;
+}
+/* This second FAQ heading stays hidden; its questions continue the first group. */
+main .restored-faq .section-title-emphasis {display:none}
+@media(max-width:620px){
+ main .section-title-emphasis {text-shadow:0 .4px 0 #ffffff99,0 1px 2px #123b5814}
+ main .download .section-title-emphasis {text-shadow:0 .5px 0 #12345366,0 1px 2px #061c3b26}
+ main .section-title-emphasis {font-size:13.44px;padding:16px 18px;margin-bottom:24px;border-radius:7px 17px 17px 7px;line-height:1.55}
+ main .section-label,main .chip,
+ main .restored .chip,
+ main .download .device-heading .section-label,
+ main .industry-catalogue .chip {font-size:15px;letter-spacing:.035em}
+ main .trust-industries .section-title-emphasis {font-size:23.04px;padding:20px 22px;margin-bottom:26px}
+}
+
+@media(max-width:1100px){main .section-title-emphasis br{display:none}}
