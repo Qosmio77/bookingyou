@@ -41,6 +41,14 @@ for lang,u in UI.items():
   graph=json.loads(doc.xpath('//script[@type="application/ld+json"]/text()')[0])['@graph']
   check(any(x['@type']=='BreadcrumbList' for x in graph),'breadcrumb schema')
   if slug:
+   guide=next(g for g in GUIDES if g['slug']==slug)
+   check(guide[lang]['title'] in ' '.join(doc.xpath('//h1//text()')),'guide topic visible in h1')
+   image=BASE+'/preview-assets/industry-'+guide['image']+'-v8.webp'
+   check(doc.xpath('//meta[@property="og:image"]/@content')==[image],'industry share image')
+   check(doc.xpath('//meta[@name="twitter:image"]/@content')==[image],'industry Twitter image')
+   page=next(x for x in graph if x['@type']=='WebPage')
+   check(page.get('primaryImageOfPage',{}).get('contentUrl')==image,'industry schema image')
+   check((DOCS/urlsplit(image).path.strip('/')).is_file(),'industry image exists')
    check(len(doc.xpath('//*[@id="customer"]//li'))==3,'customer steps')
    check(len(doc.xpath('//*[@id="merchant"]//li'))==3,'merchant steps')
    check(len(doc.xpath('//*[@id="challenges"]//article'))==4,'four industry pains')

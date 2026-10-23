@@ -7,6 +7,7 @@
 - `about.py` — 「關於我們」頁（/about/、/ja/about/ …，8 語）：團隊口吻、公司理念、堅持、時間線。只寫核實過嘅事實，唔出個人名
 - `social.py` — 首頁「社交平台」區塊＋footer 社交圖示：帳號清單、8 語文案、品牌 glyph（Simple Icons，CC0，黑色單色）。加減帳號改 `ACCOUNTS`
 - `seo.py` — 公開頁面 canonical、Open Graph／Twitter 分享標記、JSON-LD、sitemap 及 robots；品牌資料沿用 `social.py` 嘅帳號清單
+- `landing/seo-llms.txt` — `docs/llms.txt` 嘅來源；產品事實及頁面連結須同公開網站一致。Google AI 搜尋並不要求此檔案，不能代替一般 SEO。
 - `render.py` — 生成器：`PYTHONDONTWRITEBYTECODE=1 python3 docs/_src/render.py`（repo 根目錄執行）會輸出 8 語首頁、8 語關於頁及 noindex 設計方案
 
 改文案改 `strings.py`，改版面改 `template.html`，之後重新生成再 commit。

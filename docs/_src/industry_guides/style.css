@@ -2,6 +2,8 @@
 @media(max-width:850px){.bar{gap:12px}.logo{font-size:21px}.nav{gap:14px;font-size:12px}.nav .optional{display:none}.hero-grid{gap:28px}.flow-layout,.flow-layout.reverse{gap:30px}.hub-grid{grid-template-columns:1fr 1fr}.related{grid-template-columns:1fr 1fr}.download{display:block}.badges{justify-content:flex-start;margin-top:20px}}@media(max-width:620px){html{scroll-padding-top:95px}.wrap{width:calc(100% - 36px)}.bar{min-height:72px;flex-wrap:wrap;padding:12px 0;gap:10px}.logo{font-size:19px}.logo img{width:29px;height:29px}.bar .cta{display:none}.nav{gap:14px}.hero{padding-bottom:36px}.hero-grid{grid-template-columns:1fr;padding-top:14px;gap:24px}.hero figure{max-width:420px}.hero figure>img{aspect-ratio:4/3;border-radius:22px}.intro{font-size:16px}.section{padding:46px 0}.pain-grid,.service-grid,.flow-layout,.flow-layout.reverse,.hub-grid{grid-template-columns:1fr}.pain{padding:24px}.flow-layout.reverse .flow-copy{order:0}.shot{padding:22px}.shot img{max-height:430px}.steps li{padding-left:49px}.download{padding:28px 22px}.related{gap:12px}.related span{font-size:13px;padding:12px}.badges{gap:6px}.badges img{height:39px}.badges img.google{height:54px}.crumb{font-size:12px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 
 /* All eight languages remain accessible without JavaScript. */
+h1>.eyebrow{display:block;margin-bottom:18px;line-height:1.85;letter-spacing:.05em}
+h1>span:last-child{display:block}
 .language-menu{position:relative;font-size:13px}
 .language-menu summary{cursor:pointer;list-style:none;padding:10px 6px;min-height:44px}
 .language-menu summary::-webkit-details-marker{display:none}
