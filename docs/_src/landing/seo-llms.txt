@@ -1,6 +1,6 @@
 # BookingYou
 
-> BookingYou is a booking management app for appointment-based small shops and independent service providers. This file summarizes information also available on the official website.
+> BookingYou is a booking management app for appointment-based small shops and independent service providers. The public pages below are the source for these product facts and industry-specific examples.
 
 ## Product facts
 
@@ -8,16 +8,37 @@
 - Merchants manage calendars, manually entered bookings, rescheduling, reminders, opening hours and confirmation rules.
 - Customers can submit a booking through a merchant link or QR code in a browser without installing the app. Availability depends on the merchant enabling web booking.
 - Web booking submissions always require merchant confirmation. App bookings follow each time slot's instant-confirmation or approval setting.
-- Merchants can use the iOS/iPadOS or Android app. Website screenshots are not evidence of a desktop merchant-management app.
+- Merchants can use the iOS/iPadOS or Android app. The website and web booking pages are available in a browser; the website is not a desktop merchant-management app.
 - Contact: contact@bookingyou.app
 
-## Official pages
+## Product pages
 
 - [Traditional Chinese](https://bookingyou.app/): Product, features and FAQs.
 - [Japanese](https://bookingyou.app/ja/): Small-shop booking management in Japanese.
 - [English](https://bookingyou.app/en/): Product information in English.
+- [Simplified Chinese](https://bookingyou.app/zh-cn/): Product information in Simplified Chinese.
+- [Korean](https://bookingyou.app/ko/): Product information in Korean.
+- [Malay](https://bookingyou.app/ms/): Product information in Malay.
+- [Thai](https://bookingyou.app/th/): Product information in Thai.
+- [Vietnamese](https://bookingyou.app/vi/): Product information in Vietnamese.
 - [Web booking guide](https://bookingyou.app/#web-booking): How customers submit bookings.
 - [Plans](https://bookingyou.app/#plans): Free core features and planned Pro status.
+
+## Industry booking guides
+
+Each guide explains the customer's booking request, the merchant's review and confirmation, and example service settings. Examples are editorial guidance, not live merchant listings or automatic staff/room allocation.
+
+- [All industry guides — Traditional Chinese](https://bookingyou.app/industries/)
+- [All industry guides — Japanese](https://bookingyou.app/ja/industries/)
+- [All industry guides — English](https://bookingyou.app/en/industries/)
+- [Beauty and hair salons](https://bookingyou.app/en/industries/beauty-hair/): Different service durations, notes and confirmation before acceptance.
+- [Nail studios](https://bookingyou.app/en/industries/nail-studios/): Removal and design services need different durations.
+- [Personal training](https://bookingyou.app/en/industries/personal-training/): Trial sessions, one-to-one coaching and group capacity.
+- [Tutoring and classes](https://bookingyou.app/en/industries/tutoring-classes/): Lesson types, class capacity and scheduling.
+- [Pet grooming](https://bookingyou.app/en/industries/pet-grooming/): Grooming durations and merchant review; no veterinary record system.
+
+## Company and app listings
+
 - [About BookingYou](https://bookingyou.app/about/): Brand information.
 - [Privacy](https://bookingyou.app/privacy/): Privacy policy.
 - [Terms](https://bookingyou.app/terms/): Terms of service.
