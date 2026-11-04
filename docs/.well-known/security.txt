@@ -1,0 +1,4 @@
+Contact: mailto:contact@bookingyou.app
+Expires: 2027-09-30T00:00:00Z
+Canonical: https://bookingyou.app/.well-known/security.txt
+Preferred-Languages: en, zh-Hant, ja
