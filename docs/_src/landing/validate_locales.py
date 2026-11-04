@@ -11,6 +11,7 @@ def check(ok,message):
  global count
  count+=1
  if not ok:raise AssertionError(message)
+posts=json.loads((ROOT/'_src/landing/recent-posts.json').read_text())
 zh=html.parse(str(ROOT/'index.html'))
 sections=zh.xpath('//main/*/@id')
 for code,loc in LOCALES.items():
@@ -18,6 +19,11 @@ for code,loc in LOCALES.items():
  check(doc.xpath('//html/@lang')==[loc['language']],code+' language')
  check(doc.xpath('//html/@data-locale')==[code],code+' runtime locale')
  check(doc.xpath('//main/*/@id')==sections,code+' section parity')
+ cards=doc.xpath('//*[@id="recent-posts"]//article')
+ check([card.get('id') for card in cards]==['post-'+post['id'] for post in posts],code+' published post order')
+ for card,post in zip(cards,posts):
+  check(card.xpath('./div/h4/text()')==[post['titles'][code]],code+' localized post title')
+  check(set(card.xpath('.//*[@class="recent-links"]/a/@href'))=={url for version in post['variants'].values() for url in version['links'].values()},code+' original post links')
  check(len(doc.xpath('//main/*'))==9,code+' nine main blocks')
  check(len(doc.xpath('//*[@id="features"]//article[@class="core-card"]'))==6,code+' six core features')
  check(len(doc.xpath('//*[@id="faq"]//details'))==7,code+' seven distinct FAQs')
@@ -50,7 +56,7 @@ for code,loc in LOCALES.items():
  if code in EXTRA:
   check(len(payload(code)['guides'])==5,code+' complete industry copy')
   # Native language names in the switcher remain native intentionally.
-  for el in doc.xpath('//script|//style|//select|//footer//nav[a[@hreflang]]'):
+  for el in doc.xpath('//script|//style|//select|//footer//nav[a[@hreflang]]|//*[@id="recent-posts"]//p[@class="original-caption"]'):
    el.getparent().remove(el)
   body=doc.xpath('//body')[0].text_content().replace('U仔','Yu-kun').replace('小U','Yu-kun')
   if code!='zh-CN':check(not re.search('[\u3400-\u9fff]',body),code+' no Chinese fallback in homepage')
