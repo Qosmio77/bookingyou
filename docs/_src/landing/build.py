@@ -4,10 +4,12 @@ from lxml import html, etree
 from PIL import Image
 import json, hashlib
 try:
+ from landing.recent_posts import insert_recent_posts
  from landing.localization import language_options
  from landing.hero_carousel import configure as configure_hero
  from landing.compact_home import compact
 except ModuleNotFoundError:
+ from recent_posts import insert_recent_posts
  from localization import language_options
  from hero_carousel import configure as configure_hero
  from compact_home import compact
@@ -165,6 +167,7 @@ def build():
   (target/'assets'/js_name).write_text(js);tag(body,'script',src='assets/'+js_name,defer='defer')
   if release:
    for e in doc.xpath('//*[contains(concat(" ",normalize-space(@class)," ")," preview-tag ")]'):e.getparent().remove(e)
+  insert_recent_posts(doc,lang)
   destination=target/cfg['path'];destination.mkdir(exist_ok=True,parents=True)
   content=html.tostring(doc,encoding='unicode',doctype='<!doctype html>')
   (destination/'index.html').write_text(content)

@@ -67,6 +67,7 @@ def localize_assets(value,loc):
   .replace('badges/google-zh-tw.png',f'badges/google-{loc["google"]}.png'))
 
 def build_remaining():
+ from landing.recent_posts import insert_recent_posts
  from landing.hero_carousel import configure as configure_hero
  original=html.parse(str(DOCS/'index.html')).getroot()
  for code in EXTRA:
@@ -116,6 +117,7 @@ def build_remaining():
    source=localize_assets(localize_js(source,mapping),loc)
    name='landing-'+hashlib.sha256(source.encode()).hexdigest()[:12]+'.js'
    (DOCS/'assets'/name).write_text(source);script.set('src','assets/'+name)
+  insert_recent_posts(doc,code)
   destination=DOCS/loc['path'];destination.mkdir(parents=True,exist_ok=True)
   (destination/'index.html').write_text(html.tostring(doc,encoding='unicode',doctype='<!doctype html>'))
  print('Built six additional localized homepages')
