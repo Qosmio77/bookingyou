@@ -15,16 +15,50 @@
 })()
 </script>
 <!-- ?v= 係 cache 破除用。改 style.css / app.js 就要 +1 -->
-<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
   <!-- login view -->
-  <section id="login" class="login hidden">
-    <h1>BookingYou Admin</h1>
-    <input id="email" type="email" placeholder="Email" autocomplete="username">
-    <input id="password" type="password" placeholder="密碼" autocomplete="current-password">
-    <button id="loginBtn">登入</button>
-    <p id="loginErr" class="err"></p>
+  <section id="login" class="admin-auth" aria-labelledby="authTitle">
+    <div class="auth-intro">
+      <a class="auth-brand" href="/" aria-label="BookingYou 首頁">Booking<span>You</span></a>
+      <p class="auth-eyebrow">ADMIN WORKSPACE</p>
+      <h1 id="authTitle">每一個細節，<br>安心管理。</h1>
+      <p class="auth-lead">集中掌握商戶、預約與客戶資料，<br>讓每一天的營運更有條理。</p>
+      <div class="auth-assurance"><span aria-hidden="true">✓</span><div><strong>兩步驗證，守護帳戶</strong><p>管理員登入必須通過密碼及驗證器確認。</p></div></div>
+    </div>
+    <div class="auth-card">
+      <ol class="auth-steps" aria-label="登入步驟"><li id="authStepAccount" aria-current="step"><span>1</span> 帳戶登入</li><li id="authStepVerify"><span>2</span> 安全驗證</li></ol>
+      <p id="authStatus" class="auth-status" role="status" aria-live="polite"></p>
+      <form id="loginForm">
+        <h2>歡迎回來</h2><p class="auth-copy">使用管理員帳戶繼續。</p>
+        <label for="email">管理員電郵</label>
+        <input id="email" type="email" placeholder="name@example.com" autocomplete="username" autocapitalize="none" spellcheck="false" required>
+        <label for="password">密碼</label>
+        <div class="auth-password"><input id="password" type="password" autocomplete="current-password" required><button id="passwordToggle" type="button" aria-label="顯示密碼" aria-pressed="false">顯示</button></div>
+        <p id="loginErr" class="err" role="alert"></p>
+        <button id="loginBtn" class="auth-primary" type="submit">登入並繼續</button>
+      </form>
+      <section id="mfaPanel" class="hidden" aria-labelledby="mfaTitle">
+        <h2 id="mfaTitle">安全驗證</h2><p id="authIdentity" class="auth-identity"></p><p id="mfaDescription" class="auth-copy"></p>
+        <button id="mfaEnrollBtn" class="auth-primary hidden" type="button">設定驗證器</button>
+        <div id="mfaSetup" class="auth-setup hidden">
+          <p>用 Google Authenticator、Microsoft Authenticator 或 Apple「密碼」等驗證器掃描。</p>
+          <img id="mfaQr" alt="新增 BookingYou 管理員驗證器的 QR code" width="220" height="220">
+          <details id="mfaManual"><summary>無法掃描？手動輸入設定密鑰</summary><code id="mfaSecret"></code></details>
+          <p class="auth-small">設定密鑰只供你加入驗證器，請勿分享。</p>
+        </div>
+        <form id="mfaForm" class="hidden">
+          <div id="mfaFactorField"><label for="mfaFactors">驗證器</label><select id="mfaFactors"></select></div>
+          <label for="mfaCode">6 位驗證碼</label><input id="mfaCode" type="text" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" placeholder="000000" required aria-describedby="mfaCodeHelp">
+          <p id="mfaCodeHelp" class="auth-small">輸入驗證器目前顯示的代碼。</p>
+          <button id="mfaVerifyBtn" class="auth-primary" type="submit">驗證並進入後台</button>
+        </form>
+        <p id="mfaError" class="err" role="alert"></p>
+      </section>
+      <div class="auth-secondary"><button id="authRetry" class="hidden" type="button">重新核對</button><button id="authSignOut" class="hidden" type="button">登出／切換帳戶</button></div>
+      <p class="auth-footnote">僅限獲授權的管理員。資料查閱及操作會按系統政策記錄。</p>
+    </div>
   </section>
 
   <!-- main view -->
@@ -36,17 +70,19 @@
         <button id="logoutBtn" title="登出">⎋</button>
       </div>
     </header>
-    <div id="content"></div>
-    <nav>
+    <div id="content" aria-live="polite"></div>
+    <nav id="mainNav" aria-label="後台主要導覽">
       <button data-tab="overview"   class="active">📊<span>總覽</span></button>
       <button data-tab="businesses">🏪<span>商家</span></button>
       <button data-tab="bookings">📅<span>預約</span></button>
+      <button data-tab="accounts">👤<span>帳戶</span></button>
+      <button data-tab="reviews">⭐<span>評價</span></button>
       <button data-tab="complaints">🚩<span>投訴</span></button>
     </nav>
   </section>
 
   <div id="toast" class="hidden"></div>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="app.js?v=4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.110.7"></script>
+  <script type="module" src="app.js?v=6"></script>
 </body>
 </html>

@@ -1,93 +1,74 @@
+import {setupAdminAuth} from './auth.mjs'
+import {createAdminData} from './data.mjs'
+import {esc,fmtDate,showError,loading} from './ui.mjs'
+import {renderAccounts,renderAccount,resetAccounts} from './accounts.mjs'
+import {renderBusinesses,renderBusiness,renderBookings,renderComplaints,renderReviews,resetLists} from './lists.mjs'
 const SUPABASE_URL = 'https://gzwebxflrltxaglrukde.supabase.co'
 const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6d2VieGZscmx0eGFnbHJ1a2RlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEyMjA2MDcsImV4cCI6MjA5Njc5NjYwN30.BJoQTqVDw3NAEW_LC0DxhWDgQDHOv-7Str6B6sHDVoU'
 const SENTRY_URL = 'https://sentry.io'   // v1: plain link out
 
-const sb = supabase.createClient(SUPABASE_URL, ANON_KEY)
-const $ = (s) => document.querySelector(s)
 
-// ---------- helpers ----------
-function toast(msg) {
-  const t = $('#toast'); t.textContent = msg; t.classList.remove('hidden')
-  clearTimeout(t._h); t._h = setTimeout(() => t.classList.add('hidden'), 2200)
+const sb = globalThis.supabase.createClient(SUPABASE_URL, ANON_KEY)
+const data = createAdminData(sb)
+const $ = s => document.querySelector(s)
+const fmtDT = fmtDate
+const TABS = {overview:'總覽',businesses:'商家',bookings:'預約',complaints:'投訴',reviews:'評價',accounts:'帳戶',account:'帳戶詳情',business:'商家詳情'}
+let currentTab='overview', currentParams={}, actorId=null, authorized=false, routeVersion=0, controller=null
+function clearPrivateViews(preserveFilters=false) {
+  authorized=false;routeVersion++;controller?.abort();$('#content').replaceChildren()
+  if(!preserveFilters){resetAccounts();resetLists()}
+  document.body.classList.remove('dash')
 }
-function esc(s) { const d = document.createElement('div'); d.textContent = s ?? ''; return d.innerHTML }
-function fmtDT(iso) {
-  if (!iso) return '—'
-  return new Date(iso).toLocaleString('zh-HK', { month: 'numeric', day: 'numeric',
-    hour: '2-digit', minute: '2-digit', hour12: false })
+function readLocation() {
+  const raw=location.hash.slice(1).split('/'), tab=raw[0]
+  if(!Object.hasOwn(TABS,tab))return ['overview',{}]
+  if(['account','business'].includes(tab))return /^[a-f0-9-]{36}$/i.test(raw[1]||'')?[tab,{id:raw[1]}]:['overview',{}]
+  return [tab,{}]
 }
-function blockErr(container, retry) {
-  container.innerHTML = '<div class="block-err">載入失敗<br><button>重試</button></div>'
-  container.querySelector('button').onclick = retry
-}
-
-// ---------- auth & router ----------
-const TABS = { overview: '總覽', businesses: '商家', bookings: '預約', complaints: '投訴&評價' }
-let currentTab = 'overview'
-
-function show(view) {           // 'login' | 'main'
-  $('#login').classList.toggle('hidden', view !== 'login')
-  $('#main').classList.toggle('hidden', view !== 'main')
-}
-
-async function route(tab) {
-  currentTab = tab
-  $('#title').textContent = TABS[tab]
-  document.querySelectorAll('nav button').forEach(b =>
-    b.classList.toggle('active', b.dataset.tab === tab))
-  // 儀表板要闊過其他分頁，所以個寬度掛喺 body 而唔係逐個容器度改。
-  document.body.classList.toggle('dash', tab === 'overview')
-  const c = $('#content'); c.innerHTML = '<div class="block-err">載入中…</div>'
+async function route(tab,params={},history=true) {
+  if(!authorized || !actorId)return
+  if(!Object.hasOwn(TABS,tab))tab='overview'
+  currentTab=tab;currentParams=params
+  const request=++routeVersion, actor=actorId
+  controller?.abort();controller=new AbortController()
+  $('#title').textContent=TABS[tab]
+  document.querySelectorAll('#mainNav button').forEach(b=>{
+    const active=b.dataset.tab===(tab==='account'?'accounts':tab==='business'?'businesses':tab)
+    b.classList.toggle('active',active);b.setAttribute('aria-current',active?'page':'false')
+  })
+  document.body.classList.toggle('dash',tab==='overview')
+  const hash='#'+tab+(params.id?'/'+encodeURIComponent(params.id):'')
+  if(history && location.hash!==hash)window.history.pushState(null,'',hash)
+  const container=document.createElement('div');container.innerHTML=loading();$('#content').replaceChildren(container)
+  const ctx={container,data,sb,route,params,signal:controller.signal,alive:()=>authorized && actorId===actor && routeVersion===request && container.isConnected}
   try {
-    if (tab === 'overview')   await renderOverview(c)
-    if (tab === 'businesses') await renderBusinesses(c)
-    if (tab === 'bookings')   await renderBookings(c)
-    if (tab === 'complaints') await renderComplaints(c)
-  } catch (e) {
-    if (String(e.message || e).includes('forbidden')) {
-      c.innerHTML = '<div class="block-err">此帳號無管理權限</div>'
-    } else blockErr(c, () => route(tab))
-  }
+    if(tab==='overview')await renderOverview(container,ctx)
+    else if(tab==='businesses')await renderBusinesses(ctx)
+    else if(tab==='business')await renderBusiness(ctx,params.id)
+    else if(tab==='bookings')await renderBookings(ctx)
+    else if(tab==='complaints')await renderComplaints(ctx)
+    else if(tab==='reviews')await renderReviews(ctx)
+    else if(tab==='accounts')await renderAccounts(ctx)
+    else if(tab==='account')await renderAccount(ctx,params.id)
+  }catch(e){if(ctx.alive())showError(container,e,()=>route(tab,params,false))}
 }
-
-$('#loginBtn').onclick = async () => {
-  $('#loginErr').textContent = ''
-  const { error } = await sb.auth.signInWithPassword({
-    email: $('#email').value.trim(), password: $('#password').value })
-  if (error) $('#loginErr').textContent = error.message
-}
-$('#logoutBtn').onclick = () => sb.auth.signOut()
-
-// ---------- 主題 ----------
-// 冇揀過就跟系統。撳一次就當佢揀咗，之後系統點變都唔再跟 —— 一個特登撳過嘅選擇
-// 唔應該被系統覆蓋。掣面顯示撳落去會變成點，唔係顯示而家係點。
-function effectiveTheme() {
-  return document.documentElement.dataset.theme
-      || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
-}
-function paintThemeBtn() {
-  const dark = effectiveTheme() === 'dark'
-  const b = $('#themeBtn')
-  b.textContent = dark ? '☀️' : '🌙'
-  b.title = dark ? '轉淺色' : '轉深色'
-}
-$('#themeBtn').onclick = () => {
-  const next = effectiveTheme() === 'dark' ? 'light' : 'dark'
-  document.documentElement.dataset.theme = next
-  try { localStorage.setItem('theme', next) } catch { /* 私隱模式：今次有效，下次跟返系統 */ }
-  paintThemeBtn()
-}
-paintThemeBtn()
-matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-  if (!document.documentElement.dataset.theme) paintThemeBtn()
+window.addEventListener('popstate',()=>route(...readLocation(),false))
+// The auth controller grants access only after the server's MFA policy gate.
+// Every lock immediately clears sensitive views and aborts stale requests.
+setupAdminAuth({
+  sb,
+  onLocked({sameActor=false,event}={}) { actorId=null;clearPrivateViews(sameActor && event==='TOKEN_REFRESHED') },
+  async onAuthorized(session) {
+    actorId=session.user.id;authorized=true
+    await route(...readLocation(),false)
+  },
 })
-document.querySelectorAll('nav button').forEach(b => b.onclick = () => route(b.dataset.tab))
+document.querySelectorAll('#mainNav button').forEach(b=>b.onclick=()=>route(b.dataset.tab))
+function effectiveTheme(){return document.documentElement.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}
+function paintThemeBtn(){const dark=effectiveTheme()==='dark';$('#themeBtn').textContent=dark?'☀️':'🌙';$('#themeBtn').title=dark?'轉淺色':'轉深色'}
+$('#themeBtn').onclick=()=>{const next=effectiveTheme()==='dark'?'light':'dark';document.documentElement.dataset.theme=next;try{localStorage.setItem('theme',next)}catch{}paintThemeBtn()}
+paintThemeBtn();matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{if(!document.documentElement.dataset.theme)paintThemeBtn()})
 
-sb.auth.onAuthStateChange((_evt, session) => {
-  if (session) { show('main'); route(currentTab) } else show('login')
-})
-
-// ---------- tabs (implemented in later tasks) ----------
 // ---------- 儀表板 ----------
 // 一個 RPC 交齊四段：生意健康度、增長漏斗、商戶成效、營運異常。
 // 分開四次攞會攞到四個唔同時刻嘅同一個資料庫。
@@ -197,8 +178,9 @@ function tableHtml(cols, rows, empty) {
   </table></div>`
 }
 
-async function renderOverview(c) {
+async function renderOverview(c, ctx) {
   const { data, error } = await sb.rpc('admin_dashboard_full', { p_days: dashDays })
+  if (!ctx.alive()) return
   if (error) throw error
   if (!data) { c.innerHTML = '<div class="block-err">此帳號無管理權限</div>'; return }
   const { health: h, merchants: m, funnel: f, anomalies: a, geo: G = [] } = data
@@ -341,104 +323,4 @@ async function renderOverview(c) {
   })
   wireTabs(c, 'mt', MERCH.map(([k]) => k), (k) => { merchTab = k })
   wireTabs(c, 'gt', ['funnel', 'geo'], (k) => { geoTab = k })
-}
-
-async function renderBusinesses(c) {
-  const { data, error } = await sb.from('businesses')
-    .select('id,name,category,country,is_active,created_at,images')
-    .order('created_at', { ascending: false }).limit(100)
-  if (error) throw error
-  c.innerHTML = `<input class="search" placeholder="搜尋名稱/類別/國家"><div id="bizList"></div>`
-  const list = $('#bizList')
-  let q = ''
-  const draw = () => {
-    const rows = data.filter(b =>
-      (b.name + b.category + b.country).toLowerCase().includes(q.toLowerCase()))
-    list.innerHTML = rows.map(b => `
-      <div class="row ${b.is_active ? '' : 'off'}">
-        <h3>${esc(b.name)}</h3>
-        <div class="meta">${esc(b.category)} · ${esc(b.country)} · 圖${(b.images || []).length} · ${fmtDT(b.created_at)}</div>
-        <div class="act"><button class="${b.is_active ? 'danger' : ''}" data-biz="${b.id}"
-          data-to="${!b.is_active}">${b.is_active ? '停用' : '啟用'}</button></div>
-      </div>`).join('') || '<div class="block-err">冇結果</div>'
-    list.querySelectorAll('[data-biz]').forEach(btn => btn.onclick = async () => {
-      const to = btn.dataset.to === 'true'
-      const biz = data.find(x => x.id === btn.dataset.biz)
-      if (!confirm(`${to ? '啟用' : '停用'}「${biz.name}」?`)) return
-      const { error: e2 } = await sb.from('businesses')
-        .update({ is_active: to }).eq('id', biz.id)
-      if (e2) return toast('失敗:' + e2.message)
-      biz.is_active = to; toast(to ? '已啟用' : '已停用'); draw()
-    })
-  }
-  c.querySelector('.search').oninput = (e) => { q = e.target.value; draw() }
-  draw()
-}
-async function renderBookings(c, status = 'all') {
-  let q = sb.from('bookings')
-    .select('id,status,start_time,party_size,created_at,business:businesses(name,currency),service:services(name,price),customer:profiles(full_name)')
-    .order('created_at', { ascending: false }).limit(50)
-  if (status !== 'all') q = q.eq('status', status)
-  const { data, error } = await q
-  if (error) throw error
-  const F = ['all', 'pending', 'confirmed', 'completed', 'cancelled']
-  c.innerHTML = `<div class="filter">${F.map(f =>
-      `<button class="${f === status ? 'active' : ''}" data-f="${f}">${f}</button>`).join('')}</div>
-    <div id="bkList">${data.map(b => `
-      <div class="row">
-        <h3>${esc(b.service?.name ?? '—')} <span class="badge ${b.status}">${b.status}</span></h3>
-        <div class="meta">${esc(b.business?.name ?? '—')} · ${esc(b.customer?.full_name ?? '—')}
-          · ${b.party_size > 1 ? b.party_size + ' 位 · ' : ''}${fmtDT(b.start_time)}
-          · ${b.business?.currency ?? ''} ${b.service?.price ?? ''}</div>
-        ${['pending', 'confirmed'].includes(b.status)
-          ? `<div class="act"><button class="danger" data-bk="${b.id}">取消預約</button></div>` : ''}
-      </div>`).join('') || '<div class="block-err">冇預約</div>'}</div>`
-  c.querySelectorAll('[data-f]').forEach(b => b.onclick = () => renderBookings(c, b.dataset.f))
-  c.querySelectorAll('[data-bk]').forEach(btn => btn.onclick = async () => {
-    if (!confirm('取消呢單預約?')) return
-    const { error: e2 } = await sb.from('bookings')
-      .update({ status: 'cancelled' }).eq('id', btn.dataset.bk)
-    if (e2) return toast('失敗:' + e2.message)
-    toast('已取消'); renderBookings(c, status)
-  })
-}
-async function renderComplaints(c) {
-  const [cmp, rev] = await Promise.all([
-    sb.from('complaints')
-      .select('id,complainant_role,reason,description,status,created_at,evidence_urls,business:against_business_id(name)')
-      .order('created_at', { ascending: false }).limit(50),
-    sb.from('reviews')
-      .select('rating,comment,author_name,created_at,business:businesses(name)')
-      .order('created_at', { ascending: false }).limit(30),
-  ])
-  if (cmp.error) throw cmp.error
-  if (rev.error) throw rev.error
-  const open = cmp.data.filter(x => x.status === 'open' || x.status === 'reviewing')
-  const done = cmp.data.filter(x => !open.includes(x))
-  const card = (x) => `
-    <div class="row">
-      <h3>${esc(x.reason)} <span class="badge ${x.status === 'open' ? 'open' : 'resolved'}">${x.status}</span></h3>
-      <div class="meta">${x.complainant_role === 'customer' ? '顧客投訴商家' : '商家投訴顧客'}
-        · ${esc(x.business?.name ?? '')} · ${fmtDT(x.created_at)}</div>
-      <div class="meta">${esc(x.description ?? '')}</div>
-      ${(x.evidence_urls || []).map(u => `<a href="${u}" target="_blank">📎 證據</a>`).join(' ')}
-      ${x.status !== 'resolved'
-        ? `<div class="act"><button data-cmp="${x.id}">標記已處理</button></div>` : ''}
-    </div>`
-  c.innerHTML = `
-    <div class="section-title">投訴(${open.length} 開放)</div>
-    ${open.map(card).join('') || '<div class="block-err">冇開放投訴 🎉</div>'}
-    ${done.length ? `<div class="section-title">已處理</div>` + done.map(card).join('') : ''}
-    <div class="section-title">最新評價</div>
-    ${rev.data.map(r => `
-      <div class="row"><h3><span class="stars">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</span></h3>
-        <div class="meta">${esc(r.author_name ?? '匿名')} → ${esc(r.business?.name ?? '')} · ${fmtDT(r.created_at)}</div>
-        <div class="meta">${esc(r.comment ?? '')}</div></div>`).join('')}`
-  c.querySelectorAll('[data-cmp]').forEach(btn => btn.onclick = async () => {
-    if (!confirm('標記呢單投訴為已處理?')) return
-    const { error: e2 } = await sb.from('complaints')
-      .update({ status: 'resolved' }).eq('id', btn.dataset.cmp)
-    if (e2) return toast('失敗:' + e2.message)
-    toast('已處理'); renderComplaints(c)
-  })
 }
