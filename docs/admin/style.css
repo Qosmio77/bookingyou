@@ -44,13 +44,65 @@ body { font: 17px/1.5 -apple-system, "PingFang HK", sans-serif; background: var(
 .hidden { display: none !important; }
 .err { color: var(--bad-txt); min-height: 1.2em; font-size: 15px; }
 
-.login { max-width: 320px; margin: 18vh auto; display: flex; flex-direction: column;
-         gap: 12px; padding: 0 16px; }
-.login h1 { font-size: 25.5px; color: var(--p); text-align: center; }
-.login input { padding: 12px; border: 1px solid var(--line); border-radius: 10px; font-size: 17px;
-               background: var(--card); color: var(--txt); }
-.login button { padding: 12px; border: 0; border-radius: 10px; background: var(--p);
-                color: var(--on-p); font-size: 17px; font-weight: 600; }
+/* Login colors are deliberately scoped: a calm navy/teal identity in either theme. */
+#login { --auth-navy:#143252; --auth-teal:#007e75; --auth-muted:#526477; color-scheme:light;
+  color:var(--auth-navy); background:linear-gradient(130deg,#f2f9fb 0%,#eef8f6 48%,#f8fafb 100%);
+  min-height:100vh; min-height:100svh; display:grid; grid-template-columns:minmax(0,1fr) minmax(340px,460px);
+  align-items:center; gap:clamp(36px,7vw,110px); padding:clamp(28px,6vw,96px); }
+#login .auth-intro { max-width:620px; justify-self:end; width:100%; }
+#login .auth-brand { display:inline-block; color:var(--auth-navy); font-size:29px; font-weight:800; letter-spacing:-1.1px; text-decoration:none; margin-bottom:54px; }
+#login .auth-brand span { color:var(--auth-teal); }
+#login .auth-eyebrow { color:var(--auth-teal); font-size:12px; font-weight:750; letter-spacing:2px; margin-bottom:20px; }
+#login h1 { font-size:clamp(36px,4.6vw,62px); line-height:1.28; letter-spacing:-1.5px; font-weight:750; }
+#login .auth-lead { color:var(--auth-muted); font-size:17px; line-height:1.9; margin-top:24px; }
+#login .auth-assurance { display:flex; align-items:flex-start; gap:14px; margin-top:48px; font-size:14px; }
+#login .auth-assurance > span { background:#d5eeea; color:var(--auth-teal); border-radius:50%; width:32px; height:32px; display:grid; place-items:center; font-weight:800; flex:none; }
+#login .auth-assurance p { color:var(--auth-muted); font-size:13px; margin-top:4px; }
+#login .auth-card { width:100%; max-width:460px; background:#fff; border:1px solid #e1ecec; border-radius:24px;
+  box-shadow:0 18px 60px #1432520c,0 3px 10px #14325205; padding:36px; }
+#login .auth-steps { display:flex; list-style:none; padding:0; gap:22px; margin-bottom:28px; font-size:13px; color:#72808b; }
+#login .auth-steps li { display:flex; align-items:center; gap:7px; }
+#login .auth-steps span { width:25px; height:25px; display:grid; place-items:center; border-radius:50%; background:#eff3f5; font-size:12px; font-weight:700; }
+#login .auth-steps [aria-current="step"] { color:var(--auth-teal); font-weight:700; }
+#login .auth-steps [aria-current="step"] span { background:#dff2ee; }
+#login h2 { font-size:26px; line-height:1.4; margin-bottom:8px; letter-spacing:-.5px; }
+#login .auth-copy { color:var(--auth-muted); font-size:14px; line-height:1.65; margin-bottom:24px; }
+#login label { display:block; font-size:13px; font-weight:650; margin:18px 0 7px; }
+#login input,#login select { display:block; width:100%; min-width:0; min-height:48px; padding:11px 13px; border:1px solid #cddbdd; border-radius:9px; color:var(--auth-navy); background:#fff; font-size:16px; }
+#login input::placeholder { color:#7b8a98; opacity:1; }
+#login button { min-height:44px; border:1px solid #cbdcdd; border-radius:9px; background:#fff; color:var(--auth-navy); font-size:14px; font-weight:650; }
+#login .auth-primary { display:block; width:100%; background:var(--auth-teal); color:#fff; border-color:var(--auth-teal); min-height:48px; padding:12px 16px; margin-top:22px; }
+#login button:disabled { opacity:.55; }
+#login :is(input,select,button,a,summary):focus-visible { outline:3px solid #159f91; outline-offset:3px; }
+#login .auth-password { display:flex; align-items:center; position:relative; }
+#login .auth-password input { padding-right:72px; }
+#login .auth-password button { position:absolute; right:4px; border:0; background:transparent; color:var(--auth-teal); padding:8px 12px; }
+#login .auth-status { color:var(--auth-muted); font-size:13px; line-height:1.6; }
+#login .auth-status:empty { display:none; }
+#login .auth-status:not(:empty) { margin-bottom:18px; }
+#login .err { color:#ad2831; font-size:13px; line-height:1.6; margin-top:12px; min-height:0; overflow-wrap:anywhere; }
+#login .err:empty { display:none; }
+#login .auth-secondary { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; }
+#login .auth-secondary:has(> .hidden:first-child:last-child) { display:none; }
+#login .auth-secondary button { flex:1; font-size:13px; }
+#login .auth-footnote { color:#677888; font-size:11px; line-height:1.7; padding-top:22px; margin-top:24px; border-top:1px solid #e7eeee; }
+#login .auth-identity { font-size:13px; color:var(--auth-muted); margin:4px 0 12px; overflow-wrap:anywhere; }
+#login .auth-small { color:var(--auth-muted); font-size:12px; line-height:1.65; margin-top:8px; }
+#login .auth-setup { background:#f5faf9; border:1px solid #deece9; padding:16px; border-radius:12px; margin:20px 0; font-size:13px; line-height:1.7; }
+#login .auth-setup img { display:block; width:min(220px,100%); height:auto; aspect-ratio:1; object-fit:contain; background:white; padding:8px; border-radius:8px; margin:16px auto; }
+#login .auth-setup summary { cursor:pointer; min-height:44px; display:flex; align-items:center; color:var(--auth-teal); font-size:12px; }
+#login .auth-setup code { display:block; overflow-wrap:anywhere; font-size:13px; padding:10px; background:#fff; border-radius:6px; user-select:all; }
+#login #mfaCode { font-size:24px; font-variant-numeric:tabular-nums; letter-spacing:8px; text-align:center; }
+@media (max-width:800px) {
+  #login { display:flex; flex-direction:column; align-items:center; gap:28px; padding:28px 20px 40px; }
+  #login .auth-intro { max-width:460px; }
+  #login .auth-brand { font-size:26px; margin-bottom:24px; }
+  #login .auth-eyebrow { margin-bottom:10px; }
+  #login h1 { font-size:34px; }
+  #login .auth-lead,#login .auth-assurance { display:none; }
+  #login .auth-card { padding:28px; border-radius:20px; }
+}
+@media (max-width:380px) { #login { padding-inline:14px; } #login .auth-card { padding:22px; } }
 
 header { position: sticky; top: 0; z-index: 5; display: flex; align-items: center;
          justify-content: space-between; padding: 12px 16px; background: var(--card);
@@ -59,12 +111,12 @@ header button { border: 0; background: none; font-size: 19.5px; color: var(--mut
 .hdr-act { display: flex; align-items: center; gap: 14px; }
 #content { padding: 12px 12px 76px; max-width: 720px; margin: 0 auto; }
 
-nav { position: fixed; bottom: 0; left: 0; right: 0; display: flex; background: var(--card);
+#mainNav { position: fixed; bottom: 0; left: 0; right: 0; display: flex; background: var(--card);
       border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom); }
-nav button { flex: 1; border: 0; background: none; padding: 8px 0 6px; font-size: 20.5px;
+#mainNav button { flex: 1; border: 0; background: none; padding: 8px 0 6px; font-size: 20.5px;
              color: var(--mut); display: flex; flex-direction: column; align-items: center; gap: 1px; }
-nav button span { font-size: 12.5px; }
-nav button.active { color: var(--p); font-weight: 700; }
+#mainNav button span { font-size: 12.5px; }
+#mainNav button.active { color: var(--p); font-weight: 700; }
 
 .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .card { background: var(--card); border-radius: 12px; padding: 12px; box-shadow: var(--shadow); }
@@ -105,6 +157,61 @@ input.search { width: 100%; padding: 10px 12px; border: 1px solid var(--line);
          font-size: 16px; z-index: 9; }
 .stars { color: var(--warn-txt); }
 @media (min-width: 720px) { .cards { grid-template-columns: repeat(4, 1fr); } }
+
+/* Shared directories and details: a full result count, explicit filters and
+   pagination keep large datasets readable on phones as well as desktop. */
+#content { max-width: 1100px; padding-bottom: calc(100px + env(safe-area-inset-bottom)); }
+button, input, select, a.button { font: inherit; }
+button, a.button { min-height: 44px; cursor: pointer; border: 1px solid var(--line); border-radius: 9px; background: var(--card); color: var(--txt); padding: 8px 12px; }
+button:disabled { opacity: .45; cursor: default; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid var(--p); outline-offset: 3px; }
+button.primary { background: var(--p); color: var(--on-p); border-color: var(--p); }
+#mainNav { z-index: 6; }
+#mainNav button { min-width: 0; border-radius: 0; }
+.toolbar { display: flex; align-items: end; gap: 12px; flex-wrap: wrap; background: var(--card); border: 1px solid var(--line); padding: 16px; border-radius: 12px; margin-bottom: 16px; }
+.field { display: flex; flex-direction: column; gap: 5px; font-size: 13px; font-weight: 600; min-width: 110px; }
+.field.grow { flex: 1 1 280px; }
+.field input, .field select, .toolbar input, .toolbar select { min-height: 44px; border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; background: var(--bg); color: var(--txt); min-width: 0; width: 100%; font-size: 16px; }
+.toolbar label { display: flex; flex-direction: column; gap: 5px; max-width: 100%; }
+.pagination { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin: 16px 0; font-size: 14px; }
+.pagination p { color: var(--mut); font-variant-numeric: tabular-nums; }
+.pagination > div { display: flex; gap: 6px; flex-wrap: wrap; }
+.row { padding: 20px; margin-bottom: 12px; }
+.row h2, .row h3 { font-size: 18px; line-height: 1.45; overflow-wrap: anywhere; }
+.row .act, .detail-card .act { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.text-link { padding: 0; border: 0; background: transparent; color: var(--p); text-align: left; font-weight: 600; overflow-wrap: anywhere; }
+.detail-card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 24px; margin: 16px 0; }
+.detail-card h2 { font-size: 24px; overflow-wrap: anywhere; }
+.detail-card h3 { font-size: 17px; margin-top: 16px; }
+.detail-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(230px,100%),1fr)); gap: 16px 24px; margin: 18px 0; }
+.detail-grid > div { min-width: 0; }
+.detail-grid dt { font-size: 13px; color: var(--mut); margin-bottom: 3px; }
+.detail-grid dd { font-size: 15px; overflow-wrap: anywhere; white-space: pre-wrap; }
+.record-note { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 15px; line-height: 1.6; }
+.muted { color: var(--mut); font-size: 14px; margin: 10px 0; }
+.notice { padding: 12px 16px; background: var(--tint-p); border-radius: 10px; margin: 12px 0; font-size: 14px; }
+.notice button { margin-left: 8px; }
+.section-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 12px; }
+.section-tabs .active { background: var(--p); color: var(--on-p); border-color: var(--p); }
+.back-btn { margin: 4px 0 10px; }
+.business-gallery { display: flex; gap: 10px; overflow: auto; margin: 16px 0; }
+.business-gallery img { width: 160px; height: 120px; object-fit: cover; border-radius: 10px; }
+.table-wrap { overflow-x: auto; }
+.data-table { width: 100%; border-collapse: collapse; }
+.data-table th, .data-table td { padding: 12px; text-align: left; border-bottom: 1px solid var(--line); }
+.data-table th { font-size: 13px; color: var(--mut); }
+.button { display: inline-flex; align-items: center; text-decoration: none; }
+body.dash #content > div { height: 100%; }
+@media (max-width: 600px) {
+  .detail-card { padding: 16px; }
+  .toolbar { gap: 10px; padding: 12px; }
+  .field { flex: 1 1 135px; }
+  .row { padding: 16px; }
+  #mainNav button { padding-inline: 2px; font-size: 18px; }
+  #mainNav button span { font-size: 12px; }
+  .pagination > div { width: 100%; }
+  .pagination button { flex: 1; padding-inline: 7px; }
+}
 
 /* ---------- 儀表板 ---------- */
 /* 目標：電腦一版睇晒，唔使上下拉。做法係鎖死 #main 個高度，四塊板各自食剩落嘅空間，
@@ -199,7 +306,7 @@ input.search { width: 100%; padding: 10px 12px; border: 1px solid var(--line);
 @media (min-width: 900px) and (min-height: 700px) {
   body.dash #main { height: 100dvh; display: flex; flex-direction: column; overflow: hidden; }
   body.dash header { flex: none; }
-  body.dash nav { position: static; flex: none; }
+  body.dash #mainNav { position: static; flex: none; }
   /* margin:0 —— 基本樣式嗰句 `margin: 0 auto` 喺直向 flex 容器度會抵消 stretch，
      結果成塊板縮到得內容咁闊再置中。要撐滿就一定要清走 auto。 */
   body.dash #content { flex: 1 1 auto; min-height: 0; max-width: none; margin: 0;
@@ -243,3 +350,8 @@ input.search { width: 100%; padding: 10px 12px; border: 1px solid var(--line);
 
 /* 好闊嘅屏幕：KPI 唔好扯到成行都係空白 */
 @media (min-width: 1600px) { body.dash #content { padding: 10px 24px; } }
+
+#content header { position: static; z-index: auto; }
+.account-summary { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+.account-summary > :first-child { grid-column:1 / -1; }
+@media(max-width:700px){.account-summary{grid-template-columns:minmax(0,1fr);}}
