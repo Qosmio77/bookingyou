@@ -39,24 +39,37 @@ for lang,u in UI.items():
    if parts.path.endswith('/'):target=target/'index.html'
    check(target.is_file(),'internal route/asset exists '+value)
   graph=json.loads(doc.xpath('//script[@type="application/ld+json"]/text()')[0])['@graph']
-  check(any(x['@type']=='BreadcrumbList' for x in graph),'breadcrumb schema')
+  page=next(x for x in graph if x['@type']==('WebPage' if slug else 'CollectionPage'))
+  crumb=next(x for x in graph if x['@type']=='BreadcrumbList')
+  check(page['breadcrumb']=={'@id':crumb['@id']},'page references breadcrumb')
+  visible_crumb=doc.xpath('//nav[@class="crumb"]/a | //nav[@class="crumb"]/*[@aria-current="page"]')
+  check([(x['position'],x['name'],x['item']) for x in crumb['itemListElement']]==
+        [(i,x.text_content().strip(),BASE+(x.get('href') or route(lang,slug)))
+         for i,x in enumerate(visible_crumb,1)],'breadcrumb matches visible trail')
   if slug:
    guide=next(g for g in GUIDES if g['slug']==slug)
    check(guide[lang]['title'] in ' '.join(doc.xpath('//h1//text()')),'guide topic visible in h1')
    image=BASE+'/preview-assets/industry-'+guide['image']+'-v8.webp'
    check(doc.xpath('//meta[@property="og:image"]/@content')==[image],'industry share image')
    check(doc.xpath('//meta[@name="twitter:image"]/@content')==[image],'industry Twitter image')
-   page=next(x for x in graph if x['@type']=='WebPage')
    check(page.get('primaryImageOfPage',{}).get('contentUrl')==image,'industry schema image')
    check((DOCS/urlsplit(image).path.strip('/')).is_file(),'industry image exists')
    check(len(doc.xpath('//*[@id="customer"]//li'))==3,'customer steps')
    check(len(doc.xpath('//*[@id="merchant"]//li'))==3,'merchant steps')
    check(len(doc.xpath('//*[@id="challenges"]//article'))==4,'four industry pains')
    faq=next(x for x in graph if x['@type']=='FAQPage');visible=doc.xpath('//*[@id="faq"]')[0].text_content()
+   check(page['hasPart']=={'@id':faq['@id']} and faq['isPartOf']=={'@id':page['@id']},'FAQ references guide')
    for q in faq['mainEntity']:
     check(q['name'] in visible and q['acceptedAnswer']['text'] in visible,'FAQ matches visible copy')
    check(len(visible)>160,'substantial specific FAQ')
   else:
+   listing=next(x for x in graph if x['@type']=='ItemList')
+   cards=doc.xpath('//a[@class="hub-card"]')
+   check(page['mainEntity']=={'@id':listing['@id']} and listing['numberOfItems']==len(cards),
+         'hub references its guide list')
+   check([(x['position'],x['name'],x['url']) for x in listing['itemListElement']]==
+         [(i,x.xpath('.//h2')[0].text_content().strip(),BASE+x.get('href'))
+          for i,x in enumerate(cards,1)],'hub list matches visible guide cards')
    check(len(doc.xpath('//*[@id="who"]//details'))==12,'preserved twelve industry groups')
    check(len(doc.xpath('//*[@id="who"]//li'))==122,'preserved 122 service examples')
   check('/Users/' not in raw and '127.0.0.1' not in raw,'no local references')

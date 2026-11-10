@@ -49,7 +49,14 @@ for code,loc in LOCALES.items():
  schema=json.loads(doc.xpath('//script[@type="application/ld+json"]/text()')[0])['@graph']
  page=next(x for x in schema if x['@type']=='WebPage')
  check(page['inLanguage']==loc['language'] and page['url']==url,code+' schema page')
+ app=next(x for x in schema if x['@type']=='SoftwareApplication')
+ check(page['mainEntity']=={'@id':app['@id']},code+' schema app reference')
+ check(app['offers']['price']==0 and app['offers']['url']==url+'#plans'
+       and app['offers']['name']==doc.xpath('//*[@id="plans"]//h3')[0].text_content().strip(),
+       code+' schema offer matches visible core plan')
  faq=next(x for x in schema if x['@type']=='FAQPage')
+ check(page['hasPart']=={'@id':faq['@id']} and faq['isPartOf']=={'@id':page['@id']},
+       code+' localized FAQ reference')
  check(len(faq['mainEntity'])==7,code+' FAQ schema includes all seven questions')
  visible=doc.xpath('//*[@id="faq"]')[0].text_content()
  for q in faq['mainEntity']:check(q['name'] in visible and q['acceptedAnswer']['text'] in visible,code+' schema FAQ visible')

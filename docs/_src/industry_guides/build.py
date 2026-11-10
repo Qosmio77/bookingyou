@@ -38,10 +38,36 @@ def shell(lang,title,description,slug,body,css,faqs=None):
  u=UI[lang];other='ja' if lang=='zh' else 'zh';url=BASE+route(lang,slug)
  guide=next((item for item in GUIDES if item['slug']==slug),None)
  share_image=BASE+('/preview-assets/industry-'+guide['image']+'-v8.webp' if guide else '/assets/logo.png')
- graph=[{'@type':'WebPage','@id':url+'#webpage','url':url,'name':title,'description':description,'inLanguage':u['lang'],'isPartOf':{'@id':BASE+'/#website'},'about':{'@id':BASE+'/#organization'}},
- {'@type':'BreadcrumbList','itemListElement':[{'@type':'ListItem','position':1,'name':u['home_label'],'item':BASE+u['home']},{'@type':'ListItem','position':2,'name':u['hub'],'item':BASE+route(lang)}]+([{'@type':'ListItem','position':3,'name':title,'item':url}] if slug else [])}]
- if faqs:graph.append({'@type':'FAQPage','@id':url+'#faq','inLanguage':u['lang'],'mainEntity':[{'@type':'Question','name':q,'acceptedAnswer':{'@type':'Answer','text':a}} for q,a in faqs]})
- if guide:graph[0]['primaryImageOfPage']={'@type':'ImageObject','contentUrl':share_image,'caption':u['photo']}
+ page={
+  '@type':'WebPage' if guide else 'CollectionPage','@id':url+'#webpage','url':url,
+  'name':title,'description':description,'inLanguage':u['lang'],
+  'isPartOf':{'@id':BASE+'/#website'},'publisher':{'@id':BASE+'/#organization'},
+  'about':{'@id':BASE+'/#app'},'breadcrumb':{'@id':url+'#breadcrumb'},
+ }
+ trail=[(u['home_label'],BASE+u['home']),(u['hub'],BASE+route(lang))]
+ if guide:
+  name=guide[lang]['name']
+  trail.append((name,url))
+  page['about']=[page['about'],{'@type':'Thing','name':name}]
+  page['primaryImageOfPage']={'@type':'ImageObject','contentUrl':share_image,'caption':u['photo']}
+ breadcrumb={
+  '@type':'BreadcrumbList','@id':url+'#breadcrumb',
+  'itemListElement':[{'@type':'ListItem','position':i,'name':name,'item':item}
+                     for i,(name,item) in enumerate(trail,1)],
+ }
+ graph=[page,breadcrumb]
+ if faqs:
+  faq_id=url+'#faq'
+  page['hasPart']={'@id':faq_id}
+  graph.append({'@type':'FAQPage','@id':faq_id,'url':faq_id,'isPartOf':{'@id':page['@id']},
+                'inLanguage':u['lang'],'mainEntity':[{'@type':'Question','name':q,
+                'acceptedAnswer':{'@type':'Answer','text':a}} for q,a in faqs]})
+ if not guide:
+  list_id=url+'#guides'
+  page['mainEntity']={'@id':list_id}
+  graph.append({'@type':'ItemList','@id':list_id,'numberOfItems':len(GUIDES),
+                'itemListElement':[{'@type':'ListItem','position':i,'name':g[lang]['name'],
+                                    'url':BASE+route(lang,g['slug'])} for i,g in enumerate(GUIDES,1)]})
  data=json.dumps({'@context':'https://schema.org','@graph':graph},ensure_ascii=False).replace('<','\\u003c')
  alts=''.join(f'<link rel="alternate" hreflang="{UI[l]["lang"]}" href="{BASE+route(l,slug)}">' for l in UI)+f'<link rel="alternate" hreflang="x-default" href="{BASE+route("zh",slug)}">'
  page=f'''<!doctype html><html lang="{u['lang']}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{e(title)}｜BookingYou</title><meta name="description" content="{e(description,quote=True)}"><meta name="robots" content="index,follow,max-image-preview:large"><link rel="canonical" href="{url}">{alts}<link rel="icon" href="/assets/logo.png"><link rel="stylesheet" href="/assets/{css}"><meta property="og:type" content="website"><meta property="og:title" content="{e(title,quote=True)}｜BookingYou"><meta property="og:description" content="{e(description,quote=True)}"><meta property="og:url" content="{url}"><meta property="og:image" content="{share_image}"><meta property="og:site_name" content="BookingYou"><meta name="twitter:card" content="{'summary_large_image' if guide else 'summary'}"><meta name="twitter:image" content="{share_image}"><script type="application/ld+json">{data}</script></head><body><a class="skip" href="#main">{u['skip']}</a><header class="top"><div class="wrap bar"><a class="logo" href="{u['home']}"><img src="/assets/logo.png" width="35" height="35" alt=""><span>Booking<em>You</em></span></a><nav class="nav" aria-label="{u['hub']}"><a href="{route(lang)}">{u['hub']}</a><a class="optional" href="{u['home']}#app-screens">App</a>{language_menu(lang,slug)}<a class="cta" href="#download">{u['start']}</a></nav></div></header><main id="main">{body}</main><footer class="footer"><div class="wrap"><span>© 2026 BookingYou</span><nav><a href="{u['home']}about/">{u['about']}</a><a href="/privacy/">{u['privacy']}</a><a href="/terms/">{u['terms']}</a><a href="mailto:contact@bookingyou.app">contact@bookingyou.app</a></nav></div></footer></body></html>'''

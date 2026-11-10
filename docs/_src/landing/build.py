@@ -130,14 +130,32 @@ def build():
   for name,value in {'og:type':'website','og:site_name':'BookingYou','og:url':BASE+cfg['path'],'og:title':cfg['title'],'og:description':cfg['description'],'og:image':BASE+'assets/logo.png','og:image:alt':'BookingYou','og:locale':'zh_HK' if lang=='zh' else 'ja_JP'}.items():tag(head,'meta',property=name,content=value)
   for name,value in {'twitter:card':'summary','twitter:title':cfg['title'],'twitter:description':cfg['description'],'twitter:image':BASE+'assets/logo.png','twitter:image:alt':'BookingYou'}.items():tag(head,'meta',name=name,content=value)
   graph=json.loads(official.xpath('//script[@type="application/ld+json"]')[0].text)['@graph']
-  graph=[g for g in graph if g['@type'] not in ['SoftwareApplication','FAQPage']]
-  webpage=next(g for g in graph if g['@type']=='WebPage');webpage.update(name=cfg['title'],description=cfg['description'])
-  graph.append({'@type':'SoftwareApplication','@id':BASE+'#app','name':'BookingYou','url':BASE,'applicationCategory':'BusinessApplication','operatingSystem':'iOS, iPadOS, Android','description':cfg['about'],'publisher':{'@id':BASE+'#organization'},'downloadUrl':['https://apps.apple.com/app/id6782119326','https://play.google.com/store/apps/details?id=com.bookingyou.app'],'isAccessibleForFree':True})
+  graph=[g for g in graph if g['@type'] not in ['SoftwareApplication','FAQPage','WebSite']]
+  url=BASE+cfg['path']
+  publisher={'@id':BASE+'#organization'}
+  application={'@id':BASE+'#app'}
+  faq_id=url+'#faq'
+  organization=next(g for g in graph if g['@type']=='Organization')
+  organization['logo']={'@type':'ImageObject','@id':BASE+'#logo','url':BASE+'assets/logo.png','width':600,'height':576}
+  graph.append({'@type':'WebSite','@id':BASE+'#website','name':'BookingYou','url':BASE,'publisher':publisher})
+  webpage=next(g for g in graph if g['@type']=='WebPage')
+  webpage.update(name=cfg['title'],description=cfg['description'],publisher=publisher,
+                 about=application,mainEntity=application,hasPart={'@id':faq_id})
+  graph.append({
+   '@type':'SoftwareApplication',**application,'name':'BookingYou','url':BASE,
+   'applicationCategory':'BusinessApplication','operatingSystem':['iOS','iPadOS','Android'],
+   'description':cfg['description'],'publisher':publisher,
+   'downloadUrl':['https://apps.apple.com/app/id6782119326','https://play.google.com/store/apps/details?id=com.bookingyou.app'],
+   'isAccessibleForFree':True,
+   'offers':{'@type':'Offer','name':doc.xpath('//*[@id="plans"]//h3')[0].text_content().strip(),
+             'price':0,'url':url+'#plans'},
+  })
   questions=[]
   for item in doc.xpath('//section[@id="faq"]//details'):
    question=item.find('summary');answer=item.find('p')
    if question is not None and answer is not None:questions.append({'@type':'Question','name':question.text_content().strip(),'acceptedAnswer':{'@type':'Answer','text':answer.text_content().strip()}})
-  graph.append({'@type':'FAQPage','@id':BASE+cfg['path']+'#faq','mainEntity':questions,'inLanguage':cfg['language']})
+  graph.append({'@type':'FAQPage','@id':faq_id,'url':faq_id,
+                'isPartOf':{'@id':webpage['@id']},'mainEntity':questions,'inLanguage':cfg['language']})
   tag(head,'script',json.dumps({'@context':'https://schema.org','@graph':graph},ensure_ascii=False).replace('<','\\u003c'),type='application/ld+json')
   # Reserve image space and ship cacheable assets rather than megabytes of base64.
   for img in doc.xpath('//img[@src]'):
