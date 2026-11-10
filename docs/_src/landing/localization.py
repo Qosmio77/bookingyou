@@ -106,7 +106,13 @@ def build_remaining():
   for item in graph['@graph']:
    if item['@type']=='WebPage':
     item.update({'@id':url+'#webpage','url':url,'inLanguage':loc['language']})
-   elif item['@type']=='FAQPage':item.update({'@id':url+'#faq','inLanguage':loc['language']})
+    item['hasPart']['@id']=url+'#faq'
+   elif item['@type']=='FAQPage':
+    item.update({'@id':url+'#faq','url':url+'#faq','inLanguage':loc['language'],
+                 'isPartOf':{'@id':url+'#webpage'}})
+   elif item['@type']=='SoftwareApplication':
+    item['description']=doc.xpath('//meta[@name="description"]/@content')[0]
+    item['offers'].update(name=doc.xpath('//*[@id="plans"]//h3')[0].text_content().strip(),url=url+'#plans')
   structured.text=json.dumps(graph,ensure_ascii=False).replace('<','\\u003c')
   # Static titles/captions and JS-rendered versions share the same translations.
   note=doc.xpath('//*[@data-i18n="galleryNote"]')[0]
