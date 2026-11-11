@@ -15,13 +15,16 @@
 })()
 </script>
 <!-- ?v= 係 cache 破除用。改 style.css / app.js 就要 +1 -->
-<link rel="stylesheet" href="style.css?v=6">
+<link rel="stylesheet" href="style.css?v=8">
 </head>
 <body>
   <!-- login view -->
   <section id="login" class="admin-auth" aria-labelledby="authTitle">
     <div class="auth-intro">
-      <a class="auth-brand" href="/" aria-label="BookingYou 首頁">Booking<span>You</span></a>
+      <div class="auth-top">
+        <a class="auth-brand" href="/" aria-label="BookingYou 首頁">Booking<span>You</span></a>
+        <button class="auth-theme" type="button" data-theme-toggle aria-label="切換深色／淺色">◐</button>
+      </div>
       <p class="auth-eyebrow">ADMIN WORKSPACE</p>
       <h1 id="authTitle">每一個細節，<br>安心管理。</h1>
       <p class="auth-lead">集中掌握商戶、預約與客戶資料，<br>讓每一天的營運更有條理。</p>
@@ -66,7 +69,7 @@
     <header>
       <span id="title">總覽</span>
       <div class="hdr-act">
-        <button id="themeBtn" title="切換深色／淺色">🌙</button>
+        <button id="themeBtn" type="button" data-theme-toggle aria-label="切換深色／淺色">◐</button>
         <button id="logoutBtn" title="登出">⎋</button>
       </div>
     </header>
@@ -83,6 +86,7 @@
 
   <div id="toast" class="hidden"></div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.110.7"></script>
-  <script type="module" src="app.js?v=6"></script>
+  <script type="module" src="theme.mjs"></script>
+  <script type="module" src="app.js?v=7"></script>
 </body>
 </html>
