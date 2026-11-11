@@ -64,10 +64,6 @@ setupAdminAuth({
   },
 })
 document.querySelectorAll('#mainNav button').forEach(b=>b.onclick=()=>route(b.dataset.tab))
-function effectiveTheme(){return document.documentElement.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}
-function paintThemeBtn(){const dark=effectiveTheme()==='dark';$('#themeBtn').textContent=dark?'☀️':'🌙';$('#themeBtn').title=dark?'轉淺色':'轉深色'}
-$('#themeBtn').onclick=()=>{const next=effectiveTheme()==='dark'?'light':'dark';document.documentElement.dataset.theme=next;try{localStorage.setItem('theme',next)}catch{}paintThemeBtn()}
-paintThemeBtn();matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{if(!document.documentElement.dataset.theme)paintThemeBtn()})
 
 // ---------- 儀表板 ----------
 // 一個 RPC 交齊四段：生意健康度、增長漏斗、商戶成效、營運異常。
