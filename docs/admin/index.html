@@ -15,7 +15,7 @@
 })()
 </script>
 <!-- ?v= 係 cache 破除用。改 style.css / app.js 就要 +1 -->
-<link rel="stylesheet" href="style.css?v=8">
+<link rel="stylesheet" href="style.css?v=11">
 </head>
 <body>
   <!-- login view -->
@@ -66,8 +66,18 @@
 
   <!-- main view -->
   <section id="main" class="hidden">
-    <header>
-      <span id="title">總覽</span>
+    <header class="admin-masthead">
+      <div class="admin-section-label"><span id="title">總覽</span></div>
+      <div class="admin-identity">
+        <h1>BOOKINGYOU BACKEND</h1>
+        <div class="admin-world-time" role="group" aria-label="國際時間">
+          <span><b>香港</b><time data-clock="Asia/Hong_Kong">—</time></span>
+          <span><b>東京</b><time data-clock="Asia/Tokyo">—</time></span>
+          <span><b>倫敦</b><time data-clock="Europe/London">—</time></span>
+          <span><b>紐約</b><time data-clock="America/New_York">—</time></span>
+          <span><b>UTC</b><time data-clock="UTC">—</time></span>
+        </div>
+      </div>
       <div class="hdr-act">
         <button id="themeBtn" type="button" data-theme-toggle aria-label="切換深色／淺色">◐</button>
         <button id="logoutBtn" title="登出">⎋</button>
@@ -87,6 +97,6 @@
   <div id="toast" class="hidden"></div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.110.7"></script>
   <script type="module" src="theme.mjs"></script>
-  <script type="module" src="app.js?v=7"></script>
+  <script type="module" src="app.js?v=10"></script>
 </body>
 </html>

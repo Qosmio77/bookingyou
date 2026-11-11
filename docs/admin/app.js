@@ -3,6 +3,9 @@ import {createAdminData} from './data.mjs'
 import {esc,fmtDate,showError,loading} from './ui.mjs'
 import {renderAccounts,renderAccount,resetAccounts} from './accounts.mjs'
 import {renderBusinesses,renderBusiness,renderBookings,renderComplaints,renderReviews,resetLists} from './lists.mjs'
+import {renderRegionMap,wireRegionMap} from './region-map.mjs'
+import {startWorldClock} from './world-clock.mjs'
+import {bookingOutcomeChart,bookingPeriodChart,merchantBookingChart} from './dashboard-charts.mjs'
 const SUPABASE_URL = 'https://gzwebxflrltxaglrukde.supabase.co'
 const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6d2VieGZscmx0eGFnbHJ1a2RlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEyMjA2MDcsImV4cCI6MjA5Njc5NjYwN30.BJoQTqVDw3NAEW_LC0DxhWDgQDHOv-7Str6B6sHDVoU'
 const SENTRY_URL = 'https://sentry.io'   // v1: plain link out
@@ -12,6 +15,7 @@ const sb = globalThis.supabase.createClient(SUPABASE_URL, ANON_KEY)
 const data = createAdminData(sb)
 const $ = s => document.querySelector(s)
 const fmtDT = fmtDate
+startWorldClock(document.querySelectorAll('[data-clock]'))
 const TABS = {overview:'總覽',businesses:'商家',bookings:'預約',complaints:'投訴',reviews:'評價',accounts:'帳戶',account:'帳戶詳情',business:'商家詳情'}
 let currentTab='overview', currentParams={}, actorId=null, authorized=false, routeVersion=0, controller=null
 function clearPrivateViews(preserveFilters=false) {
@@ -69,8 +73,9 @@ document.querySelectorAll('#mainNav button').forEach(b=>b.onclick=()=>route(b.da
 // 一個 RPC 交齊四段：生意健康度、增長漏斗、商戶成效、營運異常。
 // 分開四次攞會攞到四個唔同時刻嘅同一個資料庫。
 let dashDays = 30
+let bookingTab = 'trend'
 let merchTab = 'bookings'
-let geoTab = 'funnel'
+let geoTab = 'geo'
 
 // 兩個字母嘅代碼直接砌到國旗，唔使查表 —— 將來多咗個國家都自動有旗。
 // 中文名要查表，查唔到就照出代碼：出個代碼好過亂改個名。
@@ -83,8 +88,9 @@ const CC_NAME = {
 const flag = (cc) => /^[A-Za-z]{2}$/.test(cc)
   ? String.fromCodePoint(...[...cc.toUpperCase()].map(ch => 0x1F1E6 + ch.charCodeAt(0) - 65))
   : '🏳️'
+const countryName = cc => CC_NAME[cc.toUpperCase()] ?? cc
 const countryLabel = (cc) => !cc ? '⬜ 冇填國家'
-  : `${flag(cc)} ${CC_NAME[cc.toUpperCase()] ?? esc(cc)}`
+  : `${flag(cc)} ${esc(countryName(cc))}`
 
 const nf = (n) => (n === null || n === undefined) ? '—' : Number(n).toLocaleString('en-US')
 const pct = (n) => (n === null || n === undefined) ? '—' : n + '%'
@@ -159,8 +165,11 @@ function wireTabs(root, attr, keys, setActive) {
   root.querySelectorAll(`[data-${attr}]`).forEach(b => b.onclick = () => {
     const k = b.dataset[attr]
     setActive(k)
-    root.querySelectorAll(`[data-${attr}]`).forEach(x =>
-      x.classList.toggle('active', x.dataset[attr] === k))
+    root.querySelectorAll(`[data-${attr}]`).forEach(x => {
+      const active = x.dataset[attr] === k
+      x.classList.toggle('active', active)
+      if (x.hasAttribute('aria-pressed')) x.setAttribute('aria-pressed', String(active))
+    })
     keys.forEach(kk => root.querySelectorAll(`.${attr}-${kk}`).forEach(e =>
       e.classList.toggle('hidden', kk !== k)))
   })
@@ -216,14 +225,18 @@ async function renderOverview(c, ctx) {
   const anomBad = ANOM.filter(([, v]) => v > 0).length
 
   // 三個榜疊落去就一定要拉，所以改做分頁。三個都即場整定，撳掣淨係開關 hidden，唔會再打一次 RPC。
+  const merchantRanking = merchantBookingChart(m.top_by_bookings)
+  const merchantTable = tableHtml([
+    { h: '商戶', f: r => esc(r.name) },
+    { h: '地區', f: r => esc(r.country ?? '—') },
+    { h: '預約', num: 1, f: r => nf(r.bookings) },
+    { h: '完成', num: 1, f: r => nf(r.completed) },
+    { h: 'GMV', num: 1, f: r => `${esc(r.currency ?? '')} ${compact(r.gmv)}` },
+  ], m.top_by_bookings, '呢段時間冇任何商戶收到預約')
   const MERCH = [
-    ['bookings', '預約最多', tableHtml([
-      { h: '商戶', f: r => esc(r.name) },
-      { h: '地區', f: r => esc(r.country ?? '—') },
-      { h: '預約', num: 1, f: r => nf(r.bookings) },
-      { h: '完成', num: 1, f: r => nf(r.completed) },
-      { h: 'GMV', num: 1, f: r => `${esc(r.currency ?? '')} ${compact(r.gmv)}` },
-    ], m.top_by_bookings, '呢段時間冇任何商戶收到預約')],
+    ['bookings', '預約最多', merchantRanking
+      ? `${merchantRanking}<details class="analytics-details"><summary>查看商戶明細</summary>${merchantTable}</details>`
+      : merchantTable],
     ['rating', '評分最高', tableHtml([
       { h: '商戶', f: r => esc(r.name) },
       { h: '評分', num: 1, f: r => `★ ${r.rating}` },
@@ -267,23 +280,36 @@ async function renderOverview(c, ctx) {
       </div>
 
       <section class="pane pa-chart">
-        <div class="pane-hd"><h2>每日預約</h2><span class="pane-sub">${W} 日 ${nf(h.created)} 單，${nf(h.completed)} 完成 · ${nf(h.cancelled)} 取消</span></div>
-        <div class="pane-bd">${dailyChart(h.series)}</div>
+        <div class="pane-hd"><h2>預約分析</h2>
+          <div class="pane-tabs">
+            ${[['trend','每日趨勢'],['outcomes','結果比例'],['period','期間對比']].map(([key, label]) =>
+              `<button type="button" class="${key === bookingTab ? 'active' : ''}" aria-pressed="${key === bookingTab}" data-bt="${key}">${label}</button>`).join('')}
+          </div>
+        </div>
+        <div class="pane-bd bt-trend${bookingTab === 'trend' ? '' : ' hidden'}">
+          <p class="analytics-note">${W} 日 ${nf(h.created)} 單，${nf(h.completed)} 完成 · ${nf(h.cancelled)} 取消</p>
+          ${dailyChart(h.series)}
+        </div>
+        <div class="pane-bd bt-outcomes${bookingTab === 'outcomes' ? '' : ' hidden'}">${bookingOutcomeChart(h)}</div>
+        <div class="pane-bd bt-period${bookingTab === 'period' ? '' : ' hidden'}">${bookingPeriodChart(h, W)}</div>
       </section>
 
       <section class="pane pa-funnel">
-        <div class="pane-hd"><h2>增長</h2>
+        <div class="pane-hd">
+          <h2 class="gt-funnel${geoTab === 'funnel' ? '' : ' hidden'}">增長</h2>
+          <h2 class="gt-geo${geoTab === 'geo' ? '' : ' hidden'}">全球用戶分佈</h2>
           <span class="pane-sub gt-funnel${geoTab === 'funnel' ? '' : ' hidden'}">${worstStep}</span>
-          <span class="pane-sub gt-geo${geoTab === 'geo' ? '' : ' hidden'}">${nf(G.length)} 個地區 · 已填所在地嘅用戶 ${nf(G.reduce((n, g) => n + (g.country ? g.residents : 0), 0))}</span>
           <div class="pane-tabs">
             <button class="${geoTab === 'funnel' ? 'active' : ''}" data-gt="funnel">漏斗</button>
-            <button class="${geoTab === 'geo' ? 'active' : ''}" data-gt="geo">地區</button>
+            <button class="${geoTab === 'geo' ? 'active' : ''}" data-gt="geo">地圖</button>
           </div></div>
         <div class="pane-bd gt-funnel${geoTab === 'funnel' ? '' : ' hidden'}">${funnelHtml(f)}
           <div class="funnel-note">最近 ${W} 日新註冊 ${nf(f.recent.signups)} 人，
             其中 ${nf(f.recent.became_merchant)} 開咗舖、${nf(f.recent.got_booking)} 收到過預約</div>
         </div>
         <div class="pane-bd p0 gt-geo${geoTab === 'geo' ? '' : ' hidden'}">
+          ${renderRegionMap(G, countryName)}
+          <details class="region-map-details"><summary>查看各地區明細</summary>
           <div class="pane-note">「居民」＝註冊時自己揀嘅所在地區，2026-08-31 之後開嘅戶口先有，之前嗰批係空白。「約過」＝喺當地約過嘢嘅唯一人數 —— 一個人約兩個地方兩邊都計，所以加埋唔等於用戶總數。兩個數答緊唔同問題，冇一個可以代替另一個。</div>
           ${tableHtml([
             { h: '地區', f: r => countryLabel(r.country) },
@@ -293,6 +319,7 @@ async function renderOverview(c, ctx) {
             { h: '商戶', num: 1, f: r => nf(r.businesses) },
             { h: '活躍', num: 1, f: r => nf(r.active) },
           ], G, '未有任何地區資料')}
+          </details>
         </div>
       </section>
 
@@ -319,4 +346,6 @@ async function renderOverview(c, ctx) {
   })
   wireTabs(c, 'mt', MERCH.map(([k]) => k), (k) => { merchTab = k })
   wireTabs(c, 'gt', ['funnel', 'geo'], (k) => { geoTab = k })
+  wireTabs(c, 'bt', ['trend', 'outcomes', 'period'], (k) => { bookingTab = k })
+  wireRegionMap(c)
 }
