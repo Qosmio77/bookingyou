@@ -124,6 +124,8 @@ def build():
   tag(head,'title',cfg['title']+('' if release else ' · '+('設計預覽' if lang=='zh' else 'デザインプレビュー')))
   tag(head,'meta',name='description',content=cfg['description'])
   tag(head,'meta',name='robots',content='index,follow,max-image-preview:large' if release else 'noindex,nofollow')
+  # Bing verifies the production site's default homepage; keep this on rebuilds.
+  if release and lang=='zh':tag(head,'meta',name='msvalidate.01',content='842B598F804FC10F946B9AA223F9CB39')
   tag(head,'link',rel='canonical',href=BASE+cfg['path'])
   tag(head,'link',rel='icon',type='image/png',href='/assets/logo.png')
   for e in official.xpath('//link[@hreflang]'):head.append(e)

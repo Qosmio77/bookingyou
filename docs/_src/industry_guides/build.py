@@ -125,6 +125,12 @@ def extend_sitemap():
  for slug in ['']+[g['slug'] for g in GUIDES]:
   for lang in UI:
    entry=ET.SubElement(root,'{'+ns+'}url');ET.SubElement(entry,'{'+ns+'}loc').text=BASE+route(lang,slug)
+   # Dates reflect substantive editorial updates, not the time the site is built.
+   if slug:
+    lastmod=next(g for g in GUIDES if g['slug']==slug)[lang].get('lastmod')
+   else:
+    lastmod=max((g[lang].get('lastmod','') for g in GUIDES),default='')
+   if lastmod:ET.SubElement(entry,'{'+ns+'}lastmod').text=lastmod
    for alt in UI:ET.SubElement(entry,'{'+xh+'}link',rel='alternate',hreflang=UI[alt]['lang'],href=BASE+route(alt,slug))
    ET.SubElement(entry,'{'+xh+'}link',rel='alternate',hreflang='x-default',href=BASE+route('zh',slug))
  ET.indent(tree,space='  ');tree.write(path,encoding='utf-8',xml_declaration=True)

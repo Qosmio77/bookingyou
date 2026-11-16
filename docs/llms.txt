@@ -31,6 +31,11 @@ Each guide explains the customer's booking request, the merchant's review and co
 - [All industry guides — Traditional Chinese](https://bookingyou.app/industries/)
 - [All industry guides — Japanese](https://bookingyou.app/ja/industries/)
 - [All industry guides — English](https://bookingyou.app/en/industries/)
+- [美容室・エステ向け予約管理](https://bookingyou.app/ja/industries/beauty-hair/): 個人サロンの予約と営業時間を管理。ウェブ予約は店舗の確認後に確定します。
+- [ネイルサロン向け予約管理](https://bookingyou.app/ja/industries/nail-studios/): メニュー・所要時間・ウェブ予約の確認方法を紹介します。
+- [パーソナルトレーニング向け予約管理](https://bookingyou.app/ja/industries/personal-training/): 体験、個別指導、少人数レッスンの予約例。
+- [個別指導・教室向け予約管理](https://bookingyou.app/ja/industries/tutoring-classes/): 体験授業とレッスンの予約・日程変更。
+- [ペットサロン向け予約管理](https://bookingyou.app/ja/industries/pet-grooming/): 洗護やトリミングの予約と店舗側での確認。
 - [Beauty and hair salons](https://bookingyou.app/en/industries/beauty-hair/): Different service durations, notes and confirmation before acceptance.
 - [Nail studios](https://bookingyou.app/en/industries/nail-studios/): Removal and design services need different durations.
 - [Personal training](https://bookingyou.app/en/industries/personal-training/): Trial sessions, one-to-one coaching and group capacity.

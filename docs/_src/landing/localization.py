@@ -72,6 +72,8 @@ def build_remaining():
  original=html.parse(str(DOCS/'index.html')).getroot()
  for code in EXTRA:
   loc=LOCALES[code];data=payload(code);mapping=data['map'];doc=copy.deepcopy(original)
+  # The Bing ownership token belongs on the site's default homepage only.
+  for meta in doc.xpath('//meta[@name="msvalidate.01"]'):meta.getparent().remove(meta)
   doc.set('lang',loc['language']);doc.set('data-locale',code)
   home='/'+loc['path'];url='https://bookingyou.app'+home
   for el in doc.iter():
