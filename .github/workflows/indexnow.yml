@@ -2,7 +2,9 @@ name: Notify IndexNow after Pages deployment
 
 on:
   workflow_run:
-    workflows: ["pages build and deployment"]
+    # GitHub's workflow API uses the hyphenated name even though run titles
+    # may display "pages build and deployment".
+    workflows: ["pages-build-deployment", "pages build and deployment"]
     types: [completed]
     branches: [main]
 
