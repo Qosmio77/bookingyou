@@ -41,6 +41,35 @@ class ParserTests(unittest.TestCase):
 
 
 class GitDiffTests(unittest.TestCase):
+    def test_analytics_only_does_not_submit_but_content_change_does(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            def git(*args):
+                return subprocess.check_output(['git', *args], cwd=repo, stderr=subprocess.DEVNULL).decode().strip()
+            git('init', '-q')
+            git('config', 'user.email', 'indexnow-test@example.invalid')
+            git('config', 'user.name', 'IndexNow test')
+            page = repo / 'docs/ja/index.html'
+            page.parent.mkdir(parents=True)
+            url = 'https://bookingyou.app/ja/'
+            original = f'<link rel="canonical" href="{url}"><body>Original</body>'
+            beacon = ("<!-- Cloudflare Web Analytics -->"
+                      "<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' "
+                      "data-cf-beacon='{\"token\":\"test\"}'></script>"
+                      "<!-- End Cloudflare Web Analytics -->")
+            page.write_text(original, encoding='utf-8')
+            git('add', '.'); git('commit', '-qm', 'original')
+            before = git('rev-parse', 'HEAD')
+            page.write_text(original.replace('</body>', beacon + '</body>'), encoding='utf-8')
+            git('add', '.'); git('commit', '-qm', 'analytics')
+            analytics_only = git('rev-parse', 'HEAD')
+            self.assertEqual(indexnow.changed_urls(before, analytics_only, cwd=repo), [])
+            page.write_text(page.read_text(encoding='utf-8').replace('Original', 'Updated'), encoding='utf-8')
+            git('add', '.'); git('commit', '-qm', 'content')
+            updated = git('rev-parse', 'HEAD')
+            self.assertEqual(indexnow.changed_urls(analytics_only, updated, cwd=repo), [url])
+            self.assertEqual(indexnow.changed_urls(before, updated, cwd=repo), [url])
+
     def test_added_modified_deleted_and_noindex_pages(self):
         with tempfile.TemporaryDirectory() as tmp:
             repo = Path(tmp)

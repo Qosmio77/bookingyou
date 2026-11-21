@@ -19,6 +19,10 @@ ROOT = "https://" + HOST
 ENDPOINT = "https://api.indexnow.org/indexnow"
 USER_AGENT = "BookingYou-IndexNow/1.0"
 SHA = re.compile(r"^[0-9a-f]{40}$")
+ANALYTICS_BEACON = re.compile(
+    r"<!-- Cloudflare Web Analytics -->\s*"
+    r"<script\b(?=[^>]*\bsrc=['\"]https://static\.cloudflareinsights\.com/beacon\.min\.js['\"])[^>]*>\s*</script>\s*"
+    r"<!-- End Cloudflare Web Analytics -->", re.IGNORECASE)
 
 
 def require_sha(value):
@@ -104,8 +108,13 @@ def changed_urls(before, after, cwd=None):
     for path in paths:
         if expected_url(path) is None:
             continue
-        for revision in (before, after):
-            url = html_url(path, git_file(revision, path, cwd=cwd))
+        versions = [git_file(revision, path, cwd=cwd) for revision in (before, after)]
+        # Installing/removing the analytics beacon alone does not change page content.
+        if all(version is not None for version in versions) and (
+                ANALYTICS_BEACON.sub('', versions[0]) == ANALYTICS_BEACON.sub('', versions[1])):
+            continue
+        for contents in versions:
+            url = html_url(path, contents)
             if url:
                 urls.add(url)
     if "docs/sitemap.xml" in paths:

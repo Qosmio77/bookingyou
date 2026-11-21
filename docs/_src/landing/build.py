@@ -8,11 +8,13 @@ try:
  from landing.localization import language_options
  from landing.hero_carousel import configure as configure_hero
  from landing.compact_home import compact
+ from landing.analytics import inject_analytics
 except ModuleNotFoundError:
  from recent_posts import insert_recent_posts
  from localization import language_options
  from hero_carousel import configure as configure_hero
  from compact_home import compact
+ from analytics import inject_analytics
 
 ROOT = Path(__file__).resolve().parent
 SITE = ROOT.parents[1]
@@ -189,7 +191,7 @@ def build():
    for e in doc.xpath('//*[contains(concat(" ",normalize-space(@class)," ")," preview-tag ")]'):e.getparent().remove(e)
   insert_recent_posts(doc,lang)
   destination=target/cfg['path'];destination.mkdir(exist_ok=True,parents=True)
-  content=html.tostring(doc,encoding='unicode',doctype='<!doctype html>')
+  content=inject_analytics(html.tostring(doc,encoding='unicode',doctype='<!doctype html>'))
   (destination/'index.html').write_text(content)
   report.append({'language':lang,'html_bytes':len(content.encode()),'canonical':BASE+cfg['path'],'static_faqs':len(questions),'h1_count':len(doc.xpath('//h1'))})
  (target/'robots.txt').write_text((SITE/'robots.txt').read_text() if release else 'User-agent: *\nAllow: /\n# Local preview HTML carries noindex,nofollow. No preview sitemap.\n')

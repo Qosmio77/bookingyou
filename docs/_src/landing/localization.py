@@ -121,6 +121,8 @@ def build_remaining():
   note.text=(note.text or '')+' '+IMAGE_NOTES[code]
   note.attrib.pop('data-i18n',None)
   for script in doc.xpath('//script[@src]'):
+   # The inherited Cloudflare beacon is an external script, not a local asset.
+   if script.get('src') == 'https://static.cloudflareinsights.com/beacon.min.js':continue
    source=(DOCS/script.get('src')).read_text()
    source=localize_assets(localize_js(source,mapping),loc)
    name='landing-'+hashlib.sha256(source.encode()).hexdigest()[:12]+'.js'
