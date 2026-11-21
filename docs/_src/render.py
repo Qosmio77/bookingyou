@@ -10,6 +10,7 @@ from posts_wall import POSTS_COPY, POSTS_CSS, posts_markup
 from social import ACCOUNTS, SOCIAL_CSS, SOCIAL_COPY, social_markup, social_footer
 from webbook import WEBBOOK_CSS, webbook_markup, WEBBOOK_COPY
 from about import ABOUT, ABOUT_CSS, about_body
+from landing.analytics import inject_analytics
 SRC = os.path.dirname(os.path.abspath(__file__))
 W = os.path.dirname(SRC)
 T = open(os.path.join(SRC, 'template.html'), encoding='utf-8').read()
@@ -120,7 +121,7 @@ def write_about(code, path, page):
                         description=ABOUT[code]['desc'], language=L[code]['lang'],
                         same_as=[account[3] for account in ACCOUNTS], about=True)
     ad = os.path.join(OUT, path, 'about'); os.makedirs(ad, exist_ok=True)
-    open(os.path.join(ad, 'index.html'), 'w', encoding='utf-8').write(out)
+    open(os.path.join(ad, 'index.html'), 'w', encoding='utf-8').write(inject_analytics(out))
 
 os.makedirs(OUT, exist_ok=True)
 for code, path in PATHS.items():

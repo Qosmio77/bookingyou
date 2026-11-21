@@ -8,6 +8,7 @@ from xml.etree import ElementTree as ET
 from .content import GUIDES
 from landing.localization import LOCALES, EXTRA, payload, translated
 from landing.compact_home import catalogue
+from landing.analytics import inject_analytics
 ROOT=Path(__file__).resolve().parent
 DOCS=ROOT.parents[1]
 BASE='https://bookingyou.app'
@@ -80,7 +81,7 @@ def shell(lang,title,description,slug,body,css,faqs=None):
   if f.suffix!='.svg' and f.is_file() and not img.get('width'):
    with Image.open(f) as im:
     img.set('width',str(im.width));img.set('height',str(im.height))
- return html.tostring(doc,encoding='unicode',doctype='<!doctype html>')
+ return inject_analytics(html.tostring(doc,encoding='unicode',doctype='<!doctype html>'))
 
 def crumb(lang,name=''):
  u=UI[lang];return f'<nav class="crumb" aria-label="Breadcrumb"><a href="{u["home"]}">{u["home_label"]}</a><span aria-hidden="true">/</span><a href="{route(lang)}">{u["hub"]}</a>'+ (f'<span aria-hidden="true">/</span><span aria-current="page">{e(name)}</span>' if name else '')+'</nav>'
