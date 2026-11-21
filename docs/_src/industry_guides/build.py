@@ -6,6 +6,7 @@ from lxml import html
 from PIL import Image
 from xml.etree import ElementTree as ET
 from .content import GUIDES
+from .scope import COPY as SCOPE, EDITORIAL_DATE, INDUSTRY_IDS
 from landing.localization import LOCALES, EXTRA, payload, translated
 from landing.compact_home import catalogue
 from landing.analytics import inject_analytics
@@ -21,6 +22,9 @@ for code,data in TRANSLATIONS.items():
  UI[code]={key:translated(value,data['map']) for key,value in UI['zh'].items()}
  UI[code].update(lang=LOCALES[code]['language'],home='/'+LOCALES[code]['path'])
  for guide in GUIDES:guide[code]=data['guides'][guide['slug']]
+
+if set(SCOPE) != set(UI):
+ raise ValueError('Industry scope copy must cover every supported locale')
 
 def tx(lang,zh,ja):
  return zh if lang=='zh' else ja if lang=='ja' else TRANSLATIONS[lang]['map'][zh]
@@ -92,6 +96,27 @@ def download(lang):
  u=UI[lang];apple='apple-'+LOCALES[lang]['apple']+'.svg';google='google-'+LOCALES[lang]['google']+'.png'
  return f'''<section class="section" id="download"><div class="wrap download"><div><h2>{u['download']}</h2><p>{u['download_note']}</p></div><div class="badges"><a href="https://apps.apple.com/app/id6782119326"><img src="/assets/badges/{apple}" alt="Download on the App Store"></a><a href="https://play.google.com/store/apps/details?id=com.bookingyou.app"><img class="google" src="/assets/badges/{google}" alt="Get it on Google Play"></a></div></div></section>'''
 
+def product_facts(lang):
+ """A visible, localized comparison of the product's actual booking rules."""
+ copy=SCOPE[lang];home=UI[lang]['home']
+ facts=''.join(f'<div><dt>{e(label)}</dt><dd>{e(value)}</dd></div>' for label,value in copy['facts'])
+ return f'''<section class="section product-facts" id="booking-facts"><div class="wrap"><h2>{e(copy['facts_heading'])}</h2><dl>{facts}</dl><p class="facts-links"><a href="{home}#plans">{e(copy['plans'])} →</a><a href="{home}#web-booking">{e(copy['web'])} →</a></p></div></section>'''
+
+def enrich_catalogue(lang, markup):
+ """Add one practical example to each existing, localized industry card."""
+ doc=html.fromstring(markup)
+ cards=doc.xpath('.//*[contains(concat(" ",normalize-space(@class)," ")," industry-card ")]')
+ examples=SCOPE[lang]['scenarios']
+ if len(cards)!=len(INDUSTRY_IDS) or len(examples)!=len(INDUSTRY_IDS):
+  raise ValueError(f'Unexpected industry catalogue or examples for {lang}')
+ for card,identifier,example in zip(cards,INDUSTRY_IDS,examples):
+  card.set('id','industry-'+identifier)
+  title=card.xpath('./summary/*[contains(concat(" ",normalize-space(@class)," ")," industry-title ")]')
+  if len(title)!=1:raise ValueError(f'Unexpected industry title in {lang}: {identifier}')
+  element=html.Element('span',{'class':'industry-context'});element.text=example
+  title[0].append(element)
+ return html.tostring(doc,encoding='unicode')
+
 def build():
  css_text=(ROOT/'style.css').read_text()+'\n'+(ROOT.parent/'landing/section-titles.css').read_text();css='industry-guides-'+hashlib.sha256(css_text.encode()).hexdigest()[:12]+'.css';(DOCS/'assets'/css).write_text(css_text)
  for lang,u in UI.items():
@@ -108,12 +133,13 @@ def build():
 <section class="section workflow" id="customer"><div class="wrap flow-layout"><div class="flow-copy"><p class="eyebrow">01 / {tx(lang,'客人預約','お客様の操作')}</p><h2>{u['customer']}</h2>{steps(c['customer'])}</div><figure class="shot"><a href="/assets/webbook/{shot}-2.jpg" aria-label="{tx(lang,'查看完整預約畫面','予約画面を拡大')}"><img src="/assets/webbook/{shot}-2.jpg" loading="lazy" alt="{tx(lang,'客人選擇日期及預約時間','お客様が予約日時を選択')}"></a><figcaption>{u['customer_note']}</figcaption></figure></div></section>
 <section class="section" id="merchant"><div class="wrap"><div class="flow-layout reverse"><div class="flow-copy"><p class="eyebrow">02 / {tx(lang,'商戶管理','お店の操作')}</p><h2>{u['merchant']}</h2>{steps(c['merchant'])}</div><figure class="shot"><a href="/assets/deck-dashboard.png" aria-label="{tx(lang,'查看完整商戶畫面','お店の画面を拡大')}"><img src="/assets/deck-dashboard.png" loading="lazy" alt="{tx(lang,'BookingYou 商戶管理首頁','BookingYou お店の管理ホーム')}"></a><figcaption>{u['merchant_note']}</figcaption></figure></div><aside class="status"><h3>{u['status']}</h3><p>{u['status_note']}</p></aside></div></section>
 <section class="section services" id="services"><div class="wrap"><h2>{u['services']}</h2><div class="service-grid">{services}</div><p class="note">{u['service_note']}</p></div></section>
-<section class="section workflow" id="faq"><div class="wrap"><div class="faq-wrap"><h2>{u['faq']}</h2>{faq}</div></div></section><section class="section" id="related"><div class="wrap"><h2>{u['related']}</h2><div class="related">{related}</div></div></section>{download(lang)}'''
+{product_facts(lang)}<section class="section workflow" id="faq"><div class="wrap"><div class="faq-wrap"><h2>{u['faq']}</h2>{faq}</div></div></section><section class="section" id="related"><div class="wrap"><h2>{u['related']}</h2><div class="related">{related}</div></div></section>{download(lang)}'''
    dest=DOCS/route(lang,slug).strip('/');dest.mkdir(parents=True,exist_ok=True);(dest/'index.html').write_text(shell(lang,c['title'],c['description'],slug,body,css,c['faqs']))
   cards=''.join(f'<a class="hub-card" href="{route(lang,g["slug"])}">{picture(g)}<div><h2>{e(g[lang]["name"])}</h2><p>{e(g[lang]["intro"])}</p><span>{u["read"]}</span></div></a>' for g in GUIDES)
-  catalog=catalogue(lang,(ROOT.parent/'landing/template.html').read_text(),TRANSLATIONS[lang]['map'] if lang in EXTRA else None)
-  body=f'<section class="hero"><div class="wrap">{crumb(lang)}<h1>{u["hub_title"]}</h1><p class="intro">{u["hub_intro"]}</p></div></section><section class="section"><div class="wrap hub-grid">{cards}</div></section>{catalog}{download(lang)}'
-  dest=DOCS/route(lang).strip('/');dest.mkdir(parents=True,exist_ok=True);(dest/'index.html').write_text(shell(lang,u['hub'],u['hub_intro'],'',body,css))
+  catalog=enrich_catalogue(lang,catalogue(lang,(ROOT.parent/'landing/template.html').read_text(),TRANSLATIONS[lang]['map'] if lang in EXTRA else None))
+  copy=SCOPE[lang]
+  body=f'<section class="hero"><div class="wrap">{crumb(lang)}<h1>{e(copy["title"])}</h1><p class="intro">{e(copy["intro"])}</p></div></section><section class="section"><div class="wrap hub-grid">{cards}</div></section>{catalog}{product_facts(lang)}{download(lang)}'
+  dest=DOCS/route(lang).strip('/');dest.mkdir(parents=True,exist_ok=True);(dest/'index.html').write_text(shell(lang,copy['page_title'],copy['intro'],'',body,css))
  extend_sitemap()
  print(f'Built {len(UI)*len(GUIDES)} industry guides and {len(UI)} language hubs')
 
@@ -131,6 +157,9 @@ def extend_sitemap():
     lastmod=next(g for g in GUIDES if g['slug']==slug)[lang].get('lastmod')
    else:
     lastmod=max((g[lang].get('lastmod','') for g in GUIDES),default='')
+   # Every guide and hub contains the newly edited booking facts; hubs also
+   # contain localized industry examples.  This is an editorial date, not a build date.
+   lastmod=max(lastmod or '',EDITORIAL_DATE)
    if lastmod:ET.SubElement(entry,'{'+ns+'}lastmod').text=lastmod
    for alt in UI:ET.SubElement(entry,'{'+xh+'}link',rel='alternate',hreflang=UI[alt]['lang'],href=BASE+route(alt,slug))
    ET.SubElement(entry,'{'+xh+'}link',rel='alternate',hreflang='x-default',href=BASE+route('zh',slug))
